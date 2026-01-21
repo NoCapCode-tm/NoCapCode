@@ -21,7 +21,22 @@ const page2ParaRef = useRef(null);    // subhead
 const page2Ref = useRef(null); 
 const cardsRef = useRef([]);
 const page3Ref = useRef(null);
+const page4Ref = useRef(null);
 const page3LinesRef = useRef([]);
+const page4LinesRef = useRef([]);
+const aboutLabelRef = useRef(null);
+const aboutParaRef = useRef(null);
+const aboutBtnRef = useRef(null);
+const boldSectionRef = useRef(null);
+const boldHeadRef = useRef(null);
+const boldSpanRef = useRef(null);
+const page5Ref = useRef(null);
+const page5FirstRef = useRef(null);
+const page5ParaRef = useRef(null);
+const imageTextRefs = useRef([]);
+const innerLineRef = useRef(null);
+
+
 
 
 
@@ -179,6 +194,210 @@ useGSAP(() => {
     },
   });
 }, []);
+useGSAP(() => {
+  const words = page4LinesRef.current;
+
+  // initial grey
+  gsap.set(words, {
+    color: "#424040",
+  });
+
+  gsap.to(words, {
+    color: "#ffffff",
+    stagger: 0.08,
+    ease: "none",
+    scrollTrigger: {
+      trigger: page4Ref.current,
+      start: "top 20%",
+      end: "+=700",        // 👈 controls how long pin lasts
+      scrub: true,
+      pin: true,           // 🔥 THIS IS WHAT YOU ASKED
+      pinSpacing: true,    // keeps layout safe
+      // markers: true,
+    },
+  });
+}, []);
+
+
+useGSAP(() => {
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: page4Ref.current,
+      start: "top 70%",
+      end: "bottom 40%",
+      scrub: 1,
+    },
+  });
+
+  tl.from(aboutLabelRef.current, {
+    opacity: 0,
+    y: 40,
+    duration: 0.6,
+    ease: "power3.out",
+  })
+  .from(
+    aboutParaRef.current.children,
+    {
+      opacity: 0,
+      y: 30,
+      stagger: 0.25,
+      duration: 0.6,
+      ease: "power3.out",
+    },
+    "+=0.3"
+  )
+  .from(
+    aboutBtnRef.current,
+    {
+      opacity: 0,
+      y: 30,
+      duration: 0.5,
+      ease: "power3.out",
+    },
+    "+=0.2"
+  );
+}, []);
+const marqueeRef = useRef(null);
+
+useGSAP(() => {
+  const el = marqueeRef.current;
+  const totalWidth = el.scrollWidth;
+
+  gsap.to(el, {
+    x: `-=${totalWidth / 2}`, // move left continuously
+    duration: 25,
+    ease: "linear",
+    repeat: -1,
+    modifiers: {
+      x: gsap.utils.unitize(x => parseFloat(x) % (totalWidth / 2)),
+    },
+  });
+}, []);
+
+
+
+
+useGSAP(() => {
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: boldSectionRef.current,
+      start: "top 75%",
+      toggleActions: "play none none reverse",
+    },
+  });
+
+  tl.from(boldHeadRef.current, {
+    opacity: 0,
+    y: 50,
+    duration: 0.7,
+    ease: "power3.out",
+  })
+  .from(
+    boldSpanRef.current,
+    {
+      opacity: 0,
+      y: 40,
+      duration: 0.6,
+      ease: "power3.out",
+    },
+    "-=0.3"
+  );
+}, []);
+
+useGSAP(() => {
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: page5Ref.current,
+      start: "top 75%",
+    },
+  });
+
+  tl.from(page5FirstRef.current, {
+    opacity: 0,
+    y: 40,
+    duration: 0.6,
+    ease: "power3.out",
+  })
+  .from(
+    page5ParaRef.current.children,
+    {
+      opacity: 0,
+      y: 30,
+      stagger: 0.2,
+      duration: 0.6,
+      ease: "power3.out",
+    },
+    "-=0.2"
+  );
+}, []);
+
+useGSAP(() => {
+  const items = imageTextRefs.current;
+  const total = items.length;
+
+  // hide all initially
+  gsap.set(items, { autoAlpha: 0 });
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: page5Ref.current,
+      start: "top top",
+      end: `+=${total * 100}%`,
+      scrub: true,
+      pin: true,
+    },
+  });
+
+  items.forEach((item, i) => {
+    const text = item.querySelector(`.${styles.imagetext}`);
+    const image = item.querySelector(`.${styles.image}`);
+
+    // show item
+    tl.to(item, {
+      autoAlpha: 1,
+      duration: 0.01,
+    })
+
+    // text from bottom
+    .from(text, {
+      y: 40,
+      opacity: 0,
+      duration: 0.5,
+      ease: "power3.out",
+    })
+
+    // image from top
+    .from(
+      image,
+      {
+        y: -40,
+        opacity: 0,
+        duration: 0.5,
+        ease: "power3.out",
+      },
+      "-=0.3"
+    )
+
+    // progress line
+    .to(
+      innerLineRef.current,
+      {
+        height: `${((i + 1) / total) * 100}%`,
+        duration: 0.4,
+        ease: "none",
+      },
+      "-=0.2"
+    )
+
+    // hide before next
+    .to(item, {
+      autoAlpha: 0,
+      duration: 0.2,
+    });
+  });
+}, []);
+
+
 
 
 
@@ -207,6 +426,17 @@ useGSAP(() => {
   "by clear decisions, real ownership,",
   "and standards that hold up as",
   "products grow."
+];
+
+const page4TextLines = [
+  "NoCapCode exists to remove",
+  "unnecessary complexity from",
+  "building software.",
+  "We work with people who",
+  "care less about sounding",
+  "impressive and more about ",
+  "shipping things that actually",
+  " work."
 ];
 
   return (
@@ -272,7 +502,7 @@ useGSAP(() => {
      <div className={styles.page3} ref={page3Ref}>
       <div style={{ width: "600px", height: "600px" }}>
   <Globe />
-</div>
+      </div>
      <div className={styles.page3text}>
        <span className={styles.first} ref={page3LabelRef}>Standards We Build By</span>
       <h4 className={styles.mainhead2}>
@@ -298,7 +528,25 @@ useGSAP(() => {
       <br />
     </React.Fragment>
   ))}
-</h4>
+      </h4>
+      <div className={styles.kip}>
+        <div className={styles.kipcard}>
+          <h1>0</h1>
+          <span>Throwaway MVP</span>
+        </div>
+        <div className={styles.kipcard}>
+          <h1>100%</h1>
+          <span>Iteration Ready Systems</span>
+        </div>
+        <div className={styles.kipcard}>
+          <h1>1</h1>
+          <span>Clear System Owner</span>
+        </div>
+        <div className={styles.kipcard}>
+          <h1>100%</h1>
+          <span>Decisions Made Before Code</span>
+        </div>
+      </div>
 
 
      </div>
@@ -349,8 +597,121 @@ designed to evolve, not to be replaced.</span>
       </div>
     </div>
   </div>
+  </p>
+  <div className={styles.boldtext}  ref={boldSectionRef}>
+   <h1 className={styles.boldtexthead} ref={boldHeadRef}>We don't try to do everything.</h1>
+   <span ref={boldSpanRef}>We focus on what helps products move from</span>
+   <div className={styles.marqueeWrap}>
+  <div className={styles.marqueeInner} ref={marqueeRef}>
+    {[...Array(4)].map((_, i) => (
+      <h1
+        key={i}
+        className={`${styles.IUS} ${styles.gradientText}`}
+      >
+        ← Sustainable ← Usable ← Idea&nbsp;&nbsp;
+      </h1>
+    ))}
+  </div>
+</div>
+
+
+  </div>
+  
+    </div>
+    <div className={styles.aboutpage}>
+        <video
+  className={styles.videoBg}
+  autoPlay
+  loop
+  muted
+  playsInline
+>
+  <source src="/bg3.mp4" type="video/mp4" width="20%" />
+</video>
+
+      {/* Content */}
+      <div className={styles.aboutcontent} ref={page4Ref}>
+        
+         <div className={styles.aboutheadmore}>
+           <span className={styles.aboutfirst} ref={aboutLabelRef} >About</span>
+                <h4 className={styles.mainhead3}>
+  {page4TextLines.map((line, lineIndex) => (
+    <React.Fragment key={lineIndex}>
+      {line.split(" ").map((word, wordIndex) => {
+        const index =
+          page4TextLines
+            .slice(0, lineIndex)
+            .join(" ")
+            .split(" ").length + wordIndex;
+
+        return (
+          <span
+            key={index}
+            ref={(el) => (page4LinesRef.current[index] = el)}
+            style={{ display: "inline-block", marginRight: "6px" }}
+          >
+            {word}
+          </span>
+        );
+      })}
+      <br />
+    </React.Fragment>
+  ))}
+         </h4>
+      <p className={styles.aboutpara} ref={aboutParaRef}>
+  <span>Most digital products don't fail because of bad code.</span>
+  
+  <span>They fail because the wrong things were built with confidence.We help prevent that.</span>
 </p>
- </div>
+      <button className={styles.aboutbutt}  ref={aboutBtnRef}>Read our thinking</button>
+         </div>
+      
+      </div>
+    </div>
+    <div className={styles.page5} ref={page5Ref}>
+      <span className={styles.page5first} ref={page5FirstRef}>Who We Work With</span>
+      <p ref={page5ParaRef} className={`${styles.page5para} ${styles.gradienttext}`}>
+      <span>We work with people who are serious</span>
+      <span>about building and honest about what </span>
+      <span>they don't know yet.</span>
+     </p>
+     <div className={styles.allimageandtext}>
+       <div className={styles.imageandtext} ref={el => imageTextRefs.current[0] = el}>
+      <div className={styles.imagetext} >
+         <h3>Founders & Early-Stage Teams</h3>
+         <span>People building their first or second<br/> product and trying to get it right from<br/> the start.</span>
+      </div>
+      <div className={styles.image}>
+        <img src="/team1.png" alt="/" height="100%" width="100%"/>
+      </div>
+     </div>
+     <div className={styles.imageandtext} ref={el => imageTextRefs.current[1] = el}>
+      <div className={styles.imagetext} >
+         <h3>Teams Improving Their Systems</h3>
+         <span>Teams that already exist but feel slowed<br/> down by process or tooling. product and trying to get it<br/> right from the start.</span>
+      </div>
+      <div className={styles.image}>
+        <img src="/team2.png" alt="/" height="100%" width="100%"/>
+      </div>
+     </div>
+      <div className={styles.imageandtext} ref={el => imageTextRefs.current[2] = el}>
+      <div className={styles.imagetext}>
+         <h3>Creators & Solo Builders</h3>
+         <span>Independent builders turning knowledge, tools,<br/> or audiencesinto real products.product and <br/>trying  to get itright from the start.</span>
+      </div>
+      <div className={styles.image}>
+        <img src="/team3.png" alt="/" height="100%" width="100%"/>
+      </div>
+     </div>
+    
+
+     </div>
+
+    
+     <div className={styles.outerline}>
+      <div className={styles.innerline} ref={innerLineRef}/>
+      </div>
+    </div>
    
     </>
   );

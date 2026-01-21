@@ -98,7 +98,7 @@ function GlobeDots() {
     <mesh ref={ref}>
       <sphereGeometry args={[2.62, 128, 128]} />
       <meshBasicMaterial
-        color="#1961a0"
+        color="#3680c1"
         alphaMap={dots}
         transparent
         opacity={0.95}

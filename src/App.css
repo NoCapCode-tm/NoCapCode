@@ -4,7 +4,8 @@
   box-sizing: border-box;
 }
 .App{
-  height:500vh;
+  min-height: 200vh;
+  height:auto;
   width:99vw;
   padding:10px;
   background-color:black;
