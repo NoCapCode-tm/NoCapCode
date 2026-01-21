@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
 .container {
   position: relative;
@@ -167,7 +168,7 @@
 .firstbutt{
   padding:10px 16px;
   background-color: #D1D1D100;
-  border: 1px solid #1F1228;
+  border: 1px solid #1F1F1F;
   backdrop-filter: blur(5px);
   font-family: "Inter", sans-serif;
   font-weight: 500;
@@ -302,3 +303,110 @@ p span {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+/* page2 */
+.page2{
+  width:100%;
+  height:auto;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap:10px;
+}
+.first{
+  background-color: rgba(31, 31, 31, 1);
+  padding:7px 10px;
+   font-family: "Outfit", sans-serif;
+    font-weight: 300;
+  font-size: 14px;
+  color:rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  margin-top: 40px;
+}
+.mainhead1{
+  font-family: "Outfit", sans-serif;
+  font-weight: 500;
+  font-size: 40px;
+  color:white;
+  margin-top:10px;
+  /* padding-right:150px; */
+}
+.subhead1{
+ font-family: "Outfit", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  color:white;
+  margin-top:10px;
+  line-height: 25px;
+  letter-spacing: 1px;
+  /* padding-right:450px; */
+}
+.cards1{
+  display:flex;
+  align-items: center;
+  flex-wrap: wrap;
+  width:100%;
+  gap:20px;
+  justify-content: space-between;
+  margin-top:40px;
+}
+.firstcard{
+  width:350px;
+  padding:20px;
+  display:flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: linear-gradient(307.18deg, rgba(255, 255, 255, 0.06) 1.02%, rgba(49, 182, 200, 0.06) 99.99%);
+  border-radius:30px;
+
+}
+.cardtext h4{
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  color:white;
+  letter-spacing: 1px;
+  margin:10px 0px;
+}
+.cardtext span{
+font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: left;
+  color:white;
+  letter-spacing: 1px;
+  margin:10px 0px;
+}
+canvas {
+  background: radial-gradient(
+    circle at center,
+    #0b0b12 0%,
+    #000 70%
+  );
+}
+
+
+.page3{
+  width:100%;
+  height:auto;
+  display:flex;
+  flex-direction: row-reverse;
+  align-items: flex-start;
+  padding:120px 20px 0px 30px;
+  justify-content:space-around;
+  gap:10px;
+}
+.mainhead2{
+   font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 37px;
+  color:white;
+  margin-top:30px;
+  text-align: left;
+  letter-spacing: 1px;
+  /* padding-right:150px; */
+}
+
+

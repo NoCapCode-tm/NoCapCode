@@ -4,6 +4,8 @@
   box-sizing: border-box;
 }
 .App{
+  height:500vh;
+  width:99vw;
   padding:10px;
   background-color:black;
 }
