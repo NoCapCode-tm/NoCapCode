@@ -32,9 +32,12 @@ const boldHeadRef = useRef(null);
 const boldSpanRef = useRef(null);
 const page5Ref = useRef(null);
 const page5FirstRef = useRef(null);
-const page5ParaRef = useRef(null);
 const imageTextRefs = useRef([]);
 const innerLineRef = useRef(null);
+const page6Ref = useRef(null);
+const page6FirstRef = useRef(null);
+const image1TextRefs = useRef([]);
+const inner1LineRef = useRef(null);
 
 
 
@@ -308,7 +311,7 @@ useGSAP(() => {
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: page5Ref.current,
-      start: "top 75%",
+      start: "top 30%",
     },
   });
 
@@ -317,18 +320,23 @@ useGSAP(() => {
     y: 40,
     duration: 0.6,
     ease: "power3.out",
-  })
-  .from(
-    page5ParaRef.current.children,
-    {
-      opacity: 0,
-      y: 30,
-      stagger: 0.2,
-      duration: 0.6,
-      ease: "power3.out",
+  });
+}, []);
+
+useGSAP(() => {
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: page6Ref.current,
+      start: "top 30%",
     },
-    "-=0.2"
-  );
+  });
+
+  tl.from(page6FirstRef.current, {
+    opacity: 0,
+    y: 40,
+    duration: 0.6,
+    ease: "power3.out",
+  });
 }, []);
 
 useGSAP(() => {
@@ -360,7 +368,7 @@ useGSAP(() => {
 
     // text from bottom
     .from(text, {
-      y: 40,
+      x:80,
       opacity: 0,
       duration: 0.5,
       ease: "power3.out",
@@ -370,7 +378,7 @@ useGSAP(() => {
     .from(
       image,
       {
-        y: -40,
+        x:80,
         opacity: 0,
         duration: 0.5,
         ease: "power3.out",
@@ -380,14 +388,86 @@ useGSAP(() => {
 
     // progress line
     .to(
-      innerLineRef.current,
+  innerLineRef.current,
+  {
+    width: `${((i + 1) / total) * 100}%`,
+    duration: 0.4,
+    ease: "power1.out",
+    overwrite: true,
+  },
+  "-=0.2"
+)
+
+
+
+    // hide before next
+    .to(item, {
+      autoAlpha: 0,
+      duration: 0.2,
+    });
+  });
+}, []);
+
+useGSAP(() => {
+  const items = image1TextRefs.current;
+  const total = items.length;
+
+  // hide all initially
+  gsap.set(items, { autoAlpha: 0 });
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: page6Ref.current,
+      start: "top top",
+      end: `+=${total * 100}%`,
+      scrub: true,
+      pin: true,
+    },
+  });
+
+  items.forEach((item, i) => {
+    const text = item.querySelector(`.${styles.imagetext}`);
+    const image = item.querySelector(`.${styles.image}`);
+
+    // show item
+    tl.to(item, {
+      autoAlpha: 1,
+      duration: 0.01,
+    })
+
+    // text from bottom
+    .from(text, {
+      x:-80,
+      opacity: 0,
+      duration: 0.5,
+      ease: "power3.out",
+    })
+
+    // image from top
+    .from(
+      image,
       {
-        height: `${((i + 1) / total) * 100}%`,
-        duration: 0.4,
-        ease: "none",
+        x:-80,
+        opacity: 0,
+        duration: 0.5,
+        ease: "power3.out",
       },
-      "-=0.2"
+      "-=0.3"
     )
+
+    // progress line
+    .to(
+  inner1LineRef.current,
+  {
+    width: `${((i + 1) / total) * 100}%`,
+    duration: 0.4,
+    ease: "power1.out",
+    overwrite: true,
+  },
+  "-=0.2"
+)
+
+
 
     // hide before next
     .to(item, {
@@ -552,7 +632,7 @@ const page4TextLines = [
      </div>
     </div>
     <div className={styles.page2} ref={page2Ref}>
-      <span className={styles.first} ref={page2LabelRef}>What We Do</span>
+      <span className={styles.first} ref={page2LabelRef}>WHAT WE DO</span>
       <h1 ref={page2HeadRef} className={styles.mainhead1}>We build what makes products last.</h1>
       <p ref={page2ParaRef} className={styles.subhead1}>
   <span>We focus on the work that turns ideas into usable, sustainable systems </span>
@@ -633,7 +713,7 @@ designed to evolve, not to be replaced.</span>
       <div className={styles.aboutcontent} ref={page4Ref}>
         
          <div className={styles.aboutheadmore}>
-           <span className={styles.aboutfirst} ref={aboutLabelRef} >About</span>
+           <span className={styles.aboutfirst} ref={aboutLabelRef} >ABOUT</span>
                 <h4 className={styles.mainhead3}>
   {page4TextLines.map((line, lineIndex) => (
     <React.Fragment key={lineIndex}>
@@ -669,8 +749,8 @@ designed to evolve, not to be replaced.</span>
       </div>
     </div>
     <div className={styles.page5} ref={page5Ref}>
-      <span className={styles.page5first} ref={page5FirstRef}>Who We Work With</span>
-      <p ref={page5ParaRef} className={`${styles.page5para} ${styles.gradienttext}`}>
+      <span className={styles.page5first} ref={page5FirstRef}>WHO WE WORK WITH</span>
+      <p  className={`${styles.page5para} ${styles.gradienttext}`}>
       <span>We work with people who are serious</span>
       <span>about building and honest about what </span>
       <span>they don't know yet.</span>
@@ -710,6 +790,59 @@ designed to evolve, not to be replaced.</span>
     
      <div className={styles.outerline}>
       <div className={styles.innerline} ref={innerLineRef}/>
+      </div>
+    </div>
+    <div className={styles.page6} ref={page6Ref}>
+      <span className={styles.page5first} ref={page6FirstRef}>HOW WE WORK</span>
+      <p  className={`${styles.page5para} ${styles.gradienttext}`}>
+      <span>We work with people who are serious</span>
+      <span>about building and honest about what </span>
+      <span>they don't know yet.</span>
+     </p>
+     <div className={styles.allimageandtext}>
+       <div className={styles.imageandtext} ref={el => image1TextRefs.current[0] = el}>
+      <div className={styles.imagetext} >
+         <h3>Understand the Problem</h3>
+         <span>We start by asking hard questions early<br/> so we don't build the wrong thing<br/> with confidence.</span>
+      </div>
+      <div className={styles.image}>
+        <img src="/work1.png" alt="/" height="100%" width="100%"/>
+      </div>
+     </div>
+     <div className={styles.imageandtext} ref={el => image1TextRefs.current[1] = el}>
+      <div className={styles.imagetext} >
+         <h3>Define the Smallest Useful Version</h3>
+         <span>We narrow the scope to what actually<br/> needs to exist first, and intentionally<br/> leave the rest out.</span>
+      </div>
+      <div className={styles.image}>
+        <img src="/work2.png" alt="/" height="100%" width="100%"/>
+      </div>
+     </div>
+      <div className={styles.imageandtext} ref={el => image1TextRefs.current[2] = el}>
+      <div className={styles.imagetext}>
+         <h3>Build Lean, Stable Systems</h3>
+         <span>We use sensible tech and clean<br/> architecture to build systems that are reliable<br/> and easy to evolve.</span>
+      </div>
+      <div className={styles.image}>
+        <img src="/work3.png" alt="/" height="100%" width="100%"/>
+      </div>
+     </div>
+      <div className={styles.imageandtext} ref={el => image1TextRefs.current[3] = el}>
+      <div className={styles.imagetext}>
+         <h3>Iterate With Real Feedback</h3>
+         <span>We improve based on usage and<br/> outcomes not assumptions or opinions.</span>
+      </div>
+      <div className={styles.image}>
+        <img src="/work4.png" alt="/" height="100%" width="100%"/>
+      </div>
+     </div>
+    
+
+     </div>
+
+    
+     <div className={styles.outerline}>
+      <div className={styles.innerline} ref={inner1LineRef}/>
       </div>
     </div>
    
