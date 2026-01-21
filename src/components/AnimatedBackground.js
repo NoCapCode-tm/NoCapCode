@@ -274,7 +274,7 @@ useGSAP(() => {
   <Globe />
 </div>
      <div className={styles.page3text}>
-       <span className={styles.first} ref={page2LabelRef}>Standards We Build By</span>
+       <span className={styles.first} ref={page3LabelRef}>Standards We Build By</span>
       <h4 className={styles.mainhead2}>
   {page3TextLines.map((line, lineIndex) => (
     <React.Fragment key={lineIndex}>
