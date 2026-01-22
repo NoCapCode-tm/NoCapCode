@@ -1,11 +1,11 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import styles from "../CSS/AnimatedBackground.module.css";
 import Navbar from "./Navbar";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Globe from "./Globe";
-import { Clock, Instagram, Linkedin } from "lucide-react";
+import { ChevronDown, Clock, Instagram, Linkedin } from "lucide-react";
 gsap.registerPlugin(ScrollTrigger);
 
 
@@ -39,6 +39,19 @@ const page6Ref = useRef(null);
 const page6FirstRef = useRef(null);
 const image1TextRefs = useRef([]);
 const inner1LineRef = useRef(null);
+const [openIndex, setOpenIndex] = useState(null);
+const outcomesRef = useRef(null);
+const outcomesLabelRef = useRef(null);
+const outcomesHeadRef = useRef(null);
+const outcomesParaRef = useRef(null);
+const outcomeCardsRef = useRef([]);
+const faqRef = useRef(null);
+const faqLabelRef = useRef(null);
+const faqHeadRef = useRef(null);
+const faqParaRef = useRef(null);
+const faqItemsRef = useRef([]);
+
+
 
 
 
@@ -489,24 +502,114 @@ useGSAP(() => {
       .to(item, { autoAlpha: 0, duration: 0.25 });
   });
 }, []);
+useGSAP(() => {
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: outcomesRef.current,
+      start: "top 70%",
+      end: "bottom 60%",
+      scrub: 1,
+    },
+  });
+
+  // 🔹 Label
+  tl.from(outcomesLabelRef.current, {
+    opacity: 0,
+    y: 30,
+    duration: 0.6,
+    ease: "power3.out",
+  })
+
+  // 🔹 Heading
+  .from(outcomesHeadRef.current, {
+    opacity: 0,
+    y: 60,
+    duration: 0.8,
+    ease: "power3.out",
+  }, "+=0.1")
+
+  // 🔹 Subheading
+  .from(outcomesParaRef.current.children, {
+    opacity: 0,
+    y: 40,
+    duration: 0.6,
+    stagger: 0.2,
+    ease: "power3.out",
+  }, "+=0.1")
+
+  // 🔹 LEFT CARD
+  .from(outcomeCardsRef.current[0], {
+    opacity: 0,
+    x: -120,
+    duration: 0.9,
+    ease: "power3.out",
+  }, "+=0.2")
+
+  // 🔹 CENTER CARD
+  .from(outcomeCardsRef.current[1], {
+    opacity: 0,
+    y: 120,
+    duration: 0.9,
+    ease: "power3.out",
+  }, "-=0.6")
+
+  // 🔹 RIGHT CARD
+  .from(outcomeCardsRef.current[2], {
+    opacity: 0,
+    x: 120,
+    duration: 0.9,
+    ease: "power3.out",
+  }, "-=0.6");
+
+}, []);
+useGSAP(() => {
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: faqRef.current,
+      start: "top 75%",
+      end: "bottom 60%",
+      scrub: 1,
+    },
+  });
+
+  // 🔹 Label
+  tl.from(faqLabelRef.current, {
+    opacity: 0,
+    y: 30,
+    duration: 0.5,
+    ease: "power3.out",
+  })
+
+  // 🔹 Heading
+  .from(faqHeadRef.current, {
+    opacity: 0,
+    y: 60,
+    duration: 0.7,
+    ease: "power3.out",
+  }, "+=0.1")
+
+  // 🔹 Subheading
+  .from(faqParaRef.current.children, {
+    opacity: 0,
+    y: 40,
+    duration: 0.5,
+    stagger: 0.2,
+    ease: "power3.out",
+  }, "+=0.1")
+
+  // 🔹 FAQ items (one by one)
+  .from(faqItemsRef.current, {
+    opacity: 0,
+    y: 50,
+    duration: 0.6,
+    stagger: 0.15,
+    ease: "power3.out",
+  }, "+=0.2");
+
+}, []);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  const logo = [
+ const logo = [
     { src: "/Masdar.png" },
     { src: "/Amazon.png" },
     { src: "/Byjus.png" },
@@ -514,6 +617,28 @@ useGSAP(() => {
     { src: "/Terranova.png" },
     { src: "/Qasper Agro.png" },
   ];
+  const faqs = [
+  {
+    q: "What kind of companies do you work with?",
+    a: "We work with early-stage startups, growing product teams, and companies modernizing existing systems."
+  },
+  {
+    q: "Can you help if I’m not sure what needs to be built yet?",
+    a: "Yes. We help define the problem first, clarify priorities, and identify the smallest useful system to build."
+  },
+  {
+    q: "Do you only build MVPs, or do you also improve existing systems?",
+    a: "We do both. Many engagements focus on stabilizing or improving systems that already exist."
+  },
+  {
+    q: "How do you price and scope projects?",
+    a: "We scope projects around outcomes, not features. Pricing depends on complexity, timeline, and ownership level."
+  },
+  {
+    q: "Are you an agency or a long-term partner?",
+    a: "We act as long-term partners, embedding deeply into decision-making and system ownership."
+  }
+];
 
   const page3TextLines = [
   "Every system we build is shaped",
@@ -859,21 +984,21 @@ designed to evolve, not to be replaced.</span>
       <div className={styles.innerline} ref={inner1LineRef}/>
       </div>
     </div>
-    <div className={styles.outcomes}>
-      <span className={styles.page5first} >HOW WE WORK</span>
-          <h1 className={styles.outcomemainhead}>
+    <div className={styles.outcomes} ref={outcomesRef}>
+      <span className={styles.page5first}  ref={outcomesLabelRef}>HOW WE WORK</span>
+          <h1 className={styles.outcomemainhead}  ref={outcomesHeadRef}>
              <span>What Improves When the System Is Right</span>
           </h1>
 
 
         {/* 2️⃣ Paragraph */}
-        <p  className={styles.outcomepara}>
+        <p  className={styles.outcomepara} ref={outcomesParaRef}>
            <span>Discover the key benefits of partnering with us.</span>
         </p>
          <div className={styles.cards12}>
     <div
   className={styles.firstcard1}
-  ref={(el) => (cardsRef.current[0] = el)}
+  ref={(el) => (outcomeCardsRef.current[0] = el)}
 >
       <div className={styles.cardimage1}>
         <img src="/Compass.png" height="100%" width="100%" alt="/" />
@@ -885,7 +1010,7 @@ designed to evolve, not to be replaced.</span>
     </div>
      <div
   className={styles.firstcard1}
-  ref={(el) => (cardsRef.current[1] = el)}
+  ref={(el) => (outcomeCardsRef.current[1] = el)}
 >
       <div className={styles.cardimage1}>
          <img src="/Animated.png" alt="logo" height="100%" width="100%" />
@@ -897,7 +1022,7 @@ designed to evolve, not to be replaced.</span>
     </div>
      <div
   className={styles.firstcard1}
-  ref={(el) => (cardsRef.current[2] = el)}
+  ref={(el) => (outcomeCardsRef.current[2] = el)}
 >
       <div className={styles.cardimage1}>
          <img src="/Samsung.png" alt="logo" height="100%" width="100%" />
@@ -909,6 +1034,47 @@ designed to evolve, not to be replaced.</span>
     </div>
   </div>
 
+    </div>
+    <div className={styles.faq} ref={faqRef}>
+      {/* 🔵 background glow placeholder */}
+      <div className={styles.faqGlow} />
+
+      <span className={styles.page5first} ref={faqLabelRef}>FAQs</span>
+
+      <h1 className={styles.outcomemainhead} ref={faqHeadRef}>
+        <span>We're here to help</span>
+      </h1>
+
+      <p className={styles.outcomepara} ref={faqParaRef}>
+        <span>FAQs designed to provide the information you need.</span>
+      </p>
+
+      <div className={styles.faqList}>
+        {faqs.map((item, i) => {
+          const isOpen = openIndex === i;
+
+          return (
+            <div
+              key={i}
+              ref={(el) => (faqItemsRef.current[i] = el)}
+              className={`${styles.faqItem} ${isOpen ? styles.open : ""}`}
+              onClick={() => setOpenIndex(isOpen ? null : i)}
+            >
+              <div className={styles.faqQuestion}>
+                <span>{item.q}</span>
+                <ChevronDown
+                  size={18}
+                  className={styles.arrow}
+                />
+              </div>
+
+              <div className={styles.faqAnswer}>
+                <p>{item.a}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
      <footer className={styles.footerWrap}>
        <div className={styles.footerScene}>
