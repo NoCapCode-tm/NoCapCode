@@ -10,6 +10,9 @@ function App() {
     <div className="App">
      {!loaded && <PageLoader onComplete={() => setLoaded(true)} />}
       <AnimatedBackground />
+       <div className="footerHead">
+      <h1 className="gradienttext">no cap code</h1>
+    </div>
      </div>
   );
 }

@@ -5,6 +5,7 @@ import styles from "../CSS/AnimatedBackground.module.css";
 import Navbar from "./Navbar";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Globe from "./Globe";
+import { Clock, Instagram, Linkedin } from "lucide-react";
 gsap.registerPlugin(ScrollTrigger);
 
 
@@ -307,175 +308,188 @@ useGSAP(() => {
   );
 }, []);
 
-useGSAP(() => {
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: page5Ref.current,
-      start: "top 30%",
-    },
-  });
+// useGSAP(() => {
+//   const tl = gsap.timeline({
+//     scrollTrigger: {
+//       trigger: page5Ref.current,
+//       start: "top 30%",
+//     },
+//   });
 
-  tl.from(page5FirstRef.current, {
-    opacity: 0,
-    y: 40,
-    duration: 0.6,
-    ease: "power3.out",
-  });
-}, []);
+//   tl.from(page5FirstRef.current, {
+//     opacity: 0,
+//     y: 40,
+//     duration: 0.6,
+//     ease: "power3.out",
+//   });
+// }, []);
 
-useGSAP(() => {
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: page6Ref.current,
-      start: "top 30%",
-    },
-  });
+// useGSAP(() => {
+//   const tl = gsap.timeline({
+//     scrollTrigger: {
+//       trigger: page6Ref.current,
+//       start: "top 30%",
+//     },
+//   });
 
-  tl.from(page6FirstRef.current, {
-    opacity: 0,
-    y: 40,
-    duration: 0.6,
-    ease: "power3.out",
-  });
-}, []);
+//   tl.from(page6FirstRef.current, {
+//     opacity: 0,
+//     y: 40,
+//     duration: 0.6,
+//     ease: "power3.out",
+//   });
+// }, []);
 
 useGSAP(() => {
   const items = imageTextRefs.current;
   const total = items.length;
 
-  // hide all initially
+  // hide images initially
   gsap.set(items, { autoAlpha: 0 });
 
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: page5Ref.current,
       start: "top top",
-      end: `+=${total * 100}%`,
+      end: `+=${total * 120}%`,
       scrub: true,
       pin: true,
+      pinSpacing: true,
     },
   });
 
+  // 1️⃣ Page5 label
+  tl.from(page5FirstRef.current, {
+    opacity: 0,
+    y: 40,
+    duration: 0.5,
+    ease: "power3.out",
+  });
+
+  // 2️⃣ Page5 paragraph
+  tl.from(
+    page5Ref.current.querySelector(`.${styles.page5para}`),
+    {
+      opacity: 0,
+      y: 40,
+      duration: 0.6,
+      ease: "power3.out",
+    },
+    "-=0.2"
+  );
+
+  // 3️⃣ Image + text sequence
   items.forEach((item, i) => {
     const text = item.querySelector(`.${styles.imagetext}`);
     const image = item.querySelector(`.${styles.image}`);
 
-    // show item
-    tl.to(item, {
-      autoAlpha: 1,
-      duration: 0.01,
-    })
+    tl.to(item, { autoAlpha: 1, duration: 0.1 })
 
-    // text from bottom
-    .from(text, {
-      x:80,
-      opacity: 0,
-      duration: 0.5,
-      ease: "power3.out",
-    })
-
-    // image from top
-    .from(
-      image,
-      {
-        x:80,
+      .from(text, {
+        x: 80,
         opacity: 0,
         duration: 0.5,
         ease: "power3.out",
-      },
-      "-=0.3"
-    )
+      })
 
-    // progress line
-    .to(
-  innerLineRef.current,
-  {
-    width: `${((i + 1) / total) * 100}%`,
-    duration: 0.4,
-    ease: "power1.out",
-    overwrite: true,
-  },
-  "-=0.2"
-)
+      .from(
+        image,
+        {
+          x: 80,
+          opacity: 0,
+          duration: 0.5,
+          ease: "power3.out",
+        },
+        "-=0.4"
+      )
 
+      // 🔥 hold frame
+      .to({}, { duration: 0.8 })
 
-
-    // hide before next
-    .to(item, {
-      autoAlpha: 0,
-      duration: 0.2,
-    });
+      // fade out
+      .to(item, { autoAlpha: 0, duration: 0.3 });
   });
+   ScrollTrigger.refresh();
 }, []);
+
 
 useGSAP(() => {
   const items = image1TextRefs.current;
   const total = items.length;
 
-  // hide all initially
   gsap.set(items, { autoAlpha: 0 });
 
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: page6Ref.current,
       start: "top top",
-      end: `+=${total * 100}%`,
+      end: `+=${total * 120}%`,
       scrub: true,
       pin: true,
+      pinSpacing: true,
     },
   });
 
+  // 1️⃣ Page6 label
+  tl.from(page6FirstRef.current, {
+    opacity: 0,
+    y: 40,
+    duration: 0.5,
+    ease: "power3.out",
+  });
+
+  // 2️⃣ Page6 paragraph
+  tl.from(
+    page6Ref.current.querySelector(`.${styles.page5para}`),
+    {
+      opacity: 0,
+      y: 40,
+      duration: 0.6,
+      ease: "power3.out",
+    },
+    "-=0.2"
+  );
+
+  // 3️⃣ Image + text sequence
   items.forEach((item, i) => {
     const text = item.querySelector(`.${styles.imagetext}`);
     const image = item.querySelector(`.${styles.image}`);
 
-    // show item
-    tl.to(item, {
-      autoAlpha: 1,
-      duration: 0.01,
-    })
+    tl.to(item, { autoAlpha: 1, duration: 0.1 })
 
-    // text from bottom
-    .from(text, {
-      x:-80,
-      opacity: 0,
-      duration: 0.5,
-      ease: "power3.out",
-    })
-
-    // image from top
-    .from(
-      image,
-      {
-        x:-80,
+      .from(text, {
+        x: -80,
         opacity: 0,
         duration: 0.5,
         ease: "power3.out",
-      },
-      "-=0.3"
-    )
+      })
 
-    // progress line
-    .to(
-  inner1LineRef.current,
-  {
-    width: `${((i + 1) / total) * 100}%`,
-    duration: 0.4,
-    ease: "power1.out",
-    overwrite: true,
-  },
-  "-=0.2"
-)
+      .from(
+        image,
+        {
+          x: -80,
+          opacity: 0,
+          duration: 0.5,
+          ease: "power3.out",
+        },
+        "-=0.4"
+      )
 
+      .to(
+        inner1LineRef.current,
+        {
+          width: `${((i + 1) / total) * 100}%`,
+          duration: 0.4,
+          overwrite: true,
+        },
+        "-=0.2"
+      )
 
-
-    // hide before next
-    .to(item, {
-      autoAlpha: 0,
-      duration: 0.2,
-    });
+      .to({}, { duration: 0.7 })
+      .to(item, { autoAlpha: 0, duration: 0.25 });
   });
 }, []);
+
 
 
 
@@ -845,6 +859,114 @@ designed to evolve, not to be replaced.</span>
       <div className={styles.innerline} ref={inner1LineRef}/>
       </div>
     </div>
+    <div className={styles.outcomes}>
+      <span className={styles.page5first} >HOW WE WORK</span>
+          <h1 className={styles.outcomemainhead}>
+             <span>What Improves When the System Is Right</span>
+          </h1>
+
+
+        {/* 2️⃣ Paragraph */}
+        <p  className={styles.outcomepara}>
+           <span>Discover the key benefits of partnering with us.</span>
+        </p>
+         <div className={styles.cards12}>
+    <div
+  className={styles.firstcard1}
+  ref={(el) => (cardsRef.current[0] = el)}
+>
+      <div className={styles.cardimage1}>
+        <img src="/Compass.png" height="100%" width="100%" alt="/" />
+      </div>
+      <div className={styles.cardtext1}>
+        <h4>Decide Once</h4>
+        <span>Clear product and system decisions are made early, documented, and reused so teams avoid repeated debates and delays.</span>
+      </div>
+    </div>
+     <div
+  className={styles.firstcard1}
+  ref={(el) => (cardsRef.current[1] = el)}
+>
+      <div className={styles.cardimage1}>
+         <img src="/Animated.png" alt="logo" height="100%" width="100%" />
+      </div>
+      <div className={styles.cardtext1}>
+        <h4>Change Safely</h4>
+        <span>Scalable software systems are built to handle updates without breaking features, workflows, or dependent operations.</span>
+      </div>
+    </div>
+     <div
+  className={styles.firstcard1}
+  ref={(el) => (cardsRef.current[2] = el)}
+>
+      <div className={styles.cardimage1}>
+         <img src="/Samsung.png" alt="logo" height="100%" width="100%" />
+      </div>
+      <div className={styles.cardtext1}>
+        <h4>Run Quietly</h4>
+        <span>Automation and reliable systems reduce operational noise, helping teams focus on  product, customers, and growth.</span>
+      </div>
+    </div>
+  </div>
+
+    </div>
+     <footer className={styles.footerWrap}>
+       <div className={styles.footerScene}>
+        <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
+       </div>
+      <div className={styles.mirrorOverlay}/>
+      <div className={styles.footerBox}>
+    
+        <div className={styles.top}>
+          
+          <div className={styles.left}>
+            <h2 className={styles.logo}>NoCapCode™</h2>
+            <p className={styles.tagline}>No cap. Built like it's ours.</p>
+            <div className={styles.socials}>
+              <span><Linkedin size={20} color="rgba(190, 190, 190, 1)"/></span>
+              <span>𝕏</span>
+              <span><Instagram size={20} color="rgba(190, 190, 190, 1)"/></span>
+              
+            </div>
+
+            <div className={styles.badge}>
+                <img src="/badge.png" alt="/" height="100%" width="100%"/>
+            </div>
+          </div>
+
+        
+          <div className={styles.right}>
+            <div className={styles.col}>
+              <h4>Explore</h4>
+              <ul>
+                <li>How We Work</li>
+                <li>About NoCapCode</li>
+                <li>Start with Clarity</li>
+                <li>Careers</li>
+                <li>FAQs</li>
+              </ul>
+            </div>
+
+            <div className={styles.col}>
+              <h4>Company</h4>
+              <p>
+                Algodones, New Mexico,<br />
+                US, 87001
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className={styles.divider} />
+        <div className={styles.bottom}>
+          <p>© 2025-2026 NoCapCode. All rights reserved.<br/>Built with restraint, responsibility, and long-term thinking.</p>
+
+          <div className={styles.links}>
+            <span>Terms of Service</span>
+            <span>Privacy Policy</span>
+          </div>
+        </div>
+      </div>
+    </footer>
    
     </>
   );
