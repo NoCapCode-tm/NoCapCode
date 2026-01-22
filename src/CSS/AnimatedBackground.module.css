@@ -193,7 +193,7 @@ p span {
 /* page2 */
 .page2{
   width:100%;
-  min-height:100vh;
+  margin-bottom:40px;
   height: auto;
   display:flex;
   flex-direction: column;
@@ -332,7 +332,7 @@ canvas {
 
 .page3{
   width:100%;
-  min-height:100vh;
+  margin-bottom:40px;
   height: auto;
   display:flex;
   flex-direction: row-reverse;
