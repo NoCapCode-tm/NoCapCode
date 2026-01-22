@@ -5,7 +5,7 @@ import styles from "../CSS/AnimatedBackground.module.css";
 import Navbar from "./Navbar";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Globe from "./Globe";
-import { ChevronDown, Clock, Instagram, Linkedin } from "lucide-react";
+import { ChevronDown, Instagram, Linkedin } from "lucide-react";
 gsap.registerPlugin(ScrollTrigger);
 
 
