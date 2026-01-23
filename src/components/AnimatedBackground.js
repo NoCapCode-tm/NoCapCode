@@ -4,9 +4,13 @@ import gsap from "gsap";
 import styles from "../CSS/AnimatedBackground.module.css";
 import Navbar from "./Navbar";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 import Globe from "./Globe";
 import { ChevronDown, Instagram, Linkedin } from "lucide-react";
-gsap.registerPlugin(ScrollTrigger);
+import { ScrollToPlugin } from "gsap/all";
+import { useNavigate } from "react-router";
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
 
 
 export default function AnimatedBackground() {
@@ -50,6 +54,7 @@ const faqLabelRef = useRef(null);
 const faqHeadRef = useRef(null);
 const faqParaRef = useRef(null);
 const faqItemsRef = useRef([]);
+const navigate = useNavigate()
 
 
 
@@ -608,6 +613,20 @@ useGSAP(() => {
 
 }, []);
 
+const scrollToPage6 = () => {
+  if (!page6Ref.current) return;
+
+  gsap.to(window, {
+    duration: 1.4,
+    scrollTo: {
+      y: page6Ref.current,
+      offsetY: 80, // navbar ke liye thoda gap
+    },
+    ease: "power3.out",
+  });
+};
+
+
 
  const logo = [
     { src: "/Masdar.png" },
@@ -1105,11 +1124,10 @@ designed to evolve, not to be replaced.</span>
             <div className={styles.col}>
               <h4>Explore</h4>
               <ul>
-                <li>How We Work</li>
-                <li>About NoCapCode</li>
+                <li onClick={scrollToPage6} style={{ cursor: "pointer" }}>How We Work</li>
+                <li onClick={()=>{navigate("/about")}} style={{ cursor: "pointer" }}>About NoCapCode</li>
                 <li>Start with Clarity</li>
                 <li>Careers</li>
-                <li>FAQs</li>
               </ul>
             </div>
 

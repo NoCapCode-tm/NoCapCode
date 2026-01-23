@@ -9,6 +9,7 @@
   width:99vw;
   padding:10px;
   background-color:black;
+  overflow: hidden;
 }
 .footerHead {
   width: 100%;

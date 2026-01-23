@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap");
+
+
+
+.topBar {
+  width: 80%;
+  height: 40px;
+  margin: 40px auto 0;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.ghost {
+  position: absolute;
+  top: 160px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 120px;
+  font-weight: 500;
+  letter-spacing: -2px;
+  color: rgba(255, 255, 255, 0.05);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.container {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 140px 24px 0;
+  position: relative;
+  z-index: 2;
+}
+
+.header h2 {
+  font-size: 28px;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.updated {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.intro {
+  margin-top: 24px;
+  line-height: 1.7;
+  max-width: 720px;
+}
+
+.block {
+  margin-top: 56px;
+}
+
+.block h3 {
+  font-size: 18px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
+  margin-bottom: 12px;
+}
+
+
+.block p {
+  line-height: 1.75;
+  margin-bottom: 14px;
+  color: rgba(205, 215, 235, 0.75);
+}
+
+.block ul {
+  padding-left: 18px;
+  margin-bottom: 18px;
+}
+
+.block li {
+  margin-bottom: 6px;
+  color: rgba(190, 200, 220, 0.65);
+}
+
+.muted {
+  color: rgba(180, 190, 210, 0.5);
+}
+
+
+.closing {
+  margin-top: 28px;
+  color: rgba(200, 210, 230, 0.6);
+  line-height: 1.7;
+}
+/* .wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url(../../public/noise.png);
+  background-size: 100% 100%;
+  opacity: 1;
+  pointer-events: none;
+} */
+
+.wrap {
+  min-height: 100vh;
+  background: #000;
+  color: rgba(210, 220, 235, 0.75);
+  font-family: "Inter", sans-serif;
+  position: relative;
+  padding-bottom: 140px;
+  overflow: hidden;
+}
+.wrap::before {
+  content: "";
+  position: absolute;
+  inset: -40%; /* important for rotation coverage */
+  background:
+    radial-gradient(
+      2323px 226px at 50% 55%,
+      rgba(30, 60, 140, 0.55),
+      rgba(10, 20, 40, 0.35) 33%,
+      rgba(0, 0, 0, 0.95) 89%
+    ),
+    radial-gradient(
+      800px 600px at 30% 20%,
+      rgba(60, 80, 160, 0.15),
+      transparent 60%
+    );
+  transform: rotate(-18deg); /* 🔥 HERE IS YOUR TILT */
+  transform-origin: center;
+  z-index: 0;
+}
+
