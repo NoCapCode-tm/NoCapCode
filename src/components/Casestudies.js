@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import styles from "../CSS/Casestudies.module.css";
 import { ChevronDown } from "lucide-react";
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 

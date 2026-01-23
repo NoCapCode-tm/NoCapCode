@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import styles from "../CSS/About.module.css";
 import { ChevronDown, Instagram, Linkedin } from 'lucide-react';
-import { useNavigate } from 'react-router';
+// import { useNavigate } from 'react-router';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from 'gsap';
