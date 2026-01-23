@@ -12,7 +12,7 @@ const faqLabelRef = useRef(null);
 const faqHeadRef = useRef(null);
 const faqParaRef = useRef(null);
 const faqItemsRef = useRef([]);
-const navigate = useNavigate()
+// const navigate = useNavigate()
 const [openIndex, setOpenIndex] = useState(null);
 
 
