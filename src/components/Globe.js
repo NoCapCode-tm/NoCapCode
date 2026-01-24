@@ -90,10 +90,10 @@ function GlobeDots() {
     <mesh ref={ref} rotation={[Math.PI, 0, 0]}>
       <sphereGeometry args={[2.62, 128, 128]} />
       <meshBasicMaterial
-        color="#3680c1"
+        color="#248ce7"
         alphaMap={dots}
         transparent
-        opacity={0.95}
+        opacity={3.8}
         blending={THREE.AdditiveBlending}
         depthWrite={false}
       />

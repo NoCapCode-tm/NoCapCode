@@ -93,7 +93,7 @@ function GlobeDots() {
         color="white"
         alphaMap={dots}
         transparent
-        opacity={0.95}
+        opacity={1.8}
         blending={THREE.AdditiveBlending}
         depthWrite={false}
       />

@@ -6,7 +6,7 @@
 .App{
   min-height: 200vh;
   height:auto;
-  width:99vw;
+  width:100vw;
   padding:10px;
   background-color:black;
   overflow: hidden;

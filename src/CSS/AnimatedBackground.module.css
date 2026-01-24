@@ -140,6 +140,7 @@
   font-size: 16px;
   color:white;
   letter-spacing: 1px;
+  text-align: center;
 }
 /* .logo{
   width:110px;
@@ -243,7 +244,7 @@ p span {
   flex-wrap: wrap;
   width:100%;
   gap:20px;
-  justify-content: space-between;
+  justify-content: center;
   margin-top:40px;
 }
 .firstcard{
@@ -871,7 +872,7 @@ font-family: "Outfit", sans-serif;
   font-size: 50px;
   color:white;
   margin-top:30px;
-  text-align: left;
+  text-align: center;
   letter-spacing: 1px;
   /* white-space: nowrap; */
   /* padding-right:150px; */
@@ -1103,5 +1104,147 @@ font-family: "Outfit", sans-serif;
   white-space: nowrap;
   font-size: 64px;
   font-weight: 700;
+}
+@media screen and (max-width:1300px) {
+  .allimageandtext{
+    width:100%;
+  }
+  .imageandtext{
+    padding:0px 40px;
+  }
+}
+@media screen and (max-width:850px) {
+   .page3{
+    flex-direction: column-reverse;
+    align-items: center;
+   }
+   .globekeeper{
+    margin-top:50px;
+   }
+   .allimageandtext{
+    display:flex;
+    flex-direction: column;
+    gap:30px;
+   }
+   .imageandtext{
+    position:relative
+   }
+   .imagetext h3{
+    font-size: 25px;
+   }
+   .image{
+    width:50%;
+    height:170px;
+   }
+   .imagetext span{
+    font-size: 13px;
+   }
+}
+
+@media screen and (max-width:768px) {
+  .boldtexthead{
+    font-size: 25px;
+  }
+  .boldtext span{
+    font-size: 20px;
+  }
+  .IUS{
+    font-size: 83px;
+    margin-top: 0px;
+  }
+   .mainhead{
+    font-size: 35px;
+   }
+   .content{
+    font-size: 13px;
+    width:90%;
+   }
+   .subhead1 span{
+    text-align: center;
+   }
+   .content p span{
+    text-align: center;
+   }
+   .kip{
+    width:80%;
+   }
+   .mainhead2{
+    white-space:wrap;
+   }
+   canvas{
+    position:absolute;
+    left:300px;
+    /* bottom:100px; */
+   }
+   .aboutheadmore{
+    width:100%;
+    padding:1px 30px;
+    font-size: 40px;
+   }
+   p span{
+    text-align: left;
+   }
+   .mainhead3{
+    font-size: 40px;
+  }
+  .outcomes{
+    margin-top:0px;
+  }
+  .faq{
+    margin-top:0px;
+  }
+}
+@media screen and (max-width:680px){
+  .mainhead1{
+    font-size: 30px;
+    text-align: center;
+  }
+  .mainhead3{
+    font-size: 35px;
+  }
+  .subhead1{
+    font-size: 13px;
+  }
+  .outcomemainhead{
+    font-size: 30px;
+  }
+  .outcomepara span{
+    text-align: center;
+  }
+}
+@media screen and (max-width:430px) {
+   .mainhead{
+    font-size: 25px;
+    margin-top: 170px;
+   }
+   .mainhead2{
+    font-size: 22px;
+   }
+   .IUS{
+    font-size: 65px;
+    margin-top: 0px;
+  }
+   .content{
+    font-size: 13px;
+    width:95%;
+   }
+   .firstcard{
+    width:95%;
+   }
+   .mainhead1{
+    font-size: 22px;
+    text-align: center;
+  }
+  .subhead1{
+    font-size: 10px;
+    text-align: left;
+    padding:0px 10px;
+  }
+   .mainhead3{
+    font-size: 27px;
+  }
+  .aboutpara{
+    font-size: 11px;
+  }
 }
 
