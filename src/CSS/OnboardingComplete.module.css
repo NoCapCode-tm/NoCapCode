@@ -1,0 +1,263 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.onboardingComplete {
+  width: 100%;
+  min-height: 100vh;
+  background: #0a0a0a;
+  color: white;
+  font-family: "Outfit", sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.onboardingComplete::before {
+  content: "";
+  position: absolute;
+  inset: -40%; /* important for rotation coverage */
+  background: radial-gradient(5000px 725px at 41% 55%, rgba(30, 60, 140, 0.55), rgba(10, 20, 40, 0.35) 33%, rgba(0, 0, 0, 0.95) 89%), radial-gradient(800px 600px at 30% 20%, rgba(60, 80, 160, 0.15), transparent 60%);
+  transform: rotate(-30deg); /* 🔥 HERE IS YOUR TILT */
+  transform-origin: center;
+  z-index: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 40px 80px; /* Increased top padding for fixed navbar */
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.content {
+  text-align: center;
+  max-width: 800px;
+  width: 100%;
+}
+
+/* Title */
+.title {
+  font-size:60px;
+  font-weight: 500;
+  font-family: "Outfit", sans-serif;
+  margin-bottom: 60px;
+  line-height: 1.1;
+  background: linear-gradient(180deg, #004AC0 50%, #000000 100%);
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Success Section */
+.successSection {
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.iconContainer {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 24px;
+}
+
+.checkIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  /* background: linear-gradient(135deg, #4a90e2 0%, #6ba3f0 100%); */
+  background: #004AC0;
+  border-radius: 50%;
+  color: white;
+  margin: 0 auto;
+  position: relative;
+}
+
+.starIcon {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  color: #ffd700;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 50%;
+  padding: 4px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.congratsTitle {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: white;
+  font-family: "Outfit", sans-serif;
+}
+
+.congratsText {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Status Cards */
+.statusCards {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+}
+
+.statusCard {
+  background: rgba(15, 15, 30, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 24px;
+  min-width: 200px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.statusCard:hover {
+  background: rgba(20, 20, 40, 0.2);
+  border-color: rgba(74, 144, 226, 0.3);
+}
+
+.cardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(74, 144, 226, 0.2);
+  border-radius: 50%;
+  color: #004AC0;
+  margin: 0 auto 16px;
+}
+
+.cardTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.cardStatus {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
+}
+
+/* Action Section */
+.actionSection {
+  margin-top: 40px;
+}
+
+.continueButton {
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #4a90e2 0%, #6ba3f0 100%);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Outfit", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 200px;
+}
+
+.continueButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(74, 144, 226, 0.3);
+}
+
+.continueButton:active {
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 140px 20px 60px;
+  }
+  
+  .title {
+    font-size: 48px;
+  }
+  
+  .statusCards {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .statusCard {
+    max-width: 300px;
+    width: 100%;
+  }
+  
+  .congratsTitle {
+    font-size: 28px;
+  }
+  
+  .congratsText {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 120px 16px 40px;
+  }
+  
+  .title {
+    font-size: 36px;
+  }
+  
+  .congratsTitle {
+    font-size: 24px;
+  }
+  
+  .checkIcon {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .checkIcon svg {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .starIcon {
+    width: 24px;
+    height: 24px;
+    top: -6px;
+    right: -6px;
+  }
+  
+  .starIcon svg {
+    width: 16px;
+    height: 16px;
+  }
+}

@@ -1,0 +1,756 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.onboardingStep {
+  width: 100%;
+  min-height: 100vh;
+  background: #0a0a0a;
+  color: white;
+  font-family: "Outfit", sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.onboardingStep::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(5000px 725px at 41% 55%, rgba(30, 60, 140, 0.55), rgba(10, 20, 40, 0.35) 33%, rgba(0, 0, 0, 0.95) 89%), radial-gradient(800px 600px at 30% 20%, rgba(60, 80, 160, 0.15), transparent 60%);
+  transform: rotate(-30deg);
+  transform-origin: center;
+  z-index: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 160px 40px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Progress Indicators */
+.progressContainer {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+}
+
+.progressStep {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.progressStep.active {
+  background: rgba(50, 37, 191, 0.2);
+  border-color: #3225bf;
+}
+
+.stepIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.progressStep.active .stepIcon {
+  color: #3225bf;
+}
+
+.stepLabel {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.progressStep.active .stepLabel {
+  color: white;
+}
+
+/* Form Container */
+.formContainer {
+  max-width: 900px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px;
+  backdrop-filter: blur(10px);
+}
+
+.stepHeader {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.stepTitle {
+  font-size: 48px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #3225bf 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: "Instrument Serif", serif;
+  font-style: italic;
+}
+
+.stepNumber {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: #3225bf;
+  margin-bottom: 8px;
+  font-family: "Outfit", sans-serif;
+  font-style: normal;
+}
+
+.stepSubtitle {
+  font-size: 28px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 12px;
+  font-family: "Outfit", sans-serif;
+}
+
+.stepDescription {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Form Styles */
+.form {
+  width: 100%;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.formColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.label::after {
+  content: " *";
+  color: #ff4444;
+  font-weight: bold;
+}
+
+.optionalLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  margin-bottom: 4px;
+}
+
+/* Optional labels should not have asterisk */
+.optionalLabel::after {
+  content: "";
+}
+
+.input:invalid {
+  border-color: #ff4444;
+}
+
+.input:valid {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.input:focus:invalid {
+  border-color: #ff4444;
+  box-shadow: 0 0 0 3px rgba(255, 68, 68, 0.1);
+}
+
+.fieldNote {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 8px;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
+  font-family: "Outfit", sans-serif;
+  transition: all 0.3s ease;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: #3225bf;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.select {
+  cursor: pointer;
+}
+
+.select option {
+  background: #1a1a1a;
+  color: white;
+}
+
+/* File Upload Styles */
+.fileUpload {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fileInput {
+  display: none;
+}
+
+.fileLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: rgba(50, 37, 191, 0.1);
+  border: 1px solid #3225bf;
+  border-radius: 8px;
+  color: #3225bf;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  justify-content: center;
+}
+
+.fileLabel:hover {
+  background: rgba(50, 37, 191, 0.2);
+}
+
+.fileName {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+/* Radio Button Styles */
+.radioGroup {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  transition: color 0.3s ease;
+}
+
+.radioLabel:hover {
+  color: white;
+}
+
+.radioInput {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  margin: 0;
+}
+
+.radioInput:checked {
+  border-color: #3225bf;
+  background: #3225bf;
+}
+
+.radioInput:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: white;
+}
+
+.radioText {
+  font-weight: 500;
+}
+
+.submitButton {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  font-family: "Outfit", sans-serif;
+  background: #3225bf;
+  color: white;
+}
+
+.submitButton:hover:not(.disabled) {
+  background: #4a3fd9;
+  transform: translateY(-1px);
+}
+
+.submitButton.disabled {
+  background: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+}
+
+/* Review Container */
+.reviewContainer {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px;
+  backdrop-filter: blur(10px);
+}
+
+.reviewSections {
+  margin: 40px 0;
+}
+
+.reviewSection {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+}
+
+.editButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: rgba(50, 37, 191, 0.1);
+  border: 1px solid #3225bf;
+  border-radius: 6px;
+  color: #3225bf;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.editButton:hover {
+  background: rgba(50, 37, 191, 0.2);
+}
+
+.sectionContent {
+  margin-top: 16px;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.infoLabel {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.infoValue {
+  font-size: 14px;
+  color: white;
+  font-weight: 400;
+  word-break: break-word;
+}
+
+/* Declaration Section */
+.declarationSection {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 32px 0;
+}
+
+.declarationTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 16px;
+}
+
+.declarationText {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.agreementSection {
+  margin-top: 20px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  margin: 0;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.checkbox:checked {
+  border-color: #3225bf;
+  background: #3225bf;
+}
+
+.checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.checkboxText {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.5;
+}
+
+/* Navigation */
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.prevButton,
+.nextButton {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  font-family: "Outfit", sans-serif;
+}
+
+.prevButton {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.prevButton:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+.nextButton {
+  background: #3225bf;
+  color: white;
+}
+
+.nextButton:hover:not(:disabled) {
+  background: #4a3fd9;
+  transform: translateY(-1px);
+}
+
+.nextButton:disabled {
+  background: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.prevButton:disabled {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.3);
+  cursor: not-allowed;
+}
+
+/* Footer Styles - Same as onboarding page */
+.footerWrap {
+  position: relative;
+  width: 100%;
+  margin-top: 50px;
+  background: #000;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.footerScene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1;
+  width: 100%;
+}
+
+.footerScene img {
+  height: max-content;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.9;
+}
+
+.footerBox {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 1400px;
+  margin: auto;
+  backdrop-filter: blur(10px);
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.95));
+  padding: 48px 56px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+.left {
+  max-width: 420px;
+}
+
+.logo {
+  font-family: "Outfit", sans-serif;
+  font-size: 30px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.tagline {
+  font-family: "Outfit", sans-serif;
+  font-size: 14px;
+  color: rgba(190, 190, 190, 1);
+  font-weight: 400;
+  margin-top: 4px;
+}
+
+.right {
+  display: flex;
+  gap: 80px;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.col h4 {
+  font-size: 16px;
+  margin-bottom: 14px;
+  font-weight: 500;
+  color: white;
+  font-family: "Inter", sans-serif;
+}
+
+.col p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  margin-bottom: 10px;
+  line-height: 25px;
+  font-weight: 400;
+  font-family: "Inter", sans-serif;
+}
+
+.divider {
+  height: 1px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 40px 0 24px;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: "Outfit", sans-serif;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .container {
+    padding: 140px 20px 60px;
+  }
+  
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .progressContainer {
+    gap: 16px;
+  }
+  
+  .formContainer {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 120px 16px 40px;
+  }
+  
+  .stepTitle {
+    font-size: 36px;
+  }
+  
+  .stepSubtitle {
+    font-size: 24px;
+  }
+  
+  .progressContainer {
+    gap: 12px;
+  }
+  
+  .progressStep {
+    padding: 6px 12px;
+  }
+  
+  .stepLabel {
+    font-size: 11px;
+  }
+  
+  .formContainer {
+    padding: 24px;
+  }
+  
+  .navigation {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .prevButton,
+  .nextButton {
+    width: 100%;
+  }
+  
+  .top {
+    flex-direction: column;
+    gap: 30px;
+  }
+}
