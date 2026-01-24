@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { CheckCircle, Star } from 'lucide-react';
 import styles from '../CSS/OnboardingComplete.module.css';
 
 const OnboardingComplete = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [completedSteps, setCompletedSteps] = useState([]);
 
   useEffect(() => {
