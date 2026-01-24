@@ -266,10 +266,10 @@ useGSAP(() => {
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: page2Ref.current,
-      start: "top 10%",
+      start: "top 95%",
       end: "bottom 100%",
       // markers:true,
-      scrub: 4.8,
+      scrub: 1,
     },
   });
 
