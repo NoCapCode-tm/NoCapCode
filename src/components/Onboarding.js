@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle, Clock, Shield, ExternalLink } from 'lucide-react';
+import { CheckCircle, Clock, Shield, ExternalLink, Instagram } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import styles from '../CSS/Onboarding.module.css';
 import { getCompletedSteps, canAccessStep } from '../utils/onboardingUtils';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
 
 const Onboarding = () => {
   const navigate = useNavigate();
@@ -214,8 +216,9 @@ const Onboarding = () => {
               <p className={styles.tagline}>No cap. Built like it's ours.</p>
               <div className={styles.socials}>
                 <span><ExternalLink size={20} color="rgba(190, 190, 190, 1)"/></span>
-                <span>𝕏</span>
-                <span><ExternalLink size={20} color="rgba(190, 190, 190, 1)"/></span>
+                 <span onClick={()=>{navigate("/404")}}><FontAwesomeIcon icon={faXTwitter} /></span>
+              <span onClick={()=>{navigate("/404")}}><Instagram size={16} color="rgba(190, 190, 190, 1)"/></span>
+              
               </div>
               <div className={styles.badge}>
                 <img src="/badge.png" alt="/" height="100%" width="100%"/>

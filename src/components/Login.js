@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Mail, Lock, Eye, EyeOff, ArrowRight, ExternalLink } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, ArrowRight, ExternalLink, Instagram } from 'lucide-react';
 import styles from '../CSS/Login.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -117,8 +119,9 @@ const Login = () => {
                                 <p className={styles.tagline}>No cap. Built like it's ours.</p>
                                 <div className={styles.socials}>
                                     <span><ExternalLink size={20} color="rgba(190, 190, 190, 1)" /></span>
-                                    <span>𝕏</span>
-                                    <span><ExternalLink size={20} color="rgba(190, 190, 190, 1)" /></span>
+                                     <span onClick={()=>{navigate("/404")}}><FontAwesomeIcon icon={faXTwitter} /></span>
+              <span onClick={()=>{navigate("/404")}}><Instagram size={16} color="rgba(190, 190, 190, 1)"/></span>
+              
                                 </div>
                                 <div className={styles.badge}>
                                     <img src="/badge.png" alt="/" height="100%" width="100%" />

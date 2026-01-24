@@ -8,6 +8,7 @@ import Navbar from "./Navbar";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import useWindowWidth from "./usewindowwidth";
+import { toast } from "react-toastify";
 
 
 const Contactus = () => {
@@ -122,7 +123,9 @@ const Contactus = () => {
             <label>Message</label>
             <textarea placeholder="Hi, I’m reaching out for..." />
 
-            <button type="submit">Submit</button>
+            <button  onClick={(e)=>{
+              e.preventDefault()
+              toast.success("Form Submitted Successfully")}}>Submit</button>
           </form>
         </div>
       </div>
@@ -143,8 +146,9 @@ const Contactus = () => {
             <p className={styles.tagline}>We build software systems for teams who care about clarity, ownership, and longevity.</p>
             <div className={styles.socials}>
               <span><a href="https://www.linkedin.com/company/nocapcode"  rel="noreferrer" target="_blank"><Linkedin size={16} color="rgba(190, 190, 190, 1)"/></a></span>
-              <span><FontAwesomeIcon icon={faXTwitter} /></span>
-              <span><Instagram size={16} color="rgba(190, 190, 190, 1)"/></span>
+              <span onClick={()=>{navigate("/404")}}><FontAwesomeIcon icon={faXTwitter} /></span>
+              <span onClick={()=>{navigate("/404")}}><Instagram size={16} color="rgba(190, 190, 190, 1)"/></span>
+              
               
             </div>
 

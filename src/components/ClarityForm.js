@@ -8,6 +8,7 @@ import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import { Instagram, Linkedin } from "lucide-react";
 import { useNavigate } from "react-router";
 import useWindowWidth from "./usewindowwidth";
+import { toast } from "react-toastify";
 
 export default function ClarityForm() {
     const navbarRef = useRef(null);
@@ -146,7 +147,7 @@ export default function ClarityForm() {
       </section>
 
       {/* Submit */}
-      <div className={styles.submitWrap}>
+      <div className={styles.submitWrap} onClick={()=>{toast.success("Form Submitted Successfully")}}>
         <button>
           Submit for review <span>→</span>
         </button>

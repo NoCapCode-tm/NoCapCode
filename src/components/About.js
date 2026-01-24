@@ -222,7 +222,7 @@ useGSAP(() => {
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: page3Ref.current,
-      start: "top 75%",
+      start: "top 100%",
       end: "bottom 60%",
       scrub: 1,
     },
@@ -232,7 +232,7 @@ useGSAP(() => {
   tl.from(page3BgRef.current, {
     opacity: 0,
     scale: 1.08,
-    duration: 2,
+    duration: 0.8,
     ease: "power2.out",
   });
 
@@ -705,7 +705,7 @@ useGSAP(() => {
       No pitches. No funnels. Just clarity, restraint, and software built with intent.
     </p>
 
-    <button className={styles.startHereBtn}  >
+    <button className={styles.startHereBtn} onClick={()=>{navigate("/contact")}} >
       Start a thoughtful Conversation
       <span className={styles.arrow}>↗</span>
     </button>
@@ -763,14 +763,14 @@ useGSAP(() => {
       ✦
     </div>
 
-    <h2 className={styles.conversationTitle}>
+    <h2 className={styles.conversationTitle} >
       Start with a thoughtful conversation
     </h2>
 
     <p className={styles.conversationSub}>
       No pitches. No pressure. Just clarity on what should be built next.
     </p>
-    <button className={styles.startHereBtn1} >
+    <button className={styles.startHereBtn1} onClick={()=>{navigate("/clarity")}}>
       Start with Clarity
       <span className={styles.arrow}>↗</span>
     </button>
@@ -792,8 +792,8 @@ useGSAP(() => {
             <p className={styles.tagline}>We build software systems for teams who care about clarity, ownership, and longevity.</p>
             <div className={styles.socials}>
               <span><a href="https://www.linkedin.com/company/nocapcode"  rel="noreferrer" target="_blank"><Linkedin size={16} color="rgba(190, 190, 190, 1)"/></a></span>
-              <span><FontAwesomeIcon icon={faXTwitter} /></span>
-              <span><Instagram size={16} color="rgba(190, 190, 190, 1)"/></span>
+              <span onClick={()=>{navigate("/404")}}><FontAwesomeIcon icon={faXTwitter} /></span>
+              <span onClick={()=>{navigate("/404")}}><Instagram size={16} color="rgba(190, 190, 190, 1)"/></span>
               
             </div>
 

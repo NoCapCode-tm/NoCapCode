@@ -164,7 +164,7 @@
 
 /* ───── TOP WHY THIS MATTERS ───── */
 .aboutWhy {
-  max-width: 820px;
+  width: 100%;
   text-align: center;
   margin-bottom: 140px;
 }
@@ -184,12 +184,17 @@
 
 .whyText1 span {
   font-size: 37px;
-  line-height: 1.45;
+  line-height: 0.75;
   font-weight: 300;
   font-family: "Outfit", sans-serif;
-  white-space: nowrap;
-  margin-bottom:-18px;
+  /* white-space: nowrap; */
+  margin-bottom:-26px;
 
+}
+.whyText1{
+  display:flex;
+  flex-direction: column;
+  gap:34px;
 }
 .gradienttext {
   background: linear-gradient(185.46deg, #1A1A1A 25.8%, #2A2A2A 33.22%, #A0A0A0 51.77%, #3C3C3C 67.35%, #1A1A1A 77.24%);
@@ -897,6 +902,10 @@ font-family: "Outfit", sans-serif;
 
   .startHereTitle {
     font-size: 36px;
+  }
+  .whyText1 span{
+    text-align: center;
+    font-size: 30px;
   }
 
   .startHereSub {

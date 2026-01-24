@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./App.css";
 import AnimatedBackground from "./components/AnimatedBackground";
 import PageLoader from "./components/PageLoader";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router";
 import About from "./components/About";
 import Contactus from "./components/Contactus";
@@ -79,8 +81,11 @@ function AppWrapper() {
 
 export default function App() {
   return (
+    <>
     <Router>
       <AppWrapper />
     </Router>
+     <ToastContainer position="top-center" autoClose={3000} />
+     </>
   );
 }

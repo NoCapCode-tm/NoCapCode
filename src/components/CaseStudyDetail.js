@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, ExternalLink } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Instagram, Linkedin } from 'lucide-react';
 import Navbar from './Navbar';
 import styles from '../CSS/CaseStudyDetail.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
 
 const CaseStudyDetail = () => {
   const navigate = useNavigate();
@@ -159,57 +161,80 @@ const CaseStudyDetail = () => {
 
       {/* Footer - Same as onboarding page */}
       <footer className={styles.footerWrap}>
-        <div className={styles.footerScene}>
-          <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
-        </div>
-        <div className={styles.mirrorOverlay} />
-        <div className={styles.footerBox}>
-          <div className={styles.top}>
-            <div className={styles.left}>
-              <h2 className={styles.logo}>NoCapCode™</h2>
-              <p className={styles.tagline}>No cap. Built like it's ours.</p>
-              <div className={styles.socials}>
-                <span><ExternalLink size={20} color="rgba(190, 190, 190, 1)" /></span>
-                <span>𝕏</span>
-                <span><ExternalLink size={20} color="rgba(190, 190, 190, 1)" /></span>
-              </div>
-              <div className={styles.badge}>
-                <img src="/badge.png" alt="/" height="100%" width="100%" />
-              </div>
+       <div className={styles.footerScene}>
+        <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
+       </div>
+      <div className={styles.mirrorOverlay}/>
+      <div className={styles.footerBox}>
+    
+        <div className={styles.top}>
+          
+          <div className={styles.left}>
+            <h2 className={styles.logo}>NoCapCode™</h2>
+            <p className={styles.tagline}>No cap. Built like it's ours.</p>
+            <p className={styles.tagline}>We build software systems for teams who care about clarity, ownership, and longevity.</p>
+            <div className={styles.socials}>
+              <span><a href="https://www.linkedin.com/company/nocapcode"  rel="noreferrer" target="_blank"><Linkedin size={16} color="rgba(190, 190, 190, 1)"/></a></span>
+               <span onClick={()=>{navigate("/404")}}><FontAwesomeIcon icon={faXTwitter} /></span>
+              <span onClick={()=>{navigate("/404")}}><Instagram size={16} color="rgba(190, 190, 190, 1)"/></span>
+              
+              
             </div>
 
-            <div className={styles.right}>
-              <div className={styles.col}>
-                <h4>Explore</h4>
-                <ul>
-                  <li style={{ cursor: "pointer" }}>How We Work</li>
-                  <li onClick={() => { navigate("/about"); window.scrollTo(0, 0); }} style={{ cursor: "pointer" }}>About NoCapCode</li>
-                  <li>Start with Clarity</li>
-                  <li>Careers</li>
-                </ul>
-              </div>
-
-              <div className={styles.col}>
-                <h4>Company</h4>
-                <p>
-                  Algodones, New Mexico,<br />
-                  US, 87001
-                </p>
-              </div>
+            <div className={styles.badge}>
+                <img src="/badge.png" alt="/" height="100%" width="100%"/>
             </div>
           </div>
 
-          <div className={styles.divider} />
+        
+          <div className={styles.right}>
+            <div className={styles.col}>
+              <h4>Explore</h4>
+              <ul>
+                <li onClick={() =>
+    navigate("/", { state: { scrollTo: "howWeWork" } })
+  }
+  style={{ cursor: "pointer" }}>How We Work</li>
+                <li onClick={()=>{
+                  navigate("/casestudies")}} style={{ cursor: "pointer" }}>Case Studies</li>
+                <li onClick={()=>{
+                  navigate("/about")
+                  window.scrollTo(0,0);}} style={{ cursor: "pointer" }}>About NoCapCode</li>
+                  <li onClick={() =>
+    navigate("/", { state: { scrollTo: "faq" } })
+  }
+  style={{ cursor: "pointer" }} >FAQs</li>
+                <li onClick={()=>{navigate("/clarity")}} style={{ cursor: "pointer" }}>Start with Clarity</li>
+            
+              </ul>
+            </div>
 
-          <div className={styles.bottom}>
-            <p>© 2025-2026 NoCapCode. All rights reserved.<br />Built with restraint, responsibility, and long-term thinking.</p>
-            <div className={styles.links}>
-              <span onClick={() => { navigate("/terms") }} style={{ cursor: "pointer" }}>Terms of Service</span>
-              <span onClick={() => { navigate("/privacy") }} style={{ cursor: "pointer" }}>Privacy Policy</span>
+            <div className={styles.col}>
+              <h4>Company</h4>
+              <ul>
+                <li onClick={()=>{
+                  navigate("/careers")}} style={{ cursor: "pointer" }}>Careers</li>
+                <li onClick={()=>{
+                  navigate("/contact")}} style={{ cursor: "pointer" }}>Contact</li>
+              </ul>
+              <p>
+                Algodones, New Mexico,<br />
+                US, 87001
+              </p>
             </div>
           </div>
         </div>
-      </footer>
+        <div className={styles.divider} />
+        <div className={styles.bottom}>
+          <p>© 2025-2026 NoCapCode. All rights reserved.<br/>Built with restraint, responsibility, and long-term thinking.</p>
+
+          <div className={styles.links}>
+            <span onClick={()=>{navigate("/terms")}} style={{ cursor: "pointer" }}>Terms of Service</span>
+            <span onClick={()=>{navigate("/privacy")}} style={{ cursor: "pointer" }}>Privacy Policy</span>
+          </div>
+        </div>
+      </div>
+    </footer>
     </div>
   );
 };

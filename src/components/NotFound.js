@@ -1,20 +1,13 @@
 import React from "react";
 import styles from "../CSS/NotFound.module.css";
+import { useNavigate } from "react-router";
 
 export default function NotFound() {
+  const navigate = useNavigate()
   return (
     <div className={styles.page}>
       {/* top hairline */}
-      <div className={styles.topLine} />
-
-      {/* giant background number */}
-      <div className={styles.bg}>404</div>
-
-      {/* center copy */}
-      <div className={styles.center}>
-        <p className={styles.magic}>Abracadabra!...</p>
-        <p className={styles.sub}>and the page disappeared.</p>
-      </div>
+     <img src="/nf.png" height="100%" width="100%" alt="/"/>
 
       {/* bottom left */}
       <span className={styles.bottomLeft}>
@@ -22,7 +15,7 @@ export default function NotFound() {
       </span>
 
       {/* bottom right */}
-      <button className={styles.back}>
+      <button className={styles.back} onClick={()=>{navigate("/")}}>
         Go back to home page <span>↗</span>
       </button>
     </div>
