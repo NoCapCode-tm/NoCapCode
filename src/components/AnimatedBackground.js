@@ -7,7 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Globe from "./Globe";
 import { ChevronDown, Instagram, Linkedin } from "lucide-react";
 import { ScrollToPlugin } from "gsap/all";
-import { useNavigate , useLocation} from "react-router";
+import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
 // import SmallNavbar from "./SmallNavbar";
