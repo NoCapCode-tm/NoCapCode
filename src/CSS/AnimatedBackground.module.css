@@ -547,7 +547,7 @@ canvas {
 
 .imagetext{
   display:flex;
-  width:60%;
+  width:45%;
   flex-direction: column;
   align-items: flex-start;
   gap:10px;
@@ -568,9 +568,10 @@ canvas {
 
 }
 .image{
-  width:650px;
+  width:500px;
   border-radius:12px ;
   overflow: hidden;
+  margin-left: 90px;
 }
 .allimageandtext {
   position: relative;
@@ -634,6 +635,92 @@ canvas {
   width: 0%;              /* animated */
   background: blue;
   transform-origin: left center;
+}
+
+
+@media (max-width: 900px) {
+  .allimageandtext {
+  
+    height: 60vh;
+  }
+  .image{
+    margin-left: 0px;
+  }
+
+  .imageandtext {
+    position: relative;  
+    min-height: auto;
+    height: auto;
+    margin-bottom: 40px;
+    pointer-events: auto;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 24px;
+  }
+  .imageandtext1 {
+    position: relative;  
+    min-height: auto;
+    height: auto;
+    margin-bottom: 40px;
+    pointer-events: auto;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .imagetext {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .image {
+    width: 100%;
+    max-width: 420px;
+  }
+}
+
+/* TABLET ONLY TUNING */
+@media screen and (max-width: 600px) {
+  .imagetext h3 {
+    font-size: 30px;
+  }
+
+  .page5para {
+    font-size: 30px;
+    line-height: 34px;
+  }
+  .image{
+    width:90%;
+  }
+}
+@media (max-width: 900px) {
+  .imageandtext {
+    position: relative;
+    flex-direction: column-reverse;
+    align-items: center;
+    text-align: center;
+    gap: 24px;
+    pointer-events: auto;
+  }
+  .imageandtext1 {
+    position: relative;
+    flex-direction: column-reverse;
+    align-items: center;
+    text-align: center;
+    gap: 24px;
+    pointer-events: auto;
+  }
+
+  .imagetext {
+    width: 100%;
+    align-items: center;
+  }
+
+  .image {
+    width: 90%;
+    
+  }
 }
 
 
@@ -1132,10 +1219,10 @@ font-family: "Outfit", sans-serif;
    .imagetext h3{
     font-size: 25px;
    }
-   .image{
+   /* .image{
     width:50%;
     height:170px;
-   }
+   } */
    .imagetext span{
     font-size: 13px;
    }
@@ -1193,6 +1280,9 @@ font-family: "Outfit", sans-serif;
   .faq{
     margin-top:0px;
   }
+  .page5para span{
+    text-align: center;
+  }
 }
 @media screen and (max-width:680px){
   .mainhead1{
@@ -1245,6 +1335,9 @@ font-family: "Outfit", sans-serif;
   }
   .aboutpara{
     font-size: 11px;
+  }
+  .imageandtext{
+    padding:0px 10px;
   }
 }
 

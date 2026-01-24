@@ -478,6 +478,105 @@ useGSAP(() => {
   const items = imageTextRefs.current;
   const total = items.length;
 
+  const isDesktop = width > 900;
+
+  // reset
+  gsap.set(items, { clearProps: "all" });
+  gsap.set(innerLineRef.current, { width: "0%" });
+
+  if (!isDesktop) {
+  const container = page5Ref.current.querySelector(
+    `.${styles.allimageandtext}`
+  );
+
+  // force horizontal carousel layout
+  gsap.set(container, {
+    position: "relative",
+    overflow: "hidden",
+  });
+
+  gsap.set(items, {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    autoAlpha: 0,
+    x: 120,
+  });
+
+  // show first slide
+  gsap.set(items[0], { autoAlpha: 1, x: 0 });
+
+  const tl = gsap.timeline({
+    repeat: -1,
+    repeatDelay: 0.3,
+    defaults: { ease: "power3.inOut" },
+    scrollTrigger: {
+      trigger: page5Ref.current,
+      start: "top 80%",
+      once: true,
+    },
+  });
+
+  items.forEach((item, i) => {
+    const next = items[(i + 1) % total];
+
+    // HOLD center
+    tl.to({}, { duration: 1 });
+
+    // current → slide out right
+    tl.to(item, {
+      autoAlpha: 0,
+      x: 120,
+      duration: 0.6,
+    });
+
+    // next → slide in from left
+    tl.fromTo(
+      next,
+      { autoAlpha: 0, x: -120 },
+      {
+        autoAlpha: 1,
+        x: 0,
+        duration: 0.6,
+      },
+      "-=0.45"
+    );
+
+    // progress line
+    tl.to(
+      innerLineRef.current,
+      {
+        width: `${((i + 1) / total) * 100}%`,
+        duration: 0.5,
+        ease: "power2.out",
+      },
+      "<"
+    );
+  });
+
+  /* =========================
+     🛑 PAUSE ON HOVER / HOLD
+     ========================= */
+
+  const pause = () => tl.pause();
+  const resume = () => tl.resume();
+
+  // mouse hover (tablet / desktop small)
+  container.addEventListener("mouseenter", pause);
+  container.addEventListener("mouseleave", resume);
+
+  // touch hold (mobile)
+  container.addEventListener("touchstart", pause, { passive: true });
+  container.addEventListener("touchend", resume);
+  container.addEventListener("touchcancel", resume);
+
+  return;
+}
+
+
+
+
   gsap.set(items, { autoAlpha: 0 });
 
   const tl = gsap.timeline({
@@ -485,22 +584,19 @@ useGSAP(() => {
       trigger: page5Ref.current,
       start: "top top",
       end: `+=${total * 120}%`,
-      scrub:5,
+      scrub: 4,
       pin: true,
       pinSpacing: true,
+      invalidateOnRefresh: true,
     },
   });
 
-  //   Page6 label
   tl.from(page5FirstRef.current, {
     opacity: 0,
     y: 40,
     duration: 0.5,
     ease: "power3.out",
-  });
-
-  //   Page6 paragraph
-  tl.from(
+  }).from(
     page5Ref.current.querySelector(`.${styles.page5para}`),
     {
       opacity: 0,
@@ -511,20 +607,17 @@ useGSAP(() => {
     "-=0.2"
   );
 
-  //   Image + text sequence
   items.forEach((item, i) => {
     const text = item.querySelector(`.${styles.imagetext}`);
     const image = item.querySelector(`.${styles.image}`);
 
     tl.to(item, { autoAlpha: 1, duration: 0.1 })
-
       .from(text, {
         x: -80,
         opacity: 0,
         duration: 0.5,
         ease: "power3.out",
       })
-
       .from(
         image,
         {
@@ -535,27 +628,120 @@ useGSAP(() => {
         },
         "-=0.4"
       )
-
       .to(
         innerLineRef.current,
         {
           width: `${((i + 1) / total) * 100}%`,
           duration: 0.4,
-          overwrite: true,
         },
         "-=0.2"
       )
-
       .to({}, { duration: 0.7 })
       .to(item, { autoAlpha: 0, duration: 0.25 });
   });
-   
-}, []);
+}, [width]);
+
+
+
+
 
 
 useGSAP(() => {
   const items = image1TextRefs.current;
   const total = items.length;
+
+  const isDesktop = width > 900;
+
+  // reset
+  gsap.set(items, { clearProps: "all" });
+  gsap.set(inner1LineRef.current, { width: "0%" });
+
+   if (!isDesktop) {
+  const container = page6Ref.current.querySelector(
+    `.${styles.allimageandtext}`
+  );
+
+  // force horizontal carousel layout
+  gsap.set(container, {
+    position: "relative",
+    overflow: "hidden",
+  });
+
+  gsap.set(items, {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    autoAlpha: 0,
+    x: 120,
+  });
+
+  // show first slide
+  gsap.set(items[0], { autoAlpha: 1, x: 0 });
+
+  const tl = gsap.timeline({
+    repeat: -1,
+    repeatDelay: 0.3,
+    defaults: { ease: "power3.inOut" },
+    scrollTrigger: {
+      trigger: page6Ref.current,
+      start: "top 80%",
+      once: true,
+    },
+  });
+
+  items.forEach((item, i) => {
+    const next = items[(i + 1) % total];
+
+    // HOLD center
+    tl.to({}, { duration: 1 });
+
+    // current → slide out right
+    tl.to(item, {
+      autoAlpha: 0,
+      x: 120,
+      duration: 0.6,
+    });
+
+    // next → slide in from left
+    tl.fromTo(
+      next,
+      { autoAlpha: 0, x: -120 },
+      {
+        autoAlpha: 1,
+        x: 0,
+        duration: 0.6,
+      },
+      "-=0.45"
+    );
+
+    // progress line
+    tl.to(
+      inner1LineRef.current,
+      {
+        width: `${((i + 1) / total) * 100}%`,
+        duration: 0.5,
+        ease: "power2.out",
+      },
+      "<"
+    );
+  });
+
+  const pause = () => tl.pause();
+  const resume = () => tl.resume();
+
+  // mouse hover 
+  container.addEventListener("mouseenter", pause);
+  container.addEventListener("mouseleave", resume);
+
+  // touch hold
+  container.addEventListener("touchstart", pause, { passive: true });
+  container.addEventListener("touchend", resume);
+  container.addEventListener("touchcancel", resume);
+
+  return;
+}
+
 
   gsap.set(items, { autoAlpha: 0 });
 
@@ -564,22 +750,19 @@ useGSAP(() => {
       trigger: page6Ref.current,
       start: "top top",
       end: `+=${total * 120}%`,
-      scrub:5,
+      scrub: 4,
       pin: true,
       pinSpacing: true,
+      invalidateOnRefresh: true,
     },
   });
 
-  //   Page6 label
   tl.from(page6FirstRef.current, {
     opacity: 0,
     y: 40,
     duration: 0.5,
     ease: "power3.out",
-  });
-
-  //   Page6 paragraph
-  tl.from(
+  }).from(
     page6Ref.current.querySelector(`.${styles.page5para}`),
     {
       opacity: 0,
@@ -590,20 +773,17 @@ useGSAP(() => {
     "-=0.2"
   );
 
-  //   Image + text sequence
   items.forEach((item, i) => {
     const text = item.querySelector(`.${styles.imagetext}`);
     const image = item.querySelector(`.${styles.image}`);
 
     tl.to(item, { autoAlpha: 1, duration: 0.1 })
-
       .from(text, {
         x: -80,
         opacity: 0,
         duration: 0.5,
         ease: "power3.out",
       })
-
       .from(
         image,
         {
@@ -614,21 +794,18 @@ useGSAP(() => {
         },
         "-=0.4"
       )
-
       .to(
         inner1LineRef.current,
         {
           width: `${((i + 1) / total) * 100}%`,
           duration: 0.4,
-          overwrite: true,
         },
         "-=0.2"
       )
-
       .to({}, { duration: 0.7 })
       .to(item, { autoAlpha: 0, duration: 0.25 });
   });
-}, []);
+}, [width]);
 useGSAP(() => {
   const tl = gsap.timeline({
     scrollTrigger: {
