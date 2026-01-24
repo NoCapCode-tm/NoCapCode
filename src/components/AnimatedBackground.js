@@ -62,8 +62,8 @@ const faqHeadRef = useRef(null);
 const faqParaRef = useRef(null);
 const faqItemsRef = useRef([]);
 const aboutEntryRef = useRef(null);
-const location = useLocation();
-const isMobile = ScrollTrigger.isTouch === 1 || window.innerWidth < 768;
+// const location = useLocation();
+// const isMobile = ScrollTrigger.isTouch === 1 || window.innerWidth < 768;
 
 ScrollTrigger.config({
   ignoreMobileResize: true,
