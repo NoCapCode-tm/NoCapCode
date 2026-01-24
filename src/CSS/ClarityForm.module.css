@@ -47,7 +47,7 @@
 /* ───────── Form ───────── */
 
 .form {
-  margin-top: 40px;
+  
   position: relative;
   display: flex;
   flex-direction: column;
@@ -74,6 +74,7 @@
   transform-origin: center;
   z-index: 0;
 }
+
 
 .field label {
  position: relative;
@@ -122,11 +123,13 @@ letter-spacing: 1px;
 /* ───────── Submit ───────── */
 
 .submitWrap {
-  max-width: 980px;
+  width:70%;
+  margin-top: 20px;
   margin: 28px auto 0;
   display: flex;
   justify-content: flex-end;
   z-index:45;
+
 }
 
 .submitWrap button {
@@ -142,6 +145,7 @@ letter-spacing: 1px;
   cursor: pointer;
   transition: transform 0.2s ease, opacity 0.2s ease;
   z-index:45;
+  font-family: "Outfit", sans-serif;
 }
 
 .submitWrap button:hover {
@@ -199,7 +203,7 @@ letter-spacing: 1px;
     flex-direction: column;
     align-items: flex-start;
     gap:10px;
-    padding:0px 200px;
+    padding:0px 50px;
     margin-bottom:30px;
     z-index: 45;
 }
@@ -431,6 +435,38 @@ letter-spacing: 1px;
 /* footer */
 
 @media screen and (max-width:768px) {
+  .field{
+  width:100%;
+}
+  .submitWrap {
+    width:100%;
+  }
+  .abboutpage0 h1{
+    font-size: 45px;
+  }
+  .claritytext{
+    font-size: 65px;
+  }
+  .subtext{
+    font-size: 18px;
+  }
+  .card{
+    width:100%;
+  }
+  .abboutpage0 h1 pre{
+    font-size: 45px;
+  }
+  .abboutpage0 h1 span{
+    font-size: 45px;
+  }
+  .aboutpara span{
+    text-align: center;
+    font-size: 12px;
+  }
+  .card{
+    padding-left:20px;
+    padding-right:20px;
+  }
   .col{
     white-space: nowrap;
   }
@@ -441,6 +477,9 @@ letter-spacing: 1px;
   }
   .footerBox{
      border: 1px solid rgba(255, 255, 255, 0.27);
+  }
+  .divider1{
+    padding:0px;
   }
  
 }
@@ -456,4 +495,32 @@ letter-spacing: 1px;
   .footerBox{
     padding:20px 8px;
   }
+   .abboutpage0 h1{
+    font-size: 35px;
+  }
+  .claritytext{
+    font-size: 45px;
+  }
+  .subtext{
+    font-size: 16px;
+  }
+  .card{
+    width:100%;
+  }
+  .abboutpage0 h1 pre{
+    font-size: 35px;
+  }
+  .abboutpage0 h1 span{
+    font-size: 35px;
+  }
+  .aboutpara span{
+    text-align: center;
+    font-size: 12px;
+  }
+  .gradienttext{
+    background: linear-gradient(180deg, #5B37FF 59.94%, #070707 86.38%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 }

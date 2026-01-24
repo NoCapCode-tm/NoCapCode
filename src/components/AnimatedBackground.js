@@ -847,7 +847,7 @@ const page4TextLines = [
 
         {/* 3Buttons */}
         <div ref={buttonsRef} className={styles.buttons}>
-          <button className={styles.firstbutt}>Stay with clarity</button>
+          <button className={styles.firstbutt}>Start with clarity</button>
           <button className={styles.secondbutt} onClick={scrollToPagework}>See how it works</button>
         </div>
 
