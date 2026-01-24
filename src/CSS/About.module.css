@@ -1034,19 +1034,54 @@ font-family: "Outfit", sans-serif;
 
 
 /* RESPONSIVE */
-@media (max-width: 768px) {
-  .conversationCard {
-    height: auto;
-    padding: 60px 20px;
+@media screen and (max-width:768px) {
+  .aboutpara span{
+    text-align: center;
   }
-
-  .conversationTitle {
-    font-size: 26px;
+  .conversationTitle{
+    font-size: 25px;
   }
-
-  .conversationSub {
-    font-size: 14px;
+  .conversationCard{
+    width:100%;
+    padding:0px 10px;
+  }
+  .conversationWrap{
+    padding:20px 20px;
   }
 }
-
+@media screen and (max-width:586px) {
+  .about h1{
+    font-size: 50px;
+  }
+  .about h1 pre{
+    font-size: 50px;
+  }
+   .about h1 span{
+    font-size: 50px;
+  }
+  .aboutpara{
+    font-size: 13px;
+  }
+  
+}
+@media screen and (max-width:425px) {
+  .about h1{
+    font-size: 30px;
+  }
+  .about h1 pre{
+    font-size: 30px;
+  }
+   .about h1 span{
+    font-size: 30px;
+  }
+  .aboutpara{
+    font-size: 10px;
+  }
+  .conversationTitle{
+    font-size: 17px;
+  }
+  .conversationSub{
+    font-size: 12px;
+  }
+}
 

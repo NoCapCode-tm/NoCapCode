@@ -1,7 +1,8 @@
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "@react-three/drei";
+import styles from "../CSS/CareersPage.module.css";
 
 /* 
    BASE GLOBE SHADER
@@ -52,20 +53,24 @@ void main() {
 
 function BaseGlobe() {
   const ref = useRef();
+  const { viewport } = useThree();
 
   useFrame(() => {
     ref.current.rotation.y += 0.002;
   });
 
+  // scale globe relative to viewport
+  const scale = viewport.width < 6 ? 0.75 : 1;
+
   return (
-    <mesh ref={ref}>
+    <mesh ref={ref} scale={scale}>
       <sphereGeometry args={[2.6, 128, 128]} />
       <shaderMaterial
         vertexShader={vertexShader}
         fragmentShader={fragmentShader}
         uniforms={{
-          ocean: { value: new THREE.Color("black") }, // dark inside
-          glow: { value: new THREE.Color("white") },  // rim glow
+          ocean: { value: new THREE.Color("black") },
+          glow: { value: new THREE.Color("white") },
         }}
       />
     </mesh>
@@ -76,18 +81,19 @@ function BaseGlobe() {
 
 function GlobeDots() {
   const ref = useRef();
+  const { viewport } = useThree();
 
   const dots = new THREE.TextureLoader().load("/earth-dots.png");
   dots.flipY = false;
-  dots.minFilter = THREE.LinearFilter;
-  dots.magFilter = THREE.LinearFilter;
 
   useFrame(() => {
     ref.current.rotation.y += 0.002;
   });
 
+  const scale = viewport.width < 6 ? 0.75 : 1;
+
   return (
-    <mesh ref={ref} rotation={[Math.PI, 0, 0]}>
+    <mesh ref={ref} rotation={[Math.PI, 0, 0]} scale={scale}>
       <sphereGeometry args={[2.62, 128, 128]} />
       <meshBasicMaterial
         color="white"
@@ -100,7 +106,6 @@ function GlobeDots() {
     </mesh>
   );
 }
-
 
 /*SCENE COMPOSITIon*/
 
@@ -117,8 +122,22 @@ function GlobeScene() {
 
 export default function CareersGlobe() {
   return (
-    <div style={{ width: 600, height: 600 }}>
-      <Canvas camera={{ position: [0, 0, 7], fov: 45 }}>
+    <div
+  style={{
+    width: "100%",
+    maxWidth: "600px",
+    aspectRatio: "1 / 1",
+    margin: "0 auto",
+  }}
+>
+      <div className={styles.careersGlobeWrap}>
+            <Canvas
+  camera={{
+    position: [0, 0, window.innerWidth < 768 ? 8.5 : 7],
+    fov: window.innerWidth < 768 ? 50 : 45,
+  }}
+>
+
         <GlobeScene />
         <OrbitControls
           enableZoom={false}
@@ -128,6 +147,8 @@ export default function CareersGlobe() {
           dampingFactor={0.08}
         />
       </Canvas>
+    </div>
+     
     </div>
   );
 }

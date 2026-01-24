@@ -97,8 +97,9 @@ export default function CareersPage() {
           </h1>
 
           <p className={styles.subtitle}>
-            We're looking for passionate people to join our mission.We value
-            flat hierarchies,<br/> clear communication and full ownership and
+            <span> We're looking for passionate people to join our mission.We value
+            flat hierarchies,</span>
+            <span>clear communication and full ownership and</span> 
             responsibility.
           </p>
         </div>
@@ -125,7 +126,7 @@ export default function CareersPage() {
 
         {/* CARD */}
         <div className={styles.jobCard}>
-          <div>
+          <div  className={styles.position}>
             <h3>Content marketing specialist</h3>
             <p>
               Join us as a senior frontend developer and lead modern, scalable

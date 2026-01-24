@@ -123,51 +123,51 @@ const navigate=useNavigate()
   },
 ];
 
-useGSAP(() => {
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: faqRef.current,
-      start: "top 75%",
-      end: "bottom 60%",
-      scrub: 1,
-    },
-  });
+// useGSAP(() => {
+//   const tl = gsap.timeline({
+//     scrollTrigger: {
+//       trigger: faqRef.current,
+//       start: "top 75%",
+//       end: "bottom 60%",
+//       scrub: 1,
+//     },
+//   });
 
-  // 🔹 Label
-  tl.from(faqLabelRef.current, {
-    opacity: 0,
-    y: 30,
-    duration: 0.5,
-    ease: "power3.out",
-  })
+//   // 🔹 Label
+//   tl.from(faqLabelRef.current, {
+//     opacity: 0,
+//     y: 30,
+//     duration: 0.5,
+//     ease: "power3.out",
+//   })
 
-  // 🔹 Heading
-  .from(faqHeadRef.current, {
-    opacity: 0,
-    y: 60,
-    duration: 0.7,
-    ease: "power3.out",
-  }, "+=0.1")
+//   // 🔹 Heading
+//   .from(faqHeadRef.current, {
+//     opacity: 0,
+//     y: 60,
+//     duration: 0.7,
+//     ease: "power3.out",
+//   }, "+=0.1")
 
-  // 🔹 Subheading
-  .from(faqParaRef.current.children, {
-    opacity: 0,
-    y: 40,
-    duration: 0.5,
-    stagger: 0.2,
-    ease: "power3.out",
-  }, "+=0.1")
+//   // 🔹 Subheading
+//   .from(faqParaRef.current.children, {
+//     opacity: 0,
+//     y: 40,
+//     duration: 0.5,
+//     stagger: 0.2,
+//     ease: "power3.out",
+//   }, "+=0.1")
 
-  // 🔹 FAQ items (one by one)
-  .from(faqItemsRef.current, {
-    opacity: 0,
-    y: 50,
-    duration: 0.6,
-    stagger: 0.15,
-    ease: "power3.out",
-  }, "+=0.2");
+//   // 🔹 FAQ items (one by one)
+//   .from(faqItemsRef.current, {
+//     opacity: 0,
+//     y: 50,
+//     duration: 0.6,
+//     stagger: 0.15,
+//     ease: "power3.out",
+//   }, "+=0.2");
 
-}, []);
+// }, []);
 
 useGSAP(() => {
   const tl = gsap.timeline({
