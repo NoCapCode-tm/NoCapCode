@@ -164,7 +164,7 @@ export default function CareersPage() {
               
             </div>
 
-            <div className={styles.badge}>
+            <div className={styles.badge1}>
                 <img src="/badge.png" alt="/" height="100%" width="100%"/>
             </div>
           </div>
