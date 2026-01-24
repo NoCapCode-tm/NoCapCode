@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import styles from "../CSS/Navbar.module.css";
 import { MoveUpRight } from "lucide-react";
-import gsap from "gsap";
+
 import { useNavigate } from "react-router";
 
 const Navbar = forwardRef(
