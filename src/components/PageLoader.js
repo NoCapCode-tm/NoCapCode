@@ -7,10 +7,14 @@ export default function PageLoader({ onComplete }) {
 
   useEffect(() => {
     const tl = gsap.timeline({
-      delay: 2.5, // total visible time ~3s
+      delay: 2.5,
       onComplete: () => {
         setVisible(false);
-        onComplete(); // tell App loader is done
+
+        //  SAFETY CHECK
+        if (typeof onComplete === "function") {
+          onComplete();
+        }
       },
     });
 
@@ -20,21 +24,24 @@ export default function PageLoader({ onComplete }) {
       duration: 0.6,
       ease: "power3.inOut",
     });
+
+    return () => tl.kill();
   }, [onComplete]);
 
   if (!visible) return null;
 
   return (
     <div className={styles.loader}>
-        <video
-  className={styles.videoBg}
-  autoPlay
-  loop
-  muted
-  playsInline
->
-  <source src="/bg2.mp4" type="video/mp4" />
-</video>
+      <video
+        className={styles.videoBg}
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src="/bg2.mp4" type="video/mp4" />
+      </video>
+
       <div className={styles.inner}>
         <h1 className={styles.logo}>NoCapCode™</h1>
 

@@ -1,152 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
-
-/* .wrap{
-  width:100%;
-  align-items: center;
-  justify-content: center;
-
-} */
-
-.topBar {
-  width: 80%;
-  height: 40px;
-  margin: 40px auto 0;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+.page {
+  height:auto;
+  padding: 80px 24px 120px;
 }
 
-.ghost {
-  position: relative;
-  text-align: center;
-  font-size: 120px;
+
+
+/* ───────── Card ───────── */
+
+.card {
+  width:70%;
+  margin: 0 auto;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.02)
+  );
+  border-radius: 18px;
+  padding: 48px 48px 36px;
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  z-index:45;
+}
+
+.card h2 {
+  font-size: 36px;
   font-weight: 500;
-  letter-spacing: -2px;
-  color: rgba(255, 255, 255, 0.05);
-  white-space: nowrap;
-  pointer-events: none;
-}
-.gradienttext {
- background: linear-gradient(180deg, rgba(191, 191, 191, 0.4) 0%, rgba(30, 30, 30, 0.4) 75%, rgba(12, 12, 12, 0.4) 100%);
+  background: linear-gradient(90deg, #7b6cff, #4e43ff);
   -webkit-background-clip: text;
-  background-clip: text;
   -webkit-text-fill-color: transparent;
+  z-index:45;
 }
 
-.container {
-  max-width:70%;
-  
-  margin: -30px auto;
-  position: relative;
-  z-index: 2;
-}
-.header{
-  display:flex;
-  align-items:flex-end;
-  gap:10px;
-}
-
-.header h2 {
-  font-size: 48px;
-  font-weight: 400;
-  font-family: "Outfit", sans-serif;
-  color: #fff;
-  margin-bottom: 4px;
-}
-
-.updated {
-  font-size: 16px;
-  font-weight: 400;
-  font-family: "Outfit", sans-serif;
-  padding-bottom:15px;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.intro {
-  margin-top: 4px;
-  line-height: 1.7;
-   font-size: 20px;
-  font-weight: 400;
-  font-family: "Outfit", sans-serif;
-  padding-bottom:15px;
-  color: rgba(255, 255, 255, 0.6);
-
-}
-
-.block {
-  margin-top: 56px;
-}
-
-.block h3 {
-  font-size: 30px;
+.subtext {
+  margin-top: -40px;
+   font-size:24px;
+    font-weight:400;
    font-family: "Outfit", sans-serif;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 1);
-  margin-bottom: 12px;
+    color:rgba(153, 161, 175, 1);
+  z-index:45;
 }
 
+/* ───────── Form ───────── */
 
-.block p {
-  line-height: 1.75;
- 
-   font-size: 20px;
-  font-weight: 400;
-  font-family: "Outfit", sans-serif;
-  
-  color: rgba(255, 255, 255, 0.6);
-}
-
-
-.block ul {
-  display:flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap:0px;
-  list-style-type: disc;
-  padding-left:15px;
-  
-  
-}
-
-.block li {
-  margin-bottom: 6px;
-  color: rgba(190, 200, 220, 0.65);
-}
-
-.muted {
-  color: rgba(180, 190, 210, 0.5);
-}
-
-
-.closing {
-  margin-top: 28px;
-  color: rgba(200, 210, 230, 0.6);
-  line-height: 1.7;
-}
-/* .wrap::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url(../../public/noise.png);
-  background-size: 100% 100%;
-  opacity: 1;
-  pointer-events: none;
-} */
-
-.wrap {
-  min-height: 100vh;
-  background: #000;
-  color: rgba(210, 220, 235, 0.75);
-  font-family: "Inter", sans-serif;
+.form {
+  margin-top: 40px;
   position: relative;
-  padding-bottom: 140px;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  z-index:100;
 }
-.wrap::before {
+.form::before {
   content: "";
   position: absolute;
-  inset: -40%; /* important for rotation coverage */
+  inset: -75%; /* important for rotation coverage */
   background:
     radial-gradient(
       5000px 725px at 41% 55%,
@@ -159,11 +70,151 @@
       rgba(60, 80, 160, 0.15),
       transparent 60%
     );
-  transform: rotate(-30deg); /* 🔥 HERE IS YOUR TILT */
+  transform: rotate(-25deg); /* 🔥 HERE IS YOUR TILT */
   transform-origin: center;
   z-index: 0;
 }
 
+.field label {
+ position: relative;
+  z-index:45;
+   font-size:18px;
+    font-weight:500;
+   font-family: "Outfit", sans-serif;
+    color:rgba(209, 213, 220, 1);
+}
+
+.field input {
+    position: relative;
+     position: relative;
+letter-spacing: 1px;
+   font-size:18px;
+    font-weight:500;
+   font-family: "Outfit", sans-serif;
+  margin-top: 8px;
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.02)
+  );
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 13px;
+  z-index:45;
+}
+
+.field input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+  z-index:45;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: rgba(120, 110, 255, 0.6);
+  box-shadow: 0 0 0 1px rgba(120, 110, 255, 0.4);
+  z-index:45;
+}
+
+/* ───────── Submit ───────── */
+
+.submitWrap {
+  max-width: 980px;
+  margin: 28px auto 0;
+  display: flex;
+  justify-content: flex-end;
+  z-index:45;
+}
+
+.submitWrap button {
+  background: linear-gradient(135deg, #6a5cff, #4e43ff);
+  border: none;
+  color: #fff;
+  padding: 12px 18px;
+  font-size: 13px;
+  border-radius: 8px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  z-index:45;
+}
+
+.submitWrap button:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+.abboutpage0{
+    height:auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top:100px;
+    z-index: 45;
+}
+.abboutpage0 h1{
+    font-size:70px;
+    font-weight:500;
+   font-family: "Outfit", sans-serif;
+    color:white;
+    display:flex;
+    flex-direction: row;
+    gap:10px;
+    z-index: 45;
+}
+.abboutpage0 h1 span{
+     font-size:70px;
+     font-style: italic;
+    font-weight:500;
+  font-family: "Instrument Serif", serif;
+  color:white;
+  z-index: 45;
+
+}
+.abboutpage0 h1 pre{
+     font-size:70px;
+    font-weight:500;
+  font-family: "Inter", serif;
+  color:white;
+  z-index: 45;
+
+}
+.aboutpara{
+    font-size:18px;
+    font-weight:400;
+  font-family: "Outfit", serif;
+  letter-spacing: 1px;
+  color:rgba(255, 255, 255, 0.55); 
+  margin-bottom: 30px;;
+  z-index: 45;
+}
+.divider1{
+    display:flex;
+    width:100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap:10px;
+    padding:0px 200px;
+    margin-bottom:30px;
+    z-index: 45;
+}
+.claritytext{
+     font-size:108px;
+    font-weight:500;
+  font-family: "Outfit", serif;
+  z-index: 45;
+}
+.gradienttext {
+  background:  linear-gradient(180deg, #5B37FF -49.06%, #070707 86.38%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 .footer{
    position: relative;
   width: 100%;
@@ -375,5 +426,3 @@
   align-items: flex-start;
   gap:2px;
 }
-
-

@@ -1,157 +1,168 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
 
-.contact {
-  min-height: 100vh;
-  width: 100%;
-  padding: 80px 40px;
-  background: radial-gradient(
-      1200px 1200px at 80% 0%,
-      rgba(9, 28, 132, 1.55),
-      transparent 61%
-    ),
-    radial-gradient(
-      800px 500px at 0% 20%,
-      rgba(60, 80, 255, 1.55),
-      transparent 90%
-    ),
-    #000;
-  color: white;
-  position: relative;
-  font-family: "Inter", sans-serif;
-}
-
-/* top thin rectangle */
-.topOutline {
-  position: absolute;
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 70%;
-  height: 44px;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  opacity: 0.4;
-}
-
-.wrapper {
+/* .wrap{
   width:100%;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.4fr 0.9fr;
-  gap: 80px;
   align-items: center;
-  margin-top: 120px;
-  padding: 0px 40px;
-}
+  justify-content: center;
 
-/* LEFT */
-.left h1 {
-  font-size: 64px;
-  font-weight: 500;
-  line-height: 1.15;
-  margin-bottom: 20px;
-  font-family: "Outfit", sans-serif;
-}
+} */
 
-.left p {
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.75);
-  max-width: 420px;
-  line-height: 1.6;
-}
-
-.info {
-  margin-top: 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.65);
-}
-
-.info span {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* RIGHT FORM CARD */
-.formCard {
-  background: rgba(0, 0, 0, 0.3);
+.topBar {
+  width: 80%;
+  height: 40px;
+  margin: 40px auto 0;
+  border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 14px;
-  padding: 28px;
-  backdrop-filter: blur(14px);
-  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.5);
 }
 
-.formCard form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.ghost {
+  position: relative;
+  text-align: center;
+  font-size: 120px;
+  font-weight: 500;
+  letter-spacing: -2px;
+  color: rgba(255, 255, 255, 0.05);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.gradienttext {
+ background: linear-gradient(180deg, rgba(191, 191, 191, 0.4) 0%, rgba(30, 30, 30, 0.4) 75%, rgba(12, 12, 12, 0.4) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.formCard label {
-  font-size: 12px;
+.container {
+  max-width:70%;
+  
+  margin: -30px auto;
+  position: relative;
+  z-index: 2;
+}
+.header{
+  display:flex;
+  align-items:flex-end;
+  gap:10px;
+}
+
+.header h2 {
+  font-size: 48px;
+  font-weight: 400;
+  font-family: "Outfit", sans-serif;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.updated {
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Outfit", sans-serif;
+  padding-bottom:15px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.intro {
+  margin-top: 4px;
+  line-height: 1.7;
+   font-size: 20px;
+  font-weight: 400;
+  font-family: "Outfit", sans-serif;
+  padding-bottom:15px;
+  color: rgba(255, 255, 255, 0.6);
+
+}
+
+.block {
+  margin-top: 56px;
+}
+
+.block h3 {
+  font-size: 30px;
+   font-family: "Outfit", sans-serif;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  margin-bottom: 12px;
+}
+
+
+.block p {
+  line-height: 1.75;
+ 
+   font-size: 20px;
+  font-weight: 400;
+  font-family: "Outfit", sans-serif;
+  
   color: rgba(255, 255, 255, 0.6);
 }
 
-.formCard input,
-.formCard textarea {
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
-  padding: 10px 12px;
-  color: white;
-  font-size: 14px;
-  outline: none;
+
+.block ul {
+  display:flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap:0px;
+  list-style-type: disc;
+  padding-left:15px;
+  
+  
 }
 
-.formCard textarea {
-  min-height: 90px;
-  resize: none;
+.block li {
+  margin-bottom: 6px;
+  color: rgba(190, 200, 220, 0.65);
 }
 
-.formCard input::placeholder,
-.formCard textarea::placeholder {
-  color: rgba(255, 255, 255, 0.45);
+.muted {
+  color: rgba(180, 190, 210, 0.5);
 }
 
-.formCard button {
-  margin-top: 14px;
-  height: 40px;
-  border-radius: 8px;
-  border: none;
-  background: rgba(81, 47, 235, 1);
-  color: white;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-   font-family: "Outfit", sans-serif;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+.closing {
+  margin-top: 28px;
+  color: rgba(200, 210, 230, 0.6);
+  line-height: 1.7;
 }
+/* .wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url(../../public/noise.png);
+  background-size: 100% 100%;
+  opacity: 1;
+  pointer-events: none;
+} */
 
-.formCard button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 30px rgba(100, 90, 255, 0.45);
+.wrap {
+  min-height: 100vh;
+  background: #000;
+  color: rgba(210, 220, 235, 0.75);
+  font-family: "Inter", sans-serif;
+  position: relative;
+  padding-bottom: 140px;
+  overflow: hidden;
 }
-
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .contact {
-    padding: 60px 24px;
-  }
-
-  .wrapper {
-    grid-template-columns: 1fr;
-    gap: 50px;
-  }
-
-  .topOutline {
-    width: 90%;
-  }
+.wrap::before {
+  content: "";
+  position: absolute;
+  inset: -40%; /* important for rotation coverage */
+  background:
+    radial-gradient(
+      5000px 725px at 41% 55%,
+      rgba(30, 60, 140, 0.55),
+      rgba(10, 20, 40, 0.35) 33%,
+      rgba(0, 0, 0, 0.95) 89%
+    ),
+    radial-gradient(
+      800px 600px at 30% 20%,
+      rgba(60, 80, 160, 0.15),
+      transparent 60%
+    );
+  transform: rotate(-30deg); /* 🔥 HERE IS YOUR TILT */
+  transform-origin: center;
+  z-index: 0;
 }
-
 
 .footer{
    position: relative;
@@ -364,5 +375,3 @@
   align-items: flex-start;
   gap:2px;
 }
-
-

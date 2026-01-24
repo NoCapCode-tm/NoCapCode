@@ -64,8 +64,8 @@ function BaseGlobe() {
         vertexShader={vertexShader}
         fragmentShader={fragmentShader}
         uniforms={{
-          ocean: { value: new THREE.Color("#090616") }, // dark inside
-          glow: { value: new THREE.Color("#5692ba") },  // rim glow
+          ocean: { value: new THREE.Color("black") }, // dark inside
+          glow: { value: new THREE.Color("white") },  // rim glow
         }}
       />
     </mesh>
@@ -90,7 +90,7 @@ function GlobeDots() {
     <mesh ref={ref} rotation={[Math.PI, 0, 0]}>
       <sphereGeometry args={[2.62, 128, 128]} />
       <meshBasicMaterial
-        color="#3680c1"
+        color="white"
         alphaMap={dots}
         transparent
         opacity={0.95}
@@ -115,7 +115,7 @@ function GlobeScene() {
 
 /*EXPORT COMPONENT*/
 
-export default function Globe() {
+export default function CareersGlobe() {
   return (
     <div style={{ width: 600, height: 600 }}>
       <Canvas camera={{ position: [0, 0, 7], fov: 45 }}>

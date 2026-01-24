@@ -502,7 +502,7 @@
 
 .footerBox {
   position: relative;
-  z-index: 3;                  /* 🔥 TOP MOST */
+  z-index: 3;                  /*  TOP MOST */
   width: 100%;
   max-width: 1400px;
   margin: auto;
@@ -936,7 +936,7 @@ font-family: "Outfit", sans-serif;
 .conversationBg {
   position: absolute;
   inset: 0;
-  background-image:url(../../public/conversation-bg.png); /* 🔴 your image */
+  background-image:url(../../public/conversation-bg.png); 
   background-size: cover;
   background-position: center;
   filter: saturate(1.1);

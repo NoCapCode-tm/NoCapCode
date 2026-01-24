@@ -4,12 +4,16 @@ import gsap from "gsap";
 import styles from "../CSS/AnimatedBackground.module.css";
 import Navbar from "./Navbar";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
 import Globe from "./Globe";
 import { ChevronDown, Instagram, Linkedin } from "lucide-react";
 import { ScrollToPlugin } from "gsap/all";
-import { useNavigate } from "react-router";
+import { useNavigate , useLocation} from "react-router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
+// import SmallNavbar from "./SmallNavbar";
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+
 
 
 
@@ -17,11 +21,14 @@ export default function AnimatedBackground() {
   const mainHeadRef = useRef(null);
   const paraRef = useRef(null);
   const buttonsRef = useRef(null);
-  const navbarRef = useRef(null)
+  const navbarRef = useRef(null);
+  const logRef = useRef(null);
+  const btnTextRef = useRef(null);
+  const btnIconRef = useRef(null);
   const logoRef = useRef(null)
   const page2LabelRef = useRef(null); 
-  const page3LabelRef = useRef(null);  // What We Do
-const page2HeadRef = useRef(null);    // h1
+  const page3LabelRef = useRef(null);  
+const page2HeadRef = useRef(null);    
 const page2ParaRef = useRef(null);    // subhead
 const page2Ref = useRef(null); 
 const cardsRef = useRef([]);
@@ -54,24 +61,133 @@ const faqLabelRef = useRef(null);
 const faqHeadRef = useRef(null);
 const faqParaRef = useRef(null);
 const faqItemsRef = useRef([]);
+const aboutEntryRef = useRef(null);
+const location = useLocation();
+
+
+
+// const smallNavbarRef = useRef(null);
+
 const navigate = useNavigate()
 
+// useGSAP(() => {
+//   if (!location.state?.scrollTo) return;
 
+//   const map = {
+//     howWeWork: page6Ref,
+//     faq: faqRef,
+//     about: page4Ref,
+//   };
+
+//   const targetRef = map[location.state.scrollTo];
+
+//   if (!targetRef?.current) return;
+
+//   gsap.to(window, {
+//     scrollTo: {
+//       y: targetRef.current,
+//       offsetY: 90, // navbar height
+//     },
+//     duration: 1.4,
+//     ease: "power3.out",
+//   });
+// }, [location.state]);
+
+useGSAP(() => {
+  if (!location.state?.scrollTo) return;
+
+  const map = {
+    home: mainHeadRef,
+    about: page4Ref,
+    howWeWork: page6Ref,
+    faq: faqRef,
+  };
+
+  const targetRef = map[location.state.scrollTo];
+  if (!targetRef?.current) return;
+
+  gsap.to(window, {
+    scrollTo: {
+      y: targetRef.current,
+      offsetY: 90,
+    },
+    duration: 1.4,
+    ease: "power3.out",
+  });
+}, [location.state]);
+
+
+
+useGSAP(() => {
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: page3Ref.current,
+      start: "top top",
+      toggleActions: "play play play reverse",
+    },
+  });
+
+  // shrink navbar (CENTER STAYS FIXED)
+  tl.to(navbarRef.current, {
+    width:440,
+    gap:"20px",
+    duration: 0.45,
+    ease: "power2.out",
+  });
+
+  // logo fade + slide
+  tl.to(
+    logRef.current,
+    {
+      opacity: 0,
+      display:"none",
+      x: -24,
+      duration: 0.25,
+      ease: "power2.out",
+    },
+    "<"
+  );
+
+  // button text out
+  tl.to(
+    btnTextRef.current,
+    {
+      opacity: 0,
+      width: 0,
+      marginRight: 0,
+      duration: 0.25,
+      ease: "power2.out",
+    },
+    "<"
+  );
+
+  // arrow pop in
+  tl.to(
+    btnIconRef.current,
+    {
+      opacity: 1,
+      scale: 1,
+      duration: 0.3,
+      ease: "back.out(1.6)",
+    },
+    "<"
+  );
+}, []);
 
 
 
 
 
 useGSAP(() => {
-  const tl = gsap.timeline({delay:2.2});
+  const tl = gsap.timeline();
 
-  tl.from(navbarRef.current, {
-    opacity: 0,
-    y: 50,
-    duration: 1,
-    ease: "power3.out",
-  })
-    .from(mainHeadRef.current.children, {
+  // tl.from(navbarRef.current, {
+  //   opacity: 0,
+  //   y: 50,
+  //   duration: 1,
+  //   ease: "power3.out",
+  // })
+    tl.from(mainHeadRef.current.children, {
       opacity: 0,
       y: 50,
       duration: 1,
@@ -137,10 +253,10 @@ useGSAP(() => {
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: page2Ref.current,
-      start: "top 30%",
-      end: "bottom 90%",
+      start: "top 10%",
+      end: "bottom 100%",
       // markers:true,
-      scrub: 1,
+      scrub: 4.8,
     },
   });
 
@@ -211,90 +327,100 @@ useGSAP(() => {
       trigger: page3Ref.current,
       start: "top 80%",   // page3 thoda screen me aaye
       end: "bottom 20%",  // page3 nikalte nikalte
-      scrub: true,        // 🔥 scroll speed = animation speed
-      pin: false,         // ❌ NO PIN
+      scrub: 5,        //  scroll speed = animation speed
+      pin: false,         //   NO PIN
     },
   });
 }, []);
 useGSAP(() => {
-  const words = page4LinesRef.current;
-
-  // initial grey
-  gsap.set(words, {
+  gsap.set(page4LinesRef.current, {
     color: "#424040",
   });
 
-  gsap.to(words, {
+  gsap.to(page4LinesRef.current, {
     color: "#ffffff",
     stagger: 0.08,
     ease: "none",
     scrollTrigger: {
       trigger: page4Ref.current,
       start: "top 20%",
-      end: "+=700",        // 👈 controls how long pin lasts
-      scrub: true,
-      pin: true,           // 🔥 THIS IS WHAT YOU ASKED
-      pinSpacing: true,    // keeps layout safe
-      // markers: true,
+      end: "+=700",
+      scrub: 5,
+      pin: true,
+      pinSpacing: true,
     },
   });
 }, []);
+
 
 
 useGSAP(() => {
   const tl = gsap.timeline({
     scrollTrigger: {
-      trigger: page4Ref.current,
-      start: "top 70%",
-      end: "bottom 40%",
-      scrub: 1,
+      trigger: aboutEntryRef.current,
+      start: "top 80%",
+      toggleActions: "play none none reverse",
+      scrub:5
     },
   });
 
   tl.from(aboutLabelRef.current, {
     opacity: 0,
-    y: 40,
-    duration: 0.6,
-    ease: "power3.out",
+    y: 24,
+    duration: 0.4,
+    ease: "power2.out",
   })
-  .from(
-    aboutParaRef.current.children,
-    {
-      opacity: 0,
-      y: 30,
-      stagger: 0.25,
-      duration: 0.6,
-      ease: "power3.out",
-    },
-    "+=0.3"
-  )
-  .from(
-    aboutBtnRef.current,
-    {
-      opacity: 0,
-      y: 30,
-      duration: 0.5,
-      ease: "power3.out",
-    },
-    "+=0.2"
-  );
+    .from(
+      page4LinesRef.current,
+      {
+        opacity: 0,
+        y: 20,
+        stagger: 0.03,
+        duration: 0.5,
+        ease: "power2.out",
+      },
+      "-=0.2"
+    )
+    .from(
+      aboutParaRef.current.children,
+      {
+        opacity: 0,
+        y: 16,
+        stagger: 0.2,
+        duration: 0.4,
+        ease: "power2.out",
+      },
+      "-=0.2"
+    )
+    .from(
+      aboutBtnRef.current,
+      {
+        opacity: 0,
+        y: 12,
+        duration: 0.35,
+        ease: "power2.out",
+      },
+      "-=0.15"
+    );
 }, []);
+
 const marqueeRef = useRef(null);
 
 useGSAP(() => {
   const el = marqueeRef.current;
-  const totalWidth = el.scrollWidth;
+  const blockWidth = el.scrollWidth / 3;
+
+  // start from left filled position
+  gsap.set(el, { x: -blockWidth });
 
   gsap.to(el, {
-    x: `-=${totalWidth / 2}`, // move left continuously
-    duration: 25,
+    x: 0,
+    duration: 18,
     ease: "linear",
     repeat: -1,
-    modifiers: {
-      x: gsap.utils.unitize(x => parseFloat(x) % (totalWidth / 2)),
-    },
   });
 }, []);
+
 
 
 
@@ -305,6 +431,7 @@ useGSAP(() => {
       trigger: boldSectionRef.current,
       start: "top 75%",
       toggleActions: "play none none reverse",
+      scrub:5
     },
   });
 
@@ -326,37 +453,6 @@ useGSAP(() => {
   );
 }, []);
 
-// useGSAP(() => {
-//   const tl = gsap.timeline({
-//     scrollTrigger: {
-//       trigger: page5Ref.current,
-//       start: "top 30%",
-//     },
-//   });
-
-//   tl.from(page5FirstRef.current, {
-//     opacity: 0,
-//     y: 40,
-//     duration: 0.6,
-//     ease: "power3.out",
-//   });
-// }, []);
-
-// useGSAP(() => {
-//   const tl = gsap.timeline({
-//     scrollTrigger: {
-//       trigger: page6Ref.current,
-//       start: "top 30%",
-//     },
-//   });
-
-//   tl.from(page6FirstRef.current, {
-//     opacity: 0,
-//     y: 40,
-//     duration: 0.6,
-//     ease: "power3.out",
-//   });
-// }, []);
 
 useGSAP(() => {
   const items = imageTextRefs.current;
@@ -370,13 +466,13 @@ useGSAP(() => {
       trigger: page5Ref.current,
       start: "top top",
       end: `+=${total * 120}%`,
-      scrub: true,
+      scrub:5,
       pin: true,
       pinSpacing: true,
     },
   });
 
-  // 1️⃣ Page5 label
+  //   Page5 label
   tl.from(page5FirstRef.current, {
     opacity: 0,
     y: 40,
@@ -384,7 +480,7 @@ useGSAP(() => {
     ease: "power3.out",
   });
 
-  // 2️⃣ Page5 paragraph
+  //   Page5 paragraph
   tl.from(
     page5Ref.current.querySelector(`.${styles.page5para}`),
     {
@@ -396,7 +492,7 @@ useGSAP(() => {
     "-=0.2"
   );
 
-  // 3️⃣ Image + text sequence
+  //   Image + text sequence
   items.forEach((item, i) => {
     const text = item.querySelector(`.${styles.imagetext}`);
     const image = item.querySelector(`.${styles.image}`);
@@ -421,7 +517,7 @@ useGSAP(() => {
         "-=0.4"
       )
 
-      // 🔥 hold frame
+      //  hold frame
       .to({}, { duration: 0.8 })
 
       // fade out
@@ -442,13 +538,13 @@ useGSAP(() => {
       trigger: page6Ref.current,
       start: "top top",
       end: `+=${total * 120}%`,
-      scrub: true,
+      scrub:5,
       pin: true,
       pinSpacing: true,
     },
   });
 
-  // 1️⃣ Page6 label
+  //   Page6 label
   tl.from(page6FirstRef.current, {
     opacity: 0,
     y: 40,
@@ -456,7 +552,7 @@ useGSAP(() => {
     ease: "power3.out",
   });
 
-  // 2️⃣ Page6 paragraph
+  //   Page6 paragraph
   tl.from(
     page6Ref.current.querySelector(`.${styles.page5para}`),
     {
@@ -468,7 +564,7 @@ useGSAP(() => {
     "-=0.2"
   );
 
-  // 3️⃣ Image + text sequence
+  //   Image + text sequence
   items.forEach((item, i) => {
     const text = item.querySelector(`.${styles.imagetext}`);
     const image = item.querySelector(`.${styles.image}`);
@@ -513,11 +609,11 @@ useGSAP(() => {
       trigger: outcomesRef.current,
       start: "top 70%",
       end: "bottom 60%",
-      scrub: 1,
+      scrub: 5,
     },
   });
 
-  // 🔹 Label
+  //   Label
   tl.from(outcomesLabelRef.current, {
     opacity: 0,
     y: 30,
@@ -525,7 +621,7 @@ useGSAP(() => {
     ease: "power3.out",
   })
 
-  // 🔹 Heading
+  //   Heading
   .from(outcomesHeadRef.current, {
     opacity: 0,
     y: 60,
@@ -533,7 +629,7 @@ useGSAP(() => {
     ease: "power3.out",
   }, "+=0.1")
 
-  // 🔹 Subheading
+  //   Subheading
   .from(outcomesParaRef.current.children, {
     opacity: 0,
     y: 40,
@@ -542,7 +638,7 @@ useGSAP(() => {
     ease: "power3.out",
   }, "+=0.1")
 
-  // 🔹 LEFT CARD
+  //   LEFT CARD
   .from(outcomeCardsRef.current[0], {
     opacity: 0,
     x: -120,
@@ -550,7 +646,7 @@ useGSAP(() => {
     ease: "power3.out",
   }, "+=0.2")
 
-  // 🔹 CENTER CARD
+  //   CENTER CARD
   .from(outcomeCardsRef.current[1], {
     opacity: 0,
     y: 120,
@@ -558,7 +654,7 @@ useGSAP(() => {
     ease: "power3.out",
   }, "-=0.6")
 
-  // 🔹 RIGHT CARD
+  //   RIGHT CARD
   .from(outcomeCardsRef.current[2], {
     opacity: 0,
     x: 120,
@@ -573,11 +669,11 @@ useGSAP(() => {
       trigger: faqRef.current,
       start: "top 75%",
       end: "bottom 60%",
-      scrub: 1,
+      scrub: 5,
     },
   });
 
-  // 🔹 Label
+  //   Label
   tl.from(faqLabelRef.current, {
     opacity: 0,
     y: 30,
@@ -585,7 +681,7 @@ useGSAP(() => {
     ease: "power3.out",
   })
 
-  // 🔹 Heading
+  //   Heading
   .from(faqHeadRef.current, {
     opacity: 0,
     y: 60,
@@ -593,7 +689,7 @@ useGSAP(() => {
     ease: "power3.out",
   }, "+=0.1")
 
-  // 🔹 Subheading
+  //   Subheading
   .from(faqParaRef.current.children, {
     opacity: 0,
     y: 40,
@@ -602,7 +698,7 @@ useGSAP(() => {
     ease: "power3.out",
   }, "+=0.1")
 
-  // 🔹 FAQ items (one by one)
+  // FAQ items (one by one)
   .from(faqItemsRef.current, {
     opacity: 0,
     y: 50,
@@ -625,6 +721,32 @@ const scrollToPage6 = () => {
     ease: "power3.out",
   });
 };
+const scrollToPageabout = () => {
+  if (!faqRef.current) return;
+
+  gsap.to(window, {
+    duration: 1.4,
+    scrollTo: {
+      y: faqRef.current,
+      offsetY: 80, // navbar ke liye thoda gap
+    },
+    ease: "power3.out",
+  });
+};
+
+const scrollToPagework = () => {
+  if (!page6FirstRef.current) return;
+
+  gsap.to(window, {
+    duration: 1.4,
+    scrollTo: {
+      y: page6FirstRef.current,
+      offsetY: 80, // navbar ke liye thoda gap
+    },
+    ease: "power3.out",
+  });
+};
+
 
 
 
@@ -636,29 +758,31 @@ const scrollToPage6 = () => {
     { src: "/Terranova.png" },
     { src: "/Qasper Agro.png" },
   ];
-  const faqs = [
+
+
+
+const faqs = [
   {
     q: "What kind of companies do you work with?",
-    a: "We work with early-stage startups, growing product teams, and companies modernizing existing systems."
+    a: "We work with early-stage founders, small teams, and growing businesses that need reliable software systems not just quick prototypes. Most of our work involves MVP development, internal tools, automation, and scalable product systems."
   },
   {
     q: "Can you help if I’m not sure what needs to be built yet?",
-    a: "Yes. We help define the problem first, clarify priorities, and identify the smallest useful system to build."
+    a: "Yes. Many projects start with clarity, not code. We help define scope, remove unnecessary features, and make decisions before development begins often saving time and cost later."
   },
   {
     q: "Do you only build MVPs, or do you also improve existing systems?",
-    a: "We do both. Many engagements focus on stabilizing or improving systems that already exist."
+    a: "We do both. We build new products from scratch and also improve existing software that has become fragile, slow, or hard to change. The goal is always stability and long-term usability."
   },
   {
     q: "How do you price and scope projects?",
-    a: "We scope projects around outcomes, not features. Pricing depends on complexity, timeline, and ownership level."
+    a: "We scope work based on clarity, not guesses. After understanding your problem, we define what should be built, what shouldn’t, and what risks exist. Pricing follows that reality not fixed packages."
   },
   {
     q: "Are you an agency or a long-term partner?",
-    a: "We act as long-term partners, embedding deeply into decision-making and system ownership."
+    a: "We're neither a typical agency nor a staffing service. We act as an execution partner focused on decision quality, system stability, and outcomes whether that’s a short engagement or ongoing work."
   }
 ];
-
   const page3TextLines = [
   "Every system we build is shaped",
   "by clear decisions, real ownership,",
@@ -693,9 +817,12 @@ const page4TextLines = [
 
       {/* Content */}
       <div className={styles.content}>
-        <Navbar  ref={navbarRef}/>
+       <Navbar ref={navbarRef} homeRef={mainHeadRef} logoRef={logRef} btnTextRef={btnTextRef} btnIconRef={btnIconRef} aboutRef={page4Ref} serviceRef={page6FirstRef} />
 
-        {/* 1️⃣ Heading */}
+
+        {/* <SmallNavbar ref={smallNavbarRef} /> */}
+
+        {/* 1️Heading */}
         <h1 ref={mainHeadRef} className={styles.mainhead}>
   <span>We build usable software for</span>
   <span>people who care about</span>
@@ -703,7 +830,7 @@ const page4TextLines = [
 </h1>
 
 
-        {/* 2️⃣ Paragraph */}
+        {/* 2️Paragraph */}
         <p ref={paraRef}>
   <span>NoCapCode helps founders and teams turn ideas into <b>stable, working systems</b></span>
   
@@ -711,10 +838,10 @@ const page4TextLines = [
 </p>
 
 
-        {/* 3️⃣ Buttons */}
+        {/* 3Buttons */}
         <div ref={buttonsRef} className={styles.buttons}>
           <button className={styles.firstbutt}>Stay with clarity</button>
-          <button className={styles.secondbutt}>See how it works</button>
+          <button className={styles.secondbutt} onClick={scrollToPagework}>See how it works</button>
         </div>
 
         {/* Marquee */}
@@ -838,19 +965,18 @@ designed to evolve, not to be replaced.</span>
   </p>
   <div className={styles.boldtext}  ref={boldSectionRef}>
    <h1 className={styles.boldtexthead} ref={boldHeadRef}>We don't try to do everything.</h1>
-   <span ref={boldSpanRef}>We focus on what helps products move from</span>
-   <div className={styles.marqueeWrap}>
+   <span  ref={boldSpanRef}>We focus on what helps products move from</span>
+  <div className={styles.marqueeWrap}>
   <div className={styles.marqueeInner} ref={marqueeRef}>
-    {[...Array(4)].map((_, i) => (
-      <h1
-        key={i}
-        className={`${styles.IUS} ${styles.gradientText}`}
-      >
-        ← Sustainable ← Usable ← Idea&nbsp;&nbsp;
+    {[...Array(3)].map((_, i) => (
+      <h1 key={i} className={`${styles.IUS} ${styles.gradientText}`}>
+        Idea → Usable → Sustainable →&nbsp;&nbsp;
       </h1>
     ))}
   </div>
 </div>
+
+
 
 
   </div>
@@ -870,7 +996,7 @@ designed to evolve, not to be replaced.</span>
       {/* Content */}
       <div className={styles.aboutcontent} ref={page4Ref}>
         
-         <div className={styles.aboutheadmore}>
+         <div className={styles.aboutheadmore} ref={aboutEntryRef}>
            <span className={styles.aboutfirst} ref={aboutLabelRef} >ABOUT</span>
                 <h4 className={styles.mainhead3}>
   {page4TextLines.map((line, lineIndex) => (
@@ -895,7 +1021,7 @@ designed to evolve, not to be replaced.</span>
       <br />
     </React.Fragment>
   ))}
-         </h4>
+                </h4>
       <p className={styles.aboutpara} ref={aboutParaRef}>
   <span>Most digital products don't fail because of bad code.</span>
   
@@ -923,15 +1049,6 @@ designed to evolve, not to be replaced.</span>
         <img src="/team1.png" alt="/" height="100%" width="100%"/>
       </div>
      </div>
-     <div className={styles.imageandtext} ref={el => imageTextRefs.current[1] = el}>
-      <div className={styles.imagetext} >
-         <h3>Teams Improving Their Systems</h3>
-         <span>Teams that already exist but feel slowed<br/> down by process or tooling. product and trying to get it<br/> right from the start.</span>
-      </div>
-      <div className={styles.image}>
-        <img src="/team2.png" alt="/" height="100%" width="100%"/>
-      </div>
-     </div>
       <div className={styles.imageandtext} ref={el => imageTextRefs.current[2] = el}>
       <div className={styles.imagetext}>
          <h3>Creators & Solo Builders</h3>
@@ -941,9 +1058,16 @@ designed to evolve, not to be replaced.</span>
         <img src="/team3.png" alt="/" height="100%" width="100%"/>
       </div>
      </div>
-    
-
+     <div className={styles.imageandtext} ref={el => imageTextRefs.current[1] = el}>
+      <div className={styles.imagetext} >
+         <h3>Teams Improving Their Systems</h3>
+         <span>Teams that already exist but feel slowed<br/> down by process or tooling. product and trying to get it<br/> right from the start.</span>
+      </div>
+      <div className={styles.image}>
+        <img src="/team2.png" alt="/" height="100%" width="100%"/>
+      </div>
      </div>
+    </div>
 
     
      <div className={styles.outerline}>
@@ -958,7 +1082,7 @@ designed to evolve, not to be replaced.</span>
       <span>they don't know yet.</span>
      </p>
      <div className={styles.allimageandtext}>
-       <div className={styles.imageandtext} ref={el => image1TextRefs.current[0] = el}>
+       <div className={styles.imageandtext1} ref={el => image1TextRefs.current[0] = el}>
       <div className={styles.imagetext} >
          <h3>Understand the Problem</h3>
          <span>We start by asking hard questions early<br/> so we don't build the wrong thing<br/> with confidence.</span>
@@ -967,7 +1091,7 @@ designed to evolve, not to be replaced.</span>
         <img src="/work1.png" alt="/" height="100%" width="100%"/>
       </div>
      </div>
-     <div className={styles.imageandtext} ref={el => image1TextRefs.current[1] = el}>
+     <div className={styles.imageandtext1} ref={el => image1TextRefs.current[1] = el}>
       <div className={styles.imagetext} >
          <h3>Define the Smallest Useful Version</h3>
          <span>We narrow the scope to what actually<br/> needs to exist first, and intentionally<br/> leave the rest out.</span>
@@ -976,7 +1100,7 @@ designed to evolve, not to be replaced.</span>
         <img src="/work2.png" alt="/" height="100%" width="100%"/>
       </div>
      </div>
-      <div className={styles.imageandtext} ref={el => image1TextRefs.current[2] = el}>
+      <div className={styles.imageandtext1} ref={el => image1TextRefs.current[2] = el}>
       <div className={styles.imagetext}>
          <h3>Build Lean, Stable Systems</h3>
          <span>We use sensible tech and clean<br/> architecture to build systems that are reliable<br/> and easy to evolve.</span>
@@ -985,7 +1109,7 @@ designed to evolve, not to be replaced.</span>
         <img src="/work3.png" alt="/" height="100%" width="100%"/>
       </div>
      </div>
-      <div className={styles.imageandtext} ref={el => image1TextRefs.current[3] = el}>
+      <div className={styles.imageandtext1} ref={el => image1TextRefs.current[3] = el}>
       <div className={styles.imagetext}>
          <h3>Iterate With Real Feedback</h3>
          <span>We improve based on usage and<br/> outcomes not assumptions or opinions.</span>
@@ -1010,7 +1134,7 @@ designed to evolve, not to be replaced.</span>
           </h1>
 
 
-        {/* 2️⃣ Paragraph */}
+        {/*   Paragraph */}
         <p  className={styles.outcomepara} ref={outcomesParaRef}>
            <span>Discover the key benefits of partnering with us.</span>
         </p>
@@ -1107,10 +1231,11 @@ designed to evolve, not to be replaced.</span>
           <div className={styles.left}>
             <h2 className={styles.logo}>NoCapCode™</h2>
             <p className={styles.tagline}>No cap. Built like it's ours.</p>
+            <p className={styles.tagline}>We build software systems for teams who care about clarity, ownership, and longevity.</p>
             <div className={styles.socials}>
-              <span><Linkedin size={20} color="rgba(190, 190, 190, 1)"/></span>
-              <span>𝕏</span>
-              <span><Instagram size={20} color="rgba(190, 190, 190, 1)"/></span>
+              <span><a href="https://www.linkedin.com/company/nocapcode"  rel="noreferrer" target="_blank"><Linkedin size={16} color="rgba(190, 190, 190, 1)"/></a></span>
+              <span><FontAwesomeIcon icon={faXTwitter} /></span>
+              <span><Instagram size={16} color="rgba(190, 190, 190, 1)"/></span>
               
             </div>
 
@@ -1125,14 +1250,25 @@ designed to evolve, not to be replaced.</span>
               <h4>Explore</h4>
               <ul>
                 <li onClick={scrollToPage6} style={{ cursor: "pointer" }}>How We Work</li>
-                <li onClick={()=>{navigate("/about")}} style={{ cursor: "pointer" }}>About NoCapCode</li>
+                <li onClick={()=>{
+                  navigate("/casestudies")}} style={{ cursor: "pointer" }}>Case Studies</li>
+                <li onClick={()=>{
+                  navigate("/about")
+                  window.scrollTo(0,0);}} style={{ cursor: "pointer" }}>About NoCapCode</li>
+                  <li  onClick={scrollToPageabout} style={{ cursor: "pointer" }}>FAQs</li>
                 <li>Start with Clarity</li>
-                <li>Careers</li>
+            
               </ul>
             </div>
 
             <div className={styles.col}>
               <h4>Company</h4>
+              <ul>
+                <li onClick={()=>{
+                  navigate("/careers")}} style={{ cursor: "pointer" }}>Careers</li>
+                <li onClick={()=>{
+                  navigate("/contact")}} style={{ cursor: "pointer" }}>Contact</li>
+              </ul>
               <p>
                 Algodones, New Mexico,<br />
                 US, 87001
@@ -1145,8 +1281,8 @@ designed to evolve, not to be replaced.</span>
           <p>© 2025-2026 NoCapCode. All rights reserved.<br/>Built with restraint, responsibility, and long-term thinking.</p>
 
           <div className={styles.links}>
-            <span>Terms of Service</span>
-            <span>Privacy Policy</span>
+            <span onClick={()=>{navigate("/terms")}} style={{ cursor: "pointer" }}>Terms of Service</span>
+            <span onClick={()=>{navigate("/privacy")}} style={{ cursor: "pointer" }}>Privacy Policy</span>
           </div>
         </div>
       </div>

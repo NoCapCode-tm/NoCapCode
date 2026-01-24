@@ -1,9 +1,13 @@
 import React, { useRef, useState } from "react";
 import styles from "../CSS/Casestudies.module.css";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Instagram, Linkedin } from "lucide-react";
 // import { useNavigate } from "react-router";
 import { useGSAP } from "@gsap/react";
+import Navbar from "./Navbar";
 import gsap from "gsap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
+import { useNavigate } from "react-router";
 
 const Casestudies = () => {
 
@@ -12,8 +16,16 @@ const faqLabelRef = useRef(null);
 const faqHeadRef = useRef(null);
 const faqParaRef = useRef(null);
 const faqItemsRef = useRef([]);
+const sectionRef = useRef(null);
+const pillRef = useRef(null);
+const headingRef = useRef(null);
+const subRef = useRef(null);
+const cardsRef = useRef([]);
+
+
 // const navigate = useNavigate()
 const [openIndex, setOpenIndex] = useState(null);
+const navigate=useNavigate()
 
 
   const faqs = [
@@ -22,7 +34,7 @@ const [openIndex, setOpenIndex] = useState(null);
     a: "We work with early-stage startups, growing product teams, and companies modernizing existing systems."
   },
   {
-    q: "Can you help if I’m not sure what needs to be built yet?",
+    q: "Can you help if I'm not sure what needs to be built yet?",
     a: "Yes. We help define the problem first, clarify priorities, and identify the smallest useful system to build."
   },
   {
@@ -157,28 +169,139 @@ useGSAP(() => {
 
 }, []);
 
+useGSAP(() => {
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: sectionRef.current,
+      start: "top 70%",
+    },
+  });
+
+  tl.from(pillRef.current, {
+    opacity: 0,
+    y: 20,
+    duration: 0.4,
+    ease: "power3.out",
+  })
+  .from(headingRef.current, {
+    opacity: 0,
+    y: 40,
+    duration: 0.6,
+    ease: "power3.out",
+  }, "-=0.2")
+  .from(subRef.current, {
+    opacity: 0,
+    y: 30,
+    duration: 0.5,
+    ease: "power3.out",
+  }, "-=0.3");
+}, []);
+useGSAP(() => {
+  gsap.from(cardsRef.current, {
+    scrollTrigger: {
+      trigger: sectionRef.current,
+      start: "top 75%",
+      stagger:5,
+    },
+    opacity: 0,
+    x: (i) => (i % 2 === 0 ? -80 : 80), 
+    duration: 0.9,
+    ease: "power3.out",
+    stagger: 0.4,
+  });
+}, []);
+useGSAP(() => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: subRef.current,
+            start: "top top",
+            toggleActions: "play play play reverse",
+          },
+        });
+      
+        // shrink navbar (CENTER STAYS FIXED)
+        tl.to(navbarRef.current, {
+          width:440,
+          gap:"20px",
+          duration: 0.45,
+          ease: "power2.out",
+        });
+      
+        // logo fade + slide
+        tl.to(
+          logRef.current,
+          {
+            opacity: 0,
+            display:"none",
+            x: -24,
+            duration: 0.25,
+            ease: "power2.out",
+          },
+          "<"
+        );
+      
+        // button text out
+        tl.to(
+          btnTextRef.current,
+          {
+            opacity: 0,
+            width: 0,
+            marginRight: 0,
+            duration: 0.25,
+            ease: "power2.out",
+          },
+          "<"
+        );
+      
+        // arrow pop in
+        tl.to(
+          btnIconRef.current,
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.3,
+            ease: "back.out(1.6)",
+          },
+          "<"
+        );
+      }, []);
+
+const navbarRef = useRef(null);
+      const logRef = useRef(null);
+      const btnTextRef = useRef(null);
+      const btnIconRef = useRef(null);
+
+
+
+
   return (
     <>
-    <section className={styles.caseWrap}>
+    <Navbar
+  ref={navbarRef}
+  logoRef={logRef}
+  btnTextRef={btnTextRef}
+  btnIconRef={btnIconRef}
+/>
+    <section className={styles.caseWrap} ref={sectionRef}>
       {/* small pill */}
-      <span className={styles.pill}>Articles</span>
+      <span className={styles.pill} ref={pillRef}>Case Studies</span>
 
       {/* heading */}
-      <h1 className={styles.heading}>
+      <h1 className={styles.heading}  ref={headingRef}>
         Our Portfolio of <span>Transformations</span>
       </h1>
 
       {/* subheading */}
-      <p className={styles.subheading}>
+      <p className={styles.subheading} ref={subRef}>
         We rescue websites from the land of the lost. Here’s how we turn
         “meh” into “wow”.
       </p>
 
       {/* cards grid */}
      <div className={styles.grid}>
-        {caseStudies.map((item) => (
-          <div key={item.id} className={styles.caseCard}>
-            <div className={styles.caseImage}>
+        {caseStudies.map((item,i) => (
+          <div key={item.id} className={styles.caseCard} ref={(el) => (cardsRef.current[i] = el)} >
+            <div className={styles.caseImage} >
               <img src={item.image} alt={item.title} />
               <span className={styles.caseArrow}>↗</span>
             </div>
@@ -235,6 +358,80 @@ about no cap code's process, plans, and services.</span>
         })}
       </div>
     </div>
+      <footer className={styles.footerWrap}>
+       <div className={styles.footerScene}>
+        <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
+       </div>
+      <div className={styles.mirrorOverlay}/>
+      <div className={styles.footerBox}>
+    
+        <div className={styles.top}>
+          
+          <div className={styles.left}>
+            <h2 className={styles.logo}>NoCapCode™</h2>
+            <p className={styles.tagline}>No cap. Built like it's ours.</p>
+            <p className={styles.tagline}>We build software systems for teams who care about clarity, ownership, and longevity.</p>
+            <div className={styles.socials}>
+              <span><a href="https://www.linkedin.com/company/nocapcode"  rel="noreferrer" target="_blank"><Linkedin size={16} color="rgba(190, 190, 190, 1)"/></a></span>
+              <span><FontAwesomeIcon icon={faXTwitter} /></span>
+              <span><Instagram size={16} color="rgba(190, 190, 190, 1)"/></span>
+              
+            </div>
+
+            <div className={styles.badge}>
+                <img src="/badge.png" alt="/" height="100%" width="100%"/>
+            </div>
+          </div>
+
+        
+          <div className={styles.right}>
+            <div className={styles.col}>
+              <h4>Explore</h4>
+              <ul>
+                <li onClick={() =>
+    navigate("/", { state: { scrollTo: "howWeWork" } })
+  }
+  style={{ cursor: "pointer" }}>How We Work</li>
+                <li onClick={()=>{
+                  navigate("/casestudies")}} style={{ cursor: "pointer" }}>Case Studies</li>
+                <li onClick={()=>{
+                  navigate("/about")
+                  window.scrollTo(0,0);}} style={{ cursor: "pointer" }}>About NoCapCode</li>
+                  <li onClick={() =>
+    navigate("/", { state: { scrollTo: "faq" } })
+  }
+  style={{ cursor: "pointer" }} >FAQs</li>
+                <li>Start with Clarity</li>
+            
+              </ul>
+            </div>
+
+            <div className={styles.col}>
+              <h4>Company</h4>
+              <ul>
+                <li onClick={()=>{
+                  navigate("/careers")}} style={{ cursor: "pointer" }}>Careers</li>
+                <li onClick={()=>{
+                  navigate("/contact")}} style={{ cursor: "pointer" }}>Contact</li>
+              </ul>
+              <p>
+                Algodones, New Mexico,<br />
+                US, 87001
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className={styles.divider} />
+        <div className={styles.bottom}>
+          <p>© 2025-2026 NoCapCode. All rights reserved.<br/>Built with restraint, responsibility, and long-term thinking.</p>
+
+          <div className={styles.links}>
+            <span onClick={()=>{navigate("/terms")}} style={{ cursor: "pointer" }}>Terms of Service</span>
+            <span onClick={()=>{navigate("/privacy")}} style={{ cursor: "pointer" }}>Privacy Policy</span>
+          </div>
+        </div>
+      </div>
+    </footer>
     </>
   );
 };

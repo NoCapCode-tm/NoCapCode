@@ -3,31 +3,35 @@ import styles from "../CSS/About.module.css";
 import { ChevronDown, Instagram, Linkedin } from 'lucide-react';
 // import { useNavigate } from 'react-router';
 import { useGSAP } from '@gsap/react';
+import Navbar from "./Navbar";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from 'gsap';
+import { useNavigate } from 'react-router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
 gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
-    const faqs = [
+   const faqs = [
   {
     q: "What kind of companies do you work with?",
-    a: "We work with early-stage startups, growing product teams, and companies modernizing existing systems."
+    a: "We work with founders, startups, and small teams building real products SaaS, internal tools, and automation systems that need to work reliably in production."
   },
   {
     q: "Can you help if I’m not sure what needs to be built yet?",
-    a: "Yes. We help define the problem first, clarify priorities, and identify the smallest useful system to build."
+    a: "Yes. Many projects start with uncertainty. We help clarify scope, remove unnecessary features, and define the first usable version before development begins."
   },
   {
-    q: "Do you only build MVPs, or do you also improve existing systems?",
-    a: "We do both. Many engagements focus on stabilizing or improving systems that already exist."
+    q: "Do you only build MVPs, or also improve existing systems?",
+    a: "Both. We build new MVPs and also improve or stabilize existing software that’s become hard to change, maintain, or scale."
   },
   {
     q: "How do you price and scope projects?",
-    a: "We scope projects around outcomes, not features. Pricing depends on complexity, timeline, and ownership level."
+    a: "We scope based on clarity, not guesses. After understanding your needs, we define what should be built, what shouldn’t, and what risks exist."
   },
   {
     q: "Are you an agency or a long-term partner?",
-    a: "We act as long-term partners, embedding deeply into decision-making and system ownership."
+    a: "We’re an execution partner. We stay involved as long as needed to make the system stable, clear, and usable then step back responsibly."
   }
 ];
     const faqRef = useRef(null);
@@ -37,6 +41,7 @@ const faqParaRef = useRef(null);
 const faqItemsRef = useRef([]);
 // const navigate = useNavigate()
 const [openIndex, setOpenIndex] = useState(null);
+const navigate = useNavigate()
 const headingRef = useRef(null);
 const paraRef = useRef(null);
 const page1Ref = useRef(null);
@@ -57,7 +62,11 @@ const conversationRef = useRef(null);
 const conversationCardRef = useRef(null);
 const conversationBgRef = useRef(null);
 const conversationBtnRef = useRef(null);
-
+const navbarRef = useRef(null);
+      const logRef = useRef(null);
+      const btnTextRef = useRef(null);
+      const btnIconRef = useRef(null);
+      
 
 
 
@@ -74,7 +83,7 @@ useGSAP(() => {
     },
   });
 
-  // 🔹 Label
+  // Label
   tl.from(faqLabelRef.current, {
     opacity: 0,
     y: 30,
@@ -82,7 +91,7 @@ useGSAP(() => {
     ease: "power3.out",
   })
 
-  // 🔹 Heading
+  //Heading
   .from(faqHeadRef.current, {
     opacity: 0,
     y: 60,
@@ -90,7 +99,7 @@ useGSAP(() => {
     ease: "power3.out",
   }, "+=0.1")
 
-  // 🔹 Subheading
+  // Subheading
   .from(faqParaRef.current.children, {
     opacity: 0,
     y: 40,
@@ -99,7 +108,7 @@ useGSAP(() => {
     ease: "power3.out",
   }, "+=0.1")
 
-  // 🔹 FAQ items (one by one)
+  // FAQ items (one by one)
   .from(faqItemsRef.current, {
     opacity: 0,
     y: 50,
@@ -111,7 +120,7 @@ useGSAP(() => {
 }, []);
 
 useGSAP(() => {
-  const tl = gsap.timeline({delay:2.2});
+  const tl = gsap.timeline({delay:1.2});
 
     tl.from(headingRef.current.children, {
       opacity: 0,
@@ -217,7 +226,7 @@ useGSAP(() => {
     },
   });
 
-  // 🌫 Background lines — slow cinematic fade
+  //  Background lines — slow cinematic fade
   tl.from(page3BgRef.current, {
     opacity: 0,
     scale: 1.08,
@@ -225,7 +234,7 @@ useGSAP(() => {
     ease: "power2.out",
   });
 
-  // ⬆ LEFT content — rise + fade
+  //  LEFT content — rise + fade
   tl.from(
     page3LeftRef.current.children,
     {
@@ -239,7 +248,7 @@ useGSAP(() => {
     "-=1.4"
   );
 
-  // 👉 RIGHT content — stagger reveal
+  //  RIGHT content — stagger reveal
   tl.from(
     page3RightRef.current.children,
     {
@@ -276,7 +285,7 @@ useGSAP(() => {
     },
   });
 
-  // 🧱 Card enters
+  // Card enters
   tl.from(startHereCardRef.current, {
     opacity: 0,
     y: 80,
@@ -285,7 +294,7 @@ useGSAP(() => {
     ease: "power3.out",
   });
 
-  // ✨ Text stagger
+  // Text stagger
  tl.from(
   startHereCardRef.current.querySelectorAll(
     `.${styles.startHereTitle}, .${styles.startHereSub}`
@@ -301,7 +310,7 @@ useGSAP(() => {
 );
 
 
-  // 🔘 Button pop
+  // Button pop
   tl.from(
     startHereBtnRef.current,
     {
@@ -336,7 +345,7 @@ useGSAP(() => {
     },
   });
 
-  // 🧱 Card enters
+  // Card enters
   tl.from(conversationCardRef.current, {
     opacity: 0,
     y: 60,
@@ -345,7 +354,7 @@ useGSAP(() => {
     ease: "power3.out",
   });
 
-  // 🌫 Background subtle movement
+  // Background subtle movement
   tl.from(
     conversationBgRef.current,
     {
@@ -357,7 +366,7 @@ useGSAP(() => {
     "-=1.2"
   );
 
-  // ✨ Icon pop
+  // Icon pop
   tl.from(
     ".conversationIcon",
     {
@@ -369,7 +378,7 @@ useGSAP(() => {
     "-=1"
   );
 
-  // 📝 Text stagger (title + sub)
+  // Text stagger (title + sub)
   tl.from(
     conversationCardRef.current.querySelectorAll(
       `.${styles.conversationTitle}, .${styles.conversationSub}`
@@ -384,7 +393,7 @@ useGSAP(() => {
     "-=0.8"
   );
 
-  // 🔘 Button reveal
+  // Button reveal
   tl.from(
     conversationBtnRef.current,
     {
@@ -398,6 +407,76 @@ useGSAP(() => {
   );
 }, []);
 
+useGSAP(() => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: paraRef.current,
+            start: "top top",
+            toggleActions: "play play play reverse",
+          },
+        });
+      
+        // shrink navbar (CENTER STAYS FIXED)
+        tl.to(navbarRef.current, {
+          width:440,
+          gap:"20px",
+          duration: 0.45,
+          ease: "power2.out",
+        });
+      
+        // logo fade + slide
+        tl.to(
+          logRef.current,
+          {
+            opacity: 0,
+            display:"none",
+            x: -24,
+            duration: 0.25,
+            ease: "power2.out",
+          },
+          "<"
+        );
+      
+        // button text out
+        tl.to(
+          btnTextRef.current,
+          {
+            opacity: 0,
+            width: 0,
+            marginRight: 0,
+            duration: 0.25,
+            ease: "power2.out",
+          },
+          "<"
+        );
+      
+        // arrow pop in
+        tl.to(
+          btnIconRef.current,
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.3,
+            ease: "back.out(1.6)",
+          },
+          "<"
+        );
+      }, []);
+      const scrollToPageabout = () => {
+  if (!faqRef.current) return;
+
+  gsap.to(window, {
+    duration: 1.4,
+    scrollTo: {
+      y: faqRef.current,
+      offsetY: 80, // navbar ke liye thoda gap
+    },
+    ease: "power3.out",
+  });
+};
+
+      
+
 
 
 
@@ -407,6 +486,13 @@ useGSAP(() => {
 
   return (
     <div className={styles.about}>
+      <Navbar
+  ref={navbarRef}
+  logoRef={logRef}
+  btnTextRef={btnTextRef}
+  btnIconRef={btnIconRef}
+/>
+
         <div className={styles.abboutpage0}>
       <h1 ref={headingRef}>Built <pre>with</pre><span>Clarity</span></h1>
       <p className={styles.aboutpara} ref={paraRef}>
@@ -685,7 +771,7 @@ useGSAP(() => {
   </div>
 </div>
 
-     <footer className={styles.footerWrap}>
+   <footer className={styles.footerWrap}>
        <div className={styles.footerScene}>
         <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
        </div>
@@ -697,10 +783,11 @@ useGSAP(() => {
           <div className={styles.left}>
             <h2 className={styles.logo}>NoCapCode™</h2>
             <p className={styles.tagline}>No cap. Built like it's ours.</p>
+            <p className={styles.tagline}>We build software systems for teams who care about clarity, ownership, and longevity.</p>
             <div className={styles.socials}>
-              <span><Linkedin size={20} color="rgba(190, 190, 190, 1)"/></span>
-              <span>𝕏</span>
-              <span><Instagram size={20} color="rgba(190, 190, 190, 1)"/></span>
+              <span><a href="https://www.linkedin.com/company/nocapcode"  rel="noreferrer" target="_blank"><Linkedin size={16} color="rgba(190, 190, 190, 1)"/></a></span>
+              <span><FontAwesomeIcon icon={faXTwitter} /></span>
+              <span><Instagram size={16} color="rgba(190, 190, 190, 1)"/></span>
               
             </div>
 
@@ -714,15 +801,30 @@ useGSAP(() => {
             <div className={styles.col}>
               <h4>Explore</h4>
               <ul>
-                <li style={{ cursor: "pointer" }}>How We Work</li>
-                <li >About NoCapCode</li>
+                <li onClick={() =>
+    navigate("/", { state: { scrollTo: "howWeWork" } })
+  }
+  style={{ cursor: "pointer" }}>How We Work</li>
+                <li onClick={()=>{
+                  navigate("/casestudies")}} style={{ cursor: "pointer" }}>Case Studies</li>
+                <li onClick={()=>{
+                  navigate("/about")
+                  window.scrollTo(0,0);}} style={{ cursor: "pointer" }}>About NoCapCode</li>
+                  <li onClick={scrollToPageabout}
+  style={{ cursor: "pointer" }} >FAQs</li>
                 <li>Start with Clarity</li>
-                <li>Careers</li>
+            
               </ul>
             </div>
 
             <div className={styles.col}>
               <h4>Company</h4>
+              <ul>
+                <li onClick={()=>{
+                  navigate("/careers")}} style={{ cursor: "pointer" }}>Careers</li>
+                <li onClick={()=>{
+                  navigate("/contact")}} style={{ cursor: "pointer" }}>Contact</li>
+              </ul>
               <p>
                 Algodones, New Mexico,<br />
                 US, 87001
@@ -735,8 +837,8 @@ useGSAP(() => {
           <p>© 2025-2026 NoCapCode. All rights reserved.<br/>Built with restraint, responsibility, and long-term thinking.</p>
 
           <div className={styles.links}>
-            <span>Terms of Service</span>
-            <span>Privacy Policy</span>
+            <span onClick={()=>{navigate("/terms")}} style={{ cursor: "pointer" }}>Terms of Service</span>
+            <span onClick={()=>{navigate("/privacy")}} style={{ cursor: "pointer" }}>Privacy Policy</span>
           </div>
         </div>
       </div>
