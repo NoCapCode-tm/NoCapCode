@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, Mail, Phone, Calendar, Users, MapPin, AlertCircle, GraduationCap, Briefcase, CreditCard, Settings, CheckCircle, Edit } from 'lucide-react';
+import { User, AlertCircle, GraduationCap, Briefcase, CreditCard, Settings, CheckCircle, Edit } from 'lucide-react';
 import Navbar from '../Navbar';
 import styles from '../../CSS/OnboardingStep.module.css';
 
