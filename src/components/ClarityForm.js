@@ -189,7 +189,7 @@ export default function ClarityForm() {
     navigate("/", { state: { scrollTo: "faq" } })
   }
   style={{ cursor: "pointer" }} >FAQs</li>
-                <li>Start with Clarity</li>
+                <li onClick={()=>{navigate("/clarity")}} style={{ cursor: "pointer" }}>Start with Clarity</li>
             
               </ul>
             </div>

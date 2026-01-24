@@ -812,7 +812,8 @@ useGSAP(() => {
                   window.scrollTo(0,0);}} style={{ cursor: "pointer" }}>About NoCapCode</li>
                   <li onClick={scrollToPageabout}
   style={{ cursor: "pointer" }} >FAQs</li>
-                <li>Start with Clarity</li>
+                <li onClick={()=>{navigate("/clarity")}}
+                  style={{ cursor: "pointer" }}>Start with Clarity</li>
             
               </ul>
             </div>

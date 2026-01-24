@@ -7,9 +7,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Globe from "./Globe";
 import { ChevronDown, Instagram, Linkedin } from "lucide-react";
 import { ScrollToPlugin } from "gsap/all";
-import { useNavigate } from "react-router";
+import { useNavigate,useLocation} from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
+import useWindowWidth from "./usewindowwidth";
 // import SmallNavbar from "./SmallNavbar";
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -62,7 +63,8 @@ const faqHeadRef = useRef(null);
 const faqParaRef = useRef(null);
 const faqItemsRef = useRef([]);
 const aboutEntryRef = useRef(null);
-// const location = useLocation();
+const location = useLocation();
+const width=useWindowWidth()
 // const isMobile = ScrollTrigger.isTouch === 1 || window.innerWidth < 768;
 
 ScrollTrigger.config({
@@ -77,339 +79,343 @@ ScrollTrigger.config({
 
 const navigate = useNavigate()
 
-// useGSAP(() => {
-//   if (!location.state?.scrollTo) return;
+useGSAP(() => {
+  if (!location.state?.scrollTo) return;
 
-//   const map = {
-//     howWeWork: page6Ref,
-//     faq: faqRef,
-//     about: page4Ref,
-//   };
+  const map = {
+    howWeWork: page6Ref,
+    faq: faqRef,
+    about: page4Ref,
+  };
 
-//   const targetRef = map[location.state.scrollTo];
+  const targetRef = map[location.state.scrollTo];
 
-//   if (!targetRef?.current) return;
+  if (!targetRef?.current) return;
 
-//   gsap.to(window, {
-//     scrollTo: {
-//       y: targetRef.current,
-//       offsetY: 90, // navbar height
-//     },
-//     duration: 1.4,
-//     ease: "power3.out",
-//   });
-// }, [location.state]);
+  gsap.to(window, {
+    scrollTo: {
+      y: targetRef.current,
+      offsetY: 90, // navbar height
+    },
+    duration: 1.4,
+    ease: "power3.out",
+  });
+}, [location.state]);
 
-// useGSAP(() => {
-//   if (!location.state?.scrollTo) return;
+useGSAP(() => {
+  if (!location.state?.scrollTo) return;
 
-//   const map = {
-//     home: mainHeadRef,
-//     about: page4Ref,
-//     howWeWork: page6Ref,
-//     faq: faqRef,
-//   };
+  const map = {
+    home: mainHeadRef,
+    about: page4Ref,
+    howWeWork: page6Ref,
+    faq: faqRef,
+  };
 
-//   const targetRef = map[location.state.scrollTo];
-//   if (!targetRef?.current) return;
+  const targetRef = map[location.state.scrollTo];
+  if (!targetRef?.current) return;
 
-//   gsap.to(window, {
-//     scrollTo: {
-//       y: targetRef.current,
-//       offsetY: 90,
-//     },
-//     duration: 1.4,
-//     ease: "power3.out",
-//   });
-// }, [location.state]);
-
-
-
-// useGSAP(() => {
-//   const tl = gsap.timeline({
-//     scrollTrigger: {
-//       trigger: page3Ref.current,
-//       start: "top top",
-//       toggleActions: "play play play reverse",
-//     },
-//   });
-
-//   // shrink navbar (CENTER STAYS FIXED)
-//   tl.to(navbarRef.current, {
-//     width:"100%",
-//     gap:"20px",
-//     duration: 0.45,
-//     ease: "power2.out",
-//   });
-
-//   // logo fade + slide
-//   tl.to(
-//     logRef.current,
-//     {
-//       opacity: 0,
-//       display:"none",
-//       x: -24,
-//       duration: 0.25,
-//       ease: "power2.out",
-//     },
-//     "<"
-//   );
-
-//   // button text out
-//   tl.to(
-//     btnTextRef.current,
-//     {
-//       opacity: 0,
-//       width: 0,
-//       marginRight: 0,
-//       duration: 0.25,
-//       ease: "power2.out",
-//     },
-//     "<"
-//   );
-
-//   // arrow pop in
-//   tl.to(
-//     btnIconRef.current,
-//     {
-//       opacity: 1,
-//       scale: 1,
-//       duration: 0.3,
-//       ease: "back.out(1.6)",
-//     },
-//     "<"
-//   );
-// }, []);
+  gsap.to(window, {
+    scrollTo: {
+      y: targetRef.current,
+      offsetY: 90,
+    },
+    duration: 1.4,
+    ease: "power3.out",
+  });
+}, [location.state]);
 
 
 
+useGSAP(() => {
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: page3Ref.current,
+      start: "top top",
+      toggleActions: "play play play reverse",
+    },
+  });
 
+ const isMobile = width <= 800;
 
-// useGSAP(() => {
-//   const tl = gsap.timeline();
+  tl.to(navbarRef.current, {
+    width: isMobile ? "50%" : 440,   // 👈 fixed
+    borderRadius: isMobile ? "8px" : "8px",
+    top: isMobile ? "10px" : "10px",
+    justifyContent:"flex-end",
+    gap: "20px",
+    duration: 0.45,
+    ease: "power2.out",
+  });
 
-//   // tl.from(navbarRef.current, {
-//   //   opacity: 0,
-//   //   y: 50,
-//   //   duration: 1,
-//   //   ease: "power3.out",
-//   // })
-//     tl.from(mainHeadRef.current.children, {
-//       opacity: 0,
-//       y: 50,
-//       duration: 1,
-//       stagger: 0.15,
-//       ease: "power3.out",
-//     })
-//     .from(
-//       paraRef.current.children,
-//       {
-//         opacity: 0,
-//         y: 40,
-//         duration: 0.8,
-//         stagger: 0.25,
-//         ease: "power3.out",
-//       },
-//       "-=0.4"
-//     )
-//     .from(
-//       buttonsRef.current.children,
-//       {
-//         opacity: 0,
-//         y: 30,
-//         duration: 0.8,
-//         stagger: 0.25,
-//         ease: "power3.out",
-//       },
-//       "-=0.3"
-//     );
-// }, []);
+  // logo fade + slide
+  tl.to(
+    logRef.current,
+    {
+      opacity: 0,
+      display:"none",
+      x: -24,
+      duration: 0.25,
+      ease: "power2.out",
+    },
+    "<"
+  );
 
-// useGSAP(() => {
-//   const slider = logoRef.current;
-//   const totalWidth = slider.scrollWidth / 2;
+  // button text out
+  tl.to(
+    btnTextRef.current,
+    {
+      opacity: 0,
+      width: 0,
+      marginRight: 0,
+      duration: 0.25,
+      ease: "power2.out",
+    },
+    "<"
+  );
 
-//   const marqueeTween = gsap.to(slider, {
-//     x: -totalWidth,
-//     duration: 25,
-//     ease: "linear",
-//     repeat: -1,
-//   });
-
-//   // Hover = slow down
-//   slider.addEventListener("mouseenter", () => {
-//     gsap.to(marqueeTween, {
-//       timeScale: 2, // slow speed
-//       duration: 3,
-//       ease: "power2.out",
-//     });
-//   });
-
-//   // Leave = normal speed
-//   slider.addEventListener("mouseleave", () => {
-//     gsap.to(marqueeTween, {
-//       timeScale: 1,
-//       duration: 0.4,
-//       ease: "power2.out",
-//     });
-//   });
-
-// }, []);
-
-// useGSAP(() => {
-//   const tl = gsap.timeline({
-//     scrollTrigger: {
-//       trigger: page2Ref.current,
-//       start: "top 10%",
-//       end: "bottom 100%",
-//       // markers:true,
-//       scrub: 4.8,
-//     },
-//   });
-
-//   // Label
-//   tl.from(page2LabelRef.current, {
-//     opacity: 0,
-//     y: 30,
-//     duration: 0.6,
-//     ease: "power2.out",
-//   })
-
-//   // Heading
-//   .from(page2HeadRef.current, {
-//     opacity: 0,
-//     y: 60,
-//     duration: 0.8,
-//     ease: "power3.out",
-//   }, "+=0.1")
-
-//   // Subhead
-//   .from(page2ParaRef.current.children, {
-//     opacity: 0,
-//     y: 40,
-//     duration: 0.6,
-//     stagger: 0.25,
-//     ease: "power3.out",
-//   }, "+=0.1")
-
-//   // LEFT CARD → from left
-//   .from(cardsRef.current[0], {
-//     opacity: 0,
-//     x: -120,
-//     duration: 0.9,
-//     ease: "power3.out",
-//   }, "+=0.2")
-
-//   // CENTER CARD → from bottom
-//   .from(cardsRef.current[1], {
-//     opacity: 0,
-//     y: 100,
-//     duration: 0.9,
-//     ease: "power3.out",
-//   }, "-=0.6")
-
-//   // RIGHT CARD → from right
-//   .from(cardsRef.current[2], {
-//     opacity: 0,
-//     x: 120,
-//     duration: 0.9,
-//     ease: "power3.out",
-//   }, "-=0.6");
-
-// }, []);
-
-// useGSAP(() => {
-//   const words = page3LinesRef.current;
-
-//   // initial grey
-//   gsap.set(words, {
-//     color: "#424040",
-//   });
-
-//   gsap.to(words, {
-//     color: "#ffffff",
-//     stagger: 0.08,     // word by word
-//     ease: "none",
-//     scrollTrigger: {
-//       trigger: page3Ref.current,
-//       start: "top 80%",   // page3 thoda screen me aaye
-//       end: "bottom 20%",  // page3 nikalte nikalte
-//       scrub: 5,        //  scroll speed = animation speed
-//       pin: false,         //   NO PIN
-//     },
-//   });
-// }, []);
-// useGSAP(() => {
-//   gsap.set(page4LinesRef.current, {
-//     color: "#424040",
-//   });
-
-//   gsap.to(page4LinesRef.current, {
-//     color: "#ffffff",
-//     stagger: 0.08,
-//     ease: "none",
-//     scrollTrigger: {
-//       trigger: page4Ref.current,
-//       start: "top 20%",
-//       end: "+=700",
-//       scrub: 5,
-//       pin: true,
-//       pinSpacing: true,
-//     },
-//   });
-// }, []);
+  // arrow pop in
+  tl.to(
+    btnIconRef.current,
+    {
+      opacity: 1,
+      scale: 1,
+      duration: 0.3,
+      ease: "back.out(1.6)",
+    },
+    "<"
+  );
+}, []);
 
 
 
-// useGSAP(() => {
-//   const tl = gsap.timeline({
-//     scrollTrigger: {
-//       trigger: aboutEntryRef.current,
-//       start: "top 80%",
-//       toggleActions: "play none none reverse",
-//       scrub:5
-//     },
-//   });
 
-//   tl.from(aboutLabelRef.current, {
-//     opacity: 0,
-//     y: 24,
-//     duration: 0.4,
-//     ease: "power2.out",
-//   })
-//     .from(
-//       page4LinesRef.current,
-//       {
-//         opacity: 0,
-//         y: 20,
-//         stagger: 0.03,
-//         duration: 0.5,
-//         ease: "power2.out",
-//       },
-//       "-=0.2"
-//     )
-//     .from(
-//       aboutParaRef.current.children,
-//       {
-//         opacity: 0,
-//         y: 16,
-//         stagger: 0.2,
-//         duration: 0.4,
-//         ease: "power2.out",
-//       },
-//       "-=0.2"
-//     )
-//     .from(
-//       aboutBtnRef.current,
-//       {
-//         opacity: 0,
-//         y: 12,
-//         duration: 0.35,
-//         ease: "power2.out",
-//       },
-//       "-=0.15"
-//     );
-// }, []);
+
+useGSAP(() => {
+  const tl = gsap.timeline();
+
+  // tl.from(navbarRef.current, {
+  //   opacity: 0,
+  //   y: 50,
+  //   duration: 1,
+  //   ease: "power3.out",
+  // })
+    tl.from(mainHeadRef.current.children, {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      stagger: 0.15,
+      ease: "power3.out",
+    })
+    .from(
+      paraRef.current.children,
+      {
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+        stagger: 0.25,
+        ease: "power3.out",
+      },
+      "-=0.4"
+    )
+    .from(
+      buttonsRef.current.children,
+      {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        stagger: 0.25,
+        ease: "power3.out",
+      },
+      "-=0.3"
+    );
+}, []);
+
+useGSAP(() => {
+  const slider = logoRef.current;
+  const totalWidth = slider.scrollWidth / 2;
+
+  const marqueeTween = gsap.to(slider, {
+    x: -totalWidth,
+    duration: 25,
+    ease: "linear",
+    repeat: -1,
+  });
+
+  // Hover = slow down
+  slider.addEventListener("mouseenter", () => {
+    gsap.to(marqueeTween, {
+      timeScale: 2, // slow speed
+      duration: 3,
+      ease: "power2.out",
+    });
+  });
+
+  // Leave = normal speed
+  slider.addEventListener("mouseleave", () => {
+    gsap.to(marqueeTween, {
+      timeScale: 1,
+      duration: 0.4,
+      ease: "power2.out",
+    });
+  });
+
+}, []);
+
+useGSAP(() => {
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: page2Ref.current,
+      start: "top 10%",
+      end: "bottom 100%",
+      // markers:true,
+      scrub: 4.8,
+    },
+  });
+
+  // Label
+  tl.from(page2LabelRef.current, {
+    opacity: 0,
+    y: 30,
+    duration: 0.6,
+    ease: "power2.out",
+  })
+
+  // Heading
+  .from(page2HeadRef.current, {
+    opacity: 0,
+    y: 60,
+    duration: 0.8,
+    ease: "power3.out",
+  }, "+=0.1")
+
+  // Subhead
+  .from(page2ParaRef.current.children, {
+    opacity: 0,
+    y: 40,
+    duration: 0.6,
+    stagger: 0.25,
+    ease: "power3.out",
+  }, "+=0.1")
+
+  // LEFT CARD → from left
+  .from(cardsRef.current[0], {
+    opacity: 0,
+    x: -120,
+    duration: 0.9,
+    ease: "power3.out",
+  }, "+=0.2")
+
+  // CENTER CARD → from bottom
+  .from(cardsRef.current[1], {
+    opacity: 0,
+    y: 100,
+    duration: 0.9,
+    ease: "power3.out",
+  }, "-=0.6")
+
+  // RIGHT CARD → from right
+  .from(cardsRef.current[2], {
+    opacity: 0,
+    x: 120,
+    duration: 0.9,
+    ease: "power3.out",
+  }, "-=0.6");
+
+}, []);
+
+useGSAP(() => {
+  const words = page3LinesRef.current;
+
+  // initial grey
+  gsap.set(words, {
+    color: "#424040",
+  });
+
+  gsap.to(words, {
+    color: "#ffffff",
+    stagger: 0.08,     // word by word
+    ease: "none",
+    scrollTrigger: {
+      trigger: page3Ref.current,
+      start: "top 80%",   // page3 thoda screen me aaye
+      end: "bottom 20%",  // page3 nikalte nikalte
+      scrub: 5,        //  scroll speed = animation speed
+      pin: false,         //   NO PIN
+    },
+  });
+}, []);
+useGSAP(() => {
+  gsap.set(page4LinesRef.current, {
+    color: "#424040",
+  });
+
+  gsap.to(page4LinesRef.current, {
+    color: "#ffffff",
+    stagger: 0.08,
+    ease: "none",
+    scrollTrigger: {
+      trigger: page4Ref.current,
+      start: "top 20%",
+      end: "+=700",
+      scrub: 5,
+      pin: true,
+      pinSpacing: true,
+    },
+  });
+}, []);
+
+
+
+useGSAP(() => {
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: aboutEntryRef.current,
+      start: "top 80%",
+      toggleActions: "play none none reverse",
+      scrub:5
+    },
+  });
+
+  tl.from(aboutLabelRef.current, {
+    opacity: 0,
+    y: 24,
+    duration: 0.4,
+    ease: "power2.out",
+  })
+    .from(
+      page4LinesRef.current,
+      {
+        opacity: 0,
+        y: 20,
+        stagger: 0.03,
+        duration: 0.5,
+        ease: "power2.out",
+      },
+      "-=0.2"
+    )
+    .from(
+      aboutParaRef.current.children,
+      {
+        opacity: 0,
+        y: 16,
+        stagger: 0.2,
+        duration: 0.4,
+        ease: "power2.out",
+      },
+      "-=0.2"
+    )
+    .from(
+      aboutBtnRef.current,
+      {
+        opacity: 0,
+        y: 12,
+        duration: 0.35,
+        ease: "power2.out",
+      },
+      "-=0.15"
+    );
+}, []);
 
 const marqueeRef = useRef(null);
 
@@ -432,289 +438,289 @@ useGSAP(() => {
 
 
 
-// useGSAP(() => {
-//   const tl = gsap.timeline({
-//     scrollTrigger: {
-//       trigger: boldSectionRef.current,
-//       start: "top 75%",
-//       toggleActions: "play none none reverse",
-//       scrub:5
-//     },
-//   });
+useGSAP(() => {
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: boldSectionRef.current,
+      start: "top 75%",
+      toggleActions: "play none none reverse",
+      scrub:5
+    },
+  });
 
-//   tl.from(boldHeadRef.current, {
-//     opacity: 0,
-//     y: 50,
-//     duration: 0.7,
-//     ease: "power3.out",
-//   })
-//   .from(
-//     boldSpanRef.current,
-//     {
-//       opacity: 0,
-//       y: 40,
-//       duration: 0.6,
-//       ease: "power3.out",
-//     },
-//     "-=0.3"
-//   );
-// }, []);
-
-
-// useGSAP(() => {
-//   const items = imageTextRefs.current;
-//   const total = items.length;
-
-//   // hide images initially
-//   gsap.set(items, { autoAlpha: 0 });
-
-//   const tl = gsap.timeline({
-//     scrollTrigger: {
-//       trigger: page5Ref.current,
-//       start: "top top",
-//       end: `+=${total * 120}%`,
-//       scrub:5,
-//       pin: true,
-//       pinSpacing: true,
-//     },
-//   });
-
-//   //   Page5 label
-//   tl.from(page5FirstRef.current, {
-//     opacity: 0,
-//     y: 40,
-//     duration: 0.5,
-//     ease: "power3.out",
-//   });
-
-//   //   Page5 paragraph
-//   tl.from(
-//     page5Ref.current.querySelector(`.${styles.page5para}`),
-//     {
-//       opacity: 0,
-//       y: 40,
-//       duration: 0.6,
-//       ease: "power3.out",
-//     },
-//     "-=0.2"
-//   );
-
-//   //   Image + text sequence
-//   items.forEach((item, i) => {
-//     const text = item.querySelector(`.${styles.imagetext}`);
-//     const image = item.querySelector(`.${styles.image}`);
-
-//     tl.to(item, { autoAlpha: 1, duration: 0.1 })
-
-//       .from(text, {
-//         x: 80,
-//         opacity: 0,
-//         duration: 0.5,
-//         ease: "power3.out",
-//       })
-
-//       .from(
-//         image,
-//         {
-//           x: 80,
-//           opacity: 0,
-//           duration: 0.5,
-//           ease: "power3.out",
-//         },
-//         "-=0.4"
-//       )
-
-//       //  hold frame
-//       .to({}, { duration: 0.8 })
-
-//       // fade out
-//       .to(item, { autoAlpha: 0, duration: 0.3 });
-//   });
-//    ScrollTrigger.refresh();
-// }, []);
+  tl.from(boldHeadRef.current, {
+    opacity: 0,
+    y: 50,
+    duration: 0.7,
+    ease: "power3.out",
+  })
+  .from(
+    boldSpanRef.current,
+    {
+      opacity: 0,
+      y: 40,
+      duration: 0.6,
+      ease: "power3.out",
+    },
+    "-=0.3"
+  );
+}, []);
 
 
-// useGSAP(() => {
-//   const items = image1TextRefs.current;
-//   const total = items.length;
+useGSAP(() => {
+  const items = imageTextRefs.current;
+  const total = items.length;
 
-//   gsap.set(items, { autoAlpha: 0 });
+  // hide images initially
+  gsap.set(items, { autoAlpha: 0 });
 
-//   const tl = gsap.timeline({
-//     scrollTrigger: {
-//       trigger: page6Ref.current,
-//       start: "top top",
-//       end: `+=${total * 120}%`,
-//       scrub:5,
-//       pin: true,
-//       pinSpacing: true,
-//     },
-//   });
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: page5Ref.current,
+      start: "top top",
+      end: `+=${total * 120}%`,
+      scrub:5,
+      pin: true,
+      pinSpacing: true,
+    },
+  });
 
-//   //   Page6 label
-//   tl.from(page6FirstRef.current, {
-//     opacity: 0,
-//     y: 40,
-//     duration: 0.5,
-//     ease: "power3.out",
-//   });
+  //   Page5 label
+  tl.from(page5FirstRef.current, {
+    opacity: 0,
+    y: 40,
+    duration: 0.5,
+    ease: "power3.out",
+  });
 
-//   //   Page6 paragraph
-//   tl.from(
-//     page6Ref.current.querySelector(`.${styles.page5para}`),
-//     {
-//       opacity: 0,
-//       y: 40,
-//       duration: 0.6,
-//       ease: "power3.out",
-//     },
-//     "-=0.2"
-//   );
+  //   Page5 paragraph
+  tl.from(
+    page5Ref.current.querySelector(`.${styles.page5para}`),
+    {
+      opacity: 0,
+      y: 40,
+      duration: 0.6,
+      ease: "power3.out",
+    },
+    "-=0.2"
+  );
 
-//   //   Image + text sequence
-//   items.forEach((item, i) => {
-//     const text = item.querySelector(`.${styles.imagetext}`);
-//     const image = item.querySelector(`.${styles.image}`);
+  //   Image + text sequence
+  items.forEach((item, i) => {
+    const text = item.querySelector(`.${styles.imagetext}`);
+    const image = item.querySelector(`.${styles.image}`);
 
-//     tl.to(item, { autoAlpha: 1, duration: 0.1 })
+    tl.to(item, { autoAlpha: 1, duration: 0.1 })
 
-//       .from(text, {
-//         x: -80,
-//         opacity: 0,
-//         duration: 0.5,
-//         ease: "power3.out",
-//       })
+      .from(text, {
+        x: 80,
+        opacity: 0,
+        duration: 0.5,
+        ease: "power3.out",
+      })
 
-//       .from(
-//         image,
-//         {
-//           x: -80,
-//           opacity: 0,
-//           duration: 0.5,
-//           ease: "power3.out",
-//         },
-//         "-=0.4"
-//       )
+      .from(
+        image,
+        {
+          x: 80,
+          opacity: 0,
+          duration: 0.5,
+          ease: "power3.out",
+        },
+        "-=0.4"
+      )
 
-//       .to(
-//         inner1LineRef.current,
-//         {
-//           width: `${((i + 1) / total) * 100}%`,
-//           duration: 0.4,
-//           overwrite: true,
-//         },
-//         "-=0.2"
-//       )
+      //  hold frame
+      .to({}, { duration: 0.8 })
 
-//       .to({}, { duration: 0.7 })
-//       .to(item, { autoAlpha: 0, duration: 0.25 });
-//   });
-// }, []);
-// useGSAP(() => {
-//   const tl = gsap.timeline({
-//     scrollTrigger: {
-//       trigger: outcomesRef.current,
-//       start: "top 70%",
-//       end: "bottom 60%",
-//       scrub: 5,
-//     },
-//   });
+      // fade out
+      .to(item, { autoAlpha: 0, duration: 0.3 });
+  });
+   ScrollTrigger.refresh();
+}, []);
 
-//   //   Label
-//   tl.from(outcomesLabelRef.current, {
-//     opacity: 0,
-//     y: 30,
-//     duration: 0.6,
-//     ease: "power3.out",
-//   })
 
-//   //   Heading
-//   .from(outcomesHeadRef.current, {
-//     opacity: 0,
-//     y: 60,
-//     duration: 0.8,
-//     ease: "power3.out",
-//   }, "+=0.1")
+useGSAP(() => {
+  const items = image1TextRefs.current;
+  const total = items.length;
 
-//   //   Subheading
-//   .from(outcomesParaRef.current.children, {
-//     opacity: 0,
-//     y: 40,
-//     duration: 0.6,
-//     stagger: 0.2,
-//     ease: "power3.out",
-//   }, "+=0.1")
+  gsap.set(items, { autoAlpha: 0 });
 
-//   //   LEFT CARD
-//   .from(outcomeCardsRef.current[0], {
-//     opacity: 0,
-//     x: -120,
-//     duration: 0.9,
-//     ease: "power3.out",
-//   }, "+=0.2")
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: page6Ref.current,
+      start: "top top",
+      end: `+=${total * 120}%`,
+      scrub:5,
+      pin: true,
+      pinSpacing: true,
+    },
+  });
 
-//   //   CENTER CARD
-//   .from(outcomeCardsRef.current[1], {
-//     opacity: 0,
-//     y: 120,
-//     duration: 0.9,
-//     ease: "power3.out",
-//   }, "-=0.6")
+  //   Page6 label
+  tl.from(page6FirstRef.current, {
+    opacity: 0,
+    y: 40,
+    duration: 0.5,
+    ease: "power3.out",
+  });
 
-//   //   RIGHT CARD
-//   .from(outcomeCardsRef.current[2], {
-//     opacity: 0,
-//     x: 120,
-//     duration: 0.9,
-//     ease: "power3.out",
-//   }, "-=0.6");
+  //   Page6 paragraph
+  tl.from(
+    page6Ref.current.querySelector(`.${styles.page5para}`),
+    {
+      opacity: 0,
+      y: 40,
+      duration: 0.6,
+      ease: "power3.out",
+    },
+    "-=0.2"
+  );
 
-// }, []);
-// useGSAP(() => {
-//   const tl = gsap.timeline({
-//     scrollTrigger: {
-//       trigger: faqRef.current,
-//       start: "top 75%",
-//       end: "bottom 60%",
-//       scrub: 5,
-//     },
-//   });
+  //   Image + text sequence
+  items.forEach((item, i) => {
+    const text = item.querySelector(`.${styles.imagetext}`);
+    const image = item.querySelector(`.${styles.image}`);
 
-//   //   Label
-//   tl.from(faqLabelRef.current, {
-//     opacity: 0,
-//     y: 30,
-//     duration: 0.5,
-//     ease: "power3.out",
-//   })
+    tl.to(item, { autoAlpha: 1, duration: 0.1 })
 
-//   //   Heading
-//   .from(faqHeadRef.current, {
-//     opacity: 0,
-//     y: 60,
-//     duration: 0.7,
-//     ease: "power3.out",
-//   }, "+=0.1")
+      .from(text, {
+        x: -80,
+        opacity: 0,
+        duration: 0.5,
+        ease: "power3.out",
+      })
 
-//   //   Subheading
-//   .from(faqParaRef.current.children, {
-//     opacity: 0,
-//     y: 40,
-//     duration: 0.5,
-//     stagger: 0.2,
-//     ease: "power3.out",
-//   }, "+=0.1")
+      .from(
+        image,
+        {
+          x: -80,
+          opacity: 0,
+          duration: 0.5,
+          ease: "power3.out",
+        },
+        "-=0.4"
+      )
 
-//   // FAQ items (one by one)
-//   .from(faqItemsRef.current, {
-//     opacity: 0,
-//     y: 50,
-//     duration: 0.6,
-//     stagger: 0.15,
-//     ease: "power3.out",
-//   }, "+=0.2");
+      .to(
+        inner1LineRef.current,
+        {
+          width: `${((i + 1) / total) * 100}%`,
+          duration: 0.4,
+          overwrite: true,
+        },
+        "-=0.2"
+      )
 
-// }, []);
+      .to({}, { duration: 0.7 })
+      .to(item, { autoAlpha: 0, duration: 0.25 });
+  });
+}, []);
+useGSAP(() => {
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: outcomesRef.current,
+      start: "top 70%",
+      end: "bottom 60%",
+      scrub: 5,
+    },
+  });
+
+  //   Label
+  tl.from(outcomesLabelRef.current, {
+    opacity: 0,
+    y: 30,
+    duration: 0.6,
+    ease: "power3.out",
+  })
+
+  //   Heading
+  .from(outcomesHeadRef.current, {
+    opacity: 0,
+    y: 60,
+    duration: 0.8,
+    ease: "power3.out",
+  }, "+=0.1")
+
+  //   Subheading
+  .from(outcomesParaRef.current.children, {
+    opacity: 0,
+    y: 40,
+    duration: 0.6,
+    stagger: 0.2,
+    ease: "power3.out",
+  }, "+=0.1")
+
+  //   LEFT CARD
+  .from(outcomeCardsRef.current[0], {
+    opacity: 0,
+    x: -120,
+    duration: 0.9,
+    ease: "power3.out",
+  }, "+=0.2")
+
+  //   CENTER CARD
+  .from(outcomeCardsRef.current[1], {
+    opacity: 0,
+    y: 120,
+    duration: 0.9,
+    ease: "power3.out",
+  }, "-=0.6")
+
+  //   RIGHT CARD
+  .from(outcomeCardsRef.current[2], {
+    opacity: 0,
+    x: 120,
+    duration: 0.9,
+    ease: "power3.out",
+  }, "-=0.6");
+
+}, []);
+useGSAP(() => {
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: faqRef.current,
+      start: "top 75%",
+      end: "bottom 60%",
+      scrub: 5,
+    },
+  });
+
+  //   Label
+  tl.from(faqLabelRef.current, {
+    opacity: 0,
+    y: 30,
+    duration: 0.5,
+    ease: "power3.out",
+  })
+
+  //   Heading
+  .from(faqHeadRef.current, {
+    opacity: 0,
+    y: 60,
+    duration: 0.7,
+    ease: "power3.out",
+  }, "+=0.1")
+
+  //   Subheading
+  .from(faqParaRef.current.children, {
+    opacity: 0,
+    y: 40,
+    duration: 0.5,
+    stagger: 0.2,
+    ease: "power3.out",
+  }, "+=0.1")
+
+  // FAQ items (one by one)
+  .from(faqItemsRef.current, {
+    opacity: 0,
+    y: 50,
+    duration: 0.6,
+    stagger: 0.15,
+    ease: "power3.out",
+  }, "+=0.2");
+
+}, []);
 
 const scrollToPage6 = () => {
   if (!page6Ref.current) return;
@@ -847,7 +853,7 @@ const page4TextLines = [
 
         {/* 3Buttons */}
         <div ref={buttonsRef} className={styles.buttons}>
-          <button className={styles.firstbutt}>Start with clarity</button>
+          <button className={styles.firstbutt} onClick={()=>{navigate("/clarity")}}>Start with clarity</button>
           <button className={styles.secondbutt} onClick={scrollToPagework}>See how it works</button>
         </div>
 
@@ -1263,7 +1269,7 @@ designed to evolve, not to be replaced.</span>
                   navigate("/about")
                   window.scrollTo(0,0);}} style={{ cursor: "pointer" }}>About NoCapCode</li>
                   <li  onClick={scrollToPageabout} style={{ cursor: "pointer" }}>FAQs</li>
-                <li>Start with Clarity</li>
+                <li onClick={()=>{navigate("/clarity")}} style={{ cursor: "pointer" }}>Start with Clarity</li>
             
               </ul>
             </div>
