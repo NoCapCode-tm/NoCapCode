@@ -249,7 +249,7 @@
 
 /* LEFT */
 .left {
-  max-width: 420px;
+  max-width: 100%;
 }
 
 .logo {
@@ -370,5 +370,53 @@
   align-items: flex-start;
   gap:2px;
 }
+@media screen and (max-width: 768px) {
+  
+ .wrapper{
+  padding:0px;
+ }
+ .left{
+  width:100%;
+  max-width: 100%;
+  
+ }
+ .left h1{
+    font-size: 35px;
+ }
+}
+@media screen and (max-width:425px) {
+.contact{
+  padding:1px 10px;
+}
+}
 
 
+/* footer */
+
+@media screen and (max-width:768px) {
+  .col{
+    white-space: nowrap;
+  }
+  .bottom{
+    flex-direction: column;
+    gap:20px;
+    text-align: center;
+  }
+  .footerBox{
+     border: 1px solid rgba(255, 255, 255, 0.27);
+  }
+ 
+}
+@media screen and (max-width:680px){
+  .right{
+    gap:30px;
+  }
+  .top{
+    flex-direction: column;
+  }
+}
+@media screen and (max-width:420px){
+  .footerBox{
+    padding:20px 8px;
+  }
+}

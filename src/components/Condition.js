@@ -80,9 +80,6 @@ const Condition = () => {
   btnIconRef={btnIconRef}
 />
     <section className={styles.wrap}>
-      {/* subtle top bar */}
-      <div className={styles.topBar} />
-
       {/* ghost background heading */}
       <h1 className={`${styles.ghost} ${styles.gradienttext}`}>Welcome to NoCapCode</h1>
 
