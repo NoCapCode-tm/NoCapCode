@@ -339,13 +339,16 @@ useGSAP(() => {
     scrollTrigger: {
       trigger: page3Ref.current,
       start: "top 80%",   // page3 thoda screen me aaye
-      end: "bottom 20%",  // page3 nikalte nikalte
+      end: "bottom 100%",  // page3 nikalte nikalte
       scrub: 5,        //  scroll speed = animation speed
       pin: false,         //   NO PIN
     },
   });
 }, []);
 useGSAP(() => {
+  const isMobile = width <= 800;
+
+  // initial state
   gsap.set(page4LinesRef.current, {
     color: "#424040",
   });
@@ -356,40 +359,43 @@ useGSAP(() => {
     ease: "none",
     scrollTrigger: {
       trigger: page4Ref.current,
-      start: "top 20%",
+      start: "top 50%",
       end: "+=700",
-      scrub: 5,
-      pin: true,
-      pinSpacing: true,
+      scrub: isMobile ? 1 : 5,
+      pin: !isMobile,
+      pinSpacing: !isMobile, // VERY IMPORTANT
+      invalidateOnRefresh: true,
     },
   });
-}, []);
+}, [width]);
 
 
 
 useGSAP(() => {
+  const isMobile = width <= 800;
+
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: aboutEntryRef.current,
-      start: "top 80%",
+      start: "top 85%",
       toggleActions: "play none none reverse",
-      scrub:5
+      scrub: isMobile ? false : 2,   //  KEY FIX
     },
   });
 
   tl.from(aboutLabelRef.current, {
     opacity: 0,
-    y: 24,
-    duration: 0.4,
+    y: 20,
+    duration: 0.35,
     ease: "power2.out",
   })
     .from(
       page4LinesRef.current,
       {
         opacity: 0,
-        y: 20,
-        stagger: 0.03,
-        duration: 0.5,
+        y: 16,
+        stagger: isMobile ? 0.01 : 0.03, //  lighter on mobile
+        duration: 0.4,
         ease: "power2.out",
       },
       "-=0.2"
@@ -398,24 +404,25 @@ useGSAP(() => {
       aboutParaRef.current.children,
       {
         opacity: 0,
-        y: 16,
-        stagger: 0.2,
-        duration: 0.4,
+        y: 14,
+        stagger: isMobile ? 0.08 : 0.2,
+        duration: 0.35,
         ease: "power2.out",
       },
-      "-=0.2"
+      "-=0.15"
     )
     .from(
       aboutBtnRef.current,
       {
         opacity: 0,
-        y: 12,
-        duration: 0.35,
+        y: 10,
+        duration: 0.3,
         ease: "power2.out",
       },
-      "-=0.15"
+      "-=0.1"
     );
-}, []);
+}, [width]);
+
 
 const marqueeRef = useRef(null);
 
@@ -471,7 +478,6 @@ useGSAP(() => {
   const items = imageTextRefs.current;
   const total = items.length;
 
-  // hide images initially
   gsap.set(items, { autoAlpha: 0 });
 
   const tl = gsap.timeline({
@@ -485,7 +491,7 @@ useGSAP(() => {
     },
   });
 
-  //   Page5 label
+  //   Page6 label
   tl.from(page5FirstRef.current, {
     opacity: 0,
     y: 40,
@@ -493,7 +499,7 @@ useGSAP(() => {
     ease: "power3.out",
   });
 
-  //   Page5 paragraph
+  //   Page6 paragraph
   tl.from(
     page5Ref.current.querySelector(`.${styles.page5para}`),
     {
@@ -513,7 +519,7 @@ useGSAP(() => {
     tl.to(item, { autoAlpha: 1, duration: 0.1 })
 
       .from(text, {
-        x: 80,
+        x: -80,
         opacity: 0,
         duration: 0.5,
         ease: "power3.out",
@@ -522,7 +528,7 @@ useGSAP(() => {
       .from(
         image,
         {
-          x: 80,
+          x: -80,
           opacity: 0,
           duration: 0.5,
           ease: "power3.out",
@@ -530,13 +536,20 @@ useGSAP(() => {
         "-=0.4"
       )
 
-      //  hold frame
-      .to({}, { duration: 0.8 })
+      .to(
+        innerLineRef.current,
+        {
+          width: `${((i + 1) / total) * 100}%`,
+          duration: 0.4,
+          overwrite: true,
+        },
+        "-=0.2"
+      )
 
-      // fade out
-      .to(item, { autoAlpha: 0, duration: 0.3 });
+      .to({}, { duration: 0.7 })
+      .to(item, { autoAlpha: 0, duration: 0.25 });
   });
-   ScrollTrigger.refresh();
+   
 }, []);
 
 
