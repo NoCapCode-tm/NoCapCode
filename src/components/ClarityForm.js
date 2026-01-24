@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import { Instagram, Linkedin } from "lucide-react";
 import { useNavigate } from "react-router";
+import useWindowWidth from "./usewindowwidth";
 
 export default function ClarityForm() {
     const navbarRef = useRef(null);
@@ -15,6 +16,7 @@ export default function ClarityForm() {
     const btnIconRef = useRef(null);
     const startRef = useRef(null);
     const navigate=useNavigate()
+    const width = useWindowWidth()
 
     useGSAP(() => {
         const tl = gsap.timeline({
@@ -25,13 +27,17 @@ export default function ClarityForm() {
           },
         });
       
-        // shrink navbar (CENTER STAYS FIXED)
-        tl.to(navbarRef.current, {
-          width:440,
-          gap:"20px",
-          duration: 0.45,
-          ease: "power2.out",
-        });
+        const isMobile = width <= 800;
+
+  tl.to(navbarRef.current, {
+    width: isMobile ? "50%" : 440,   // 👈 fixed
+    borderRadius: isMobile ? "8px" : "8px",
+    top: isMobile ? "10px" : "10px",
+    justifyContent:"flex-end",
+    gap: "20px",
+    duration: 0.45,
+    ease: "power2.out",
+  });
       
         // logo fade + slide
         tl.to(

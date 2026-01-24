@@ -9,6 +9,7 @@ import gsap from "gsap";
 import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
+import useWindowWidth from "./usewindowwidth";
 
 export default function CareersPage() {
     const navigate= useNavigate()
@@ -17,6 +18,7 @@ export default function CareersPage() {
       const btnTextRef = useRef(null);
       const btnIconRef = useRef(null);
       const positionref =useRef(null)
+      const width = useWindowWidth()
 
       useGSAP(() => {
         const tl = gsap.timeline({
@@ -27,13 +29,17 @@ export default function CareersPage() {
           },
         });
       
-        // shrink navbar (CENTER STAYS FIXED)
-        tl.to(navbarRef.current, {
-          width:440,
-          gap:"20px",
-          duration: 0.45,
-          ease: "power2.out",
-        });
+        const isMobile = width <= 800;
+
+  tl.to(navbarRef.current, {
+    width: isMobile ? "50%" : 440,   // 👈 fixed
+    borderRadius: isMobile ? "8px" : "8px",
+    top: isMobile ? "10px" : "10px",
+    justifyContent:"flex-end",
+    gap: "20px",
+    duration: 0.45,
+    ease: "power2.out",
+  });
       
         // logo fade + slide
         tl.to(

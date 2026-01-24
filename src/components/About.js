@@ -9,6 +9,7 @@ import gsap from 'gsap';
 import { useNavigate } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
+import useWindowWidth from './usewindowwidth';
 gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
@@ -66,6 +67,7 @@ const navbarRef = useRef(null);
       const logRef = useRef(null);
       const btnTextRef = useRef(null);
       const btnIconRef = useRef(null);
+      const width = useWindowWidth()
       
 
 
@@ -416,12 +418,16 @@ useGSAP(() => {
           },
         });
       
+        const isMobile = width <= 800;
         // shrink navbar (CENTER STAYS FIXED)
         tl.to(navbarRef.current, {
-          width:440,
-          gap:"20px",
-          duration: 0.45,
-          ease: "power2.out",
+          width: isMobile ? "50%" : 440,   // 👈 fixed
+    borderRadius: isMobile ? "8px" : "8px",
+    top: isMobile ? "10px" : "10px",
+    justifyContent:"flex-end",
+    gap: "20px",
+    duration: 0.45,
+    ease: "power2.out",
         });
       
         // logo fade + slide

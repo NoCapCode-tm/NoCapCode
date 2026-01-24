@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Navbar from "./Navbar";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import useWindowWidth from "./usewindowwidth";
 
 
 const Contactus = () => {
@@ -15,6 +16,7 @@ const Contactus = () => {
   const btnTextRef = useRef(null);
   const btnIconRef = useRef(null)
   const startRef = useRef(null);
+  const width = useWindowWidth()
   
   useGSAP(() => {
           const tl = gsap.timeline({
@@ -25,13 +27,17 @@ const Contactus = () => {
             },
           });
         
-          // shrink navbar (CENTER STAYS FIXED)
-          tl.to(navbarRef.current, {
-            width:440,
-            gap:"20px",
-            duration: 0.45,
-            ease: "power2.out",
-          });
+          const isMobile = width <= 800;
+
+  tl.to(navbarRef.current, {
+    width: isMobile ? "50%" : 440,   // 👈 fixed
+    borderRadius: isMobile ? "8px" : "8px",
+    top: isMobile ? "10px" : "10px",
+    justifyContent:"flex-end",
+    gap: "20px",
+    duration: 0.45,
+    ease: "power2.out",
+  });
         
           // logo fade + slide
           tl.to(

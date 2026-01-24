@@ -8,6 +8,7 @@ import gsap from "gsap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import { useNavigate } from "react-router";
+import useWindowWidth from "./usewindowwidth";
 
 const Casestudies = () => {
 
@@ -21,6 +22,7 @@ const pillRef = useRef(null);
 const headingRef = useRef(null);
 const subRef = useRef(null);
 const cardsRef = useRef([]);
+const width=useWindowWidth()
 
 
 // const navigate = useNavigate()
@@ -218,15 +220,17 @@ useGSAP(() => {
             toggleActions: "play play play reverse",
           },
         });
-      
-        // shrink navbar (CENTER STAYS FIXED)
-        tl.to(navbarRef.current, {
-          width:440,
-          gap:"20px",
-          duration: 0.45,
-          ease: "power2.out",
-        });
-      
+      const isMobile = width <= 800;
+
+  tl.to(navbarRef.current, {
+    width: isMobile ? "50%" : 440,   // 👈 fixed
+    borderRadius: isMobile ? "8px" : "8px",
+    top: isMobile ? "10px" : "10px",
+    justifyContent:"flex-end",
+    gap: "20px",
+    duration: 0.45,
+    ease: "power2.out",
+  });
         // logo fade + slide
         tl.to(
           logRef.current,
