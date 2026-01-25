@@ -1,0 +1,36 @@
+*{
+  padding:0;
+  margin:0;
+  box-sizing: border-box;
+}
+.App{
+  min-height: 200vh;
+  height:auto;
+  width:100vw;
+  padding:10px;
+  background-color:black;
+  overflow: hidden;
+}
+.footerHead {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: "Outfit", sans-serif;
+  font-weight: 300;
+  font-size: clamp(36px, 10vw, 120px);
+  white-space: nowrap;   
+  overflow: hidden;     
+}
+
+.gradienttext {
+  background: linear-gradient(
+    180deg,
+    #282828 42.59%,
+    #000000 79.37%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
