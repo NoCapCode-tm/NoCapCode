@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styles from "../CSS/Contactus.module.css";
 import { Instagram, Linkedin, Mail, MapPin } from "lucide-react";
 import { useNavigate } from "react-router";
@@ -9,6 +9,8 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import useWindowWidth from "./usewindowwidth";
 import { toast } from "react-toastify";
+import emailjs from "@emailjs/browser";
+
 
 
 const Contactus = () => {
@@ -18,6 +20,58 @@ const Contactus = () => {
   const btnIconRef = useRef(null)
   const startRef = useRef(null);
   const width = useWindowWidth()
+  const[name,setname]=useState("Name");
+    const[email,setemail]=useState("Email")
+    const[message,setmessage]=useState("Enter your message")
+
+
+ const handleSubmit = (e) => {
+  e.preventDefault();
+
+  // 🔒 Trim values
+  const trimmedName = name.trim();
+  const trimmedEmail = email.trim();
+  const trimmedMessage = message.trim();
+
+  // ❌ Empty field validation
+  if (!trimmedName || !trimmedEmail || !trimmedMessage) {
+    toast.error("Please fill all fields");
+    return;
+  }
+
+  // ❌ Email format validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(trimmedEmail)) {
+    toast.error("Please enter a valid email address");
+    return;
+  }
+
+  // ✅ Send email
+  emailjs
+    .send(
+      "service_4r3d0ha",
+      "template_heuei0i",
+      {
+        name: trimmedName,
+        email: trimmedEmail,
+        message: trimmedMessage,
+      },
+      "R_SWFGG_XmrW_H6yx"
+    )
+    .then(
+      () => {
+        toast.success("Form submitted successfully");
+        setname("Name");
+        setemail("Email");
+        setmessage("Enter your message");
+      },
+      (error) => {
+        console.error("FAILED...", error);
+        toast.error("Failed to send message. Try again later.");
+      }
+    );
+};
+
   
   useGSAP(() => {
           const tl = gsap.timeline({
@@ -113,19 +167,18 @@ const Contactus = () => {
 
         {/* RIGHT FORM */}
         <div className={styles.formCard}>
-          <form>
+          <form onSubmit={handleSubmit}>
             <label>Name</label>
-            <input placeholder="Jane Smith" />
+             <input type="text" placeholder="Steve Harrington" name="name" value={name} onChange={(e)=>{setname(e.target.value)}} onClick={()=>{setname("")}}/>
 
             <label>Email</label>
-            <input placeholder="jane@firm.com" />
+            <input type="text" placeholder="steve@gmail.com" name="email" value={email} onChange={(e)=>{setemail(e.target.value)}} onClick={()=>{setemail("")}}/>
 
             <label>Message</label>
-            <textarea placeholder="Hi, I’m reaching out for..." />
+            <textarea placeholder="Hi, I'm reaching out for..." value={message} name="message" onChange={(e)=>{setmessage(e.target.value)}} onClick={()=>{setmessage("")}} />
 
-            <button  onClick={(e)=>{
-              e.preventDefault()
-              toast.success("Form Submitted Successfully")}}>Submit</button>
+            <button type="submit">Submit</button>
+
           </form>
         </div>
       </div>

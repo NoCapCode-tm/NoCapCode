@@ -307,7 +307,7 @@ const navbarRef = useRef(null);
           <div key={item.id} className={styles.caseCard} ref={(el) => (cardsRef.current[i] = el)} >
             <div className={styles.caseImage} >
               <img src={item.image} alt={item.title} />
-              <span className={styles.caseArrow}>↗</span>
+              <span className={styles.caseArrow} onClick={()=>{navigate("/404")}} style={{cursor:"pointer"}}>↗</span>
             </div>
 
             <div className={styles.caseContent}>
