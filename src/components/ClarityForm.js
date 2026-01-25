@@ -169,7 +169,7 @@ export default function ClarityForm() {
             <div className={styles.socials}>
               <span><a href="https://www.linkedin.com/company/nocapcode"  rel="noreferrer" target="_blank"><Linkedin size={16} color="rgba(190, 190, 190, 1)"/></a></span>
               <span><FontAwesomeIcon icon={faXTwitter} /></span>
-              <span><Instagram size={16} color="rgba(190, 190, 190, 1)"/></span>
+              <span><a href="https://www.instagram.com/nocapcode.cloud" target="_blank" rel="noreferrer"><Instagram size={16} color="rgba(190, 190, 190, 1)" /></a></span>
               
             </div>
 
