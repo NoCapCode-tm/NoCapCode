@@ -24,7 +24,7 @@ const Step2 = () => {
   const fetchUser = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/v1/employee/getuser",
+        "https://atlasbackend-px53.onrender.com/api/v1/employee/getuser",
         { withCredentials: true }
       );
 
@@ -37,7 +37,8 @@ const Step2 = () => {
         // files auto-fill nahi hote (security reason)
       }));
     } catch (err) {
-      console.error("Step2 getuser error:", err);
+       toast.error(" User Unauthorized : Please Login First")
+       navigate("/login")
     }
   };
 
@@ -122,7 +123,7 @@ if (!/^\d{12}$/.test(aadhaarClean)) {
       data.append("collegeid", formData.collegeIdUpload);
 
     await axios.patch(
-      "http://localhost:5000/api/v1/employee/onboarding/2",
+      "https://atlasbackend-px53.onrender.com/api/v1/employee/onboarding/2",
       data,
       {
         withCredentials: true,

@@ -6,6 +6,7 @@ import styles from '../../CSS/OnboardingStep.module.css';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
+import { toast } from 'react-toastify';
 
 const Step4 = () => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const Step4 = () => {
   const fetchUser = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/v1/employee/getuser",
+        "https://atlasbackend-px53.onrender.com/api/v1/employee/getuser",
         { withCredentials: true }
       );
 
@@ -46,7 +47,8 @@ const Step4 = () => {
         reportingManager: u?.managerAssigned|| "",
       });
     } catch (err) {
-      console.error("Step4 getuser error", err);
+       toast.error(" User Unauthorized : Please Login First")
+             navigate("/login")
     }
   };
 

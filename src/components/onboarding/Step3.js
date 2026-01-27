@@ -24,7 +24,7 @@ const Step3 = () => {
     const fetchUser = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/v1/employee/getuser",
+          "https://atlasbackend-px53.onrender.com/api/v1/employee/getuser",
           { withCredentials: true }
         );
 
@@ -39,7 +39,8 @@ const Step3 = () => {
         });
 
       } catch (err) {
-        console.error("Step3 getuser error:", err);
+         toast.error(" User Unauthorized : Please Login First")
+               navigate("/login")
       }
     };
 
@@ -74,7 +75,7 @@ const Step3 = () => {
 
     try {
       await axios.patch(
-        "http://localhost:5000/api/v1/employee/onboarding/3",
+        "https://atlasbackend-px53.onrender.com/api/v1/employee/onboarding/3",
         {
           highestqualification: formData.highestQualification,
           collegename: formData.collegeName,

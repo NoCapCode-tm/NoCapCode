@@ -1382,7 +1382,7 @@ designed to evolve, not to be replaced.</span>
 
     </div>
     <div className={styles.faq} ref={faqRef}>
-      {/* 🔵 background glow placeholder */}
+      {/*background glow placeholder*/}
       <div className={styles.faqGlow} />
 
       <span className={styles.page5first} ref={faqLabelRef}>FAQs</span>

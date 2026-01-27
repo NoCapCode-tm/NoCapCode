@@ -29,7 +29,7 @@ const Step1 = () => {
   const fetchUser = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/v1/employee/getuser",
+        "https://atlasbackend-px53.onrender.com/api/v1/employee/getuser",
         { withCredentials: true }
       );
 
@@ -52,7 +52,8 @@ const Step1 = () => {
         emergencyContactName: userData.emergency.contactname || "",
       }));
     } catch (error) {
-      console.error("Get user error:", error);
+        toast.error(" User Unauthorized : Please Login First")
+        navigate("/login")
     }
   };
 
@@ -114,7 +115,7 @@ const Step1 = () => {
       return;
     }
     try {
-      const response = await axios.patch(`http://localhost:5000/api/v1/employee/onboarding/1`,{
+      const response = await axios.patch(`https://atlasbackend-px53.onrender.com/api/v1/employee/onboarding/1`,{
         phone:formData.phoneNumber,
         dob:formData.dateOfBirth,
         gender:formData.gender,
