@@ -79,7 +79,7 @@ const Step7 = () => {
 
   return (
     <>
-    {loading && <LoaderDots text="Signing you in" />}
+    {loading && <LoaderDots text="Please Wait" />}
     <div className={styles.onboardingStep}>
       <div className={styles.container}>
         {/* Progress Indicators */}
@@ -149,7 +149,9 @@ const Step7 = () => {
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Date of Birth:</span>
-                    <span className={styles.infoValue}>{user?.dob || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{user?.dob
+  ? new Date(user.dob).toLocaleDateString("en-IN")
+  : "Not provided"}</span>
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Gender:</span>
@@ -274,7 +276,7 @@ const Step7 = () => {
                     <span className={styles.infoLabel}>Duration:</span>
                     <span className={styles.infoValue}>
                       {user.startedAt && user.endAt 
-                        ? `${user.startedAt} to ${user.endAt }` 
+                        ? `${new Date(user.startedAt).toLocaleDateString("en-In")} to ${new Date(user.endAt).toLocaleDateString("en-In")}` 
                         : 'Not provided'}
                     </span>
                   </div>

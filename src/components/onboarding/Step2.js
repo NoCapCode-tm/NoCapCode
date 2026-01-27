@@ -165,7 +165,7 @@ if (!/^\d{12}$/.test(aadhaarClean)) {
 
   return (
     <>
-    {loading && <LoaderDots text="Signing you in" />}
+    {loading && <LoaderDots text="Please Wait" />}
     <div className={styles.onboardingStep}>
       
       <div className={styles.container}>
