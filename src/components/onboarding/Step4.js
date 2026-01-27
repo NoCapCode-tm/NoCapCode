@@ -7,9 +7,11 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import { toast } from 'react-toastify';
+import LoaderDots from '../LoaderDots';
 
 const Step4 = () => {
   const navigate = useNavigate();
+  const[loading,setLoading]=useState(false)
   const [formData, setFormData] = useState({
     roleDesignation: '',
     department: '',
@@ -25,6 +27,7 @@ const Step4 = () => {
   useEffect(() => {
   const fetchUser = async () => {
     try {
+      setLoading(true)
       const res = await axios.get(
         "https://atlasbackend-px53.onrender.com/api/v1/employee/getuser",
         { withCredentials: true }
@@ -49,6 +52,8 @@ const Step4 = () => {
     } catch (err) {
        toast.error(" User Unauthorized : Please Login First")
              navigate("/login")
+    }finally{
+      setLoading(false)
     }
   };
 
@@ -94,12 +99,9 @@ const Step4 = () => {
   };
 
   const handleNext = () => {
-    if (!validateForm()) {
-      return;
-    }
-    
-    // Save data to localStorage or context
-    localStorage.setItem('onboarding_step4', JSON.stringify(formData));
+    // if (!validateForm()) {
+    //   return;
+    // }
     navigate('/onboarding/step5');
   };
 
@@ -118,6 +120,8 @@ const Step4 = () => {
   ];
 
   return (
+    <>
+    {loading && <LoaderDots text="Signing you in" />}
     <div className={styles.onboardingStep}>
       
       <div className={styles.container}>
@@ -427,6 +431,7 @@ const Step4 = () => {
       </div>
         </footer>
     </div>
+    </>
   );
 };
 

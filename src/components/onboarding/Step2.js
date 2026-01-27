@@ -7,9 +7,11 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
+import LoaderDots from '../LoaderDots';
 
 const Step2 = () => {
   const navigate = useNavigate();
+  const[loading,setLoading]=useState(false)
   const [formData, setFormData] = useState({
     aadhaarNumber: '',
     panCardNumber: '',
@@ -23,6 +25,7 @@ const Step2 = () => {
   useEffect(() => {
   const fetchUser = async () => {
     try {
+      setLoading(true)
       const res = await axios.get(
         "https://atlasbackend-px53.onrender.com/api/v1/employee/getuser",
         { withCredentials: true }
@@ -39,6 +42,8 @@ const Step2 = () => {
     } catch (err) {
        toast.error(" User Unauthorized : Please Login First")
        navigate("/login")
+    }finally{
+      setLoading(false)
     }
   };
 
@@ -103,6 +108,7 @@ if (!/^\d{12}$/.test(aadhaarClean)) {
   const handleNext = async () => {
     if (!validateForm()) return;
   try {
+    setLoading(true)
     const data = new FormData();
 
     // TEXT FIELDS (match backend keys)
@@ -137,6 +143,8 @@ if (!/^\d{12}$/.test(aadhaarClean)) {
     toast.success("Onboarding Step 2 Completed")
   } catch (error) {
     toast.error("Step2 onboarding error:");
+  }finally{
+    setLoading(false)
   }
 };
 
@@ -156,6 +164,8 @@ if (!/^\d{12}$/.test(aadhaarClean)) {
   ];
 
   return (
+    <>
+    {loading && <LoaderDots text="Signing you in" />}
     <div className={styles.onboardingStep}>
       
       <div className={styles.container}>
@@ -395,6 +405,7 @@ if (!/^\d{12}$/.test(aadhaarClean)) {
       </div>
         </footer>
     </div>
+    </>
   );
 };
 

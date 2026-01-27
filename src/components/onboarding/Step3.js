@@ -7,10 +7,11 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
+import LoaderDots from '../LoaderDots';
 
 const Step3 = () => {
   const navigate = useNavigate();
-
+  const[loading,setLoading]=useState(false)
   const [formData, setFormData] = useState({
     highestQualification: '',
     collegeName: '',
@@ -23,6 +24,7 @@ const Step3 = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
+        setLoading(true)
         const res = await axios.get(
           "https://atlasbackend-px53.onrender.com/api/v1/employee/getuser",
           { withCredentials: true }
@@ -41,6 +43,8 @@ const Step3 = () => {
       } catch (err) {
          toast.error(" User Unauthorized : Please Login First")
                navigate("/login")
+      }finally{
+        setLoading(false)
       }
     };
 
@@ -74,6 +78,7 @@ const Step3 = () => {
     if (!validateForm()) return;
 
     try {
+      setLoading(true)
       await axios.patch(
         "https://atlasbackend-px53.onrender.com/api/v1/employee/onboarding/3",
         {
@@ -92,6 +97,8 @@ const Step3 = () => {
     } catch (err) {
       console.error("Step3 save error:", err);
       toast.error("Failed to save education details");
+    }finally{
+      setLoading(false)
     }
   };
 
@@ -110,6 +117,8 @@ const Step3 = () => {
   ];
 
   return (
+    <>
+    {loading && <LoaderDots text="Signing you in" />}
     <div className={styles.onboardingStep}>
       
       <div className={styles.container}>
@@ -305,6 +314,7 @@ const Step3 = () => {
       </div>
         </footer>
     </div>
+    </>
   );
 };
 
