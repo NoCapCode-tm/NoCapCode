@@ -126,7 +126,7 @@ const Step5 = () => {
 
   return (
     <>
-    {loading && <LoaderDots text="Signing you in" />}
+    {loading && <LoaderDots text="Please Wait" />}
     <div className={styles.onboardingStep}>
       <Navbar />
       

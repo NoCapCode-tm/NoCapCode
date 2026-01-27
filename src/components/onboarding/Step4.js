@@ -68,35 +68,35 @@ const Step4 = () => {
     }));
   };
 
-  const validateForm = () => {
-    const requiredFields = [
-      'roleDesignation',
-      'department',
-      'engagementType',
-      'workMode'
-      // 'startDate', 'endDate', 'workingHours', 'reportingManager' are now optional
-    ];
+  // const validateForm = () => {
+  //   const requiredFields = [
+  //     'roleDesignation',
+  //     'department',
+  //     'engagementType',
+  //     'workMode'
+  //     'startDate', 'endDate', 'workingHours', 'reportingManager' are now optional
+  //   ];
 
-    const missingFields = requiredFields.filter(field => !formData[field] || formData[field].trim() === '');
+  //   const missingFields = requiredFields.filter(field => !formData[field] || formData[field].trim() === '');
     
-    if (missingFields.length > 0) {
-      alert(`Please fill in all required fields: ${missingFields.join(', ')}`);
-      return false;
-    }
+  //   if (missingFields.length > 0) {
+  //     alert(`Please fill in all required fields: ${missingFields.join(', ')}`);
+  //     return false;
+  //   }
 
-    // Date validation (only if both dates are provided)
-    if (formData.startDate && formData.endDate) {
-      const startDate = new Date(formData.startDate);
-      const endDate = new Date(formData.endDate);
+  //   // Date validation (only if both dates are provided)
+  //   if (formData.startDate && formData.endDate) {
+  //     const startDate = new Date(formData.startDate);
+  //     const endDate = new Date(formData.endDate);
       
-      if (endDate <= startDate) {
-        alert('End date must be after start date');
-        return false;
-      }
-    }
+  //     if (endDate <= startDate) {
+  //       alert('End date must be after start date');
+  //       return false;
+  //     }
+  //   }
 
-    return true;
-  };
+  //   return true;
+  // };
 
   const handleNext = () => {
     // if (!validateForm()) {
