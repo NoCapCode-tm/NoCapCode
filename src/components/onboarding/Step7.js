@@ -7,16 +7,19 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
+import LoaderDots from '../LoaderDots';
 
 const Step7 = () => {
  const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const[loading,setLoading]=useState(false)
   const [agreed, setAgreed] = useState(false);
 
-  // 🔥 FETCH USER (single source of truth)
+  // FETCH USER (single source of truth)
   useEffect(() => {
     const fetchUser = async () => {
       try {
+        setLoading(true)
         const res = await axios.get(
           "https://atlasbackend-px53.onrender.com/api/v1/employee/getuser",
           { withCredentials: true }
@@ -25,6 +28,8 @@ const Step7 = () => {
       } catch (err) {
          toast.error(" User Unauthorized : Please Login First")
                navigate("/login")
+      }finally{
+        setLoading(false)
       }
     };
 
@@ -38,6 +43,7 @@ const Step7 = () => {
     }
 
     try {
+      setLoading(true)
       await axios.patch(
         "https://atlasbackend-px53.onrender.com/api/v1/employee/onboarding/7",
         {},
@@ -49,6 +55,8 @@ const Step7 = () => {
     } catch (err) {
       console.error("Final submit error:", err);
       toast.error("Failed to submit onboarding");
+    }finally{
+      setLoading(false)
     }
   };
 
@@ -70,6 +78,8 @@ const Step7 = () => {
   ];
 
   return (
+    <>
+    {loading && <LoaderDots text="Signing you in" />}
     <div className={styles.onboardingStep}>
       <div className={styles.container}>
         {/* Progress Indicators */}
@@ -456,6 +466,7 @@ const Step7 = () => {
       </div>
         </footer>
     </div>
+    </>
   );
 };
 

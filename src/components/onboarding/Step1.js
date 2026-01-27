@@ -7,10 +7,12 @@ import axios from 'axios';
 import {toast} from "react-toastify";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
+import LoaderDots from '../LoaderDots';
 
 const Step1 = () => {
   const navigate = useNavigate();
   const[user,setUser] = useState("")
+  const[loading,setLoading]=useState(false)
   const [formData, setFormData] = useState({
   fullName: "",
   personalEmail: "",
@@ -28,6 +30,7 @@ const Step1 = () => {
  useEffect(() => {
   const fetchUser = async () => {
     try {
+      setLoading(true)
       const response = await axios.get(
         "https://atlasbackend-px53.onrender.com/api/v1/employee/getuser",
         { withCredentials: true }
@@ -54,6 +57,8 @@ const Step1 = () => {
     } catch (error) {
         toast.error(" User Unauthorized : Please Login First")
         navigate("/login")
+    }finally{
+      setLoading(false)
     }
   };
 
@@ -115,6 +120,7 @@ const Step1 = () => {
       return;
     }
     try {
+      setLoading(true)
       const response = await axios.patch(`https://atlasbackend-px53.onrender.com/api/v1/employee/onboarding/1`,{
         phone:formData.phoneNumber,
         dob:formData.dateOfBirth,
@@ -129,6 +135,8 @@ const Step1 = () => {
       navigate('/onboarding/step2');
     } catch (error) {
       toast.error("Onboarding step not completed")
+    }finally{
+      setLoading(false)
     }
   };
 
@@ -143,6 +151,8 @@ const Step1 = () => {
   ];
 
   return (
+    <>
+    {loading && <LoaderDots text="Please Wait" />}
     <div className={styles.onboardingStep}>
       
       <div className={styles.container}>
@@ -388,6 +398,7 @@ const Step1 = () => {
       </div>
         </footer>
     </div>
+    </>
   );
 };
 

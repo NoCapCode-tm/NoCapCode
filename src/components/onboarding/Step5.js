@@ -7,9 +7,11 @@ import {toast} from "react-toastify"
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
+import LoaderDots from '../LoaderDots';
 
 const Step5 = () => {
   const navigate = useNavigate();
+  const[loading,setLoading]=useState(false)
 
   const [formData, setFormData] = useState({
     bankAccountHolderName: '',
@@ -20,10 +22,11 @@ const Step5 = () => {
     upiId: ''
   });
 
-  // 🔥 FETCH USER (like Step2 / Step3)
+  // FETCH USER (like Step2 / Step3)
   useEffect(() => {
     const fetchUser = async () => {
       try {
+        setLoading(true)
         const res = await axios.get(
           "https://atlasbackend-px53.onrender.com/api/v1/employee/getuser",
           { withCredentials: true }
@@ -44,6 +47,8 @@ const Step5 = () => {
          toast.error(" User Unauthorized : Please Login First")
                navigate("/login")
 
+      }finally{
+        setLoading(false)
       }
     };
 
@@ -54,7 +59,7 @@ const Step5 = () => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  // ✅ OPTIONAL VALIDATION
+  //  OPTIONAL VALIDATION
   const validateForm = () => {
     if (formData.ifscCode) {
       const ifscRegex = /^[A-Z]{4}0[A-Z0-9]{6}$/;
@@ -74,11 +79,12 @@ const Step5 = () => {
     return true;
   };
 
-  // 🔥 SAVE TO BACKEND
+  //  SAVE TO BACKEND
   const handleNext = async () => {
     if (!validateForm()) return;
 
     try {
+      setLoading(true)
       await axios.patch(
         "https://atlasbackend-px53.onrender.com/api/v1/employee/onboarding/5",
         {
@@ -98,6 +104,8 @@ const Step5 = () => {
     } catch (err) {
       console.error("Step5 save error:", err);
       toast.error("Failed to save bank details");
+    }finally{
+      setLoading(false)
     }
   };
 
@@ -117,6 +125,8 @@ const Step5 = () => {
 
 
   return (
+    <>
+    {loading && <LoaderDots text="Signing you in" />}
     <div className={styles.onboardingStep}>
       <Navbar />
       
@@ -322,6 +332,7 @@ const Step5 = () => {
       </div>
         </footer>
     </div>
+    </>
   );
 };
 

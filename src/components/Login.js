@@ -6,9 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import LoaderDots from './LoaderDots';
 
 const Login = () => {
     const navigate = useNavigate();
+    const[loading,setLoading]=useState(false)
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -25,6 +27,7 @@ const Login = () => {
     const handleSubmit = async(e) => {
         e.preventDefault();
         try {
+            setLoading(true)
             const response = await axios.post("https://atlasbackend-px53.onrender.com/api/v1/employee/login",{
                 userid:formData.email,
                 password:formData.password
@@ -34,6 +37,8 @@ const Login = () => {
             navigate('/onboarding');
         } catch (error) {
             toast.error("Login Unsuccessfull")
+        }finally{
+            setLoading(false)
         }
     };
 
@@ -43,6 +48,9 @@ const Login = () => {
 
     return (
         <>
+       
+  {loading && <LoaderDots text="Signing you in" />}
+
             <div className={styles.header}>
                 <h1 className={styles.title}>
                     Welcome to NoCapCode
