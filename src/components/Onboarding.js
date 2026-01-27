@@ -6,6 +6,7 @@ import styles from '../CSS/Onboarding.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Onboarding = () => {
   const navigate = useNavigate();
@@ -14,15 +15,21 @@ const [completedSteps, setCompletedSteps] = useState([]);
 
 useEffect(() => {
   const fetchUser = async () => {
-    const res = await axios.get(
-      "http://localhost:5000/api/v1/employee/getuser",
-      { withCredentials: true }
-    );
-
-    const userData = res.data.message;
-    console.log(userData)
-    setUser(userData);
-    setCompletedSteps(getCompletedSteps(userData));
+    try {
+      const res = await axios.get(
+        "https://atlasbackend-px53.onrender.com/api/v1/employee/getuser",
+        { withCredentials: true }
+      );
+  
+      const userData = res.data.message;
+      console.log(userData)
+      setUser(userData);
+      setCompletedSteps(getCompletedSteps(userData));
+    } catch (error) {
+       toast.error(" User Unauthorized : Please Login First")
+       navigate("/login")
+      
+    }
   };
 
   fetchUser();

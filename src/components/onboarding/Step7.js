@@ -18,12 +18,13 @@ const Step7 = () => {
     const fetchUser = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/v1/employee/getuser",
+          "https://atlasbackend-px53.onrender.com/api/v1/employee/getuser",
           { withCredentials: true }
         );
         setUser(res.data.message);
       } catch (err) {
-        console.error("Step7 getuser error:", err);
+         toast.error(" User Unauthorized : Please Login First")
+               navigate("/login")
       }
     };
 
@@ -38,7 +39,7 @@ const Step7 = () => {
 
     try {
       await axios.patch(
-        "http://localhost:5000/api/v1/employee/onboarding/7",
+        "https://atlasbackend-px53.onrender.com/api/v1/employee/onboarding/7",
         {},
         { withCredentials: true }
       );

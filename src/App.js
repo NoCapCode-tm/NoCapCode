@@ -85,7 +85,7 @@ export default function App() {
     <HashRouter>
       <AppWrapper />
     </HashRouter>
-     <ToastContainer  theme="dark" position="top-center" autoClose={3000} />
+     <ToastContainer   position="top-center" autoClose={3000} />
      </>
   );
 }

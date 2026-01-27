@@ -24,7 +24,7 @@ const Step6 = () => {
     const fetchUser = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/v1/employee/getuser",
+          "https://atlasbackend-px53.onrender.com/api/v1/employee/getuser",
           { withCredentials: true }
         );
 
@@ -39,7 +39,8 @@ const Step6 = () => {
         });
 
       } catch (err) {
-        console.error("Step6 getuser error:", err);
+         toast.error(" User Unauthorized : Please Login First")
+               navigate("/login")
       }
     };
 
@@ -88,7 +89,7 @@ const Step6 = () => {
 
     try {
       await axios.patch(
-        "http://localhost:5000/api/v1/employee/onboarding/6",
+        "https://atlasbackend-px53.onrender.com/api/v1/employee/onboarding/6",
         {
           operatingsystem:formData.operatingSystem,
           laptoptype: formData.laptopType,

@@ -25,7 +25,7 @@ const Login = () => {
     const handleSubmit = async(e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:5000/api/v1/employee/login",{
+            const response = await axios.post("https://atlasbackend-px53.onrender.com/api/v1/employee/login",{
                 userid:formData.email,
                 password:formData.password
             },{withCredentials:true})
@@ -33,7 +33,7 @@ const Login = () => {
             toast.success("Employee Loginned Successfully")
             navigate('/onboarding');
         } catch (error) {
-            toast.error("Login Successfull")
+            toast.error("Login Unsuccessfull")
         }
     };
 
