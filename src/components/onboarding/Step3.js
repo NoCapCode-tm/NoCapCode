@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, Mail, Phone, Users, MapPin, AlertCircle, GraduationCap } from 'lucide-react';
+import { User, Mail, Phone, Users, MapPin, AlertCircle, GraduationCap, Linkedin, Instagram } from 'lucide-react';
 import Navbar from '../Navbar';
 import styles from '../../CSS/OnboardingStep.module.css';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
 
 const Step3 = () => {
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     highestQualification: '',
     collegeName: '',
@@ -14,48 +19,79 @@ const Step3 = () => {
     expectedGraduation: ''
   });
 
-  // Load saved data on component mount
+  // FETCH USER (same as Step2)
   useEffect(() => {
-    const savedData = localStorage.getItem('onboarding_step3');
-    if (savedData) {
-      setFormData(JSON.parse(savedData));
-    }
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:5000/api/v1/employee/getuser",
+          { withCredentials: true }
+        );
+
+        const q = res.data.message?.Qualificationdetails;
+
+        setFormData({
+          highestQualification: q?.highestqualification || '',
+          collegeName: q?.collegename || '',
+          courseName: q?.coursename || '',
+          currentYear: q?.year || '',
+          expectedGraduation: q?.expectedgraduation || ''
+        });
+
+      } catch (err) {
+        console.error("Step3 getuser error:", err);
+      }
+    };
+
+    fetchUser();
   }, []);
 
   const handleInputChange = (field, value) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }));
+    setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  // VALIDATION (safe trim)
   const validateForm = () => {
-    const requiredFields = [
+    const required = [
       'highestQualification',
       'collegeName',
       'courseName',
       'currentYear'
-      // 'expectedGraduation' is now optional
     ];
 
-    const missingFields = requiredFields.filter(field => !formData[field] || formData[field].trim() === '');
-    
-    if (missingFields.length > 0) {
-      alert(`Please fill in all required fields: ${missingFields.join(', ')}`);
-      return false;
+    for (let field of required) {
+      if (!String(formData[field] || '').trim()) {
+        toast.error("Please fill all required fields");
+        return false;
+      }
     }
-
     return true;
   };
 
-  const handleNext = () => {
-    if (!validateForm()) {
-      return;
+  // SAVE TO BACKEND
+  const handleNext = async () => {
+    if (!validateForm()) return;
+
+    try {
+      await axios.patch(
+        "http://localhost:5000/api/v1/employee/onboarding/3",
+        {
+          highestqualification: formData.highestQualification,
+          collegename: formData.collegeName,
+          coursename: formData.courseName,
+          year: formData.currentYear,
+          expectedgraduation: formData.expectedGraduation
+        },
+        { withCredentials: true }
+      );
+
+      toast.success("Onboarding Step 3 Completed");
+      navigate('/onboarding/step4');
+
+    } catch (err) {
+      console.error("Step3 save error:", err);
+      toast.error("Failed to save education details");
     }
-    
-    // Save data to localStorage or context
-    localStorage.setItem('onboarding_step3', JSON.stringify(formData));
-    navigate('/onboarding/step4');
   };
 
   const handlePrevious = () => {
@@ -74,7 +110,6 @@ const Step3 = () => {
 
   return (
     <div className={styles.onboardingStep}>
-      <Navbar />
       
       <div className={styles.container}>
         {/* Progress Indicators */}
@@ -213,29 +248,61 @@ const Step3 = () => {
       </div>
 
       {/* Footer - Same as onboarding page */}
-      <footer className={styles.footerWrap}>
-        <div className={styles.footerScene}>
-          <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
-        </div>
-        <div className={styles.footerBox}>
-          <div className={styles.top}>
-            <div className={styles.left}>
-              <h2 className={styles.logo}>NoCapCode™</h2>
-              <p className={styles.tagline}>No cap. Built like it's ours.</p>
+       <footer className={styles.footerWrap}>
+       <div className={styles.footerScene}>
+        <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
+       </div>
+      <div className={styles.mirrorOverlay}/>
+      <div className={styles.footerBox}>
+    
+        <div className={styles.top}>
+          
+          <div className={styles.left}>
+            <h2 className={styles.logo}>NoCapCode™</h2>
+            <p className={styles.tagline}>No cap. Built like it's ours.</p>
+            <p className={styles.tagline}>We build software systems for teams who care about clarity, ownership, and longevity.</p>
+            <div className={styles.socials}>
+              <span><a href="https://www.linkedin.com/company/nocapcode"  rel="noreferrer" target="_blank"><Linkedin size={16} color="rgba(190, 190, 190, 1)"/></a></span>
+              <span onClick={()=>{navigate("/404")}}><FontAwesomeIcon icon={faXTwitter} /></span>
+              <span><a href="https://www.instagram.com/nocapcode.cloud" target="_blank" rel="noreferrer"><Instagram size={16} color="rgba(190, 190, 190, 1)"/></a></span>
+              
+              
             </div>
-            <div className={styles.right}>
-              <div className={styles.col}>
-                <h4>Company</h4>
-                <p>Algodones, New Mexico,<br />US, 87001</p>
-              </div>
+
+            <div className={styles.badge}>
+                <img src="/badge.png" alt="/" height="100%" width="100%"/>
             </div>
           </div>
-          <div className={styles.divider} />
-          <div className={styles.bottom}>
-            <p>© 2025-2026 NoCapCode. All rights reserved.</p>
+
+        
+          <div className={styles.right}>
+
+            <div className={styles.col}>
+              <h4>Company</h4>
+              <ul>
+                <li onClick={()=>{
+                  navigate("/careers")}} style={{ cursor: "pointer" }}>Careers</li>
+                <li onClick={()=>{
+                  navigate("/contact")}} style={{ cursor: "pointer" }}>Contact</li>
+              </ul>
+              <p>
+                Algodones, New Mexico,<br />
+                US, 87001
+              </p>
+            </div>
           </div>
         </div>
-      </footer>
+        <div className={styles.divider} />
+        <div className={styles.bottom}>
+          <p>© 2025-2026 NoCapCode. All rights reserved.<br/>Built with restraint, responsibility, and long-term thinking.</p>
+
+          <div className={styles.links}>
+            <span onClick={()=>{navigate("/terms")}} style={{ cursor: "pointer" }}>Terms of Service</span>
+            <span onClick={()=>{navigate("/privacy")}} style={{ cursor: "pointer" }}>Privacy Policy</span>
+          </div>
+        </div>
+      </div>
+        </footer>
     </div>
   );
 };

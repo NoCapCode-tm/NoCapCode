@@ -1230,7 +1230,7 @@ designed to evolve, not to be replaced.</span>
   
   <span>They fail because the wrong things were built with confidence.We help prevent that.</span>
 </p>
-      <button className={styles.aboutbutt}  ref={aboutBtnRef}>Read our thinking</button>
+      <button className={styles.aboutbutt}  ref={aboutBtnRef} onClick={()=>{navigate("/about")}} style={{cursor:"pointer"}}>Read our thinking</button>
          </div>
       
       </div>
@@ -1438,7 +1438,7 @@ designed to evolve, not to be replaced.</span>
             <div className={styles.socials}>
               <span><a href="https://www.linkedin.com/company/nocapcode"  rel="noreferrer" target="_blank"><Linkedin size={16} color="rgba(190, 190, 190, 1)"/></a></span>
               <span onClick={()=>{navigate("/404")}}><FontAwesomeIcon icon={faXTwitter} /></span>
-              <span onClick={()=>{navigate("/404")}}><Instagram size={16} color="rgba(190, 190, 190, 1)"/></span>
+              <span><a href="https://www.instagram.com/nocapcode.cloud" target="_blank" rel="noreferrer"><Instagram size={16} color="rgba(190, 190, 190, 1)"/></a></span>
               
               
             </div>

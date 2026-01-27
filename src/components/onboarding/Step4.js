@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, Mail, Phone, MapPin, AlertCircle, GraduationCap, Briefcase } from 'lucide-react';
-import Navbar from '../Navbar';
+import { User, Mail, Phone, MapPin, AlertCircle, GraduationCap, Briefcase, Linkedin, Instagram } from 'lucide-react';
+
 import styles from '../../CSS/OnboardingStep.module.css';
+import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
 
 const Step4 = () => {
   const navigate = useNavigate();
@@ -19,11 +22,37 @@ const Step4 = () => {
 
   // Load saved data on component mount
   useEffect(() => {
-    const savedData = localStorage.getItem('onboarding_step4');
-    if (savedData) {
-      setFormData(JSON.parse(savedData));
+  const fetchUser = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:5000/api/v1/employee/getuser",
+        { withCredentials: true }
+      );
+
+      const u = res.data.message;
+
+      setFormData({
+        roleDesignation: u?.role || "",
+        department: u?.department || "",
+        engagementType: u?.status || "",
+        workMode: u?.workdetails?.mode || "",
+        startDate: u?.startedAt
+          ? u.startedAt.split("T")[0]
+          : "",
+        endDate: u?.endAt
+          ? u.endAt.split("T")[0]
+          : "",
+        workingHours: u?.workdetails?.workinghour || "",
+        reportingManager: u?.managerAssigned|| "",
+      });
+    } catch (err) {
+      console.error("Step4 getuser error", err);
     }
-  }, []);
+  };
+
+  fetchUser();
+}, []);
+
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -88,7 +117,6 @@ const Step4 = () => {
 
   return (
     <div className={styles.onboardingStep}>
-      <Navbar />
       
       <div className={styles.container}>
         {/* Progress Indicators */}
@@ -139,6 +167,7 @@ const Step4 = () => {
                     placeholder="e.g. Software Developer Intern"
                     value={formData.roleDesignation}
                     onChange={(e) => handleInputChange('roleDesignation', e.target.value)}
+                    disabled
                   />
                 </div>
 
@@ -155,6 +184,7 @@ const Step4 = () => {
                         checked={formData.engagementType === 'paid-intern'}
                         onChange={(e) => handleInputChange('engagementType', e.target.value)}
                         className={styles.radioInput}
+                        disabled
                       />
                       <span className={styles.radioText}>Paid Intern</span>
                     </label>
@@ -166,6 +196,7 @@ const Step4 = () => {
                         checked={formData.engagementType === 'unpaid-intern'}
                         onChange={(e) => handleInputChange('engagementType', e.target.value)}
                         className={styles.radioInput}
+                        disabled
                       />
                       <span className={styles.radioText}>Unpaid Intern</span>
                     </label>
@@ -177,6 +208,7 @@ const Step4 = () => {
                         checked={formData.engagementType === 'full-time-employee'}
                         onChange={(e) => handleInputChange('engagementType', e.target.value)}
                         className={styles.radioInput}
+                        disabled
                       />
                       <span className={styles.radioText}>Full-time Employee</span>
                     </label>
@@ -188,6 +220,7 @@ const Step4 = () => {
                         checked={formData.engagementType === 'contract-consultant'}
                         onChange={(e) => handleInputChange('engagementType', e.target.value)}
                         className={styles.radioInput}
+                        disabled
                       />
                       <span className={styles.radioText}>Contract / Consultant</span>
                     </label>
@@ -207,6 +240,7 @@ const Step4 = () => {
                         checked={formData.workMode === 'remote'}
                         onChange={(e) => handleInputChange('workMode', e.target.value)}
                         className={styles.radioInput}
+                        disabled
                       />
                       <span className={styles.radioText}>Remote</span>
                     </label>
@@ -218,6 +252,7 @@ const Step4 = () => {
                         checked={formData.workMode === 'onsite'}
                         onChange={(e) => handleInputChange('workMode', e.target.value)}
                         className={styles.radioInput}
+                        disabled
                       />
                       <span className={styles.radioText}>Onsite</span>
                     </label>
@@ -229,6 +264,7 @@ const Step4 = () => {
                         checked={formData.workMode === 'hybrid'}
                         onChange={(e) => handleInputChange('workMode', e.target.value)}
                         className={styles.radioInput}
+                        disabled
                       />
                       <span className={styles.radioText}>Hybrid</span>
                     </label>
@@ -245,6 +281,7 @@ const Step4 = () => {
                     placeholder="DD / MM / YYYY"
                     value={formData.startDate}
                     onChange={(e) => handleInputChange('startDate', e.target.value)}
+                    disabled
                   />
                 </div>
 
@@ -258,6 +295,7 @@ const Step4 = () => {
                     placeholder="e.g. MON-FRI | 9:00 PM"
                     value={formData.workingHours}
                     onChange={(e) => handleInputChange('workingHours', e.target.value)}
+                    disabled
                   />
                 </div>
               </div>
@@ -274,6 +312,7 @@ const Step4 = () => {
                     placeholder="Department options: Product, Engineering, Design, Marketing, Sales, Operations, HR, Finance, Other"
                     value={formData.department}
                     onChange={(e) => handleInputChange('department', e.target.value)}
+                    disabled
                   />
                 </div>
 
@@ -287,6 +326,7 @@ const Step4 = () => {
                     placeholder="DD / MM / YYYY"
                     value={formData.endDate}
                     onChange={(e) => handleInputChange('endDate', e.target.value)}
+                    disabled
                   />
                 </div>
 
@@ -300,6 +340,7 @@ const Step4 = () => {
                     placeholder="Manager name"
                     value={formData.reportingManager}
                     onChange={(e) => handleInputChange('reportingManager', e.target.value)}
+                    disabled
                   />
                 </div>
               </div>
@@ -328,29 +369,61 @@ const Step4 = () => {
       </div>
 
       {/* Footer - Same as onboarding page */}
-      <footer className={styles.footerWrap}>
-        <div className={styles.footerScene}>
-          <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
-        </div>
-        <div className={styles.footerBox}>
-          <div className={styles.top}>
-            <div className={styles.left}>
-              <h2 className={styles.logo}>NoCapCode™</h2>
-              <p className={styles.tagline}>No cap. Built like it's ours.</p>
+       <footer className={styles.footerWrap}>
+       <div className={styles.footerScene}>
+        <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
+       </div>
+      <div className={styles.mirrorOverlay}/>
+      <div className={styles.footerBox}>
+    
+        <div className={styles.top}>
+          
+          <div className={styles.left}>
+            <h2 className={styles.logo}>NoCapCode™</h2>
+            <p className={styles.tagline}>No cap. Built like it's ours.</p>
+            <p className={styles.tagline}>We build software systems for teams who care about clarity, ownership, and longevity.</p>
+            <div className={styles.socials}>
+              <span><a href="https://www.linkedin.com/company/nocapcode"  rel="noreferrer" target="_blank"><Linkedin size={16} color="rgba(190, 190, 190, 1)"/></a></span>
+              <span onClick={()=>{navigate("/404")}}><FontAwesomeIcon icon={faXTwitter} /></span>
+              <span><a href="https://www.instagram.com/nocapcode.cloud" target="_blank" rel="noreferrer"><Instagram size={16} color="rgba(190, 190, 190, 1)"/></a></span>
+              
+              
             </div>
-            <div className={styles.right}>
-              <div className={styles.col}>
-                <h4>Company</h4>
-                <p>Algodones, New Mexico,<br />US, 87001</p>
-              </div>
+
+            <div className={styles.badge}>
+                <img src="/badge.png" alt="/" height="100%" width="100%"/>
             </div>
           </div>
-          <div className={styles.divider} />
-          <div className={styles.bottom}>
-            <p>© 2025-2026 NoCapCode. All rights reserved.</p>
+
+        
+          <div className={styles.right}>
+
+            <div className={styles.col}>
+              <h4>Company</h4>
+              <ul>
+                <li onClick={()=>{
+                  navigate("/careers")}} style={{ cursor: "pointer" }}>Careers</li>
+                <li onClick={()=>{
+                  navigate("/contact")}} style={{ cursor: "pointer" }}>Contact</li>
+              </ul>
+              <p>
+                Algodones, New Mexico,<br />
+                US, 87001
+              </p>
+            </div>
           </div>
         </div>
-      </footer>
+        <div className={styles.divider} />
+        <div className={styles.bottom}>
+          <p>© 2025-2026 NoCapCode. All rights reserved.<br/>Built with restraint, responsibility, and long-term thinking.</p>
+
+          <div className={styles.links}>
+            <span onClick={()=>{navigate("/terms")}} style={{ cursor: "pointer" }}>Terms of Service</span>
+            <span onClick={()=>{navigate("/privacy")}} style={{ cursor: "pointer" }}>Privacy Policy</span>
+          </div>
+        </div>
+      </div>
+        </footer>
     </div>
   );
 };

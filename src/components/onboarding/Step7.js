@@ -1,53 +1,62 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, AlertCircle, GraduationCap, Briefcase, CreditCard, Settings, CheckCircle, Edit } from 'lucide-react';
+import { User, AlertCircle, GraduationCap, Briefcase, CreditCard, Settings, CheckCircle, Edit, Linkedin, Instagram } from 'lucide-react';
 import Navbar from '../Navbar';
 import styles from '../../CSS/OnboardingStep.module.css';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
 
 const Step7 = () => {
-  const navigate = useNavigate();
-  const [allData, setAllData] = useState({});
+ const navigate = useNavigate();
+  const [user, setUser] = useState(null);
   const [agreed, setAgreed] = useState(false);
 
+  // 🔥 FETCH USER (single source of truth)
   useEffect(() => {
-    // Load all data from localStorage
-    const step1Data = JSON.parse(localStorage.getItem('onboarding_step1') || '{}');
-    const step2Data = JSON.parse(localStorage.getItem('onboarding_step2') || '{}');
-    const step3Data = JSON.parse(localStorage.getItem('onboarding_step3') || '{}');
-    const step4Data = JSON.parse(localStorage.getItem('onboarding_step4') || '{}');
-    const step5Data = JSON.parse(localStorage.getItem('onboarding_step5') || '{}');
-    const step6Data = JSON.parse(localStorage.getItem('onboarding_step6') || '{}');
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:5000/api/v1/employee/getuser",
+          { withCredentials: true }
+        );
+        setUser(res.data.message);
+      } catch (err) {
+        console.error("Step7 getuser error:", err);
+      }
+    };
 
-    setAllData({
-      step1: step1Data,
-      step2: step2Data,
-      step3: step3Data,
-      step4: step4Data,
-      step5: step5Data,
-      step6: step6Data
-    });
+    fetchUser();
   }, []);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!agreed) {
-      alert('Please agree to the terms and conditions to proceed.');
+      toast.error("Please accept the declaration");
       return;
     }
-    
-    // Save final submission
-    localStorage.setItem('onboarding_completed', JSON.stringify({
-      ...allData,
-      submittedAt: new Date().toISOString(),
-      agreed: true
-    }));
-    
-    // Navigate to completion page
-    navigate('/onboarding/complete');
+
+    try {
+      await axios.patch(
+        "http://localhost:5000/api/v1/employee/onboarding/7",
+        {},
+        { withCredentials: true }
+      );
+
+      toast.success("Onboarding completed successfully 🎉");
+      navigate('/onboarding/complete');
+    } catch (err) {
+      console.error("Final submit error:", err);
+      toast.error("Failed to submit onboarding");
+    }
   };
 
   const handleEdit = (step) => {
     navigate(`/onboarding/step${step}`);
   };
+
+  if (!user) return null;
+
 
   const steps = [
     { id: 1, label: 'Personal Info', active: false },
@@ -61,8 +70,6 @@ const Step7 = () => {
 
   return (
     <div className={styles.onboardingStep}>
-      <Navbar />
-      
       <div className={styles.container}>
         {/* Progress Indicators */}
         <div className={styles.progressContainer}>
@@ -119,27 +126,27 @@ const Step7 = () => {
                 <div className={styles.infoGrid}>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Full Name:</span>
-                    <span className={styles.infoValue}>{allData.step1?.fullName || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{user?.name || 'Not provided'}</span>
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Email:</span>
-                    <span className={styles.infoValue}>{allData.step1?.personalEmail || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{user.email || 'Not provided'}</span>
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Phone:</span>
-                    <span className={styles.infoValue}>{allData.step1?.phoneNumber || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{user?.phone || 'Not provided'}</span>
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Date of Birth:</span>
-                    <span className={styles.infoValue}>{allData.step1?.dateOfBirth || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{user?.dob || 'Not provided'}</span>
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Gender:</span>
-                    <span className={styles.infoValue}>{allData.step1?.gender || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{user?.gender || 'Not provided'}</span>
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Emergency Contact:</span>
-                    <span className={styles.infoValue}>{allData.step1?.emergencyContactName || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{user.emergency.contactnumber || 'Not provided'}</span>
                   </div>
                 </div>
               </div>
@@ -164,18 +171,18 @@ const Step7 = () => {
                 <div className={styles.infoGrid}>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Aadhaar Number:</span>
-                    <span className={styles.infoValue}>{allData.step2?.aadhaarNumber || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{user.documents.aadhar.number || 'Not provided'}</span>
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>PAN Card Number:</span>
-                    <span className={styles.infoValue}>{allData.step2?.panCardNumber || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{user.documents.pan.number || 'Not provided'}</span>
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Documents:</span>
                     <span className={styles.infoValue}>
-                      {allData.step2?.aadhaarUpload ? 'Aadhaar uploaded' : ''} 
-                      {allData.step2?.panCardUpload ? ', PAN uploaded' : ''}
-                      {allData.step2?.collegeIdUpload ? ', College ID uploaded' : ''}
+                      {user.documents.aadhar.image ? 'Aadhaar uploaded' : ''} 
+                      {user.documents.pan.image ? ', PAN uploaded' : ''}
+                      {user.Qualificationdetails.studentid ? ', College ID uploaded' : ''}
                     </span>
                   </div>
                 </div>
@@ -201,19 +208,19 @@ const Step7 = () => {
                 <div className={styles.infoGrid}>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Highest Qualification:</span>
-                    <span className={styles.infoValue}>{allData.step3?.highestQualification || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{user.Qualificationdetails.highestqualification || 'Not provided'}</span>
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>College/University:</span>
-                    <span className={styles.infoValue}>{allData.step3?.collegeName || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{user.Qualificationdetails.collegename || 'Not provided'}</span>
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Course/Program:</span>
-                    <span className={styles.infoValue}>{allData.step3?.courseName || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{user.Qualificationdetails.coursename || 'Not provided'}</span>
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Current Year:</span>
-                    <span className={styles.infoValue}>{allData.step3?.currentYear || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{user.Qualificationdetails.year || 'Not provided'}</span>
                   </div>
                 </div>
               </div>
@@ -238,25 +245,25 @@ const Step7 = () => {
                 <div className={styles.infoGrid}>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Role/Designation:</span>
-                    <span className={styles.infoValue}>{allData.step4?.roleDesignation || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{user?.role || 'Not provided'}</span>
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Department:</span>
-                    <span className={styles.infoValue}>{allData.step4?.department || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{user?.department || 'Not provided'}</span>
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Engagement Type:</span>
-                    <span className={styles.infoValue}>{allData.step4?.engagementType || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{user?.status || 'Not provided'}</span>
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Work Mode:</span>
-                    <span className={styles.infoValue}>{allData.step4?.workMode || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{user?.workdetails?.mode || 'Not provided'}</span>
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Duration:</span>
                     <span className={styles.infoValue}>
-                      {allData.step4?.startDate && allData.step4?.endDate 
-                        ? `${allData.step4.startDate} to ${allData.step4.endDate}` 
+                      {user.startedAt && user.endAt 
+                        ? `${user.startedAt} to ${user.endAt }` 
                         : 'Not provided'}
                     </span>
                   </div>
@@ -283,21 +290,26 @@ const Step7 = () => {
                 <div className={styles.infoGrid}>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Account Holder:</span>
-                    <span className={styles.infoValue}>{allData.step5?.bankAccountHolderName || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{ user.bankdetails?.acholdername || 'Not provided'}</span>
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Bank Name:</span>
-                    <span className={styles.infoValue}>{allData.step5?.bankName || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{ user.bankdetails?.bankname || 'Not provided'}</span>
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Account Number:</span>
-                    <span className={styles.infoValue}>
-                      {allData.step5?.bankAccountNumber ? '****' + allData.step5.bankAccountNumber.slice(-4) : 'Not provided'}
-                    </span>
+                   <span className={styles.infoValue}>
+  {
+    user.bankdetails?.accountno
+      ? '****' + String(user.bankdetails.accountno).slice(-4)
+      : 'Not provided'
+  }
+</span>
+
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>IFSC Code:</span>
-                    <span className={styles.infoValue}>{allData.step5?.ifscCode || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{ user.bankdetails?.ifsc || 'Not provided'}</span>
                   </div>
                 </div>
               </div>
@@ -322,19 +334,19 @@ const Step7 = () => {
                 <div className={styles.infoGrid}>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Laptop Type:</span>
-                    <span className={styles.infoValue}>{allData.step6?.laptopType || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{user.systemdetails.laptoptype || 'Not provided'}</span>
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Operating System:</span>
-                    <span className={styles.infoValue}>{allData.step6?.operatingSystem || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{user.systemdetails.os || 'Not provided'}</span>
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Portfolio:</span>
-                    <span className={styles.infoValue}>{allData.step6?.portfolioLink || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{user.systemdetails.portfolio || 'Not provided'}</span>
                   </div>
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>GitHub:</span>
-                    <span className={styles.infoValue}>{allData.step6?.githubProfile || 'Not provided'}</span>
+                    <span className={styles.infoValue}>{user.systemdetails.github || 'Not provided'}</span>
                   </div>
                 </div>
               </div>
@@ -388,28 +400,60 @@ const Step7 = () => {
 
       {/* Footer - Same as onboarding page */}
       <footer className={styles.footerWrap}>
-        <div className={styles.footerScene}>
-          <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
-        </div>
-        <div className={styles.footerBox}>
-          <div className={styles.top}>
-            <div className={styles.left}>
-              <h2 className={styles.logo}>NoCapCode™</h2>
-              <p className={styles.tagline}>No cap. Built like it's ours.</p>
+       <div className={styles.footerScene}>
+        <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
+       </div>
+      <div className={styles.mirrorOverlay}/>
+      <div className={styles.footerBox}>
+    
+        <div className={styles.top}>
+          
+          <div className={styles.left}>
+            <h2 className={styles.logo}>NoCapCode™</h2>
+            <p className={styles.tagline}>No cap. Built like it's ours.</p>
+            <p className={styles.tagline}>We build software systems for teams who care about clarity, ownership, and longevity.</p>
+            <div className={styles.socials}>
+              <span><a href="https://www.linkedin.com/company/nocapcode"  rel="noreferrer" target="_blank"><Linkedin size={16} color="rgba(190, 190, 190, 1)"/></a></span>
+              <span onClick={()=>{navigate("/404")}}><FontAwesomeIcon icon={faXTwitter} /></span>
+              <span><a href="https://www.instagram.com/nocapcode.cloud" target="_blank" rel="noreferrer"><Instagram size={16} color="rgba(190, 190, 190, 1)"/></a></span>
+              
+              
             </div>
-            <div className={styles.right}>
-              <div className={styles.col}>
-                <h4>Company</h4>
-                <p>Algodones, New Mexico,<br />US, 87001</p>
-              </div>
+
+            <div className={styles.badge}>
+                <img src="/badge.png" alt="/" height="100%" width="100%"/>
             </div>
           </div>
-          <div className={styles.divider} />
-          <div className={styles.bottom}>
-            <p>© 2025-2026 NoCapCode. All rights reserved.</p>
+
+        
+          <div className={styles.right}>
+
+            <div className={styles.col}>
+              <h4>Company</h4>
+              <ul>
+                <li onClick={()=>{
+                  navigate("/careers")}} style={{ cursor: "pointer" }}>Careers</li>
+                <li onClick={()=>{
+                  navigate("/contact")}} style={{ cursor: "pointer" }}>Contact</li>
+              </ul>
+              <p>
+                Algodones, New Mexico,<br />
+                US, 87001
+              </p>
+            </div>
           </div>
         </div>
-      </footer>
+        <div className={styles.divider} />
+        <div className={styles.bottom}>
+          <p>© 2025-2026 NoCapCode. All rights reserved.<br/>Built with restraint, responsibility, and long-term thinking.</p>
+
+          <div className={styles.links}>
+            <span onClick={()=>{navigate("/terms")}} style={{ cursor: "pointer" }}>Terms of Service</span>
+            <span onClick={()=>{navigate("/privacy")}} style={{ cursor: "pointer" }}>Privacy Policy</span>
+          </div>
+        </div>
+      </div>
+        </footer>
     </div>
   );
 };

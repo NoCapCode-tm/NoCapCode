@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, Mail, Phone, Calendar, Users, MapPin, AlertCircle, Upload } from 'lucide-react';
+import { User, Mail, Phone, Calendar, Users, MapPin, AlertCircle, Upload, Linkedin, Instagram } from 'lucide-react';
 import Navbar from '../Navbar';
 import styles from '../../CSS/OnboardingStep.module.css';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
 
 const Step2 = () => {
   const navigate = useNavigate();
@@ -17,12 +21,29 @@ const Step2 = () => {
 
   // Load saved data on component mount
   useEffect(() => {
-    const savedData = localStorage.getItem('onboarding_step2');
-    if (savedData) {
-      const parsed = JSON.parse(savedData);
-      setFormData(parsed);
+  const fetchUser = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:5000/api/v1/employee/getuser",
+        { withCredentials: true }
+      );
+
+      const user = res.data.message;
+
+      setFormData(prev => ({
+        ...prev,
+        aadhaarNumber: user?.documents?.aadhar?.number || "",
+        panCardNumber: user?.documents?.pan?.number || "",
+        // files auto-fill nahi hote (security reason)
+      }));
+    } catch (err) {
+      console.error("Step2 getuser error:", err);
     }
-  }, []);
+  };
+
+  fetchUser();
+}, []);
+
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -39,53 +60,85 @@ const Step2 = () => {
   };
 
   const validateForm = () => {
-    const requiredFields = ['aadhaarNumber']; // PAN Card Number is now optional
-    const requiredFiles = ['aadhaarUpload', 'passportPhoto']; // PAN Card upload and College ID are now optional
+  // required text fields
+  const aadhaar = String(formData.aadhaarNumber || "").trim();
 
-    // Check text fields
-    const missingFields = requiredFields.filter(field => !formData[field] || formData[field].trim() === '');
-    
-    if (missingFields.length > 0) {
-      alert(`Please fill in all required fields: ${missingFields.join(', ')}`);
-      return false;
-    }
+if (!aadhaar) {
+  toast.error("Aadhaar number is required");
+  return false;
+}
 
-    // Check file uploads
-    const missingFiles = requiredFiles.filter(field => !formData[field]);
-    
-    if (missingFiles.length > 0) {
-      alert(`Please upload all required documents: ${missingFiles.join(', ')}`);
-      return false;
-    }
+const aadhaarClean = aadhaar.replace(/\s/g, "");
+if (!/^\d{12}$/.test(aadhaarClean)) {
+  toast.error("Enter valid 12 digit Aadhaar number");
+  return false;
+}
 
-    // Aadhaar number validation (12 digits)
-    const aadhaarRegex = /^\d{4}\s?\d{4}\s?\d{4}$/;
-    if (!aadhaarRegex.test(formData.aadhaarNumber.replace(/\s/g, ''))) {
-      alert('Please enter a valid 12-digit Aadhaar number');
-      return false;
-    }
 
-    // PAN card validation (only if provided)
-    if (formData.panCardNumber && formData.panCardNumber.trim() !== '') {
-      const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
-      if (!panRegex.test(formData.panCardNumber.toUpperCase())) {
-        alert('Please enter a valid PAN card number (format: ABCDE1234F)');
-        return false;
+  // Required files
+  if (!formData.aadhaarUpload) {
+    alert("Aadhaar document upload is required");
+    return false;
+  }
+
+  if (!formData.passportPhoto) {
+    alert("Passport size photo is required");
+    return false;
+  }
+
+  // PAN optional
+  if (
+    formData.panCardNumber &&
+    !/^[A-Z]{5}[0-9]{4}[A-Z]$/.test(formData.panCardNumber.toUpperCase())
+  ) {
+    alert("Invalid PAN number format");
+    return false;
+  }
+
+  return true;
+};
+
+
+  const handleNext = async () => {
+    if (!validateForm()) return;
+  try {
+    const data = new FormData();
+
+    // TEXT FIELDS (match backend keys)
+    data.append("aadharno", formData.aadhaarNumber);
+    data.append("panno", formData.panCardNumber);
+
+    // FILE FIELDS (match multer field names)
+    if (formData.aadhaarUpload)
+      data.append("aadharimage", formData.aadhaarUpload);
+
+    if (formData.panCardUpload)
+      data.append("panimage", formData.panCardUpload);
+
+    if (formData.passportPhoto)
+      data.append("passportimage", formData.passportPhoto);
+
+    if (formData.collegeIdUpload)
+      data.append("collegeid", formData.collegeIdUpload);
+
+    await axios.patch(
+      "http://localhost:5000/api/v1/employee/onboarding/2",
+      data,
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       }
-    }
+    );
 
-    return true;
-  };
+    navigate("/onboarding/step3");
+    toast.success("Onboarding Step 2 Completed")
+  } catch (error) {
+    toast.error("Step2 onboarding error:");
+  }
+};
 
-  const handleNext = () => {
-    if (!validateForm()) {
-      return;
-    }
-    
-    // Save data to localStorage or context
-    localStorage.setItem('onboarding_step2', JSON.stringify(formData));
-    navigate('/onboarding/step3');
-  };
 
   const handlePrevious = () => {
     navigate('/onboarding/step1');
@@ -103,7 +156,6 @@ const Step2 = () => {
 
   return (
     <div className={styles.onboardingStep}>
-      <Navbar />
       
       <div className={styles.container}>
         {/* Progress Indicators */}
@@ -286,29 +338,61 @@ const Step2 = () => {
       </div>
 
       {/* Footer - Same as onboarding page */}
-      <footer className={styles.footerWrap}>
-        <div className={styles.footerScene}>
-          <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
-        </div>
-        <div className={styles.footerBox}>
-          <div className={styles.top}>
-            <div className={styles.left}>
-              <h2 className={styles.logo}>NoCapCode™</h2>
-              <p className={styles.tagline}>No cap. Built like it's ours.</p>
+       <footer className={styles.footerWrap}>
+       <div className={styles.footerScene}>
+        <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
+       </div>
+      <div className={styles.mirrorOverlay}/>
+      <div className={styles.footerBox}>
+    
+        <div className={styles.top}>
+          
+          <div className={styles.left}>
+            <h2 className={styles.logo}>NoCapCode™</h2>
+            <p className={styles.tagline}>No cap. Built like it's ours.</p>
+            <p className={styles.tagline}>We build software systems for teams who care about clarity, ownership, and longevity.</p>
+            <div className={styles.socials}>
+              <span><a href="https://www.linkedin.com/company/nocapcode"  rel="noreferrer" target="_blank"><Linkedin size={16} color="rgba(190, 190, 190, 1)"/></a></span>
+              <span onClick={()=>{navigate("/404")}}><FontAwesomeIcon icon={faXTwitter} /></span>
+              <span><a href="https://www.instagram.com/nocapcode.cloud" target="_blank" rel="noreferrer"><Instagram size={16} color="rgba(190, 190, 190, 1)"/></a></span>
+              
+              
             </div>
-            <div className={styles.right}>
-              <div className={styles.col}>
-                <h4>Company</h4>
-                <p>Algodones, New Mexico,<br />US, 87001</p>
-              </div>
+
+            <div className={styles.badge}>
+                <img src="/badge.png" alt="/" height="100%" width="100%"/>
             </div>
           </div>
-          <div className={styles.divider} />
-          <div className={styles.bottom}>
-            <p>© 2025-2026 NoCapCode. All rights reserved.</p>
+
+        
+          <div className={styles.right}>
+
+            <div className={styles.col}>
+              <h4>Company</h4>
+              <ul>
+                <li onClick={()=>{
+                  navigate("/careers")}} style={{ cursor: "pointer" }}>Careers</li>
+                <li onClick={()=>{
+                  navigate("/contact")}} style={{ cursor: "pointer" }}>Contact</li>
+              </ul>
+              <p>
+                Algodones, New Mexico,<br />
+                US, 87001
+              </p>
+            </div>
           </div>
         </div>
-      </footer>
+        <div className={styles.divider} />
+        <div className={styles.bottom}>
+          <p>© 2025-2026 NoCapCode. All rights reserved.<br/>Built with restraint, responsibility, and long-term thinking.</p>
+
+          <div className={styles.links}>
+            <span onClick={()=>{navigate("/terms")}} style={{ cursor: "pointer" }}>Terms of Service</span>
+            <span onClick={()=>{navigate("/privacy")}} style={{ cursor: "pointer" }}>Privacy Policy</span>
+          </div>
+        </div>
+      </div>
+        </footer>
     </div>
   );
 };

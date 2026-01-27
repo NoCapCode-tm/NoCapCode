@@ -1,30 +1,64 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, Mail, Phone, Calendar, Users, MapPin, AlertCircle } from 'lucide-react';
+import { User, Mail, Phone, Calendar, Users, MapPin, AlertCircle, Linkedin, Instagram } from 'lucide-react';
 import Navbar from '../Navbar';
 import styles from '../../CSS/OnboardingStep.module.css';
+import axios from 'axios';
+import {toast} from "react-toastify";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
 
 const Step1 = () => {
   const navigate = useNavigate();
+  const[user,setUser] = useState("")
   const [formData, setFormData] = useState({
-    fullName: '',
-    personalEmail: '',
-    phoneNumber: '',
-    dateOfBirth: '',
-    permanentAddress: '',
-    communicationAddress: '',
-    gender: '',
-    emergencyContactNumber: '',
-    emergencyContactName: ''
-  });
+  fullName: "",
+  personalEmail: "",
+  phoneNumber: "",
+  dateOfBirth: "",
+  permanentAddress: "",
+  communicationAddress: "",
+  gender: "",
+  emergencyContactNumber: "",
+  emergencyContactName: ""
+});
+
 
   // Load saved data on component mount
-  useEffect(() => {
-    const savedData = localStorage.getItem('onboarding_step1');
-    if (savedData) {
-      setFormData(JSON.parse(savedData));
+ useEffect(() => {
+  const fetchUser = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/api/v1/employee/getuser",
+        { withCredentials: true }
+      );
+
+      const userData = response.data.message;
+
+      setUser(userData);
+
+      setFormData(prev => ({
+        ...prev,
+        fullName: userData.name || "",
+        personalEmail: userData.email || "",
+        phoneNumber: userData.phone || "",
+        dateOfBirth: userData.dob
+          ? userData.dob.split("T")[0] 
+          : "",
+        gender: userData.gender || "",
+        permanentAddress: userData.address.permanent || "",
+        communicationAddress: userData.address.communication || "",
+        emergencyContactNumber: userData.emergency.contactnumber || "",
+        emergencyContactName: userData.emergency.contactname || "",
+      }));
+    } catch (error) {
+      console.error("Get user error:", error);
     }
-  }, []);
+  };
+
+  fetchUser();
+}, []);
+
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -34,50 +68,67 @@ const Step1 = () => {
   };
 
   const validateForm = () => {
-    const requiredFields = [
-      'fullName',
-      'personalEmail',
-      'phoneNumber',
-      'dateOfBirth',
-      'permanentAddress',
-      'communicationAddress',
-      'gender',
-      'emergencyContactNumber',
-      'emergencyContactName'
-    ];
+  const requiredFields = [
+    'fullName',
+    'personalEmail',
+    'phoneNumber',
+    'dateOfBirth',
+    'permanentAddress',
+    'communicationAddress',
+    'gender',
+    'emergencyContactNumber',
+    'emergencyContactName'
+  ];
 
-    const missingFields = requiredFields.filter(field => !formData[field] || formData[field].trim() === '');
-    
-    if (missingFields.length > 0) {
-      alert(`Please fill in all required fields: ${missingFields.join(', ')}`);
-      return false;
-    }
+  const missingFields = requiredFields.filter(field => {
+    const value = formData[field];
+    return value === null || value === undefined || String(value).trim() === "";
+  });
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.personalEmail)) {
-      alert('Please enter a valid email address');
-      return false;
-    }
+  if (missingFields.length > 0) {
+    alert(`Please fill in all required fields: ${missingFields.join(', ')}`);
+    return false;
+  }
 
-    // Phone number validation (basic)
-    const phoneRegex = /^\+?[\d\s-()]{10,}$/;
-    if (!phoneRegex.test(formData.phoneNumber) || !phoneRegex.test(formData.emergencyContactNumber)) {
-      alert('Please enter valid phone numbers');
-      return false;
-    }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(formData.personalEmail)) {
+    alert('Please enter a valid email address');
+    return false;
+  }
 
-    return true;
-  };
+  const phoneRegex = /^\+?[\d\s-()]{10,}$/;
+  if (
+    !phoneRegex.test(formData.phoneNumber) ||
+    !phoneRegex.test(formData.emergencyContactNumber)
+  ) {
+    alert('Please enter valid phone numbers');
+    return false;
+  }
 
-  const handleNext = () => {
+  return true;
+};
+
+
+  const handleNext = async() => {
     if (!validateForm()) {
       return;
     }
-    
-    // Save data to localStorage or context
-    localStorage.setItem('onboarding_step1', JSON.stringify(formData));
-    navigate('/onboarding/step2');
+    try {
+      const response = await axios.patch(`http://localhost:5000/api/v1/employee/onboarding/1`,{
+        phone:formData.phoneNumber,
+        dob:formData.dateOfBirth,
+        gender:formData.gender,
+        permanentaddress:formData.permanentAddress,
+        communicationaddress:formData.communicationAddress,
+        emergencynumber:formData.emergencyContactNumber,
+        emergencyname:formData.emergencyContactName,
+      },{withCredentials:true})
+      console.log(response.data.data)
+      toast.success("Step 1 Onboarding Completed")
+      navigate('/onboarding/step2');
+    } catch (error) {
+      toast.error("Onboarding step not completed")
+    }
   };
 
   const steps = [
@@ -92,7 +143,6 @@ const Step1 = () => {
 
   return (
     <div className={styles.onboardingStep}>
-      <Navbar />
       
       <div className={styles.container}>
         {/* Progress Indicators */}
@@ -281,29 +331,61 @@ const Step1 = () => {
       </div>
 
       {/* Footer - Same as onboarding page */}
-      <footer className={styles.footerWrap}>
-        <div className={styles.footerScene}>
-          <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
-        </div>
-        <div className={styles.footerBox}>
-          <div className={styles.top}>
-            <div className={styles.left}>
-              <h2 className={styles.logo}>NoCapCode™</h2>
-              <p className={styles.tagline}>No cap. Built like it's ours.</p>
+       <footer className={styles.footerWrap}>
+       <div className={styles.footerScene}>
+        <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
+       </div>
+      <div className={styles.mirrorOverlay}/>
+      <div className={styles.footerBox}>
+    
+        <div className={styles.top}>
+          
+          <div className={styles.left}>
+            <h2 className={styles.logo}>NoCapCode™</h2>
+            <p className={styles.tagline}>No cap. Built like it's ours.</p>
+            <p className={styles.tagline}>We build software systems for teams who care about clarity, ownership, and longevity.</p>
+            <div className={styles.socials}>
+              <span><a href="https://www.linkedin.com/company/nocapcode"  rel="noreferrer" target="_blank"><Linkedin size={16} color="rgba(190, 190, 190, 1)"/></a></span>
+              <span onClick={()=>{navigate("/404")}}><FontAwesomeIcon icon={faXTwitter} /></span>
+              <span><a href="https://www.instagram.com/nocapcode.cloud" target="_blank" rel="noreferrer"><Instagram size={16} color="rgba(190, 190, 190, 1)"/></a></span>
+              
+              
             </div>
-            <div className={styles.right}>
-              <div className={styles.col}>
-                <h4>Company</h4>
-                <p>Algodones, New Mexico,<br />US, 87001</p>
-              </div>
+
+            <div className={styles.badge}>
+                <img src="/badge.png" alt="/" height="100%" width="100%"/>
             </div>
           </div>
-          <div className={styles.divider} />
-          <div className={styles.bottom}>
-            <p>© 2025-2026 NoCapCode. All rights reserved.</p>
+
+        
+          <div className={styles.right}>
+
+            <div className={styles.col}>
+              <h4>Company</h4>
+              <ul>
+                <li onClick={()=>{
+                  navigate("/careers")}} style={{ cursor: "pointer" }}>Careers</li>
+                <li onClick={()=>{
+                  navigate("/contact")}} style={{ cursor: "pointer" }}>Contact</li>
+              </ul>
+              <p>
+                Algodones, New Mexico,<br />
+                US, 87001
+              </p>
+            </div>
           </div>
         </div>
-      </footer>
+        <div className={styles.divider} />
+        <div className={styles.bottom}>
+          <p>© 2025-2026 NoCapCode. All rights reserved.<br/>Built with restraint, responsibility, and long-term thinking.</p>
+
+          <div className={styles.links}>
+            <span onClick={()=>{navigate("/terms")}} style={{ cursor: "pointer" }}>Terms of Service</span>
+            <span onClick={()=>{navigate("/privacy")}} style={{ cursor: "pointer" }}>Privacy Policy</span>
+          </div>
+        </div>
+      </div>
+        </footer>
     </div>
   );
 };

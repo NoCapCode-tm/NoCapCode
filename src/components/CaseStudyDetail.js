@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, Instagram, Linkedin } from 'lucide-react';
+import { ArrowLeft,  Instagram, Linkedin } from 'lucide-react';
 import Navbar from './Navbar';
 import styles from '../CSS/CaseStudyDetail.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -176,7 +176,7 @@ const CaseStudyDetail = () => {
             <div className={styles.socials}>
               <span><a href="https://www.linkedin.com/company/nocapcode"  rel="noreferrer" target="_blank"><Linkedin size={16} color="rgba(190, 190, 190, 1)"/></a></span>
                <span onClick={()=>{navigate("/404")}}><FontAwesomeIcon icon={faXTwitter} /></span>
-              <span onClick={()=>{navigate("/404")}}><Instagram size={16} color="rgba(190, 190, 190, 1)"/></span>
+              <span><a href="https://www.instagram.com/nocapcode.cloud" target="_blank" rel="noreferrer"><Instagram size={16} color="rgba(190, 190, 190, 1)"/></a></span>
               
               
             </div>

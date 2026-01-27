@@ -1,87 +1,116 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, Mail, AlertCircle, GraduationCap, Briefcase, CreditCard, Settings } from 'lucide-react';
+import { User, Mail, AlertCircle, GraduationCap, Briefcase, CreditCard, Settings, Linkedin, Instagram } from 'lucide-react';
 import Navbar from '../Navbar';
 import styles from '../../CSS/OnboardingStep.module.css';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
 
 const Step6 = () => {
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     laptopType: '',
-    operatingSystem: '',
+    operatingSystem: '', // frontend only (optional)
     portfolioLink: '',
     githubProfile: '',
     linkedinProfile: ''
   });
 
-  // Load saved data on component mount
+  // FETCH USER DATA
   useEffect(() => {
-    const savedData = localStorage.getItem('onboarding_step6');
-    if (savedData) {
-      setFormData(JSON.parse(savedData));
-    }
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:5000/api/v1/employee/getuser",
+          { withCredentials: true }
+        );
+
+        const s = res.data.message?.systemdetails || {};
+
+        setFormData({
+          laptopType: s.laptoptype || '',
+          operatingSystem: s.os ||'', // optional UI field
+          portfolioLink: s.portfolio || '',
+          githubProfile: s.github || '',
+          linkedinProfile: s.Linkedin || ''
+        });
+
+      } catch (err) {
+        console.error("Step6 getuser error:", err);
+      }
+    };
+
+    fetchUser();
   }, []);
 
   const handleInputChange = (field, value) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }));
+    setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  //VALIDATION
   const validateForm = () => {
-    const requiredFields = [
-      'laptopType',
-      'operatingSystem',
-      'linkedinProfile'
-      // 'portfolioLink', 'githubProfile' are now optional
-    ];
-
-    const missingFields = requiredFields.filter(field => !formData[field] || formData[field].trim() === '');
-    
-    if (missingFields.length > 0) {
-      alert(`Please fill in all required fields: ${missingFields.join(', ')}`);
+    if (!formData.laptopType) {
+      toast.error("Laptop type is required");
       return false;
     }
 
-    // URL validation for portfolio, GitHub, and LinkedIn (only if provided)
+    if (!formData.linkedinProfile) {
+      toast.error("LinkedIn profile is required");
+      return false;
+    }
+
     const urlRegex = /^https?:\/\/.+/;
-    
-    if (formData.portfolioLink && formData.portfolioLink.trim() !== '' && !urlRegex.test(formData.portfolioLink)) {
-      alert('Please enter a valid portfolio URL (starting with http:// or https://)');
+
+    if (formData.portfolioLink && !urlRegex.test(formData.portfolioLink)) {
+      toast.error("Invalid portfolio URL");
       return false;
     }
 
-    if (formData.githubProfile && formData.githubProfile.trim() !== '' && !urlRegex.test(formData.githubProfile)) {
-      alert('Please enter a valid GitHub profile URL (starting with http:// or https://)');
+    if (formData.githubProfile && !urlRegex.test(formData.githubProfile)) {
+      toast.error("Invalid GitHub URL");
       return false;
     }
 
-    if (formData.linkedinProfile && !urlRegex.test(formData.linkedinProfile)) {
-      alert('Please enter a valid LinkedIn profile URL (starting with http:// or https://)');
+    if (!urlRegex.test(formData.linkedinProfile)) {
+      toast.error("Invalid LinkedIn URL");
       return false;
     }
 
     return true;
   };
 
-  const handleNext = () => {
-    if (!validateForm()) {
-      return;
+  //SAVE TO BACKEND
+  const handleNext = async () => {
+    if (!validateForm()) return;
+
+    try {
+      await axios.patch(
+        "http://localhost:5000/api/v1/employee/onboarding/6",
+        {
+          operatingsystem:formData.operatingSystem,
+          laptoptype: formData.laptopType,
+          github: formData.githubProfile,
+          portfolio: formData.portfolioLink,
+          linkedin: formData.linkedinProfile
+        },
+        { withCredentials: true }
+      );
+
+      toast.success("Onboarding Step 6 Completed");
+      navigate('/onboarding/step7');
+
+    } catch (err) {
+      console.error("Step6 save error:", err);
+      toast.error("Failed to save system details");
     }
-    
-    // Mark step as completed
-    localStorage.setItem('onboarding_step6_completed', 'true');
-    
-    // Save data to localStorage or context
-    localStorage.setItem('onboarding_step6', JSON.stringify(formData));
-    navigate('/onboarding/step7');
   };
 
   const handlePrevious = () => {
     navigate('/onboarding/step5');
   };
-
   const steps = [
     { id: 1, label: 'Personal Info', active: false },
     { id: 2, label: 'Identity', active: false },
@@ -94,7 +123,7 @@ const Step6 = () => {
 
   return (
     <div className={styles.onboardingStep}>
-      <Navbar />
+     
       
       <div className={styles.container}>
         {/* Progress Indicators */}
@@ -252,28 +281,60 @@ const Step6 = () => {
 
       {/* Footer - Same as onboarding page */}
       <footer className={styles.footerWrap}>
-        <div className={styles.footerScene}>
-          <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
-        </div>
-        <div className={styles.footerBox}>
-          <div className={styles.top}>
-            <div className={styles.left}>
-              <h2 className={styles.logo}>NoCapCode™</h2>
-              <p className={styles.tagline}>No cap. Built like it's ours.</p>
+       <div className={styles.footerScene}>
+        <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
+       </div>
+      <div className={styles.mirrorOverlay}/>
+      <div className={styles.footerBox}>
+    
+        <div className={styles.top}>
+          
+          <div className={styles.left}>
+            <h2 className={styles.logo}>NoCapCode™</h2>
+            <p className={styles.tagline}>No cap. Built like it's ours.</p>
+            <p className={styles.tagline}>We build software systems for teams who care about clarity, ownership, and longevity.</p>
+            <div className={styles.socials}>
+              <span><a href="https://www.linkedin.com/company/nocapcode"  rel="noreferrer" target="_blank"><Linkedin size={16} color="rgba(190, 190, 190, 1)"/></a></span>
+              <span onClick={()=>{navigate("/404")}}><FontAwesomeIcon icon={faXTwitter} /></span>
+              <span><a href="https://www.instagram.com/nocapcode.cloud" target="_blank" rel="noreferrer"><Instagram size={16} color="rgba(190, 190, 190, 1)"/></a></span>
+              
+              
             </div>
-            <div className={styles.right}>
-              <div className={styles.col}>
-                <h4>Company</h4>
-                <p>Algodones, New Mexico,<br />US, 87001</p>
-              </div>
+
+            <div className={styles.badge}>
+                <img src="/badge.png" alt="/" height="100%" width="100%"/>
             </div>
           </div>
-          <div className={styles.divider} />
-          <div className={styles.bottom}>
-            <p>© 2025-2026 NoCapCode. All rights reserved.</p>
+
+        
+          <div className={styles.right}>
+
+            <div className={styles.col}>
+              <h4>Company</h4>
+              <ul>
+                <li onClick={()=>{
+                  navigate("/careers")}} style={{ cursor: "pointer" }}>Careers</li>
+                <li onClick={()=>{
+                  navigate("/contact")}} style={{ cursor: "pointer" }}>Contact</li>
+              </ul>
+              <p>
+                Algodones, New Mexico,<br />
+                US, 87001
+              </p>
+            </div>
           </div>
         </div>
-      </footer>
+        <div className={styles.divider} />
+        <div className={styles.bottom}>
+          <p>© 2025-2026 NoCapCode. All rights reserved.<br/>Built with restraint, responsibility, and long-term thinking.</p>
+
+          <div className={styles.links}>
+            <span onClick={()=>{navigate("/terms")}} style={{ cursor: "pointer" }}>Terms of Service</span>
+            <span onClick={()=>{navigate("/privacy")}} style={{ cursor: "pointer" }}>Privacy Policy</span>
+          </div>
+        </div>
+      </div>
+        </footer>
     </div>
   );
 };

@@ -16,12 +16,12 @@ import CareersPage from "./components/CareersPage";
 import ClarityForm from "./components/ClarityForm";
 import Onboarding from "./components/Onboarding";
 import Step1 from "./components/onboarding/Step1";
-import Step2 from "./components/onboarding/Step1";
-import Step3 from "./components/onboarding/Step1";
-import Step4 from "./components/onboarding/Step1";
-import Step5 from "./components/onboarding/Step1";
-import Step6 from "./components/onboarding/Step1";
-import Step7 from "./components/onboarding/Step1";
+import Step2 from "./components/onboarding/Step2";
+import Step3 from "./components/onboarding/Step3";
+import Step4 from "./components/onboarding/Step4";
+import Step5 from "./components/onboarding/Step5";
+import Step6 from "./components/onboarding/Step6";
+import Step7 from "./components/onboarding/Step7";
 import OnboardingComplete from "./components/OnboardingComplete";
 import Login from "./components/Login"
 
@@ -85,7 +85,7 @@ export default function App() {
     <Router>
       <AppWrapper />
     </Router>
-     <ToastContainer position="top-center" autoClose={3000} />
+     <ToastContainer  theme="dark" position="top-center" autoClose={3000} />
      </>
   );
 }

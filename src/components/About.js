@@ -699,21 +699,21 @@ useGSAP(() => {
     {/* subtle inner vignette */}
     <div className={styles.startHereGlow} ref={startHereGlowRef}/>
 
-    <h2 className={styles.startHereTitle}>Start here</h2>
+    <h2 className={styles.startHereTitle}>Ready to talk about your product?</h2>
 
     <p className={styles.startHereSub}>
-      No pitches. No funnels. Just clarity, restraint, and software built with intent.
+      If you’re exploring MVP development, automation, or system clarity, this is the right next step.
     </p>
 
     <button className={styles.startHereBtn} onClick={()=>{navigate("/contact")}} >
-      Start a thoughtful Conversation
+      Start a Conversation
       <span className={styles.arrow}>↗</span>
     </button>
   </div>
      </div>
 
         <div className={styles.faq} ref={faqRef}>
-      {/* 🔵 background glow placeholder */}
+      {/*  background glow placeholder */}
       <div className={styles.faqGlow} />
 
       <span className={styles.page5first} ref={faqLabelRef}>FAQs</span>
@@ -764,14 +764,14 @@ useGSAP(() => {
     </div>
 
     <h2 className={styles.conversationTitle} >
-      Start with a thoughtful conversation
+      Start with clarity
     </h2>
 
     <p className={styles.conversationSub}>
-      No pitches. No pressure. Just clarity on what should be built next.
+      Talk to us about your product, system, or software idea  before decisions become expensive to change.
     </p>
     <button className={styles.startHereBtn1} onClick={()=>{navigate("/clarity")}}>
-      Start with Clarity
+      Start a thoughtful conversation
       <span className={styles.arrow}>↗</span>
     </button>
   </div>

@@ -1,40 +1,95 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircle, Clock, Shield, ExternalLink, Instagram } from 'lucide-react';
+import { CheckCircle, Clock, Shield, ExternalLink, Instagram, Linkedin } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import styles from '../CSS/Onboarding.module.css';
-import { getCompletedSteps, canAccessStep } from '../utils/onboardingUtils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
+import axios from 'axios';
 
 const Onboarding = () => {
   const navigate = useNavigate();
-  const [completedSteps, setCompletedSteps] = useState([]);
+  const [user, setUser] = useState(null);
+const [completedSteps, setCompletedSteps] = useState([]);
 
-  useEffect(() => {
-    // Update completed steps on component mount and when returning from steps
-    const updateCompletedSteps = () => {
-      setCompletedSteps(getCompletedSteps());
-    };
+useEffect(() => {
+  const fetchUser = async () => {
+    const res = await axios.get(
+      "http://localhost:5000/api/v1/employee/getuser",
+      { withCredentials: true }
+    );
 
-    updateCompletedSteps();
-    
-    // Listen for storage changes to update progress
-    window.addEventListener('storage', updateCompletedSteps);
-    
-    return () => {
-      window.removeEventListener('storage', updateCompletedSteps);
-    };
-  }, []);
-
-  const handleStepClick = (stepNumber) => {
-    if (!canAccessStep(stepNumber)) {
-      alert(`Please complete Step ${stepNumber - 1} first before proceeding to Step ${stepNumber}.`);
-      return;
-    }
-    navigate(`/onboarding/step${stepNumber}`);
+    const userData = res.data.message;
+    console.log(userData)
+    setUser(userData);
+    setCompletedSteps(getCompletedSteps(userData));
   };
-  
+
+  fetchUser();
+}, []);
+
+const getCompletedSteps = (u) => {
+  const steps = [];
+  if (!u) return steps;
+
+  // STEP 1
+  if (
+    u.phone &&
+    u.dob &&
+    u.gender &&
+    u.address?.permanent &&
+    u.address?.communication &&
+    u.emergency?.contactnumber &&
+    u.emergency?.contactname
+  ) steps.push(1);
+
+  // STEP 2
+  if (
+    u.documents?.aadhar?.number &&
+    u.documents?.aadhar?.image &&
+    u.documents?.passportimage
+  ) steps.push(2);
+
+  // STEP 3
+  if (
+    u.Qualificationdetails?.highestqualification &&
+    u.Qualificationdetails?.collegename &&
+    u.Qualificationdetails?.coursename &&
+    u.Qualificationdetails?.year
+  ) steps.push(3);
+
+  // STEP 5
+  if (
+    u.bankdetails?.accountno ||
+    u.bankdetails?.upi
+  ) steps.push(5);
+
+  // STEP 6
+  if (
+    u.systemdetails?.laptoptype &&
+    u.systemdetails?.Linkedin
+  ) steps.push(6);
+
+  return steps;
+};
+
+const canAccessStep = (step) => {
+  if (step === 1) return true;
+  if (step === 4) return completedSteps.includes(3); // view only
+  if (step === 5) return completedSteps.includes(3);
+  if (step === 6) return completedSteps.includes(5);
+  if (step === 7) return completedSteps.includes(6);
+
+  return completedSteps.includes(step - 1);
+};
+
+const handleStepClick = (step) => {
+  if (!canAccessStep(step)) return;
+  navigate(`/onboarding/step${step}`);
+};
+
+
+ 
   return (
     <div className={styles.onboarding}>
       <div className={styles.navbarWrapper}>
@@ -106,21 +161,25 @@ const Onboarding = () => {
               </div>
             </div>
 
-            <div className={`${styles.stepCard} ${styles.step4} ${completedSteps.includes(4) ? styles.completed : ''} ${!canAccessStep(4) ? styles.disabled : ''}`}>
-              <div className={styles.stepContent}>
-                <div className={styles.stepNumber}>Step 04</div>
-                <h3 className={styles.stepTitle}>Internship Details</h3>
-                <p className={styles.stepDescription}>Internship role, duration, and working arrangements</p>
-              </div>
-              <div className={styles.stepAction}>
-                <span 
-                  className={`${styles.startLink} ${!canAccessStep(4) ? styles.disabled : ''}`}
-                  onClick={() => handleStepClick(4)}
-                >
-                  {completedSteps.includes(4) ? 'Edit →' : canAccessStep(4) ? 'Start →' : 'Locked'}
-                </span>
-              </div>
-            </div>
+            <div className={`${styles.stepCard} ${styles.step4} ${!canAccessStep(4) ? styles.disabled : ''}`}>
+  <div className={styles.stepContent}>
+    <div className={styles.stepNumber}>Step 04</div>
+    <h3 className={styles.stepTitle}>Internship Details</h3>
+    <p className={styles.stepDescription}>
+      Internship role, duration, and working arrangements
+    </p>
+  </div>
+
+  <div className={styles.stepAction}>
+    <span
+      className={`${styles.startLink} ${!canAccessStep(4) ? styles.disabled : ''}`}
+      onClick={() => handleStepClick(4)}
+    >
+      {canAccessStep(4) ? 'View →' : 'Locked'}
+    </span>
+  </div>
+</div>
+
           </div>
 
           {/* Second Row - 3 Cards Centered */}
@@ -204,59 +263,61 @@ const Onboarding = () => {
       </div>
 
       {/* Footer */}
-      <footer className={styles.footerWrap}>
-        <div className={styles.footerScene}>
-          <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
-        </div>
-        <div className={styles.mirrorOverlay}/>
-        <div className={styles.footerBox}>
-          <div className={styles.top}>
-            <div className={styles.left}>
-              <h2 className={styles.logo}>NoCapCode™</h2>
-              <p className={styles.tagline}>No cap. Built like it's ours.</p>
-              <div className={styles.socials}>
-                <span><ExternalLink size={20} color="rgba(190, 190, 190, 1)"/></span>
-                 <span onClick={()=>{navigate("/404")}}><FontAwesomeIcon icon={faXTwitter} /></span>
-              <span onClick={()=>{navigate("/404")}}><Instagram size={16} color="rgba(190, 190, 190, 1)"/></span>
+        <footer className={styles.footerWrap}>
+       <div className={styles.footerScene}>
+        <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
+       </div>
+      <div className={styles.mirrorOverlay}/>
+      <div className={styles.footerBox}>
+    
+        <div className={styles.top}>
+          
+          <div className={styles.left}>
+            <h2 className={styles.logo}>NoCapCode™</h2>
+            <p className={styles.tagline}>No cap. Built like it's ours.</p>
+            <p className={styles.tagline}>We build software systems for teams who care about clarity, ownership, and longevity.</p>
+            <div className={styles.socials}>
+              <span><a href="https://www.linkedin.com/company/nocapcode"  rel="noreferrer" target="_blank"><Linkedin size={16} color="rgba(190, 190, 190, 1)"/></a></span>
+              <span onClick={()=>{navigate("/404")}}><FontAwesomeIcon icon={faXTwitter} /></span>
+              <span><a href="https://www.instagram.com/nocapcode.cloud" target="_blank" rel="noreferrer"><Instagram size={16} color="rgba(190, 190, 190, 1)"/></a></span>
               
-              </div>
-              <div className={styles.badge}>
+              
+            </div>
+
+            <div className={styles.badge}>
                 <img src="/badge.png" alt="/" height="100%" width="100%"/>
-              </div>
-            </div>
-            
-            <div className={styles.right}>
-              <div className={styles.col}>
-                <h4>Explore</h4>
-                <ul>
-                  <li style={{ cursor: "pointer" }}>How We Work</li>
-                  <li onClick={()=>{navigate("/about"); window.scrollTo(0,0);}} style={{ cursor: "pointer" }}>About NoCapCode</li>
-                  <li>Start with Clarity</li>
-                  <li>Careers</li>
-                </ul>
-              </div>
-              
-              <div className={styles.col}>
-                <h4>Company</h4>
-                <p>
-                  Algodones, New Mexico,<br />
-                  US, 87001
-                </p>
-              </div>
             </div>
           </div>
-          
-          <div className={styles.divider} />
-          
-          <div className={styles.bottom}>
-            <p>© 2025-2026 NoCapCode. All rights reserved.<br/>Built with restraint, responsibility, and long-term thinking.</p>
-            <div className={styles.links}>
-              <span onClick={()=>{navigate("/terms")}} style={{ cursor: "pointer" }}>Terms of Service</span>
-              <span onClick={()=>{navigate("/privacy")}} style={{ cursor: "pointer" }}>Privacy Policy</span>
+
+        
+          <div className={styles.right}>
+
+            <div className={styles.col}>
+              <h4>Company</h4>
+              <ul>
+                <li onClick={()=>{
+                  navigate("/careers")}} style={{ cursor: "pointer" }}>Careers</li>
+                <li onClick={()=>{
+                  navigate("/contact")}} style={{ cursor: "pointer" }}>Contact</li>
+              </ul>
+              <p>
+                Algodones, New Mexico,<br />
+                US, 87001
+              </p>
             </div>
           </div>
         </div>
-      </footer>
+        <div className={styles.divider} />
+        <div className={styles.bottom}>
+          <p>© 2025-2026 NoCapCode. All rights reserved.<br/>Built with restraint, responsibility, and long-term thinking.</p>
+
+          <div className={styles.links}>
+            <span onClick={()=>{navigate("/terms")}} style={{ cursor: "pointer" }}>Terms of Service</span>
+            <span onClick={()=>{navigate("/privacy")}} style={{ cursor: "pointer" }}>Privacy Policy</span>
+          </div>
+        </div>
+      </div>
+        </footer>
     </div>
   );
 };

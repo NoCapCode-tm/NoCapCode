@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, Mail, Phone, AlertCircle, GraduationCap, Briefcase, CreditCard } from 'lucide-react';
+import { User, Mail, Phone, AlertCircle, GraduationCap, Briefcase, CreditCard, Linkedin, Instagram } from 'lucide-react';
 import Navbar from '../Navbar';
 import styles from '../../CSS/OnboardingStep.module.css';
+import {toast} from "react-toastify"
+import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
 
 const Step5 = () => {
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     bankAccountHolderName: '',
     bankAccountNumber: '',
@@ -15,36 +20,51 @@ const Step5 = () => {
     upiId: ''
   });
 
-  // Load saved data on component mount
+  // 🔥 FETCH USER (like Step2 / Step3)
   useEffect(() => {
-    const savedData = localStorage.getItem('onboarding_step5');
-    if (savedData) {
-      setFormData(JSON.parse(savedData));
-    }
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:5000/api/v1/employee/getuser",
+          { withCredentials: true }
+        );
+
+        const b = res.data.message?.bankdetails || {};
+
+        setFormData({
+          bankAccountHolderName: b.acholdername || '',
+          bankAccountNumber: b.accountno || '',
+          ifscCode: b.ifsc || '',
+          bankName: b.bankname || '',
+          branchName: b.branchname || '',
+          upiId: b.upi || ''
+        });
+
+      } catch (err) {
+        console.error("Step5 getuser error:", err);
+      }
+    };
+
+    fetchUser();
   }, []);
 
   const handleInputChange = (field, value) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }));
+    setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  // ✅ OPTIONAL VALIDATION
   const validateForm = () => {
-    // All bank details are now optional - user can skip if not applicable
-    
-    // If any bank details are provided, validate the format
-    if (formData.ifscCode && formData.ifscCode.trim() !== '') {
+    if (formData.ifscCode) {
       const ifscRegex = /^[A-Z]{4}0[A-Z0-9]{6}$/;
       if (!ifscRegex.test(formData.ifscCode.toUpperCase())) {
-        alert('Please enter a valid IFSC code (format: ABCD0123456)');
+        toast.error("Invalid IFSC code");
         return false;
       }
     }
 
-    if (formData.bankAccountNumber && formData.bankAccountNumber.trim() !== '') {
+    if (formData.bankAccountNumber) {
       if (!/^\d{9,18}$/.test(formData.bankAccountNumber)) {
-        alert('Please enter a valid bank account number (9-18 digits)');
+        toast.error("Invalid bank account number");
         return false;
       }
     }
@@ -52,17 +72,31 @@ const Step5 = () => {
     return true;
   };
 
-  const handleNext = () => {
-    if (!validateForm()) {
-      return;
+  // 🔥 SAVE TO BACKEND
+  const handleNext = async () => {
+    if (!validateForm()) return;
+
+    try {
+      await axios.patch(
+        "http://localhost:5000/api/v1/employee/onboarding/5",
+        {
+          acholdername: formData.bankAccountHolderName,
+          accountno: formData.bankAccountNumber,
+          ifsc: formData.ifscCode,
+          bankname: formData.bankName,
+          branchname: formData.branchName,
+          upi: formData.upiId
+        },
+        { withCredentials: true }
+      );
+
+      toast.success("Onboarding Step 5 Completed");
+      navigate('/onboarding/step6');
+
+    } catch (err) {
+      console.error("Step5 save error:", err);
+      toast.error("Failed to save bank details");
     }
-    
-    // Mark step as completed (even if all fields are empty)
-    localStorage.setItem('onboarding_step5_completed', 'true');
-    
-    // Save data to localStorage or context
-    localStorage.setItem('onboarding_step5', JSON.stringify(formData));
-    navigate('/onboarding/step6');
   };
 
   const handlePrevious = () => {
@@ -78,6 +112,7 @@ const Step5 = () => {
     { id: 6, label: 'System Info', active: false },
     { id: 7, label: 'Declaration', active: false }
   ];
+
 
   return (
     <div className={styles.onboardingStep}>
@@ -230,28 +265,60 @@ const Step5 = () => {
 
       {/* Footer - Same as onboarding page */}
       <footer className={styles.footerWrap}>
-        <div className={styles.footerScene}>
-          <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
-        </div>
-        <div className={styles.footerBox}>
-          <div className={styles.top}>
-            <div className={styles.left}>
-              <h2 className={styles.logo}>NoCapCode™</h2>
-              <p className={styles.tagline}>No cap. Built like it's ours.</p>
+       <div className={styles.footerScene}>
+        <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
+       </div>
+      <div className={styles.mirrorOverlay}/>
+      <div className={styles.footerBox}>
+    
+        <div className={styles.top}>
+          
+          <div className={styles.left}>
+            <h2 className={styles.logo}>NoCapCode™</h2>
+            <p className={styles.tagline}>No cap. Built like it's ours.</p>
+            <p className={styles.tagline}>We build software systems for teams who care about clarity, ownership, and longevity.</p>
+            <div className={styles.socials}>
+              <span><a href="https://www.linkedin.com/company/nocapcode"  rel="noreferrer" target="_blank"><Linkedin size={16} color="rgba(190, 190, 190, 1)"/></a></span>
+              <span onClick={()=>{navigate("/404")}}><FontAwesomeIcon icon={faXTwitter} /></span>
+              <span><a href="https://www.instagram.com/nocapcode.cloud" target="_blank" rel="noreferrer"><Instagram size={16} color="rgba(190, 190, 190, 1)"/></a></span>
+              
+              
             </div>
-            <div className={styles.right}>
-              <div className={styles.col}>
-                <h4>Company</h4>
-                <p>Algodones, New Mexico,<br />US, 87001</p>
-              </div>
+
+            <div className={styles.badge}>
+                <img src="/badge.png" alt="/" height="100%" width="100%"/>
             </div>
           </div>
-          <div className={styles.divider} />
-          <div className={styles.bottom}>
-            <p>© 2025-2026 NoCapCode. All rights reserved.</p>
+
+        
+          <div className={styles.right}>
+
+            <div className={styles.col}>
+              <h4>Company</h4>
+              <ul>
+                <li onClick={()=>{
+                  navigate("/careers")}} style={{ cursor: "pointer" }}>Careers</li>
+                <li onClick={()=>{
+                  navigate("/contact")}} style={{ cursor: "pointer" }}>Contact</li>
+              </ul>
+              <p>
+                Algodones, New Mexico,<br />
+                US, 87001
+              </p>
+            </div>
           </div>
         </div>
-      </footer>
+        <div className={styles.divider} />
+        <div className={styles.bottom}>
+          <p>© 2025-2026 NoCapCode. All rights reserved.<br/>Built with restraint, responsibility, and long-term thinking.</p>
+
+          <div className={styles.links}>
+            <span onClick={()=>{navigate("/terms")}} style={{ cursor: "pointer" }}>Terms of Service</span>
+            <span onClick={()=>{navigate("/privacy")}} style={{ cursor: "pointer" }}>Privacy Policy</span>
+          </div>
+        </div>
+      </div>
+        </footer>
     </div>
   );
 };

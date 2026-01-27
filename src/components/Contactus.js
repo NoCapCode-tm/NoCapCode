@@ -28,25 +28,25 @@ const Contactus = () => {
  const handleSubmit = (e) => {
   e.preventDefault();
 
-  // 🔒 Trim values
+  // Trim values
   const trimmedName = name.trim();
   const trimmedEmail = email.trim();
   const trimmedMessage = message.trim();
 
-  // ❌ Empty field validation
+  //Empty field validation
   if (!trimmedName || !trimmedEmail || !trimmedMessage) {
     toast.error("Please fill all fields");
     return;
   }
 
-  // ❌ Email format validation
+  //  Email format validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(trimmedEmail)) {
     toast.error("Please enter a valid email address");
     return;
   }
 
-  // ✅ Send email
+  // Send email
   emailjs
     .send(
       "service_4r3d0ha",
@@ -85,7 +85,7 @@ const Contactus = () => {
           const isMobile = width <= 800;
 
   tl.to(navbarRef.current, {
-    width: isMobile ? "50%" : 440,   // 👈 fixed
+    width: isMobile ? "50%" : 440,   //  fixed
     borderRadius: isMobile ? "8px" : "8px",
     top: isMobile ? "10px" : "10px",
     justifyContent:"flex-end",
@@ -200,7 +200,7 @@ const Contactus = () => {
             <div className={styles.socials}>
               <span><a href="https://www.linkedin.com/company/nocapcode"  rel="noreferrer" target="_blank"><Linkedin size={16} color="rgba(190, 190, 190, 1)"/></a></span>
               <span onClick={()=>{navigate("/404")}}><FontAwesomeIcon icon={faXTwitter} /></span>
-              <span onClick={()=>{navigate("/404")}}><Instagram size={16} color="rgba(190, 190, 190, 1)"/></span>
+              <span><a href="https://www.instagram.com/nocapcode.cloud" target="_blank" rel="noreferrer"><Instagram size={16} color="rgba(190, 190, 190, 1)"/></a></span>
               
               
             </div>

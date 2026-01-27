@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Mail, Lock, Eye, EyeOff, ArrowRight, ExternalLink, Instagram } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, ArrowRight, ExternalLink, Instagram, Linkedin } from 'lucide-react';
 import styles from '../CSS/Login.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -20,12 +22,19 @@ const Login = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
-        // Handle login logic here
-        console.log('Login attempt:', formData);
-        // Navigate to dashboard or onboarding
-        navigate('/onboarding');
+        try {
+            const response = await axios.post("http://localhost:5000/api/v1/employee/login",{
+                userid:formData.email,
+                password:formData.password
+            },{withCredentials:true})
+            console.log(response.data.message)
+            toast.success("Employee Loginned Successfully")
+            navigate('/onboarding');
+        } catch (error) {
+            toast.error("Login Successfull")
+        }
     };
 
     const togglePasswordVisibility = () => {
@@ -57,11 +66,11 @@ const Login = () => {
 
                             <form className={styles.form} onSubmit={handleSubmit}>
                                 <div className={styles.formGroup}>
-                                    <label className={styles.label}>Email Address</label>
+                                    <label className={styles.label}>Employee id</label>
                                     <div className={styles.inputWrapper}>
                                         <Mail className={styles.inputIcon} size={20} />
                                         <input
-                                            type="email"
+                                            type="text"
                                             className={styles.input}
                                             placeholder="Your.developer@domain.com"
                                             value={formData.email}
@@ -108,57 +117,59 @@ const Login = () => {
 
                 {/* Footer - Same as onboarding page */}
                 <footer className={styles.footerWrap}>
-                    <div className={styles.footerScene}>
-                        <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
-                    </div>
-                    <div className={styles.mirrorOverlay} />
-                    <div className={styles.footerBox}>
-                        <div className={styles.top}>
-                            <div className={styles.left}>
-                                <h2 className={styles.logo}>NoCapCode™</h2>
-                                <p className={styles.tagline}>No cap. Built like it's ours.</p>
-                                <div className={styles.socials}>
-                                    <span><ExternalLink size={20} color="rgba(190, 190, 190, 1)" /></span>
-                                     <span onClick={()=>{navigate("/404")}}><FontAwesomeIcon icon={faXTwitter} /></span>
-              <span onClick={()=>{navigate("/404")}}><Instagram size={16} color="rgba(190, 190, 190, 1)"/></span>
+       <div className={styles.footerScene}>
+        <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
+       </div>
+      <div className={styles.mirrorOverlay}/>
+      <div className={styles.footerBox}>
+    
+        <div className={styles.top}>
+          
+          <div className={styles.left}>
+            <h2 className={styles.logo}>NoCapCode™</h2>
+            <p className={styles.tagline}>No cap. Built like it's ours.</p>
+            <p className={styles.tagline}>We build software systems for teams who care about clarity, ownership, and longevity.</p>
+            <div className={styles.socials}>
+              <span><a href="https://www.linkedin.com/company/nocapcode"  rel="noreferrer" target="_blank"><Linkedin size={16} color="rgba(190, 190, 190, 1)"/></a></span>
+              <span onClick={()=>{navigate("/404")}}><FontAwesomeIcon icon={faXTwitter} /></span>
+              <span><a href="https://www.instagram.com/nocapcode.cloud" target="_blank" rel="noreferrer"><Instagram size={16} color="rgba(190, 190, 190, 1)"/></a></span>
               
-                                </div>
-                                <div className={styles.badge}>
-                                    <img src="/badge.png" alt="/" height="100%" width="100%" />
-                                </div>
-                            </div>
+              
+            </div>
 
-                            <div className={styles.right}>
-                                <div className={styles.col}>
-                                    <h4>Explore</h4>
-                                    <ul>
-                                        <li style={{ cursor: "pointer" }}>How We Work</li>
-                                        <li onClick={() => { navigate("/about"); window.scrollTo(0, 0); }} style={{ cursor: "pointer" }}>About NoCapCode</li>
-                                        <li>Start with Clarity</li>
-                                        <li>Careers</li>
-                                    </ul>
-                                </div>
+            <div className={styles.badge}>
+                <img src="/badge.png" alt="/" height="100%" width="100%"/>
+            </div>
+          </div>
 
-                                <div className={styles.col}>
-                                    <h4>Company</h4>
-                                    <p>
-                                        Algodones, New Mexico,<br />
-                                        US, 87001
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+        
+          <div className={styles.right}>
 
-                        <div className={styles.divider} />
+            <div className={styles.col}>
+              <h4>Company</h4>
+              <ul>
+                <li onClick={()=>{
+                  navigate("/careers")}} style={{ cursor: "pointer" }}>Careers</li>
+                <li onClick={()=>{
+                  navigate("/contact")}} style={{ cursor: "pointer" }}>Contact</li>
+              </ul>
+              <p>
+                Algodones, New Mexico,<br />
+                US, 87001
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className={styles.divider} />
+        <div className={styles.bottom}>
+          <p>© 2025-2026 NoCapCode. All rights reserved.<br/>Built with restraint, responsibility, and long-term thinking.</p>
 
-                        <div className={styles.bottom}>
-                            <p>© 2025-2026 NoCapCode. All rights reserved.<br />Built with restraint, responsibility, and long-term thinking.</p>
-                            <div className={styles.links}>
-                                <span onClick={() => { navigate("/terms") }} style={{ cursor: "pointer" }}>Terms of Service</span>
-                                <span onClick={() => { navigate("/privacy") }} style={{ cursor: "pointer" }}>Privacy Policy</span>
-                            </div>
-                        </div>
-                    </div>
+          <div className={styles.links}>
+            <span onClick={()=>{navigate("/terms")}} style={{ cursor: "pointer" }}>Terms of Service</span>
+            <span onClick={()=>{navigate("/privacy")}} style={{ cursor: "pointer" }}>Privacy Policy</span>
+          </div>
+        </div>
+      </div>
                 </footer>
             </div>
         </>

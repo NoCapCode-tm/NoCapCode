@@ -31,26 +31,26 @@ const navigate=useNavigate()
 
 
   const faqs = [
-  {
-    q: "What kind of companies do you work with?",
-    a: "We work with early-stage startups, growing product teams, and companies modernizing existing systems."
-  },
-  {
-    q: "Can you help if I'm not sure what needs to be built yet?",
-    a: "Yes. We help define the problem first, clarify priorities, and identify the smallest useful system to build."
-  },
-  {
-    q: "Do you only build MVPs, or do you also improve existing systems?",
-    a: "We do both. Many engagements focus on stabilizing or improving systems that already exist."
-  },
-  {
-    q: "How do you price and scope projects?",
-    a: "We scope projects around outcomes, not features. Pricing depends on complexity, timeline, and ownership level."
-  },
-  {
-    q: "Are you an agency or a long-term partner?",
-    a: "We act as long-term partners, embedding deeply into decision-making and system ownership."
-  }
+{
+q: "What kind of projects does NoCapCode work on?",
+a: "We work on MVP development, internal tools, automation, and scalable software systems. Most of our projects involve turning unclear ideas into usable products or stabilizing systems that have outgrown quick fixes."
+},
+{
+q: "Can you help if I'm not sure what needs to be built yet?",
+a: "Yes. Many teams come to us with uncertainty, not requirements. We help define scope, remove unnecessary features, and clarify decisions before development starts — which often saves time and cost later."
+},
+{
+q: "Do you work with non-technical founders or teams?",
+a: "Absolutely. You don't need to be technical to work with us. Our job is to make decisions understandable and systems manageable, not to hide complexity behind jargon."
+},
+{
+q: "How do you price and scope work?",
+a: "We scope projects based on clarity, not guesses. After understanding the problem, we define what should be built, what shouldn’t, and what risks exist. Pricing follows that reality — not fixed packages."
+},
+{
+q: "How do I know if we're a good fit?",
+a: "If you care about clarity, long-term stability, and honest trade-offs, we'll likely work well together. If you’re looking for the cheapest or fastest option, we’re probably not the right partner — and that’s okay."
+}
 ];
     const caseStudies = [
   {
@@ -378,8 +378,7 @@ about no cap code's process, plans, and services.</span>
             <div className={styles.socials}>
               <span><a href="https://www.linkedin.com/company/nocapcode"  rel="noreferrer" target="_blank"><Linkedin size={16} color="rgba(190, 190, 190, 1)"/></a></span>
                <span onClick={()=>{navigate("/404")}}><FontAwesomeIcon icon={faXTwitter} /></span>
-              <span onClick={()=>{navigate("/404")}}><Instagram size={16} color="rgba(190, 190, 190, 1)"/></span>
-              
+              <span><a href="https://www.instagram.com/nocapcode.cloud" target="_blank" rel="noreferrer"><Instagram size={16} color="rgba(190, 190, 190, 1)"/></a></span>
               
             </div>
 
