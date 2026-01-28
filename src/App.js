@@ -24,6 +24,8 @@ import Step6 from "./components/onboarding/Step6";
 import Step7 from "./components/onboarding/Step7";
 import OnboardingComplete from "./components/OnboardingComplete";
 import Login from "./components/Login"
+import AddCaseStudy from "./components/AddCaseStudy";
+import Addjobposting from "./components/JobPosting";
 
 function AppWrapper() {
   const location = useLocation();
@@ -53,10 +55,12 @@ function AppWrapper() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contactus />} />
             <Route path="/casestudies" element={<Casestudies />} />
+            <Route path="/addcasestudies" element={<AddCaseStudy />} />
             <Route path="/404" element={<NotFound />} />
             <Route path="/terms" element={<Condition />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/careers" element={<CareersPage/>} />
+            <Route path="/addjobposting" element={<Addjobposting/>} />
             <Route path="/clarity" element={<ClarityForm/>} />
             <Route path="/login" element={<Login />} />
             <Route path="/onboarding" element={ <Onboarding /> } />

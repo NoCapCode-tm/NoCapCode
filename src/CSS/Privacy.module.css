@@ -8,15 +8,6 @@
   justify-content: center;
 
 } */
-
-.topBar {
-  width: 80%;
-  height: 40px;
-  margin: 40px auto 0;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
 .ghost {
   position: relative;
   text-align: center;
