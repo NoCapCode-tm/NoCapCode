@@ -853,3 +853,34 @@
     gap: 30px;
   }
 }
+
+
+/* footer */
+
+@media screen and (max-width:768px) {
+  .col{
+    white-space: nowrap;
+  }
+  .bottom{
+    flex-direction: column;
+    gap:20px;
+    text-align: center;
+  }
+  .footerBox{
+     border: 1px solid rgba(255, 255, 255, 0.27);
+  }
+ 
+}
+@media screen and (max-width:680px){
+  .right{
+    gap:30px;
+  }
+  .top{
+    flex-direction: column;
+  }
+}
+@media screen and (max-width:420px){
+  .footerBox{
+    padding:20px 8px;
+  }
+}
