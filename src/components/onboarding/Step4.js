@@ -12,6 +12,7 @@ import LoaderDots from '../LoaderDots';
 const Step4 = () => {
   const navigate = useNavigate();
   const[loading,setLoading]=useState(false)
+  const[manager,setManager]=useState("")
   const [formData, setFormData] = useState({
     roleDesignation: '',
     department: '',
@@ -23,6 +24,9 @@ const Step4 = () => {
     reportingManager: ''
   });
 
+
+
+ 
   // Load saved data on component mount
   useEffect(() => {
   const fetchUser = async () => {
@@ -49,6 +53,33 @@ const Step4 = () => {
         workingHours: u?.workdetails?.workinghour || "",
         reportingManager: u?.managerAssigned|| "",
       });
+    } catch (err) {
+       toast.error(" User Unauthorized : Please Login First")
+             navigate("/login")
+    }finally{
+      setLoading(false)
+    }
+  };
+
+  fetchUser();
+}, []);
+
+ useEffect(() => {
+  const fetchUser = async () => {
+    try {
+      setLoading(true)
+      const res = await axios.get(
+        "https://atlasbackend-px53.onrender.com/api/v1/admin/getalluser",
+        { withCredentials: true }
+      );
+
+      const u = res.data.message;
+      // console.log(u)
+      const managers = u.find(u=>u._id === formData?.reportingManager)
+      // console.log(managers.name)
+      setManager(managers)
+
+      
     } catch (err) {
        toast.error(" User Unauthorized : Please Login First")
              navigate("/login")
@@ -344,7 +375,7 @@ const Step4 = () => {
                     type="text"
                     className={styles.input}
                     placeholder="Manager name"
-                    value={formData.reportingManager}
+                    value={manager?.name}
                     onChange={(e) => handleInputChange('reportingManager', e.target.value)}
                     disabled
                   />
