@@ -99,9 +99,6 @@ const handleStepClick = (step) => {
  
   return (
     <div className={styles.onboarding}>
-      <div className={styles.navbarWrapper}>
-        <Navbar />
-      </div>
       
       <div className={styles.container}>
         {/* Header */}
