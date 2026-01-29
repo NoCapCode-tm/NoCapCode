@@ -75,7 +75,7 @@ const [applicantsneeded, setApplicantsNeeded] = useState("");
         const isMobile = width <= 800;
 
   tl.to(navbarRef.current, {
-    width: isMobile ? "50%" : 440,   // 👈 fixed
+    width: isMobile ? "50%" : 440,   //  fixed
     borderRadius: isMobile ? "8px" : "8px",
     top: isMobile ? "10px" : "10px",
     justifyContent:"flex-end",
