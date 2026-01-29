@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "../CSS/Casestudies.module.css";
-import { ChevronDown, Instagram, Linkedin } from "lucide-react";
+import { ArrowLeft, ChevronDown, Instagram, Linkedin } from "lucide-react";
 // import { useNavigate } from "react-router";
 import { useGSAP } from "@gsap/react";
 import Navbar from "./Navbar";
@@ -9,10 +9,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import { useNavigate } from "react-router";
 import useWindowWidth from "./usewindowwidth";
+import axios from "axios";
+
 
 const Casestudies = () => {
 
      const faqRef = useRef(null);
+     const navbarRef = useRef(null);
+      const logRef = useRef(null);
+      const btnTextRef = useRef(null);
+      const btnIconRef = useRef(null);
+  
 const faqLabelRef = useRef(null);
 const faqHeadRef = useRef(null);
 const faqParaRef = useRef(null);
@@ -23,7 +30,9 @@ const headingRef = useRef(null);
 const subRef = useRef(null);
 const cardsRef = useRef([]);
 const width=useWindowWidth()
-
+const[casestudy,setCasestudy]=useState([])
+const[loading,setLoading]=useState(false)
+const[cases,setCases]=useState(null)
 
 // const navigate = useNavigate()
 const [openIndex, setOpenIndex] = useState(null);
@@ -51,79 +60,79 @@ a: "We scope projects based on clarity, not guesses. After understanding the pro
 q: "How do I know if we're a good fit?",
 a: "If you care about clarity, long-term stability, and honest trade-offs, we'll likely work well together. If you’re looking for the cheapest or fastest option, we’re probably not the right partner — and that’s okay."
 }
-];
-    const caseStudies = [
-  {
-    id: 1,
-    image: "/case1.png",
-    title: "Crafting a Timeless Brand Identity That Resonates",
-    desc:
-      "A strong brand identity builds trust and recognition. Learn the steps to create...",
-  },
-  {
-    id: 2,
-    image: "/case2.png",
-    title: "The Art of Using Animation to Enhance Web Design",
-    desc:
-      "Subtle animations can transform your website’s user experience. Learn how to use…",
-  },
-  {
-    id: 3,
-    image: "/case3.png",
-    title: "Designing Spaces That Define Your Brand",
-    desc:
-      "Visual storytelling through spatial design can redefine brand perception…",
-  },
-  {
-    id: 4,
-    image: "/case4.png",
-    title: "Elevating Digital Products Through Precision Design",
-    desc:
-      "Thoughtful design choices elevate usability and clarity across platforms…",
-  },
-  {
-    id: 5,
-    image: "/case5.png",
-    title: "Boosting SEO Through Strategic Web Design",
-    desc:
-      "Great design improves search rankings. Learn how to optimize your website for SE...",
-  },
-  {
-    id: 6,
-    image: "/case6.png",
-    title: "Using Shapes to Shape Your Brand's Perception",
-    desc:
-      "Shapes influence emotions and perceptions. Learn how to use them to strengthen y...",
-  },
-  {
-    id: 7,
-    image: "/case7.png",
-    title: "Designing for Accessibility: Inclusive Websites in 2025",
-    desc:
-      "Accessible design welcomes all users. Learn how to create inclusive websites tha...",
-  },
-  {
-    id: 8,
-    image: "/case8.png",
-    title: "Interactive Storytelling: Engaging Users Through Design",
-    desc:
-      "Interactive storytelling captivates audiences. Learn how to use it to boost enga...",
-  },
-  {
-    id: 9,
-    image: "/case9.png",
-    title: "Data-Driven Design: Making Smarter Creative Choices",
-    desc:
-      "Data informs better design. Learn how to use insights to create visuals that res...",
-  },
-  {
-    id: 10,
-    image: "/case10.png",
-    title: "Balancing Creativity and Functionality in Web Design",
-    desc:
-      "Great design blends beauty and usability. Learn how to create websites that wow...",
-  },
-];
+               ];
+  //   const caseStudies = [
+  // {
+  //   id: 1,
+  //   image: "/case1.png",
+  //   title: "Crafting a Timeless Brand Identity That Resonates",
+  //   desc:
+  //     "A strong brand identity builds trust and recognition. Learn the steps to create...",
+  // },
+  // {
+  //   id: 2,
+  //   image: "/case2.png",
+  //   title: "The Art of Using Animation to Enhance Web Design",
+  //   desc:
+  //     "Subtle animations can transform your website’s user experience. Learn how to use…",
+  // },
+  // {
+  //   id: 3,
+  //   image: "/case3.png",
+  //   title: "Designing Spaces That Define Your Brand",
+  //   desc:
+  //     "Visual storytelling through spatial design can redefine brand perception…",
+  // },
+  // {
+  //   id: 4,
+  //   image: "/case4.png",
+  //   title: "Elevating Digital Products Through Precision Design",
+  //   desc:
+  //     "Thoughtful design choices elevate usability and clarity across platforms…",
+  // },
+  // {
+  //   id: 5,
+  //   image: "/case5.png",
+  //   title: "Boosting SEO Through Strategic Web Design",
+  //   desc:
+  //     "Great design improves search rankings. Learn how to optimize your website for SE...",
+  // },
+  // {
+  //   id: 6,
+  //   image: "/case6.png",
+  //   title: "Using Shapes to Shape Your Brand's Perception",
+  //   desc:
+  //     "Shapes influence emotions and perceptions. Learn how to use them to strengthen y...",
+  // },
+  // {
+  //   id: 7,
+  //   image: "/case7.png",
+  //   title: "Designing for Accessibility: Inclusive Websites in 2025",
+  //   desc:
+  //     "Accessible design welcomes all users. Learn how to create inclusive websites tha...",
+  // },
+  // {
+  //   id: 8,
+  //   image: "/case8.png",
+  //   title: "Interactive Storytelling: Engaging Users Through Design",
+  //   desc:
+  //     "Interactive storytelling captivates audiences. Learn how to use it to boost enga...",
+  // },
+  // {
+  //   id: 9,
+  //   image: "/case9.png",
+  //   title: "Data-Driven Design: Making Smarter Creative Choices",
+  //   desc:
+  //     "Data informs better design. Learn how to use insights to create visuals that res...",
+  // },
+  // {
+  //   id: 10,
+  //   image: "/case10.png",
+  //   title: "Balancing Creativity and Functionality in Web Design",
+  //   desc:
+  //     "Great design blends beauty and usability. Learn how to create websites that wow...",
+  // },
+  //                       ];
 
 // useGSAP(() => {
 //   const tl = gsap.timeline({
@@ -171,7 +180,25 @@ a: "If you care about clarity, long-term stability, and honest trade-offs, we'll
 
 // }, []);
 
-useGSAP(() => {
+
+  useEffect(() => {
+    (async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/v1/job/getallcasestudy",
+          { withCredentials: true }
+        );
+        setCasestudy(response.data.message || []);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
+ useGSAP(() => {
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: sectionRef.current,
@@ -223,7 +250,7 @@ useGSAP(() => {
       const isMobile = width <= 800;
 
   tl.to(navbarRef.current, {
-    width: isMobile ? "50%" : 440,   // 👈 fixed
+    width: isMobile ? "50%" : 440,   //  fixed
     borderRadius: isMobile ? "8px" : "8px",
     top: isMobile ? "10px" : "10px",
     justifyContent:"flex-end",
@@ -270,11 +297,103 @@ useGSAP(() => {
         );
       }, []);
 
-const navbarRef = useRef(null);
-      const logRef = useRef(null);
-      const btnTextRef = useRef(null);
-      const btnIconRef = useRef(null);
 
+      const handlecase = (name) =>{
+        const case1 = casestudy.find(c => c?.title === name)
+        console.log(case1)
+        setCases(case1)
+      }
+
+
+      const CaseStudyDetail =()=>{
+        return(
+          <div className={styles.caseStudyDetail}>
+
+      <div className={styles.container}>
+        {/* Back Button */}
+        <div className={styles.backButton} onClick={()=>{setCases(null)}}>
+          <ArrowLeft size={20} />
+          <span >Back to Case Studies</span>
+        </div>
+
+        {/* Hero Section */}
+        <div className={styles.heroSection}>
+          <div className={styles.heroContent}>
+            <h1 className={styles.heroTitle}>
+              {cases?.title}
+            </h1>
+            <p className={styles.heroDescription}>
+              {cases?.subtitle}
+            </p>
+          </div>
+          <div className={styles.heroImage}>
+            {/* Black placeholder for image */}
+            <div className={styles.imagePlaceholder}>
+              <img src={cases?.thumbnail} alt={cases?.title} height="100%" width="100%"/>
+            </div>
+          </div>
+        </div>
+
+        {/* Background Section */}
+        <div className={styles.section}>
+          <div
+  className={styles.richContent}
+  dangerouslySetInnerHTML={{ __html: cases?.content }}
+/>
+        </div>
+
+        {/* Results Section */}
+        {/* <div className={styles.section}>
+          <h2 className={styles.sectionTitle}>The Results (21 Days, No Drama)</h2>
+          <ul className={styles.bulletList}>
+            <li>Product shipped in 21 days</li>
+            <li>Zero rework cycles</li>
+            <li>Engineers moved without blockers</li>
+            <li>Founder stopped micromanaging</li>
+            <li>New features added without breaking the system</li>
+          </ul>
+          <p className={styles.sectionText}>
+            But the real win? The founder said: "This is the first time my product feels calm."
+            That's the result we design for.
+          </p>
+        </div> */}
+
+        {/* Why This Matters Section */}
+        {/* <div className={styles.section}>
+          <h2 className={styles.sectionTitle}>Why This Case Study Matters</h2>
+          <p className={styles.sectionText}>
+            Most startups don't fail because of bad tech. They fail because decisions stay vague for too long.
+            NoCapCode exists to make decisions early - so building becomes simple, predictable, and boring (in the good way).
+          </p>
+        </div> */}
+
+        {/* CTA Sections in a Row */}
+        <div className={styles.ctaRow}>
+          <div className={styles.ctaSection}>
+            <h2 className={styles.ctaTitle}>Start with clarity, not code</h2>
+            <p className={styles.ctaDescription}>
+              If your product is still in your head, Notion, or 10 different chats —
+              we'll help you turn it into a build-ready system before you waste months.
+            </p>
+            <button className={styles.ctaButton}>
+               Book a clarity session →
+            </button>
+          </div>
+
+          <div className={styles.ctaSection}>
+            <h2 className={styles.ctaTitle}>See how we work</h2>
+            <p className={styles.ctaDescription}>
+              Want to understand our full thinking + execution process?
+            </p>
+            <button className={styles.ctaButton}>
+               Explore our process →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+        )
+      }
 
 
 
@@ -284,9 +403,12 @@ const navbarRef = useRef(null);
   ref={navbarRef}
   logoRef={logRef}
   btnTextRef={btnTextRef}
-  btnIconRef={btnIconRef}
-/>
-    <section className={styles.caseWrap} ref={sectionRef}>
+  btnIconRef={btnIconRef}/>
+  {cases ? (
+    <CaseStudyDetail />
+  ):(
+    <>
+       <section className={styles.caseWrap} ref={sectionRef}>
       {/* small pill */}
       <span className={styles.pill} ref={pillRef}>Case Studies</span>
 
@@ -303,16 +425,19 @@ const navbarRef = useRef(null);
 
       {/* cards grid */}
      <div className={styles.grid}>
-        {caseStudies.map((item,i) => (
-          <div key={item.id} className={styles.caseCard} ref={(el) => (cardsRef.current[i] = el)} >
+        {casestudy.map((item,i) => (
+          <div key={item.id} className={styles.caseCard} ref={(el) => (cardsRef.current[i] = el)}  onClick={()=>{handlecase(item?.title)}}>
             <div className={styles.caseImage} >
-              <img src={item.image} alt={item.title} />
-              <span className={styles.caseArrow} onClick={()=>{navigate("/404")}} style={{cursor:"pointer"}}>↗</span>
+              <img src={item?.thumbnail} alt={item?.title} />
+              <span className={styles.caseArrow}>
+  <span className={styles.arrowOut}>↗</span>
+  <span className={styles.arrowIn}>↗</span>
+</span>
             </div>
 
             <div className={styles.caseContent}>
-              <h3>{item.title}</h3>
-              <p>{item.desc}</p>
+              <h3>{item?.title}</h3>
+              <p>{item?.subtitle}</p>
             </div>
           </div>
         ))}
@@ -362,6 +487,9 @@ about no cap code's process, plans, and services.</span>
         })}
       </div>
     </div>
+    </>
+  )}
+  
       <footer className={styles.footerWrap}>
        <div className={styles.footerScene}>
         <img src="/nocapbg.png" width="100%" height="100%" alt="/" />

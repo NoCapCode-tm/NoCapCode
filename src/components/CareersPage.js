@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "../CSS/CareersPage.module.css";
 
 import CareersGlobe from "./CareersGlobe";
@@ -10,6 +10,7 @@ import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import useWindowWidth from "./usewindowwidth";
+import axios from "axios";
 
 export default function CareersPage() {
     const navigate= useNavigate()
@@ -19,6 +20,30 @@ export default function CareersPage() {
       const btnIconRef = useRef(null);
       const positionref =useRef(null)
       const width = useWindowWidth()
+      const[jobs,setjobs]=useState([])
+      const[loading,setLoading]=useState(false)
+      const[job,setJob]=useState(null)
+
+
+       useEffect(() => {
+    (async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/v1/job/getjobs",
+          { withCredentials: true }
+        );
+        console.log(response.data.message)
+        const job1 = response.data.message
+        setjobs(job1);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
 
       useGSAP(() => {
         const tl = gsap.timeline({
@@ -90,7 +115,7 @@ export default function CareersPage() {
       {/* HERO */}
       <section className={styles.hero}>
         <div className={styles.globeWrapper}>
-          {/* 👇 your existing globe */}
+          {/*  your existing globe */}
           <CareersGlobe/>
         </div>
 
@@ -131,23 +156,28 @@ export default function CareersPage() {
         </div>
 
         {/* CARD */}
-        <div className={styles.jobCard}>
+        {jobs.map((item)=>{
+          return (
+             <div className={styles.jobCard}>
           <div  className={styles.position}>
-            <h3>Content marketing specialist</h3>
+            <h3>{item?.title}</h3>
             <p>
-              Join us as a senior frontend developer and lead modern, scalable
-              interface design with React, Vue, or Angular.
+             {item?.description}
             </p>
           </div>
 
           <div className={styles.meta}>
             <span><MapPin size={16}/>New York, NY</span>
-            <span><Clock   size={16}/>Part time</span>
-            <span><BriefcaseBusiness  size={16}/>Business</span>
+            <span><Clock   size={16}/>{item?.mode}</span>
+            <span><BriefcaseBusiness  size={16}/>{item?.department}</span>
           </div>
 
           <div className={styles.arrow}>↗</div>
-        </div>
+             </div>
+          )
+            
+        })}
+       
       </section>
     </div>
     <footer className={styles.footerWrap}>
