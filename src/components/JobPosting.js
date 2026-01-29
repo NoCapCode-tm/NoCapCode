@@ -39,7 +39,7 @@ const [applicantsneeded, setApplicantsNeeded] = useState("");
 
   try {
     await axios.post(
-      "http://localhost:5000/api/v1/job/create",
+      "https://atlasbackend-px53.onrender.com/api/v1/job/create",
       {
         title,
         description,
