@@ -26,12 +26,14 @@ import OnboardingComplete from "./components/OnboardingComplete";
 import Login from "./components/Login"
 import AddCaseStudy from "./components/AddCaseStudy";
 import Addjobposting from "./components/JobPosting";
+import AdminLogin from "./components/AdminLogin";
+
 
 function AppWrapper() {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
 
-  // 🔥 Route change pe loader trigger
+  //  Route change pe loader trigger
   React.useEffect(() => {
     setLoading(true);
 
@@ -63,6 +65,7 @@ function AppWrapper() {
             <Route path="/addjobposting" element={<Addjobposting/>} />
             <Route path="/clarity" element={<ClarityForm/>} />
             <Route path="/login" element={<Login />} />
+            <Route path="/adminlogin" element={<AdminLogin />} />
             <Route path="/onboarding" element={ <Onboarding /> } />
             <Route path="/onboarding/step1" element={<Step1 />} />
             <Route path="/onboarding/step2" element={<Step2 />} />
@@ -89,7 +92,13 @@ export default function App() {
     <HashRouter>
       <AppWrapper />
     </HashRouter>
-     <ToastContainer   position="top-center" autoClose={3000} icon="false" hideProgressBar="true"/>
+    <ToastContainer
+  position="top-center"
+  autoClose={1000}
+  icon={false}
+  hideProgressBar={true}
+/>
+
      </>
   );
 }
