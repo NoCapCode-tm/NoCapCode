@@ -65,31 +65,33 @@ const Step4 = () => {
 }, []);
 
  useEffect(() => {
-  const fetchUser = async () => {
+  if (!formData.reportingManager) return;
+
+  const fetchManagers = async () => {
     try {
-      setLoading(true)
+      setLoading(true);
       const res = await axios.get(
         "https://atlasbackend-px53.onrender.com/api/v1/admin/getalluser",
         { withCredentials: true }
       );
 
-      const u = res.data.message;
-      // console.log(u)
-      const managers = u.find(u=>u._id === formData?.reportingManager)
-      // console.log(managers.name)
-      setManager(managers)
+      const users = res.data.message;
+      const matchedManager = users.find(
+        (u) => u._id === formData.reportingManager
+      );
 
-      
+      setManager(matchedManager || null);
     } catch (err) {
-       toast.error(" User Unauthorized : Please Login First")
-             navigate("/login")
-    }finally{
-      setLoading(false)
+      toast.error("User Unauthorized : Please Login First");
+      navigate("/login");
+    } finally {
+      setLoading(false);
     }
   };
 
-  fetchUser();
-}, []);
+  fetchManagers();
+}, [formData.reportingManager]);
+
 
 
   const handleInputChange = (field, value) => {
