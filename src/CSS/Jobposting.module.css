@@ -30,7 +30,7 @@
       rgba(60, 80, 160, 0.15),
       transparent 60%
     );
-  transform: rotate(-18deg); /* 🔥 HERE IS YOUR TILT */
+  transform: rotate(-18deg); /*HERE IS YOUR TILT */
   transform-origin: center;
   z-index: 0;
 }
@@ -46,7 +46,7 @@
     z-index: 45;
 }
 .claritytext{
-     font-size:10vw;
+     font-size:108px;
     font-weight:500;
   font-family: "Outfit", serif;
   z-index: 45;

@@ -368,7 +368,7 @@ useGSAP(() => {
         </div> */}
 
         {/* CTA Sections in a Row */}
-        <div className={styles.ctaRow}>
+        {/* <div className={styles.ctaRow}>
           <div className={styles.ctaSection}>
             <h2 className={styles.ctaTitle}>Start with clarity, not code</h2>
             <p className={styles.ctaDescription}>
@@ -389,7 +389,7 @@ useGSAP(() => {
                Explore our process →
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
         )

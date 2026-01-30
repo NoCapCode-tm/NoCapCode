@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+.applicationform{
+  min-height: 100vh;
+  width:100vw;
+  background: #000;
+  color: rgba(210, 220, 235, 0.75);
+  font-family: "Outfit", sans-serif;
+  position: relative;
+  padding-bottom: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  /* margin-top: 25px; */
+}
+.applicationform::before {
+  content: "";
+  position: absolute;
+  inset: -40%; 
+  background:
+    radial-gradient(
+      5000px 725px at 41% 55%,
+      rgba(30, 60, 140, 0.55),
+      rgba(10, 20, 40, 0.35) 33%,
+      rgba(0, 0, 0, 0.95) 89%
+    ),
+    radial-gradient(
+      800px 600px at 30% 20%,
+      rgba(60, 80, 160, 0.15),
+      transparent 60%
+    );
+  transform: rotate(-10deg); 
+  transform-origin: center;
+  z-index: 0;
+}
+.claritytext{
+     font-size:108px;
+    font-weight:500;
+  font-family: "Outfit", serif;
+  z-index: 45;
+}
+.subtext {
+  margin-top: -25px;
+   font-size:24px;
+    font-weight:400;
+   font-family: "Outfit", sans-serif;
+    color:rgba(153, 161, 175, 1);
+  z-index:45;
+}
+
+.gradienttext {
+  background: linear-gradient(180deg, #512FEB 23.21%, rgb(0, 0, 0) 90.24%);
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.divider1{
+    display:flex;
+    width:100%;
+    flex-direction: column;
+    align-items: center;
+    gap:10px;
+    margin-left:30px;
+    padding:0px 50px;
+    margin-top:100px;
+    z-index: 45;
+}
+
+/* .applicationform {
+  display: flex;
+  justify-content: center;
+  padding: 80px 20px;
+} */
+
+.form {
+  width: 70%;
+  
+  background:rgba(15, 23, 43, 0.5);
+  border-radius: 16px;
+  align-self: center;
+  margin-top:40px;
+  padding: 40px 44px 48px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(18px);
+}
+
+/* SECTION TITLE */
+.sectionTitle {
+  font-size: 24px;
+  font-weight: 500;
+  color: rgba(81, 47, 235, 1);
+  margin-bottom: 22px;
+}
+
+/* FIELDS */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.field label {
+  font-size: 18px;
+  color: rgba(226, 232, 240, 1);
+  font-weight: 500;
+}
+
+.field input,
+.field select {
+  background: rgba(38, 38, 38, 0.3);
+ border: 0.8px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 14px 14px;
+  font-size: 16px;
+  color: rgba(98, 116, 142, 1);
+  outline: none;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.field input::placeholder{
+  color: rgba(150, 150, 150, 0.7);
+  font-family: "Outfit", sans-serif;
+  letter-spacing: 1px;
+}
+
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+/* DIVIDER */
+.divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  margin: 34px 0;
+}
+
+/* SUBMIT */
+.submitWrap {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 28px;
+}
+
+.submitWrap button {
+  background: rgba(81, 47, 235, 1);
+  border: none;
+  padding: 14px 22px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+ 
+}
+
+
+.addOtherLink {
+  font-size: 15px;
+  color: #7c7cff;
+  cursor: pointer;
+  margin-top: 8px;
+  width: fit-content;
+}
+
+.addOtherLink:hover {
+  text-decoration: underline;
+}
+
+/* Wrapper for added links list (if needed later) */
+.otherLinksList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* Individual added link row */
+.otherLinkItem {
+  display: flex;
+  justify-content: space-between;
+  background: rgba(38, 38, 38, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #e5e7eb;
+}
+
+/* Platform name */
+.otherLinkItem span:first-child {
+  font-weight: 500;
+  color: #c7d2fe;
+}
+
+/* Link */
+.otherLinkItem a {
+  color: #9aa5ff;
+  text-decoration: none;
+  max-width: 65%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.otherLinkItem a:hover {
+  text-decoration: underline;
+}
+

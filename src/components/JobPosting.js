@@ -145,7 +145,7 @@ Quill.register(Size, true);
       }, []);
   return (
     <>
-    {loading && <LoaderDots text="Adding Case Study" />}
+    {loading && <LoaderDots text="Adding Job Postings" />}
     <section className={styles.wrap} ref={startRef}>
       <Navbar
   ref={navbarRef}

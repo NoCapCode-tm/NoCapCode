@@ -514,3 +514,56 @@
     padding:20px 8px;
   }
 }
+
+.richContent {
+  max-width: 900px;
+  margin: 10px auto;
+  color: #eaeaea;
+  line-height: 1.75;
+  font-size: 17px;
+}
+
+/* Headings */
+.richContent h1,
+.richContent h2 {
+  font-size: 38px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* Paragraphs */
+.richContent p {
+  margin: 16px 0;
+  font-size: 18px;
+  color: #cfcfcf;
+}
+
+/* Lists */
+.richContent ul {
+  margin: 24px 0;
+  padding-left: 20px;
+}
+.richContent :global(li)::marker {
+  color: #3b82f6; /* blue */
+}
+
+.richContent li {
+  margin-bottom: 12px;
+  list-style: disc;
+  color: #d8d8d8;
+}
+
+/* Bold & emphasis */
+.richContent strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.richContent em {
+  opacity: 0.9;
+}
+
+/* Extra spacing between sections */
+.richContent h2 + p {
+  margin-top: 8px;
+}

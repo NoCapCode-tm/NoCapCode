@@ -158,12 +158,13 @@ export default function CareersPage() {
         {/* CARD */}
         {jobs.map((item)=>{
           return (
-             <div className={styles.jobCard}>
+             <div className={styles.jobCard} onClick={()=>{navigate(`/careers/${item._id}`)}}>
           <div  className={styles.position}>
             <h3>{item?.title}</h3>
-            <p>
-             {item?.description}
-            </p>
+            <div
+              className={styles.richContent}
+              dangerouslySetInnerHTML={{ __html: item?.description }}
+            />
           </div>
 
           <div className={styles.meta}>
