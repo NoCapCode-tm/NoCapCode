@@ -11,6 +11,11 @@ import LoaderDots from './LoaderDots';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import { Instagram, Linkedin } from 'lucide-react';
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import Quill from "quill";
+
+
 
 
 
@@ -31,6 +36,22 @@ const [department, setDepartment] = useState("");
 const [whoshouldapply, setWhoShouldApply] = useState("");
 const [employementtype, setEmployementType] = useState("");
 const [applicantsneeded, setApplicantsNeeded] = useState("");
+
+ const Font = Quill.import("formats/font");
+
+Font.whitelist = [
+  "inter",
+  "poppins",
+  "roboto",
+  "serif",
+  "monospace",
+];
+
+Quill.register(Font, true);
+
+const Size = Quill.import("formats/size");
+Size.whitelist = ["small", "normal", "large", "huge"];
+Quill.register(Size, true);
 
       const navigate = useNavigate()
      const handlesubmit = async (e) => {
@@ -149,30 +170,78 @@ const [applicantsneeded, setApplicantsNeeded] = useState("");
   </div>
 
   <div className={styles.field}>
-    <label>Description</label>
-    <textarea
-      placeholder="Provide a detailed job description..."
-      value={description}
-      onChange={(e) => setDescription(e.target.value)}
-    />
+    <label>Job Description</label>
+  
+    <div className={styles.quillWrapper}>
+      <ReactQuill
+        theme="snow"
+        value={description}
+        onChange={setDescription}
+        placeholder="Enter job description and details..."
+        modules={{
+          toolbar: [
+            [{ font: Font.whitelist }],
+             [{ size: Size.whitelist }],
+            [{ header: [1, 2, 3, false] }],
+            ["bold", "italic", "underline", "strike"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            [{ align: [] }],
+            ["link"],
+            ["clean"],
+          ],
+        }}
+      />
+    </div>
   </div>
 
   <div className={styles.field}>
-    <label>Responsibilities</label>
-    <textarea
-      placeholder="List key responsibilities..."
-      value={responsibilities}
-      onChange={(e) => setResponsibilities(e.target.value)}
-    />
+    <label>Job Responsibilities</label>
+  
+    <div className={styles.quillWrapper}>
+      <ReactQuill
+        theme="snow"
+        value={responsibilities}
+        onChange={setResponsibilities}
+        placeholder="Enter job responsibilities and details..."
+        modules={{
+          toolbar: [
+            [{ font: Font.whitelist }],
+            [{ header: [1, 2, 3, false] }],
+             [{ size: Size.whitelist }],
+            ["bold", "italic", "underline", "strike"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            [{ align: [] }],
+            ["link"],
+            ["clean"],
+          ],
+        }}
+      />
+    </div>
   </div>
 
   <div className={styles.field}>
-    <label>Perks</label>
-    <textarea
-      placeholder="List perks and benefits..."
-      value={perks}
-      onChange={(e) => setPerks(e.target.value)}
-    />
+    <label>Job Perks</label>
+  
+    <div className={styles.quillWrapper}>
+      <ReactQuill
+        theme="snow"
+        value={perks}
+        onChange={setPerks}
+        placeholder="Enter job Perks and details..."
+        modules={{
+          toolbar: [
+            [{ font: Font.whitelist }],
+            [{ header: [1, 2, 3, false] }],
+             [{ size: Size.whitelist }],
+            ["bold", "italic", "underline", "strike"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            [{ align: [] }],
+            ["link"],
+            ["clean"],
+          ],
+        }}
+      />
+    </div>
   </div>
 
   <div className={styles.fieldRow}>
@@ -204,11 +273,26 @@ const [applicantsneeded, setApplicantsNeeded] = useState("");
 
   <div className={styles.field}>
     <label>Who Should Apply</label>
-    <textarea
-      placeholder="Describe ideal candidates..."
-      value={whoshouldapply}
-      onChange={(e) => setWhoShouldApply(e.target.value)}
-    />
+  
+    <div className={styles.quillWrapper}>
+      <ReactQuill
+        theme="snow"
+        value={whoshouldapply}
+        onChange={setWhoShouldApply}
+        placeholder="Enter job Requirements"
+        modules={{
+          toolbar: [
+            [{ font: Font.whitelist }],
+            [{ header: [1, 2, 3, false] }],
+            ["bold", "italic", "underline", "strike"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            [{ align: [] }],
+            ["link"],
+            ["clean"],
+          ],
+        }}
+      />
+    </div>
   </div>
 
   <div className={styles.fieldRow}>

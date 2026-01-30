@@ -186,7 +186,7 @@ a: "If you care about clarity, long-term stability, and honest trade-offs, we'll
       setLoading(true);
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/v1/job/getallcasestudy",
+          "https://atlasbackend-px53.onrender.com/api/v1/job/getallcasestudy",
           { withCredentials: true }
         );
         setCasestudy(response.data.message || []);
