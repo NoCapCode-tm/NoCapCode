@@ -30,7 +30,7 @@ export default function CareersPage() {
       setLoading(true);
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/v1/job/getjobs",
+          "https://atlasbackend-px53.onrender.com/api/v1/job/getjobs",
           { withCredentials: true }
         );
         console.log(response.data.message)

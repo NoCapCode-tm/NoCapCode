@@ -28,7 +28,7 @@ const AdminLogin = () => {
         e.preventDefault();
         try {
             setLoading(true)
-            const response = await axios.post("http://localhost:5000/api/v1/job/adminlogin",{
+            const response = await axios.post("https://atlasbackend-px53.onrender.com/api/v1/job/adminlogin",{
                 userid:formData.email,
                 password:formData.password
             },{withCredentials:true})
