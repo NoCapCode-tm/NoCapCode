@@ -27,6 +27,8 @@ import Login from "./components/Login"
 import AddCaseStudy from "./components/AddCaseStudy";
 import Addjobposting from "./components/JobPosting";
 import AdminLogin from "./components/AdminLogin";
+import Jobdetailspage from "./components/Jobdetailspage";
+import Applicationform from "./components/Applicationform";
 
 
 function AppWrapper() {
@@ -62,7 +64,9 @@ function AppWrapper() {
             <Route path="/terms" element={<Condition />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/careers" element={<CareersPage/>} />
+            <Route path="/careers/:id" element={<Jobdetailspage/>} />
             <Route path="/addjobposting" element={<Addjobposting/>} />
+            <Route path="/career/:id/applicationform" element={<Applicationform/>} />
             <Route path="/clarity" element={<ClarityForm/>} />
             <Route path="/login" element={<Login />} />
             <Route path="/adminlogin" element={<AdminLogin />} />
