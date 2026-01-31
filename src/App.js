@@ -29,6 +29,7 @@ import Addjobposting from "./components/JobPosting";
 import AdminLogin from "./components/AdminLogin";
 import Jobdetailspage from "./components/Jobdetailspage";
 import Applicationform from "./components/Applicationform";
+import Home from "./components/Home";
 
 
 function AppWrapper() {
@@ -70,6 +71,7 @@ function AppWrapper() {
             <Route path="/clarity" element={<ClarityForm/>} />
             <Route path="/login" element={<Login />} />
             <Route path="/adminlogin" element={<AdminLogin />} />
+            <Route path="/adminhome" element={<Home/>} />
             <Route path="/onboarding" element={ <Onboarding /> } />
             <Route path="/onboarding/step1" element={<Step1 />} />
             <Route path="/onboarding/step2" element={<Step2 />} />

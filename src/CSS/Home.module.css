@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+.container {
+  min-height: 100vh;
+  width: 100%;
+  background:black;
+  color: white;
+  font-family: "Outfit", sans-serif;
+}
+
+/* TOP IMAGE BAR SPACE */
+.topBar {
+  height: 350px; /* YOU CAN ADJUST */
+  width: 100%;
+  
+}
+.topBar img{
+    z-index: 1;
+}
+.gradienttext {
+  background:linear-gradient(180deg, #FFFFFF 57.21%, #000000 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* HERO */
+.hero {
+  padding: 40px 80px;
+}
+
+.welcome {
+  font-size: 140px;
+  margin-top: -60px;
+  line-height: 120px;
+  font-weight: 500;
+  z-index: 40;
+  position: absolute;
+  top:250px;
+  left:80px;
+ 
+}
+
+.brand {
+  font-size: 72px;
+  font-weight: 700;
+  margin: 10px 0;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0.25) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.tagline {
+  color: rgba(81, 47, 235, 1);
+  font-size: 26px;
+  margin-top: 10px;
+  font-weight: 400;
+}
+
+/* CARDS */
+.cards {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 40px;
+  margin-top: 60px;
+ 
+}
+
+
+.card {
+ 
+  padding: 28px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(50px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cardTitle {
+  color: rgba(34, 70, 255, 1);
+  font-size: 44px;
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+
+.cardText {
+  font-size: 18px;
+  color: rgba(172, 171, 171, 1);
+  line-height: 1.6;
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+
+/* BUTTONS */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.editBtn {
+  background: rgba(34, 70, 255, 1);
+  color: white;
+  border: 1px solid #3b5cff;
+  padding: 12px 28px;
+  font-size: 18px;
+  letter-spacing: 2px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.createBtn {
+  background: rgba(34, 70, 255, 1);
+  color: white;
+  border: none;
+   font-size: 18px;
+  letter-spacing: 2px;
+  padding: 12px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.createBtn:hover {
+  opacity: 0.9;
+}
+@media screen and (max-width:900px) {
+    .topBar{
+        width:135%;
+    }
+    .welcome{
+        position:relative;
+        top:0px;left:0px;
+        font-size: 100px;
+        line-height: 80px;
+    }
+    .hero{
+        padding:0px 20px;
+        margin-top:-150px;
+    }
+}
+@media screen and (max-width:585px){
+   .welcome{
+    font-size: 70px;
+    line-height: 60px;
+
+   }
+}
+@media screen and (max-width:500px){
+  .topBar{
+        width:205%;
+    }
+    .welcome{
+    font-size: 60px;
+    line-height: 50px;
+
+   }
+   .cards{
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+   }
+}
+@media screen and (max-width:410px){
+  .actions{
+    display:grid;
+     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+     gap:10px;  
+  }
+  .welcome{
+    font-size: 50px;
+    line-height: 40px;
+
+   }
+   .tagline{
+    font-size: 18px;
+   }
+}
