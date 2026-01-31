@@ -34,7 +34,7 @@ const AdminLogin = () => {
             },{withCredentials:true})
             console.log(response.data.message)
             toast.success("Admin Loginned Successfully")
-            navigate('/');
+            navigate('/adminHome');
         } catch (error) {
             toast.error("Login Unsuccessfull")
         }finally{

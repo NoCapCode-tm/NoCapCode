@@ -209,4 +209,39 @@
 .richContent h2 + p {
   margin-top: 8px;
 }
+@media screen and (max-width:480px){
+  .meta{
+    flex-wrap: wrap;
+  }
+  .actions{
+    display:grid;
+     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+     gap:10px;  
+  }
+  .applyBtn ,.secondaryBtn{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width:400px){
+  .title{
+    font-size: 55px;
+  }
+  .container{
+    padding:60px 20px;
+  }
+  .richContent p{
+    font-size: 15px;
+  }
+  .sectionheader{
+    font-size: 30px;
+  }
+  .richContent h2{
+    font-size: 20px;
+    letter-spacing: 1px;
+  }
+}
 
