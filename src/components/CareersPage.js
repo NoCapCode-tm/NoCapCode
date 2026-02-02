@@ -108,6 +108,7 @@ export default function CareersPage() {
       
   return (
     <>
+    {loading && <LoaderDots text="Loading" />}
     <div className={styles.wrapper}>
       {/* Navbar */}
       <Navbar ref={navbarRef}logoRef={logRef} btnTextRef={btnTextRef} btnIconRef={btnIconRef}/>
