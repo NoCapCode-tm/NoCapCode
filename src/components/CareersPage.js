@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import useWindowWidth from "./usewindowwidth";
 import axios from "axios";
+import LoaderDots from "./LoaderDots";
 
 export default function CareersPage() {
     const navigate= useNavigate()
