@@ -1,33 +1,57 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import styles from "../CSS/PageLoader.module.css";
 import gsap from "gsap";
 
 export default function PageLoader({ onComplete }) {
   const [visible, setVisible] = useState(true);
 
+  // useEffect(() => {
+  //   const tl = gsap.timeline({
+  //     delay: 2.5,
+  //     onComplete: () => {
+  //       setVisible(false);
+
+  //       //  SAFETY CHECK
+  //       if (typeof onComplete === "function") {
+  //         onComplete();
+  //       }
+  //     },
+  //   });
+
+  //   tl.to(`.${styles.loader}`, {
+  //     opacity: 0,
+  //     scale: 0.95,
+  //     duration: 0.6,
+  //     ease: "power3.inOut",
+  //   });
+
+  //   return () => tl.kill();
+  // }, [onComplete]);
+
+
+  const loaderRef = useRef(null);
+
   useEffect(() => {
+    if (!loaderRef.current) return;
+  
     const tl = gsap.timeline({
       delay: 2.5,
       onComplete: () => {
         setVisible(false);
-
-        //  SAFETY CHECK
-        if (typeof onComplete === "function") {
-          onComplete();
-        }
+        if (typeof onComplete === "function") onComplete();
       },
     });
-
-    tl.to(`.${styles.loader}`, {
+  
+    tl.to(loaderRef.current, {
       opacity: 0,
       scale: 0.95,
       duration: 0.6,
       ease: "power3.inOut",
     });
-
+  
     return () => tl.kill();
   }, [onComplete]);
-
+  
   if (!visible) return null;
 
   return (
