@@ -25,7 +25,8 @@
   font-weight: 300;
   font-size: clamp(36px, 10vw, 120px);
   white-space: nowrap;   
-  overflow: hidden;     
+  overflow: hidden;   
+  margin-bottom: -100px;  
 }
 
 .gradienttext {
