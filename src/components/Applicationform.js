@@ -45,6 +45,7 @@ const Applicationform = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+    if (!validationForm()) return;
     setLoading(true)
     try {
         const response = await axios.post("https://atlasbackend-px53.onrender.com/api/v1/job/apply",{
@@ -67,6 +68,66 @@ const Applicationform = () => {
     }
   };
 
+  const validationForm = () => {
+    const requiredFields = [
+      "fullName",
+      "email",
+      "phone",
+      "dob",
+      "gender",
+      "resume",
+      "linkedin"
+    ];
+
+    const missing = requiredFields.filter((field) => !formData[field] || String(formData[field]).trim() === '');
+
+    if (missing.length>0){
+      toast.error("All fields are required")
+      return false
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error("Please Enter a valid email address")
+      return false
+    }
+
+    const phoneRegex = /^\+?[1-9]\d{9,14}$/
+    if (!phoneRegex.test(formData.phone.replace(/\s|-/g, ""))) {
+      toast.error("Please Enter a valid phone number")
+      return false
+    }
+
+    const dob = new Date(formData.dob);
+  const today = new Date();
+
+  if (dob > today) {
+    toast.error("Date of birth cannot be in the future");
+    return false;
+  }
+
+  const age = today.getFullYear() - dob.getFullYear();;
+
+  if (age < 18) {
+    toast.error("You must be at least 18 years old to apply");
+    return false;
+  }
+
+    try {
+      new URL(formData.resume)
+    } catch {
+      toast.error("please provide a valid resume link")
+      return false
+    }
+    try {
+      new URL(formData.linkedin)
+    } catch {
+      toast.error("please provide a valid Linkedin link")
+      return false
+    }
+    return true
+  }
+
   return (
     <>
      {loading && <LoaderDots text="Applying to Job ..." />}
@@ -81,7 +142,7 @@ const Applicationform = () => {
                 <h3 className={styles.sectionTitle}>Personal Information</h3>
 
         <div className={styles.field}>
-          <label>Full Name</label>
+          <label>Full Name<span className={styles.required}>*</span></label>
           <input
             type="text"
             name="fullName"
@@ -93,7 +154,7 @@ const Applicationform = () => {
 
         <div className={styles.grid}>
           <div className={styles.field}>
-            <label>Email</label>
+            <label>Email<span className={styles.required}>*</span></label>
             <input
               type="email"
               name="email"
@@ -104,7 +165,7 @@ const Applicationform = () => {
           </div>
 
           <div className={styles.field}>
-            <label>Phone Number</label>
+            <label>Phone Number<span className={styles.required}>*</span></label>
             <input
               type="text"
               name="phone"
@@ -115,17 +176,18 @@ const Applicationform = () => {
           </div>
 
           <div className={styles.field}>
-            <label>Date of Birth</label>
+            <label>Date of Birth<span className={styles.required}>*</span></label>
             <input
               type="date"
               name="dob"
+              max={new Date().toISOString().split("T")[0]}
               value={formData.dob}
               onChange={handleChange}
             />
           </div>
 
           <div className={styles.field}>
-            <label>Gender</label>
+            <label>Gender<span className={styles.required}>*</span></label>
             <select
               name="gender"
               value={formData.gender}
@@ -146,7 +208,7 @@ const Applicationform = () => {
         <h3 className={styles.sectionTitle}>Professional Information</h3>
 
         <div className={styles.field}>
-          <label>Resume Link</label>
+          <label>Resume Link<span className={styles.required}>*</span></label>
           <input
             type="url"
             name="resume"
@@ -157,7 +219,7 @@ const Applicationform = () => {
         </div>
 
         <div className={styles.field}>
-          <label>LinkedIn Profile</label>
+          <label>LinkedIn Profile<span className={styles.required}>*</span></label>
           <input
             type="url"
             name="linkedin"
@@ -196,7 +258,7 @@ const Applicationform = () => {
         <label>Platform</label>
         <input
           type="text"
-          placeholder="e.g. Portfolio, Twitter"
+          placeholder="e.g. Leetcode, CodeChef"
           value={otherPlatform}
           onChange={(e) => setOtherPlatform(e.target.value)}
         />
