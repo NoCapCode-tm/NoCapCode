@@ -24,7 +24,19 @@ export default function CareersPage() {
       const[jobs,setjobs]=useState([])
       const[loading,setLoading]=useState(false)
       const[job,setJob]=useState(null)
+      const[search, setSearch] = useState('');
+      const[activeTab, setActiveTab] = useState("All");
 
+      const tabs = ["All", "Marketing", "Designing", "Engineering"]
+
+      const filteredJobs = jobs.filter((job) => {
+        const matchesSearch = job.title?.toLowerCase().includes(search.toLowerCase());
+
+        const matchesTabs = activeTab === 'All' ||
+        job.department?.toLowerCase() === activeTab.toLowerCase();
+
+        return matchesSearch && matchesTabs
+      })
 
        useEffect(() => {
     (async () => {
@@ -147,18 +159,26 @@ export default function CareersPage() {
             type="text"
             placeholder="Search field"
             className={styles.search}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
 
           <div className={styles.tabs}>
-            <button className={styles.active}>All</button>
-            <button>Business</button>
-            <button>Design</button>
-            <button>Development</button>
+            {tabs.map((tab) => (
+              <button
+              key={tab} 
+              className={activeTab === tab? styles.active : ""}
+              onClick={() => setActiveTab(tab)}
+              >
+                {tab}
+              </button>
+
+            ))}
           </div>
         </div>
 
         {/* CARD */}
-        {jobs.map((item)=>{
+        {filteredJobs.map((item)=>{
           return (
              <div className={styles.jobCard} onClick={()=>{navigate(`/careers/${item._id}`)}}>
           <div  className={styles.position}>
@@ -170,7 +190,7 @@ export default function CareersPage() {
           </div>
 
           <div className={styles.meta}>
-            <span><MapPin size={16}/>New York, NY</span>
+            <span><MapPin size={16}/>New Mexico, US</span>
             <span><Clock   size={16}/>{item?.mode}</span>
             <span><BriefcaseBusiness  size={16}/>{item?.department}</span>
           </div>

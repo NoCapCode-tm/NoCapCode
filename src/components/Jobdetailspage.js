@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styles from "../CSS/Jobdetailspage.module.css";
 import { useNavigate, useParams } from 'react-router';
 import axios from 'axios';
-import { BriefcaseBusiness, Clock, MapPin } from 'lucide-react';
+import { BriefcaseBusiness, Clock, MapPin, User } from 'lucide-react';
 
 const Jobdetailspage = () => {
     const {id} = useParams()
@@ -34,9 +34,10 @@ const Jobdetailspage = () => {
   <div className={styles.container}>
     {/* TOP META */}
     <div className={styles.meta}>
-            <span><MapPin size={16}/>New York, NY</span>
+            <span><MapPin size={16}/>New Mexico, US</span>
             <span><Clock   size={16}/>{job?.mode}</span>
             <span><BriefcaseBusiness  size={16}/>{job?.department}</span>
+            <span><User  size={18}/>{job?.employementtype}</span>
           </div>
 
     {/* HEADER SECTION */}
@@ -86,7 +87,7 @@ const Jobdetailspage = () => {
       <button className={styles.applyBtn} onClick={()=>{navigate(`/career/${id}/applicationform`)}}>
         Apply now <span>↗</span>
       </button>
-      <button className={styles.secondaryBtn} onClick={()=>{navigate(`/career`)}}>
+      <button className={styles.secondaryBtn} onClick={()=>{navigate(`/careers`)}}>
         Browse all position <span>↗</span>
       </button>
     </div>
