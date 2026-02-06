@@ -170,7 +170,7 @@ export default function CareersPage() {
           </div>
 
           <div className={styles.meta}>
-            <span><MapPin size={16}/>New York, NY</span>
+            <span><MapPin size={16}/>New Mexico , US</span>
             <span><Clock   size={16}/>{item?.mode}</span>
             <span><BriefcaseBusiness  size={16}/>{item?.department}</span>
           </div>
