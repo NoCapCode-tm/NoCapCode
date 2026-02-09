@@ -31,7 +31,7 @@
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 160px 40px 80px;
+  padding: 50px 40px 80px;
   position: relative;
   z-index: 1;
 }
@@ -39,26 +39,29 @@
 /* Progress Indicators */
 .progressContainer {
   display: flex;
-  justify-content: center;
-  gap: 24px;
-  margin-bottom: 60px;
+  justify-content: space-evenly;
+  gap: 8px;
+  margin: 0px 100px;
+  padding: 8px 0px;
+  border-radius: 8px;
+  margin-bottom: 28px;
   flex-wrap: wrap;
+  background: rgba(255, 255, 255, 0.051);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .progressStep {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
+  padding: 8px 8px;
+  border-radius: 8px;
   transition: all 0.3s ease;
 }
 
 .progressStep.active {
-  background: rgba(50, 37, 191, 0.2);
-  border-color: #3225bf;
+  background: #2B7FFF20;
+  border: 1px solid #2B7FFF30;
 }
 
 .stepIcon {
@@ -69,17 +72,17 @@
 }
 
 .progressStep.active .stepIcon {
-  color: #3225bf;
+  color: #51A2FF;
 }
 
 .stepLabel {
   font-size: 12px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.95);
 }
 
 .progressStep.active .stepLabel {
-  color: white;
+  color: #51A2FF;
 }
 
 /* Form Container */
@@ -94,15 +97,14 @@
 }
 
 .stepHeader {
-  text-align: center;
+  text-align: left;
   margin-bottom: 40px;
 }
 
 .stepTitle {
-  font-size: 48px;
+  font-size: 60px;
   font-weight: 500;
-  margin-bottom: 16px;
-  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #3225bf 100%);
+  background: linear-gradient(180deg, #5B37FF 0%, #070707 80%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -112,28 +114,27 @@
 
 .stepNumber {
   display: block;
-  font-size: 16px;
+  font-size: 5rem;
+  white-space: nowrap;
   font-weight: 600;
   color: #3225bf;
-  margin-bottom: 8px;
   font-family: "Outfit", sans-serif;
   font-style: normal;
 }
 
 .stepSubtitle {
-  font-size: 28px;
-  font-weight: 600;
+  font-size: 2rem;
+  font-weight: 300;
   color: white;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
+  margin-top: -30px;
   font-family: "Outfit", sans-serif;
 }
 
 .stepDescription {
-  font-size: 16px;
+  font-size: 13px;
   color: rgba(255, 255, 255, 0.7);
-  line-height: 1.6;
   max-width: 600px;
-  margin: 0 auto;
 }
 
 /* Form Styles */
@@ -824,6 +825,8 @@
   
   .progressContainer {
     gap: 12px;
+    margin: 0px 20px ;
+    margin-bottom: 20px;
   }
   
   .progressStep {
@@ -880,6 +883,11 @@
   }
 }
 @media screen and (max-width:420px){
+  .progressContainer {
+    gap: 12px;
+    margin: 0px 20px ;
+    margin-bottom: 20px;
+  }
   .footerBox{
     padding:20px 8px;
   }

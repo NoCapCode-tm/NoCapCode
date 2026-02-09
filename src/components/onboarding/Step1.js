@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, Mail, Phone, Calendar, Users, MapPin, AlertCircle, Linkedin, Instagram } from 'lucide-react';
+import { User, Mail, Phone, Calendar, Users, MapPin, CircleCheckBig, GraduationCap, Monitor, Briefcase, CreditCard, FileText, AlertCircle, Linkedin, Instagram } from 'lucide-react';
 import Navbar from '../Navbar';
 import styles from '../../CSS/OnboardingStep.module.css';
 import axios from 'axios';
@@ -149,7 +149,6 @@ const Step1 = () => {
     { id: 6, label: 'System Info', active: false },
     { id: 7, label: 'Declaration', active: false }
   ];
-
   return (
     <>
     {loading && <LoaderDots text="Please Wait" />}
@@ -165,21 +164,18 @@ const Step1 = () => {
             >
               <div className={styles.stepIcon}>
                 {step.id === 1 && <User size={16} />}
-                {step.id === 2 && <AlertCircle size={16} />}
-                {step.id === 3 && <Calendar size={16} />}
-                {step.id === 4 && <Users size={16} />}
-                {step.id === 5 && <MapPin size={16} />}
-                {step.id === 6 && <Phone size={16} />}
-                {step.id === 7 && <Mail size={16} />}
+                {step.id === 2 && <CircleCheckBig size={16} />}
+                {step.id === 3 && <GraduationCap size={16} />}
+                {step.id === 4 && <Briefcase size={16} />}
+                {step.id === 5 && <CreditCard size={16} />}
+                {step.id === 6 && <Monitor size={16} />}
+                {step.id === 7 && <FileText size={16} />}
               </div>
               <span className={styles.stepLabel}>{step.label}</span>
             </div>
           ))}
         </div>
-
-        {/* Form Content */}
-        <div className={styles.formContainer}>
-          <div className={styles.stepHeader}>
+        <div className={styles.stepHeader}>
             <h1 className={styles.stepTitle}>
               <span className={styles.stepNumber}>Step 1 of 7</span>
             </h1>
@@ -189,6 +185,10 @@ const Step1 = () => {
               Fields marked with * are mandatory.
             </p>
           </div>
+
+        {/* Form Content */}
+        <div className={styles.formContainer}>
+          
 
           <form className={styles.form}>
             <div className={styles.formGrid}>

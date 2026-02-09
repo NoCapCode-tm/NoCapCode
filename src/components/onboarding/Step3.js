@@ -142,9 +142,6 @@ const Step3 = () => {
             </div>
           ))}
         </div>
-
-        {/* Form Content */}
-        <div className={styles.formContainer}>
           <div className={styles.stepHeader}>
             <h1 className={styles.stepTitle}>
               <span className={styles.stepNumber}>Step 3 of 7</span>
@@ -155,6 +152,9 @@ const Step3 = () => {
               Fields marked with * are mandatory.
             </p>
           </div>
+        {/* Form Content */}
+        <div className={styles.formContainer}>
+          
 
           <form className={styles.form}>
             <div className={styles.formGrid}>

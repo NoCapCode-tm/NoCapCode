@@ -151,10 +151,7 @@ const Step5 = () => {
             </div>
           ))}
         </div>
-
-        {/* Form Content */}
-        <div className={styles.formContainer}>
-          <div className={styles.stepHeader}>
+<div className={styles.stepHeader}>
             <h1 className={styles.stepTitle}>
               <span className={styles.stepNumber}>Step 5 of 7</span>
             </h1>
@@ -164,6 +161,9 @@ const Step5 = () => {
               All fields are optional - you can skip this step if not applicable.
             </p>
           </div>
+        {/* Form Content */}
+        <div className={styles.formContainer}>
+          
 
           <form className={styles.form}>
             <div className={styles.formGrid}>

@@ -27,7 +27,7 @@ const Navbar = forwardRef(
         <div className={styles.navbar} ref={navbarRef}>
           {/* LOGO – always visible */}
           <div className={styles.logo} ref={logoRef}>
-            <img src="/Companylogo.png" alt="logo" />
+            <img src="/Companylogo.png" alt="logo" onClick={()=> navigate("/")}/>
           </div>
 
           {/* DESKTOP ONLY */}
