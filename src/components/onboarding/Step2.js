@@ -189,9 +189,6 @@ if (!/^\d{12}$/.test(aadhaarClean)) {
             </div>
           ))}
         </div>
-
-        {/* Form Content */}
-        <div className={styles.formContainer}>
           <div className={styles.stepHeader}>
             <h1 className={styles.stepTitle}>
               <span className={styles.stepNumber}>Step 2 of 7</span>
@@ -202,6 +199,9 @@ if (!/^\d{12}$/.test(aadhaarClean)) {
               Fields marked with * are mandatory.
             </p>
           </div>
+        {/* Form Content */}
+        <div className={styles.formContainer}>
+          
 
           <form className={styles.form}>
             <div className={styles.formGrid}>

@@ -156,9 +156,6 @@ const[loading,setLoading]=useState(false)
             </div>
           ))}
         </div>
-
-        {/* Form Content */}
-        <div className={styles.formContainer}>
           <div className={styles.stepHeader}>
             <h1 className={styles.stepTitle}>
               <span className={styles.stepNumber}>Step 6 of 7</span>
@@ -169,6 +166,9 @@ const[loading,setLoading]=useState(false)
               Some fields are optional but recommended.
             </p>
           </div>
+        {/* Form Content */}
+        <div className={styles.formContainer}>
+          
 
           <form className={styles.form}>
             <div className={styles.formGrid}>

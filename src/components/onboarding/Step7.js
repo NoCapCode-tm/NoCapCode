@@ -102,9 +102,6 @@ const Step7 = () => {
             </div>
           ))}
         </div>
-
-        {/* Form Content */}
-        <div className={styles.reviewContainer}>
           <div className={styles.stepHeader}>
             <h1 className={styles.stepTitle}>
               <span className={styles.stepNumber}>Step 7 of 7</span>
@@ -114,6 +111,9 @@ const Step7 = () => {
               Please review all the information you've provided. You can edit any section by clicking the edit button.
             </p>
           </div>
+        {/* Form Content */}
+        <div className={styles.reviewContainer}>
+          
 
           {/* Review Sections */}
           <div className={styles.reviewSections}>
