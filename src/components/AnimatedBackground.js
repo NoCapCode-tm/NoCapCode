@@ -1331,7 +1331,7 @@ designed to evolve, not to be replaced.</span>
       </div>
     </div>
     <div className={styles.outcomes} ref={outcomesRef}>
-      <span className={styles.page5first}  ref={outcomesLabelRef}>HOW WE WORK</span>
+      <span className={styles.page5first}  ref={outcomesLabelRef}>OUTCOMES</span>
           <h1 className={styles.outcomemainhead}  ref={outcomesHeadRef}>
              <span>What Improves When the System Is Right</span>
           </h1>
