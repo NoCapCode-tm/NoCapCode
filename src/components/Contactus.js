@@ -9,7 +9,8 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import useWindowWidth from "./usewindowwidth";
 import { toast } from "react-toastify";
-import emailjs from "@emailjs/browser";
+import LoaderDots from './LoaderDots';
+import axios from "axios";
 
 
 
@@ -20,12 +21,13 @@ const Contactus = () => {
   const btnIconRef = useRef(null)
   const startRef = useRef(null);
   const width = useWindowWidth()
+  const[loading,setLoading]=useState(false)
   const[name,setname]=useState("Name");
     const[email,setemail]=useState("Email")
     const[message,setmessage]=useState("Enter your message")
 
 
- const handleSubmit = (e) => {
+ const handleSubmit = async(e) => {
   e.preventDefault();
 
   // Trim values
@@ -46,30 +48,24 @@ const Contactus = () => {
     return;
   }
 
-  // Send email
-  emailjs
-    .send(
-      "service_4r3d0ha",
-      "template_heuei0i",
-      {
-        name: trimmedName,
-        email: trimmedEmail,
-        message: trimmedMessage,
-      },
-      "R_SWFGG_XmrW_H6yx"
-    )
-    .then(
-      () => {
-        toast.success("Form submitted successfully");
-        setname("Name");
-        setemail("Email");
-        setmessage("Enter your message");
-      },
-      (error) => {
-        console.error("FAILED...", error);
-        toast.error("Failed to send message. Try again later.");
-      }
-    );
+   try {
+    setLoading(true)
+    const response = await axios.post("https://atlasbackend-px53.onrender.com/api/v1/job/contactus",{
+     name:name,
+     email:email,
+     message:message
+    },{withCredentials:true})
+    console.log(response.data);
+    toast.success("Form Submitted Successfully")
+    setname("")
+    setemail("")
+    setmessage("")
+   } catch (error) {
+    toast.error("Something Went Wrong")
+    console.log(error.message)
+   }finally{
+     setLoading(false)
+   }
 };
 
   
@@ -135,7 +131,7 @@ const Contactus = () => {
   const navigate = useNavigate()
   return (
     <>
-    
+    {loading && <LoaderDots text="Submitting Enquiry" />}
     <section className={styles.contact}>
      <Navbar
   ref={navbarRef}
