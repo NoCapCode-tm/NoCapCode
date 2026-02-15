@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styles from "../CSS/ClarityForm.module.css";
 import Navbar from "./Navbar";
 import { useGSAP } from "@gsap/react";
@@ -9,6 +9,8 @@ import { Instagram, Linkedin } from "lucide-react";
 import { useNavigate } from "react-router";
 import useWindowWidth from "./usewindowwidth";
 import { toast } from "react-toastify";
+import axios from "axios"
+import LoaderDots from './LoaderDots';
 
 export default function ClarityForm() {
     const navbarRef = useRef(null);
@@ -17,7 +19,17 @@ export default function ClarityForm() {
     const btnIconRef = useRef(null);
     const startRef = useRef(null);
     const navigate=useNavigate()
+    const[loading,setLoading]=useState(false)
     const width = useWindowWidth()
+    const [responses, setResponses] = useState({});
+
+    const handleChange = (id, value) => {
+  setResponses((prev) => ({
+    ...prev,
+    [id]: value,
+  }));
+};
+
 
     useGSAP(() => {
         const tl = gsap.timeline({
@@ -31,7 +43,7 @@ export default function ClarityForm() {
         const isMobile = width <= 800;
 
   tl.to(navbarRef.current, {
-    width: isMobile ? "50%" : 440,   // 👈 fixed
+    width: isMobile ? "50%" : 440,   //  fixed
     borderRadius: isMobile ? "8px" : "8px",
     top: isMobile ? "10px" : "10px",
     justifyContent:"flex-end",
@@ -79,8 +91,84 @@ export default function ClarityForm() {
         );
       }, []);
 
+      const clarityQuestions = [
+  {
+    id: 1,
+    question: "Full Name",
+    placeholder: "Enter Your Full Name",
+  },
+  {
+    id: 2,
+    question: "Email",
+    placeholder: "Enter Your Email",
+  },
+  {
+    id: 3,
+    question: "What are you trying to build?",
+    placeholder: "One or two sentences are enough. No pitching — just describe it plainly.",
+  },
+  {
+    id: 4,
+    question: "Who is this for?",
+    placeholder: "Be specific. “Everyone” usually means no one.",
+  },
+  {
+    id: 5,
+    question: "What problem are you trying to solve?",
+    placeholder: "Not features — the real problem behind them.",
+  },
+  {
+    id: 6,
+    question: "What's unclear or stuck right now?",
+    placeholder: "This helps us understand where support is needed most.",
+  },
+  {
+    id: 7,
+    question: "What exists today?",
+    placeholder: "An idea, a prototype, early users, or nothing yet — all are fine.",
+  },
+  {
+    id: 8,
+    question: "Why now?",
+    placeholder: "What made this worth starting at this moment?",
+  },
+  {
+    id: 9,
+    question: "What kind of help are you looking for?",
+    placeholder: "MVP build, product direction, validation, execution, or something else.",
+  },
+];
+
+
+const handleSubmit = async () => {
+  const finalPayload = clarityQuestions.map((item) => ({
+    questionId: item.id,
+    question: item.question,
+    answer: responses[item.id] || "",
+  }));
+  console.log(finalPayload[0].answer)
+
+  try {
+    setLoading(true)
+    const response = await axios.post("https://atlasbackend-px53.onrender.com/api/v1/job/clarity", {
+      clarityresponse :finalPayload
+    },{withCredentials:true});
+    console.log(response.data.message)
+    toast.success("Form Submitted Successfully");
+  } catch (error) {
+    toast.error("Something went wrong");
+    console.log(error.message)
+  }finally{
+    setLoading(false)
+  }
+};
+
+
+
+
   return (
     <>
+    {loading && <LoaderDots text="Submitting Clarity Form" />}
     <div className={styles.page}>
       {/* Top heading */}
        <Navbar
@@ -108,46 +196,22 @@ export default function ClarityForm() {
       {/* Main card */}
       <section className={styles.card} ref={startRef}>
         <div className={styles.form}>
-          {[
-            {
-              q: "1. What are you trying to build?",
-              p: "One or two sentences are enough. No pitching — just describe it plainly.",
-            },
-            {
-              q: "2. Who is this for?",
-              p: "Be specific. “Everyone” usually means no one.",
-            },
-            {
-              q: "3. What problem are you trying to solve?",
-              p: "Not features — the real problem behind them.",
-            },
-            {
-              q: "4. What’s unclear or stuck right now?",
-              p: "This helps us understand where support is needed most.",
-            },
-            {
-              q: "5. What exists today?",
-              p: "An idea, a prototype, early users, or nothing yet — all are fine.",
-            },
-            {
-              q: "6. Why now?",
-              p: "What made this worth starting at this moment?",
-            },
-            {
-              q: "7. What kind of help are you looking for?",
-              p: "MVP build, product direction, validation, execution, or something else.",
-            },
-          ].map((item, i) => (
-            <div key={i} className={styles.field}>
-              <label>{item.q}</label>
-              <input placeholder={item.p} />
-            </div>
-          ))}
+        {clarityQuestions.map((item) => (
+  <div key={item.id} className={styles.field}>
+    <label>{item.question}</label>
+    <input
+      placeholder={item.placeholder}
+      value={responses[item.id] || ""}
+      onChange={(e) => handleChange(item.id, e.target.value)}
+    />
+  </div>
+))}
+
         </div>
       </section>
 
       {/* Submit */}
-      <div className={styles.submitWrap} onClick={()=>{toast.success("Form Submitted Successfully")}}>
+      <div className={styles.submitWrap} onClick={handleSubmit} >
         <button>
           Submit for review <span>→</span>
         </button>
