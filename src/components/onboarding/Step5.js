@@ -128,7 +128,6 @@ const Step5 = () => {
     <>
     {loading && <LoaderDots text="Please Wait" />}
     <div className={styles.onboardingStep}>
-      <Navbar />
       
       <div className={styles.container}>
         {/* Progress Indicators */}
