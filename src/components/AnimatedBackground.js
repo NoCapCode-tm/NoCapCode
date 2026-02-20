@@ -555,10 +555,7 @@ useGSAP(() => {
     );
   });
 
-  /* =========================
-     🛑 PAUSE ON HOVER / HOLD
-     ========================= */
-
+ 
   const pause = () => tl.pause();
   const resume = () => tl.resume();
 
@@ -1008,16 +1005,17 @@ const page4TextLines = [
     <>
     <div className={styles.container}>
       {/* Background */}
-      <video
+     <video
   className={styles.videoBg}
   autoPlay
   loop
   muted
   playsInline
+  preload="none"
+  poster="/hero.webp"
 >
   <source src="/bg1.mp4" type="video/mp4" />
 </video>
-
       {/* Content */}
       <div className={styles.content}>
        <Navbar ref={navbarRef} homeRef={mainHeadRef} logoRef={logRef} btnTextRef={btnTextRef} btnIconRef={btnIconRef} aboutRef={page4Ref} serviceRef={page6FirstRef} />
