@@ -1005,9 +1005,16 @@ const page4TextLines = [
     <>
     <div className={styles.container}>
       {/* Background */}
-     <video autoplay muted loop playsinline preload="none" poster="/hero.webp">
+     <video
+  className={styles.videoBg}
+  autoPlay
+  loop
+  muted
+  playsInline
+  preload="none"
+  poster="/hero.webp"
+>
   <source src="/herosection.webm" type="video/webm" />
-  {/* <source src="/bg1.mp4" type="video/mp4" /> */}
 </video>
       {/* Content */}
       <div className={styles.content}>
