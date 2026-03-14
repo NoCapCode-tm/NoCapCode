@@ -23,10 +23,10 @@
 
   font-family: "Outfit", sans-serif;
   font-weight: 300;
-  font-size: clamp(36px, 10vw, 120px);
+  font-size: clamp(30px, 8vw, 120px);
   white-space: nowrap;   
   overflow: hidden;   
-  margin-bottom: -100px;  
+  /* margin-bottom: -100px;   */
 }
 
 .gradienttext {
