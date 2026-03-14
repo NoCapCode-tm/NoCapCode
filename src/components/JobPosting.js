@@ -60,7 +60,7 @@ Quill.register(Size, true);
 
   try {
     await axios.post(
-      "https://atlasbackend-px53.onrender.com/api/v1/job/create",
+      "https://nocapcode-backend.onrender.com/api/v1/job/create",
       {
         title,
         description,

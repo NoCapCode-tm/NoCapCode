@@ -43,7 +43,7 @@ export default function CareersPage() {
       setLoading(true);
       try {
         const response = await axios.get(
-          "https://atlasbackend-px53.onrender.com/api/v1/job/getjobs",
+          "https://nocapcode-backend.onrender.com/api/v1/job/getjobs",
           { withCredentials: true }
         );
         console.log(response.data.message)
