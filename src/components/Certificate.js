@@ -21,7 +21,7 @@ const duration =
   useEffect(()=>{
     (async()=>{
       console.log(credid)
-      const response = await axios.get(`http://localhost:5000/api/v1/job/getcertificate/${credid}`)
+      const response = await axios.get(`https://atlasbackend-px53.onrender.com/api/v1/job/getcertificate/${credid}`)
       console.log(response.data.message)
       Setuser(response.data.message)
     })()
@@ -46,7 +46,7 @@ const handleShare = async () => {
   if (navigator.share) {
     await navigator.share({
       title: "My Internship Certificate - NoCapCode",
-      text: "Proudly completed my internship at NoCapCode 🚀",
+      text: "Proudly completed my internship at NoCapCode ",
       url: user?.completioncertificate,
     });
   } else {

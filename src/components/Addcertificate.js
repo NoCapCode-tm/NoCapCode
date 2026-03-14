@@ -15,7 +15,7 @@ const Addcertificate = () => {
 
     useEffect(()=>{
         (async()=>{
-          const response = await axios.get("http://localhost:5000/api/v1/admin/getalluser")
+          const response = await axios.get("https://atlasbackend-px53.onrender.com/api/v1/admin/getalluser")
           setEmployees(response.data.message)
         })()
     },[])
@@ -53,7 +53,7 @@ const handleSubmit = async (e) => {
  try {
     setLoading(true)
     const response =  await axios.post(
-       "http://localhost:5000/api/v1/job/addcertificate",
+       "https://atlasbackend-px53.onrender.com/api/v1/job/addcertificate",
        formData,
        { headers: { "Content-Type": "multipart/form-data" } }
      );

@@ -36,7 +36,7 @@ const Verify = () => {
           onChange={(e)=>{setCredid(e.target.value)}}
           className={styles.searchInput}
         />
-        <div className={styles.searchArrow} onClick={()=>{navigate(`/certificate/${credid}`)}}>↗</div>
+        <div className={styles.searchArrow} onClick={()=>{navigate(`/verify/certificate/${credid}`)}}>↗</div>
       </div>
 
       {/* Cards */}
