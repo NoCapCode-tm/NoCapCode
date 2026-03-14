@@ -1,0 +1,43 @@
+{
+  "id": "/?source=pwa",
+  "name": "NoCapCode™ | Custom Software Development & MVP Studio",
+  "short_name": "NCC",
+  "description": "NoCapCode™ is a global custom software development and MVP execution studio building scalable SaaS platforms, automation systems, and automation tools.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
+  "theme_color": "#0F0F12",
+  "background_color": "#0F0F12",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["business", "technology", "productivity"],
+
+  "icons": [
+    {
+      "src": "/favicon/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/favicon/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

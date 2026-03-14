@@ -509,7 +509,7 @@ useGSAP(() => {
       <div className={styles.aboutpage1} ref={page1Ref} >
   {/* LEFT IMAGE */}
   <div className={styles.aboutImage} ref={page1ImageRef}>
-    <img src="/aboutpageimage.png" alt="discussion" />
+   <img src="/about/aboutpageimage.png" alt="discussion" />
   </div>
 
   {/* RIGHT CONTENT */}
@@ -608,14 +608,14 @@ useGSAP(() => {
 
     {/* RIGHT IMAGE */}
     <div className={styles.aboutRight} ref={page2RightRef}>
-      <img src="/aboutpageimage2.png" alt="team discussion" />
+      <img src="/about/aboutpageimage2.png" alt="team discussion" />
     </div>
   </div>
       </div>
       <div className={styles.aboutpage3}  ref={page3Ref}>
   {/* background lines image goes here */}
   <div className={styles.bgLines} ref={page3BgRef}>
-    <img src="/aboutpage3line.png" alt="/" width="100%" height="100%"/>
+    <img src="/about/aboutpage3line.png" alt="/" width="100%" height="100%"/>
     </div>
 
   <div className={styles.page3Grid}>
@@ -633,7 +633,7 @@ useGSAP(() => {
 
       {/* dotted arrow placeholder */}
       <div className={styles.dottedArrow}>
-         <img src="/aboutpage3arrow.png" alt="/" width="100%" height="100%"/>
+          <img src="/about/aboutpage3arrow.png" alt="/" width="100%" height="100%"/>
       </div>
     </div>
 
@@ -833,8 +833,7 @@ useGSAP(() => {
                   navigate("/contact")}} style={{ cursor: "pointer" }}>Contact</li>
               </ul>
               <p>
-                Algodones, New Mexico,<br />
-                US, 87001
+                 Santa Fe NM 87501,{width<=500 ?<br/>:""} United States
               </p>
             </div>
           </div>

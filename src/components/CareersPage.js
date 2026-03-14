@@ -23,7 +23,7 @@ export default function CareersPage() {
       const width = useWindowWidth()
       const[jobs,setjobs]=useState([])
       const[loading,setLoading]=useState(false)
-      const[job,setJob]=useState(null)
+      // const[job,setJob]=useState(null)
       const[search, setSearch] = useState('');
       const[activeTab, setActiveTab] = useState("All");
 
@@ -259,8 +259,7 @@ export default function CareersPage() {
                   navigate("/contact")}} style={{ cursor: "pointer" }}>Contact</li>
               </ul>
               <p>
-                Algodones, New Mexico,<br />
-                US, 87001
+                 Santa Fe NM 87501,{width<=500 ?<br/>:""} United States
               </p>
             </div>
           </div>

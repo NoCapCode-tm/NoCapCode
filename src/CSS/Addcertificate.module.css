@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
 
-.wrap {
+.addcertificate {
   min-height: 100vh;
   background: #000;
   color: rgba(210, 220, 235, 0.75);
@@ -16,7 +16,7 @@
   padding-bottom: 140px;
   overflow: hidden;
 }
-.wrap::before {
+.addcertificate::before {
   content: "";
   position: absolute;
   inset: -40%; /* important for rotation coverage */
@@ -32,23 +32,13 @@
       rgba(60, 80, 160, 0.15),
       transparent 60%
     );
-  transform: rotate(-18deg); /* 🔥 HERE IS YOUR TILT */
+  transform: rotate(-18deg); 
   transform-origin: center;
   z-index: 0;
 }
-.divider1{
-    display:flex;
-    width:100%;
-    flex-direction: column;
-    align-items: center;
-    gap:10px;
-    margin-left:30px;
-    padding:0px 50px;
-    margin-top:100px;
-    z-index: 45;
-}
 .claritytext{
      font-size:108px;
+     text-align: center;
     font-weight:500;
   font-family: "Outfit", serif;
   z-index: 45;
@@ -94,6 +84,7 @@
 }
 
 .field input,
+.field select,
 .field textarea {
   background: rgba(38, 38, 38, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -455,6 +446,7 @@
   }
   .subtext{
     font-size:18px;
+    margin-top:-20px;
   }
   .divider1{
     align-items: flex-start;
