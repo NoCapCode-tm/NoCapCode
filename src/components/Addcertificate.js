@@ -15,7 +15,7 @@ const Addcertificate = () => {
 
     useEffect(()=>{
         (async()=>{
-          const response = await axios.get("https://atlasbackend-px53.onrender.com/api/v1/admin/getalluser")
+          const response = await axios.get("https://atlasbackend-px53.onrender.com/api/v1/job/getalluser")
           setEmployees(response.data.message)
         })()
     },[])
