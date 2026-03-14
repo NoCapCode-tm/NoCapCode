@@ -112,7 +112,7 @@ const handleShare = async () => {
           </div>
 
           <div className={styles.skillsSection}>
-            <h4>SKILLS & TECHNOLOGIES ACQUIRED</h4>
+            <h4>Performance Evaluation & Skill Endorsement</h4>
 
             <div className={styles.skillsGrid}>
              <div
