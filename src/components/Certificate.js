@@ -115,7 +115,10 @@ const handleShare = async () => {
             <h4>SKILLS & TECHNOLOGIES ACQUIRED</h4>
 
             <div className={styles.skillsGrid}>
-             {user?.acknowledge}
+             <div
+                     className={styles.richContent}
+                     dangerouslySetInnerHTML={{ __html: user?.acknowledge}}
+                   />
           </div>
           </div>
         </div>
