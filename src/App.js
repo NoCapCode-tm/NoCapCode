@@ -30,6 +30,9 @@ import AdminLogin from "./components/AdminLogin";
 import Jobdetailspage from "./components/Jobdetailspage";
 import Applicationform from "./components/Applicationform";
 import Home from "./components/Home";
+import Certificate from "./components/Certificate";
+import Verify from "./components/Verify";
+import Addcertificate from "./components/Addcertificate";
 
 
 function AppWrapper() {
@@ -81,6 +84,9 @@ function AppWrapper() {
             <Route path="/onboarding/step6" element={<Step6 />} />
             <Route path="/onboarding/step7" element={<Step7 />} />
             <Route path="/onboarding/complete" element={<OnboardingComplete />} />
+            <Route path="/verify/certificate/:credid" element={<Certificate/>} />
+            <Route path="/verify" element={<Verify/>} />
+            <Route path="/addcertificate" element={<Addcertificate/>} />
           </Routes>
 
           <div className="footerHead">

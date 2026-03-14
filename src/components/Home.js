@@ -47,6 +47,21 @@ const Home = () => {
             </div>
           </div>
 
+          <div className={styles.card}>
+            <h2 className={styles.cardTitle}>Certificate Allottment Form</h2>
+            <p className={styles.cardText}>
+              Submit your case study by outlining objectives, methods,
+              and key outcomes. Provide detailed insights, supporting data,
+              and evidence to showcase the impact of your work.
+            </p>
+
+            <div className={styles.actions}>
+              <button className={styles.editBtn}>← Edit</button>
+              <button className={styles.createBtn} onClick={()=>{navigate("/addcertificate")}}>Create →</button>
+            </div>
+          </div>
+
+
         </div>
       </div>
     </div>

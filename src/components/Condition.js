@@ -311,8 +311,7 @@ const Condition = () => {
                   navigate("/contact")}} style={{ cursor: "pointer" }}>Contact</li>
               </ul>
               <p>
-                Algodones, New Mexico,<br />
-                US, 87001
+                 Santa Fe NM 87501,{width<=500 ?<br/>:""} United States
               </p>
             </div>
           </div>

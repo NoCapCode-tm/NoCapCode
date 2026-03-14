@@ -84,7 +84,7 @@ const handlesubmit = async(e) =>{
         const isMobile = width <= 800;
 
   tl.to(navbarRef.current, {
-    width: isMobile ? "50%" : 440,   // 👈 fixed
+    width: isMobile ? "50%" : 440,   //fixed
     borderRadius: isMobile ? "8px" : "8px",
     top: isMobile ? "10px" : "10px",
     justifyContent:"flex-end",
@@ -144,7 +144,7 @@ const handlesubmit = async(e) =>{
 <div className={styles.divider1}>
         <h2 className={`${styles.claritytext} ${styles.gradienttext}`}>Case Study Form</h2>
         <p className={styles.subtext}>
-          Submit your case study with detailed information.
+          Allott Completion Certificate to Employee
         </p>
         <form className={styles.form} onSubmit={handlesubmit}>
   {/* Heading */}
@@ -298,8 +298,7 @@ const handlesubmit = async(e) =>{
                   navigate("/contact")}} style={{ cursor: "pointer" }}>Contact</li>
               </ul>
               <p>
-                Algodones, New Mexico,<br />
-                US, 87001
+                 Santa Fe NM 87501,{width<=500 ?<br/>:""} United States
               </p>
             </div>
           </div>

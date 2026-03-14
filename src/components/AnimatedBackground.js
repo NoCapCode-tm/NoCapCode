@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import styles from "../CSS/AnimatedBackground.module.css";
@@ -20,6 +20,8 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 export default function AnimatedBackground() {
   const mainHeadRef = useRef(null);
+  const circleRef = useRef(null);
+  const sectionRef = useRef(null);
   const paraRef = useRef(null);
   const buttonsRef = useRef(null);
   const navbarRef = useRef(null);
@@ -43,14 +45,8 @@ const aboutBtnRef = useRef(null);
 const boldSectionRef = useRef(null);
 const boldHeadRef = useRef(null);
 const boldSpanRef = useRef(null);
-const page5Ref = useRef(null);
-const page5FirstRef = useRef(null);
-const imageTextRefs = useRef([]);
-const innerLineRef = useRef(null);
 const page6Ref = useRef(null);
 const page6FirstRef = useRef(null);
-const image1TextRefs = useRef([]);
-const inner1LineRef = useRef(null);
 const [openIndex, setOpenIndex] = useState(null);
 const outcomesRef = useRef(null);
 const outcomesLabelRef = useRef(null);
@@ -65,6 +61,7 @@ const faqItemsRef = useRef([]);
 const aboutEntryRef = useRef(null);
 const location = useLocation();
 const width=useWindowWidth()
+const [activeIndex, setActiveIndex] = useState(null);
 // const isMobile = ScrollTrigger.isTouch === 1 || window.innerWidth < 768;
 
 ScrollTrigger.config({
@@ -139,7 +136,7 @@ useGSAP(() => {
  const isMobile = width <= 800;
 
   tl.to(navbarRef.current, {
-    width: isMobile ? "50%" : 440,   // 👈 fixed
+    width: isMobile ? "50%" : 440,   
     borderRadius: isMobile ? "8px" : "8px",
     top: isMobile ? "10px" : "10px",
     justifyContent:"flex-end",
@@ -359,10 +356,10 @@ useGSAP(() => {
     ease: "none",
     scrollTrigger: {
       trigger: page4Ref.current,
-      start: "top 50%",
+      start: "top 30%",
       end: "+=700",
       scrub: isMobile ? 1 : 5,
-      pin: !isMobile,
+      pin: false,
       pinSpacing: !isMobile, // VERY IMPORTANT
       invalidateOnRefresh: true,
     },
@@ -379,7 +376,7 @@ useGSAP(() => {
       trigger: aboutEntryRef.current,
       start: "top 85%",
       toggleActions: "play none none reverse",
-      scrub: isMobile ? false : 2,   //  KEY FIX
+      scrub: isMobile ? false : 2,   
     },
   });
 
@@ -394,7 +391,7 @@ useGSAP(() => {
       {
         opacity: 0,
         y: 16,
-        stagger: isMobile ? 0.01 : 0.03, //  lighter on mobile
+        stagger: isMobile ? 0.01 : 0.03, 
         duration: 0.4,
         ease: "power2.out",
       },
@@ -473,336 +470,468 @@ useGSAP(() => {
   );
 }, []);
 
-
 useGSAP(() => {
-  const items = imageTextRefs.current;
-  const total = items.length;
 
-  const isDesktop = width > 900;
+const left = leftCardRefs.current
+const right = rightCardRefs.current
+const isMobile = width <= 1200
 
-  // reset
-  gsap.set(items, { clearProps: "all" });
-  gsap.set(innerLineRef.current, { width: "0%" });
+const tl = gsap.timeline({
+  scrollTrigger:{
+    trigger: sectionRef.current,
+    start:"top 75%",
+    end:"bottom 80%",
+    toggleActions:"play none none reverse",
+    scrub:true
+  }
+})
+if (isMobile) {
 
-  if (!isDesktop) {
-  const container = page5Ref.current.querySelector(
-    `.${styles.allimageandtext}`
-  );
-
-  // force horizontal carousel layout
-  gsap.set(container, {
-    position: "relative",
-    overflow: "hidden",
-  });
-
-  gsap.set(items, {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    autoAlpha: 0,
-    x: 120,
-  });
-
-  // show first slide
-  gsap.set(items[0], { autoAlpha: 1, x: 0 });
-
-  const tl = gsap.timeline({
-    repeat: -1,
-    repeatDelay: 0.3,
-    defaults: { ease: "power3.inOut" },
+/* LEFT CARDS */
+gsap.fromTo(
+  left,
+  { opacity: 0, y: 60 },
+  {
+    opacity: 1,
+    y: 0,
+    duration: 0.7,
+    stagger: 0.2,
+    ease: "power3.out",
     scrollTrigger: {
-      trigger: page5Ref.current,
-      start: "top 80%",
-      once: true,
-    },
-  });
+      trigger: leftContainerRef.current,
+      start: "top 90%",
+      toggleActions: "play none none reverse"
+    }
+  }
+)
 
-  items.forEach((item, i) => {
-    const next = items[(i + 1) % total];
+/* CIRCLE */
+gsap.fromTo(
+  circleRef.current,
+  { opacity: 0, y: 80, scale: 0.9 },
+  {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    duration: 0.8,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: circleRef.current,
+      start: "top 90%",
+      toggleActions: "play none none reverse"
+    }
+  }
+)
 
-    // HOLD center
-    tl.to({}, { duration: 1 });
+/* RIGHT CARDS */
+gsap.fromTo(
+  right,
+  { opacity: 0, y: 60 },
+  {
+    opacity: 1,
+    y: 0,
+    duration: 0.7,
+    stagger: 0.2,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: rightContainerRef.current,
+      start: "top 90%",
+      toggleActions: "play none none reverse"
+    }
+  }
+)
 
-    // current → slide out right
-    tl.to(item, {
-      autoAlpha: 0,
-      x: 120,
-      duration: 0.6,
-    });
+}else{
+  tl.fromTo(
+  left[0],
+    isMobile ? 
+  { opacity:0, y:60 } : 
+  { opacity:0, x:-120 },
 
-    // next → slide in from left
-    tl.fromTo(
-      next,
-      { autoAlpha: 0, x: -120 },
-      {
-        autoAlpha: 1,
-        x: 0,
-        duration: 0.6,
-      },
-      "-=0.45"
-    );
+  isMobile ?
+  { opacity:1, y:0, duration:0.7, ease:"power3.out" } :
+  { opacity:1, x:60, duration:0.7, ease:"power3.out" }
 
-    // progress line
-    tl.to(
-      innerLineRef.current,
-      {
-        width: `${((i + 1) / total) * 100}%`,
-        duration: 0.5,
-        ease: "power2.out",
-      },
-      "<"
-    );
-  });
+)
+
+.fromTo(
+  right[0],
+  { opacity:0, x:120 },
+  { opacity:1, x:0, duration:0.7, ease:"power3.out" },
+  "<"
+)
+
+/* STEP 2 — middle cards */
+.fromTo(
+  left[1],
+  { opacity:0, x:-120 },
+  { opacity:1, x:0, duration:0.7, ease:"power3.out" }
+)
+
+.fromTo(
+  right[1],
+  { opacity:0, x:200 },
+  { opacity:1, x:80, duration:0.7, ease:"power3.out" },
+  "<"
+)
+
+/* STEP 3 — circle */
+.from(
+  circleRef.current,
+  {
+    opacity:0,
+    y:80,
+    scale:0.9,
+    duration:0.8,
+    ease:"power3.out"
+  }
+)
+
+/* STEP 4 — top cards */
+.fromTo(
+  left[2],
+  { opacity:0, x:-120 },
+  { opacity:1, x:60, duration:0.7, ease:"power3.out" }
+)
+
+.fromTo(
+  right[2],
+  { opacity:0, x:120 },
+  { opacity:1, x:0, duration:0.7, ease:"power3.out" },
+  "<"
+)
+}
+})
+// useGSAP(() => {
+//   const items = imageTextRefs.current;
+//   const total = items.length;
+
+//   const isDesktop = width > 900;
+
+//   // reset
+//   gsap.set(items, { clearProps: "all" });
+//   gsap.set(innerLineRef.current, { width: "0%" });
+
+//   if (!isDesktop) {
+//   const container = page5Ref.current.querySelector(
+//     `.${styles.allimageandtext}`
+//   );
+
+//   // force horizontal carousel layout
+//   gsap.set(container, {
+//     position: "relative",
+//     overflow: "hidden",
+//   });
+
+//   gsap.set(items, {
+//     position: "absolute",
+//     top: 0,
+//     left: 0,
+//     width: "100%",
+//     autoAlpha: 0,
+//     x: 120,
+//   });
+
+//   // show first slide
+//   gsap.set(items[0], { autoAlpha: 1, x: 0 });
+
+//   const tl = gsap.timeline({
+//     repeat: -1,
+//     repeatDelay: 0.3,
+//     defaults: { ease: "power3.inOut" },
+//     scrollTrigger: {
+//       trigger: page5Ref.current,
+//       start: "top 80%",
+//       once: true,
+//     },
+//   });
+
+//   items.forEach((item, i) => {
+//     const next = items[(i + 1) % total];
+
+//     // HOLD center
+//     tl.to({}, { duration: 1 });
+
+//     // current → slide out right
+//     tl.to(item, {
+//       autoAlpha: 0,
+//       x: 120,
+//       duration: 0.6,
+//     });
+
+//     // next → slide in from left
+//     tl.fromTo(
+//       next,
+//       { autoAlpha: 0, x: -120 },
+//       {
+//         autoAlpha: 1,
+//         x: 0,
+//         duration: 0.6,
+//       },
+//       "-=0.45"
+//     );
+
+//     // progress line
+//     tl.to(
+//       innerLineRef.current,
+//       {
+//         width: `${((i + 1) / total) * 100}%`,
+//         duration: 0.5,
+//         ease: "power2.out",
+//       },
+//       "<"
+//     );
+//   });
 
  
-  const pause = () => tl.pause();
-  const resume = () => tl.resume();
+//   const pause = () => tl.pause();
+//   const resume = () => tl.resume();
 
-  // mouse hover (tablet / desktop small)
-  container.addEventListener("mouseenter", pause);
-  container.addEventListener("mouseleave", resume);
+//   // mouse hover (tablet / desktop small)
+//   container.addEventListener("mouseenter", pause);
+//   container.addEventListener("mouseleave", resume);
 
-  // touch hold (mobile)
-  container.addEventListener("touchstart", pause, { passive: true });
-  container.addEventListener("touchend", resume);
-  container.addEventListener("touchcancel", resume);
+//   // touch hold (mobile)
+//   container.addEventListener("touchstart", pause, { passive: true });
+//   container.addEventListener("touchend", resume);
+//   container.addEventListener("touchcancel", resume);
 
-  return;
-}
-
-
-
-
-  gsap.set(items, { autoAlpha: 0 });
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: page5Ref.current,
-      start: "top top",
-      end: `+=${total * 120}%`,
-      scrub: 4,
-      pin: true,
-      pinSpacing: true,
-      invalidateOnRefresh: true,
-    },
-  });
-
-  tl.from(page5FirstRef.current, {
-    opacity: 0,
-    y: 40,
-    duration: 0.5,
-    ease: "power3.out",
-  }).from(
-    page5Ref.current.querySelector(`.${styles.page5para}`),
-    {
-      opacity: 0,
-      y: 40,
-      duration: 0.6,
-      ease: "power3.out",
-    },
-    "-=0.2"
-  );
-
-  items.forEach((item, i) => {
-    const text = item.querySelector(`.${styles.imagetext}`);
-    const image = item.querySelector(`.${styles.image}`);
-
-    tl.to(item, { autoAlpha: 1, duration: 0.1 })
-      .from(text, {
-        x: -80,
-        opacity: 0,
-        duration: 0.5,
-        ease: "power3.out",
-      })
-      .from(
-        image,
-        {
-          x: -80,
-          opacity: 0,
-          duration: 0.5,
-          ease: "power3.out",
-        },
-        "-=0.4"
-      )
-      .to(
-        innerLineRef.current,
-        {
-          width: `${((i + 1) / total) * 100}%`,
-          duration: 0.4,
-        },
-        "-=0.2"
-      )
-      .to({}, { duration: 0.7 })
-      .to(item, { autoAlpha: 0, duration: 0.25 });
-  });
-}, [width]);
+//   return;
+// }
 
 
 
 
+//   gsap.set(items, { autoAlpha: 0 });
+
+//   const tl = gsap.timeline({
+//     scrollTrigger: {
+//       trigger: page5Ref.current,
+//       start: "top top",
+//       end: `+=${total * 120}%`,
+//       scrub: 4,
+//       pin: true,
+//       pinSpacing: true,
+//       invalidateOnRefresh: true,
+//     },
+//   });
+
+//   tl.from(page5FirstRef.current, {
+//     opacity: 0,
+//     y: 40,
+//     duration: 0.5,
+//     ease: "power3.out",
+//   }).from(
+//     page5Ref.current.querySelector(`.${styles.page5para}`),
+//     {
+//       opacity: 0,
+//       y: 40,
+//       duration: 0.6,
+//       ease: "power3.out",
+//     },
+//     "-=0.2"
+//   );
+
+//   items.forEach((item, i) => {
+//     const text = item.querySelector(`.${styles.imagetext}`);
+//     const image = item.querySelector(`.${styles.image}`);
+
+//     tl.to(item, { autoAlpha: 1, duration: 0.1 })
+//       .from(text, {
+//         x: -80,
+//         opacity: 0,
+//         duration: 0.5,
+//         ease: "power3.out",
+//       })
+//       .from(
+//         image,
+//         {
+//           x: -80,
+//           opacity: 0,
+//           duration: 0.5,
+//           ease: "power3.out",
+//         },
+//         "-=0.4"
+//       )
+//       .to(
+//         innerLineRef.current,
+//         {
+//           width: `${((i + 1) / total) * 100}%`,
+//           duration: 0.4,
+//         },
+//         "-=0.2"
+//       )
+//       .to({}, { duration: 0.7 })
+//       .to(item, { autoAlpha: 0, duration: 0.25 });
+//   });
+// }, [width]);
 
 
-useGSAP(() => {
-  const items = image1TextRefs.current;
-  const total = items.length;
-
-  const isDesktop = width > 900;
-
-  // reset
-  gsap.set(items, { clearProps: "all" });
-  gsap.set(inner1LineRef.current, { width: "0%" });
-
-   if (!isDesktop) {
-  const container = page6Ref.current.querySelector(
-    `.${styles.allimageandtext}`
-  );
-
-  // force horizontal carousel layout
-  gsap.set(container, {
-    position: "relative",
-    overflow: "hidden",
-  });
-
-  gsap.set(items, {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    autoAlpha: 0,
-    x: 120,
-  });
-
-  // show first slide
-  gsap.set(items[0], { autoAlpha: 1, x: 0 });
-
-  const tl = gsap.timeline({
-    repeat: -1,
-    repeatDelay: 0.3,
-    defaults: { ease: "power3.inOut" },
-    scrollTrigger: {
-      trigger: page6Ref.current,
-      start: "top 80%",
-      once: true,
-    },
-  });
-
-  items.forEach((item, i) => {
-    const next = items[(i + 1) % total];
-
-    // HOLD center
-    tl.to({}, { duration: 1 });
-
-    // current → slide out right
-    tl.to(item, {
-      autoAlpha: 0,
-      x: 120,
-      duration: 0.6,
-    });
-
-    // next → slide in from left
-    tl.fromTo(
-      next,
-      { autoAlpha: 0, x: -120 },
-      {
-        autoAlpha: 1,
-        x: 0,
-        duration: 0.6,
-      },
-      "-=0.45"
-    );
-
-    // progress line
-    tl.to(
-      inner1LineRef.current,
-      {
-        width: `${((i + 1) / total) * 100}%`,
-        duration: 0.5,
-        ease: "power2.out",
-      },
-      "<"
-    );
-  });
-
-  const pause = () => tl.pause();
-  const resume = () => tl.resume();
-
-  // mouse hover 
-  container.addEventListener("mouseenter", pause);
-  container.addEventListener("mouseleave", resume);
-
-  // touch hold
-  container.addEventListener("touchstart", pause, { passive: true });
-  container.addEventListener("touchend", resume);
-  container.addEventListener("touchcancel", resume);
-
-  return;
-}
 
 
-  gsap.set(items, { autoAlpha: 0 });
 
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: page6Ref.current,
-      start: "top top",
-      end: `+=${total * 120}%`,
-      scrub: 4,
-      pin: true,
-      pinSpacing: true,
-      invalidateOnRefresh: true,
-    },
-  });
 
-  tl.from(page6FirstRef.current, {
-    opacity: 0,
-    y: 40,
-    duration: 0.5,
-    ease: "power3.out",
-  }).from(
-    page6Ref.current.querySelector(`.${styles.page5para}`),
-    {
-      opacity: 0,
-      y: 40,
-      duration: 0.6,
-      ease: "power3.out",
-    },
-    "-=0.2"
-  );
+// useGSAP(() => {
+//   const items = image1TextRefs.current;
+//   const total = items.length;
 
-  items.forEach((item, i) => {
-    const text = item.querySelector(`.${styles.imagetext}`);
-    const image = item.querySelector(`.${styles.image}`);
+//   const isDesktop = width > 900;
 
-    tl.to(item, { autoAlpha: 1, duration: 0.1 })
-      .from(text, {
-        x: -80,
-        opacity: 0,
-        duration: 0.5,
-        ease: "power3.out",
-      })
-      .from(
-        image,
-        {
-          x: -80,
-          opacity: 0,
-          duration: 0.5,
-          ease: "power3.out",
-        },
-        "-=0.4"
-      )
-      .to(
-        inner1LineRef.current,
-        {
-          width: `${((i + 1) / total) * 100}%`,
-          duration: 0.4,
-        },
-        "-=0.2"
-      )
-      .to({}, { duration: 0.7 })
-      .to(item, { autoAlpha: 0, duration: 0.25 });
-  });
-}, [width]);
+//   // reset
+//   gsap.set(items, { clearProps: "all" });
+//   gsap.set(inner1LineRef.current, { width: "0%" });
+
+//    if (!isDesktop) {
+//   const container = page6Ref.current.querySelector(
+//     `.${styles.allimageandtext}`
+//   );
+
+//   // force horizontal carousel layout
+//   gsap.set(container, {
+//     position: "relative",
+//     overflow: "hidden",
+//   });
+
+//   gsap.set(items, {
+//     position: "absolute",
+//     top: 0,
+//     left: 0,
+//     width: "100%",
+//     autoAlpha: 0,
+//     x: 120,
+//   });
+
+//   // show first slide
+//   gsap.set(items[0], { autoAlpha: 1, x: 0 });
+
+//   const tl = gsap.timeline({
+//     repeat: -1,
+//     repeatDelay: 0.3,
+//     defaults: { ease: "power3.inOut" },
+//     scrollTrigger: {
+//       trigger: page6Ref.current,
+//       start: "top 80%",
+//       once: true,
+//     },
+//   });
+
+//   items.forEach((item, i) => {
+//     const next = items[(i + 1) % total];
+
+//     // HOLD center
+//     tl.to({}, { duration: 1 });
+
+//     // current → slide out right
+//     tl.to(item, {
+//       autoAlpha: 0,
+//       x: 120,
+//       duration: 0.6,
+//     });
+
+//     // next → slide in from left
+//     tl.fromTo(
+//       next,
+//       { autoAlpha: 0, x: -120 },
+//       {
+//         autoAlpha: 1,
+//         x: 0,
+//         duration: 0.6,
+//       },
+//       "-=0.45"
+//     );
+
+//     // progress line
+//     tl.to(
+//       inner1LineRef.current,
+//       {
+//         width: `${((i + 1) / total) * 100}%`,
+//         duration: 0.5,
+//         ease: "power2.out",
+//       },
+//       "<"
+//     );
+//   });
+
+//   const pause = () => tl.pause();
+//   const resume = () => tl.resume();
+
+//   // mouse hover 
+//   container.addEventListener("mouseenter", pause);
+//   container.addEventListener("mouseleave", resume);
+
+//   // touch hold
+//   container.addEventListener("touchstart", pause, { passive: true });
+//   container.addEventListener("touchend", resume);
+//   container.addEventListener("touchcancel", resume);
+
+//   return;
+// }
+
+
+//   gsap.set(items, { autoAlpha: 0 });
+
+//   const tl = gsap.timeline({
+//     scrollTrigger: {
+//       trigger: page6Ref.current,
+//       start: "top top",
+//       end: `+=${total * 120}%`,
+//       scrub: 4,
+//       pin: true,
+//       pinSpacing: true,
+//       invalidateOnRefresh: true,
+//     },
+//   });
+
+//   tl.from(page6FirstRef.current, {
+//     opacity: 0,
+//     y: 40,
+//     duration: 0.5,
+//     ease: "power3.out",
+//   }).from(
+//     page6Ref.current.querySelector(`.${styles.page5para}`),
+//     {
+//       opacity: 0,
+//       y: 40,
+//       duration: 0.6,
+//       ease: "power3.out",
+//     },
+//     "-=0.2"
+//   );
+
+//   items.forEach((item, i) => {
+//     const text = item.querySelector(`.${styles.imagetext}`);
+//     const image = item.querySelector(`.${styles.image}`);
+
+//     tl.to(item, { autoAlpha: 1, duration: 0.1 })
+//       .from(text, {
+//         x: -80,
+//         opacity: 0,
+//         duration: 0.5,
+//         ease: "power3.out",
+//       })
+//       .from(
+//         image,
+//         {
+//           x: -80,
+//           opacity: 0,
+//           duration: 0.5,
+//           ease: "power3.out",
+//         },
+//         "-=0.4"
+//       )
+//       .to(
+//         inner1LineRef.current,
+//         {
+//           width: `${((i + 1) / total) * 100}%`,
+//           duration: 0.4,
+//         },
+//         "-=0.2"
+//       )
+//       .to({}, { duration: 0.7 })
+//       .to(item, { autoAlpha: 0, duration: 0.25 });
+//   });
+// }, [width]);
+
 useGSAP(() => {
   const tl = gsap.timeline({
     scrollTrigger: {
@@ -910,12 +1039,12 @@ useGSAP(() => {
 }, []);
 
 const scrollToPage6 = () => {
-  if (!page6Ref.current) return;
+  if (!sectionRef.current) return;
 
   gsap.to(window, {
     duration: 1.4,
     scrollTo: {
-      y: page6Ref.current,
+      y: sectionRef.current,
       offsetY: 80, // navbar ke liye thoda gap
     },
     ease: "power3.out",
@@ -949,14 +1078,25 @@ const scrollToPagework = () => {
 
 
 
+const leftcards = [
+  { title: "Teams Improving Their Systems", text: "Established teams looking to streamline operations, refine processes, and improve the systems behind their products." },
+  { title: "Founders & Early-Stage Teams", text: "Builders working on their first or second product who want to start with clear structure and strong foundations." },
+  { title: "Creators & Solo Builders", text: "Independent creators turning their knowledge, tools, or audience into real, scalable products." },
+  
+];
+const rightcards = [
+  { title: "Define the Core", text: "We ask the right questions to understand the real problem and set a clear direction from the start." },
+  { title: "Build Lean Foundations", text: "We create reliable, scalable systems focused on delivering a strong Version 1." },
+  { title: "Iterate Through Evidence", text: "We improve continuously using real user feedback and measurable results." }
+];
 
- const logo = [
-    { src: "/Masdar.png" },
-    { src: "/Amazon.png" },
-    { src: "/Byjus.png" },
-    { src: "/Bajaj.png" },
-    { src: "/Terranova.png" },
-    { src: "/Qasper Agro.png" },
+  const logo = [
+    { src: "/collab/Masdar.png" },
+    { src: "/collab/Amazon.png" },
+    { src: "/collab/Byjus.png" },
+    { src: "/collab/Bajaj.png" },
+    { src: "/collab/Terranova.png" },
+    { src: "/collab/Qasper Agro.png" },
   ];
 
 
@@ -1000,6 +1140,106 @@ const page4TextLines = [
   "shipping things that actually",
   " work."
 ];
+let globalIndex = 0;
+const isTablet = width <= 1200 && width > 235;
+
+const leftMapDesktop = [5,4,3];
+const rightMapDesktop = [0,1,2];
+
+const leftMapTablet = [3,4,5]; 
+const rightMapTablet = [2,1,0];
+
+const leftMap = isTablet ? leftMapTablet : leftMapDesktop;
+const rightMap = isTablet ? rightMapTablet : rightMapDesktop;
+const leftContainerRef = useRef(null)
+const rightContainerRef = useRef(null)
+
+const leftCardRefs = useRef([])
+const rightCardRefs = useRef([])
+leftCardRefs.current = []
+rightCardRefs.current = []
+const[isRight,setisRight]=useState(false)
+const[isLeft,setisLeft]=useState(false)
+const[isRight1,setisRight1]=useState(false)
+const[isLeft1,setisLeft1]=useState(false)
+
+
+const handleSegmentClick = (segmentIndex) => {
+
+setActiveIndex(segmentIndex)
+
+if(isTablet){
+  if(segmentIndex === 5){
+     setisRight(true)
+      setisRight1(false)
+      setisLeft1(false)
+      setisLeft(false)
+  }
+  else if(segmentIndex === 3){
+    setisRight(false)
+    setisLeft(true)
+     setisRight1(false)
+      setisLeft1(false)
+  }else if(segmentIndex === 4){
+    setisRight(false)
+    setisLeft(false)
+    setisRight1(false)
+    setisLeft1(false)
+  }
+  else if(segmentIndex === 2){
+     setisRight1(true)
+     setisRight(false)
+    setisLeft(false)
+    setisLeft1(false)
+  }
+  else if(segmentIndex === 0){
+    setisRight1(false)
+    setisLeft1(true)
+     setisRight(false)
+    setisLeft(false)
+  }else{
+    setisRight1(false)
+    setisLeft1(false)
+     setisRight(false)
+    setisLeft(false)
+  }
+}
+}
+
+const scrollTimeout = useRef(null)
+
+const handleCardScroll = (containerRef, cardRefs, mapArray) => {
+
+  clearTimeout(scrollTimeout.current)
+
+  scrollTimeout.current = setTimeout(() => {
+
+    const container = containerRef.current
+    if (!container) return
+
+    const containerCenter = container.scrollLeft + container.clientWidth / 2
+
+    let closestIndex = 0
+    let minDistance = Infinity
+
+    cardRefs.current.forEach((card, index) => {
+
+      const cardCenter = card.offsetLeft + card.clientWidth / 2
+      const distance = Math.abs(containerCenter - cardCenter)
+
+      if (distance < minDistance) {
+        minDistance = distance
+        closestIndex = index
+      }
+
+    })
+
+    setActiveIndex(mapArray[closestIndex])
+
+  }, 80)
+
+}
+
 
   return (
     <>
@@ -1184,30 +1424,21 @@ designed to evolve, not to be replaced.</span>
   
     </div>
     <div className={styles.aboutpage}>
-        <video
-  className={styles.videoBg}
-  autoPlay
-  loop
-  muted
-  playsInline
->
-  <source src="/bg3.mp4" type="video/mp4" width="20%" />
-</video>
+      <div className={styles.aboutimage}>
+        <img src ="/Union.png" width="100%" height="100%"/>
+      </div>
 
       {/* Content */}
       <div className={styles.aboutcontent} ref={page4Ref}>
         
          <div className={styles.aboutheadmore} ref={aboutEntryRef}>
            <span className={styles.aboutfirst} ref={aboutLabelRef} >ABOUT</span>
-                <h4 className={styles.mainhead3}>
+               
+<h4 className={styles.mainhead3}>
   {page4TextLines.map((line, lineIndex) => (
     <React.Fragment key={lineIndex}>
-      {line.split(" ").map((word, wordIndex) => {
-        const index =
-          page4TextLines
-            .slice(0, lineIndex)
-            .join(" ")
-            .split(" ").length + wordIndex;
+      {line.split(" ").map((word) => {
+        const index = globalIndex++;
 
         return (
           <span
@@ -1222,7 +1453,7 @@ designed to evolve, not to be replaced.</span>
       <br />
     </React.Fragment>
   ))}
-                </h4>
+</h4>
       <p className={styles.aboutpara} ref={aboutParaRef}>
   <span>Most digital products don't fail because of bad code.</span>
   
@@ -1233,100 +1464,179 @@ designed to evolve, not to be replaced.</span>
       
       </div>
     </div>
-    <div className={styles.page5} ref={page5Ref}>
-      <span className={styles.page5first} ref={page5FirstRef}>WHO WE WORK WITH</span>
-      <p  className={`${styles.page5para} ${styles.gradienttext}`}>
-      <span>We work with people who are serious</span>
-      <span>about building and honest about what </span>
-      <span>they don't know yet.</span>
-     </p>
-     <div className={styles.allimageandtext}>
-       <div className={styles.imageandtext} ref={el => imageTextRefs.current[0] = el}>
-      <div className={styles.imagetext} >
-         <h3>Founders & Early-Stage Teams</h3>
-         <span>People building their first or second<br/> product and trying to get it right from<br/> the start.</span>
-      </div>
-      <div className={styles.image}>
-        <img src="/team1.png" alt="/" height="100%" width="100%"/>
-      </div>
-     </div>
-      <div className={styles.imageandtext} ref={el => imageTextRefs.current[2] = el}>
-      <div className={styles.imagetext}>
-         <h3>Creators & Solo Builders</h3>
-         <span>Independent builders turning knowledge, tools,<br/> or audiencesinto real products.product and <br/>trying  to get itright from the start.</span>
-      </div>
-      <div className={styles.image}>
-        <img src="/team3.png" alt="/" height="100%" width="100%"/>
-      </div>
-     </div>
-     <div className={styles.imageandtext} ref={el => imageTextRefs.current[1] = el}>
-      <div className={styles.imagetext} >
-         <h3>Teams Improving Their Systems</h3>
-         <span>Teams that already exist but feel slowed<br/> down by process or tooling. product and trying to get it<br/> right from the start.</span>
-      </div>
-      <div className={styles.image}>
-        <img src="/team2.png" alt="/" height="100%" width="100%"/>
-      </div>
-     </div>
-    </div>
 
-    
-     <div className={styles.outerline}>
-      <div className={styles.innerline} ref={innerLineRef}/>
+     <div className={styles.container} ref={sectionRef}>
+      <div className={styles.bothheading} style={{display:isTablet?"none":"flex"}}>
+           <div className={styles.leftHeading}>
+        <span className={styles.label}>WHO WE WORK WITH</span>
+        <h2>
+          We work with people who are serious about building
+          and honest about what they don't know yet.
+        </h2>
       </div>
-    </div>
-    <div className={styles.page6} ref={page6Ref}>
-      <span className={styles.page5first} ref={page6FirstRef}>HOW WE WORK</span>
-      <p  className={`${styles.page5para} ${styles.gradienttext}`}>
-      <span>We work with people who are serious</span>
-      <span>about building and honest about what </span>
-      <span>they don't know yet.</span>
-     </p>
-     <div className={styles.allimageandtext}>
-       <div className={styles.imageandtext1} ref={el => image1TextRefs.current[0] = el}>
-      <div className={styles.imagetext} >
-         <h3>Understand the Problem</h3>
-         <span>We start by asking hard questions early<br/> so we don't build the wrong thing<br/> with confidence.</span>
-      </div>
-      <div className={styles.image}>
-        <img src="/work1.png" alt="/" height="100%" width="100%"/>
-      </div>
-     </div>
-     <div className={styles.imageandtext1} ref={el => image1TextRefs.current[1] = el}>
-      <div className={styles.imagetext} >
-         <h3>Define the Smallest Useful Version</h3>
-         <span>We narrow the scope to what actually<br/> needs to exist first, and intentionally<br/> leave the rest out.</span>
-      </div>
-      <div className={styles.image}>
-        <img src="/work2.png" alt="/" height="100%" width="100%"/>
-      </div>
-     </div>
-      <div className={styles.imageandtext1} ref={el => image1TextRefs.current[2] = el}>
-      <div className={styles.imagetext}>
-         <h3>Build Lean, Stable Systems</h3>
-         <span>We use sensible tech and clean<br/> architecture to build systems that are reliable<br/> and easy to evolve.</span>
-      </div>
-      <div className={styles.image}>
-        <img src="/work3.png" alt="/" height="100%" width="100%"/>
-      </div>
-     </div>
-      <div className={styles.imageandtext1} ref={el => image1TextRefs.current[3] = el}>
-      <div className={styles.imagetext}>
-         <h3>Iterate With Real Feedback</h3>
-         <span>We improve based on usage and<br/> outcomes not assumptions or opinions.</span>
-      </div>
-      <div className={styles.image}>
-        <img src="/work4.png" alt="/" height="100%" width="100%"/>
-      </div>
-     </div>
-    
 
-     </div>
-
-    
-     <div className={styles.outerline}>
-      <div className={styles.innerline} ref={inner1LineRef}/>
+      <div className={styles.rightHeading}>
+        <span className={styles.label}>HOW WE WORK</span>
+        <h2>
+          We follow a simple, deliberate process designed to
+          reduce risk before it becomes expensive.
+        </h2>
       </div>
+
+      </div>
+      
+     
+      <div className={styles.grid}>
+        {isTablet?(
+          <div style={{width:"100vw",display:"flex",justifyContent:"flex-end",marginRight:"50px",marginBottom:"20px" ,borderRadius:"5px"}}>
+          <span className={styles.label} style={{borderRadius:"5px"}} >WHO WE WORK WITH</span></div>):("")}
+        <div className={styles.leftparent} ref={leftContainerRef}
+        onScroll={() => handleCardScroll(leftContainerRef, leftCardRefs, leftMap)}
+        style={{
+    position: "relative",
+    right: isRight ? "371px" : isLeft ? "-371px" : "0px"
+    
+  }}
+        >
+         {leftcards.map((card, index) => {
+
+const segmentIndex = leftMap[index];
+
+return (
+<div
+key={index}
+ref={(el) => (leftCardRefs.current[index] = el)}
+className={`${styles.card} ${
+activeIndex === segmentIndex ? styles.activeCard : ""
+}`}
+onMouseEnter={() => setActiveIndex(segmentIndex)}
+onMouseLeave={() => setActiveIndex(prev => prev)}
+>
+<h3>{card.title}</h3>
+<p>{card.text}</p>
+</div>
+);
+})}
+        </div>
+        
+ <div className={styles.circle} ref={circleRef}>
+  <svg
+  viewBox="0 0 200 200"
+   className={`${styles.svg} ${width <= 1200 && width > 235 ? styles.rotateTablet : ""}`}
+  style={{ overflow: "visible" }}
+>
+    
+    <defs>
+      {/* Base lighting gradient */}
+      <linearGradient id="segmentBase" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#1c1c22" />
+        <stop offset="45%" stopColor="#111114" />
+        <stop offset="100%" stopColor="#070708" />
+      </linearGradient>
+
+      {/* Subtle inner shading */}
+      <radialGradient id="innerShade" cx="50%" cy="50%" r="50%">
+        <stop offset="60%" stopColor="rgba(0,0,0,0)" />
+        <stop offset="100%" stopColor="rgba(0,0,0,0.5)" />
+      </radialGradient>
+    </defs>
+
+    {[...Array(6)].map((_, i) => {
+      const radiusOuter = 80;
+      const radiusInner = 45;
+      const center = 100;
+      const gap = 5;
+
+      const startAngle =
+        (i * 60 - 90 + gap / 2) * (Math.PI / 180);
+      const endAngle =
+        ((i + 1) * 60 - 90 - gap / 2) * (Math.PI / 180);
+
+      const x1 = center + radiusOuter * Math.cos(startAngle);
+      const y1 = center + radiusOuter * Math.sin(startAngle);
+      const x2 = center + radiusOuter * Math.cos(endAngle);
+      const y2 = center + radiusOuter * Math.sin(endAngle);
+
+      const x3 = center + radiusInner * Math.cos(endAngle);
+      const y3 = center + radiusInner * Math.sin(endAngle);
+      const x4 = center + radiusInner * Math.cos(startAngle);
+      const y4 = center + radiusInner * Math.sin(startAngle);
+
+      const path = `
+        M ${x1} ${y1}
+        A ${radiusOuter} ${radiusOuter} 0 0 1 ${x2} ${y2}
+        L ${x3} ${y3}
+        A ${radiusInner} ${radiusInner} 0 0 0 ${x4} ${y4}
+        Z
+      `;
+
+      return (
+        <path
+          key={i}
+          d={path}
+          onClick={() => handleSegmentClick(i)}
+          fill="url(#segmentBase)"
+          stroke="rgba(255,255,255,0.04)"
+          strokeWidth="1"
+          style={
+            activeIndex === i
+              ? {
+                  fill: "rgba(40, 18, 138, 1)",
+                  filter: "drop-shadow(0 0 45px rgba(91,61,245,0.7))"
+                }
+              : {}
+          }
+        />
+      );
+    })}
+
+    {/* Inner subtle shade for depth */}
+    <circle
+      cx="100"
+      cy="100"
+      r="45"
+      fill="url(#innerShade)"
+      pointerEvents="none"
+    />
+  </svg>
+</div>
+ {isTablet?(
+          <div style={{width:"100vw",display:"flex",justifyContent:"flex-start",marginLeft:"50px",marginBottom:"20px" ,borderRadius:"5px"}}>
+          <span className={styles.label} style={{borderRadius:"5px"}} >HOW WE WORK</span></div>):("")}
+       <div className={styles.rightparent} ref={rightContainerRef}
+onScroll={() => handleCardScroll(rightContainerRef, rightCardRefs, rightMap)}
+          style={{
+    position: "relative",
+    right: isRight1 ? "-371px" : isLeft1 ? "371px" : "0px"
+  }}
+       >
+          {rightcards.map((card, index) => {
+
+const segmentIndex = rightMap[index];
+
+return(
+<div
+key={index}
+ref={(el) => (rightCardRefs.current[index] = el)}
+className={`${styles.card1} ${
+activeIndex === segmentIndex ? styles.activeCard : ""
+}`}
+onMouseEnter={() => setActiveIndex(segmentIndex)}
+onMouseLeave={() => setActiveIndex(prev => prev)}
+>
+<h3 className={`${styles.card1head} ${
+activeIndex === segmentIndex ? styles.activeCardhead : ""
+}`}>{card.title}</h3>
+<p className={`${styles.card1p} ${
+activeIndex === segmentIndex ? styles.activeCardp : ""
+}`}>{card.text}</p>
+</div>
+);
+})}
+        </div>
+      </div>
+
+      
     </div>
     <div className={styles.outcomes} ref={outcomesRef}>
       <span className={styles.page5first}  ref={outcomesLabelRef}>OUTCOMES</span>
@@ -1345,7 +1655,7 @@ designed to evolve, not to be replaced.</span>
   ref={(el) => (outcomeCardsRef.current[0] = el)}
 >
       <div className={styles.cardimage1}>
-        <img src="/Compass.png" height="100%" width="100%" alt="/" />
+        <img src="/icon/Compass.png" height="100%" width="100%" alt="/" />
       </div>
       <div className={styles.cardtext1}>
         <h4>Decide Once</h4>
@@ -1357,7 +1667,7 @@ designed to evolve, not to be replaced.</span>
   ref={(el) => (outcomeCardsRef.current[1] = el)}
 >
       <div className={styles.cardimage1}>
-         <img src="/Animated.png" alt="logo" height="100%" width="100%" />
+         <img src="/icon/Animated.png" alt="logo" height="100%" width="100%" />
       </div>
       <div className={styles.cardtext1}>
         <h4>Change Safely</h4>
@@ -1369,7 +1679,7 @@ designed to evolve, not to be replaced.</span>
   ref={(el) => (outcomeCardsRef.current[2] = el)}
 >
       <div className={styles.cardimage1}>
-         <img src="/Samsung.png" alt="logo" height="100%" width="100%" />
+         <img src="/icon/Samsung.png" alt="logo" height="100%" width="100%" />
       </div>
       <div className={styles.cardtext1}>
         <h4>Run Quietly</h4>
@@ -1472,8 +1782,7 @@ designed to evolve, not to be replaced.</span>
                   navigate("/contact")}} style={{ cursor: "pointer" }}>Contact</li>
               </ul>
               <p>
-                Algodones, New Mexico,<br />
-                US, 87001
+                 Santa Fe NM 87501,{width<=500 ?<br/>:""} United States
               </p>
             </div>
           </div>

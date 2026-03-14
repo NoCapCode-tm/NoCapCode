@@ -7,6 +7,7 @@ import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import LoaderDots from './LoaderDots';
+import useWindowWidth from './usewindowwidth';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -23,6 +24,7 @@ const Login = () => {
             [field]: value
         }));
     };
+    const width = useWindowWidth();
 
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -162,8 +164,7 @@ const Login = () => {
                   navigate("/contact")}} style={{ cursor: "pointer" }}>Contact</li>
               </ul>
               <p>
-                Algodones, New Mexico,<br />
-                US, 87001
+                 Santa Fe NM 87501,{width<=500 ?<br/>:""} United States
               </p>
             </div>
           </div>
