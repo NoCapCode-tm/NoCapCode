@@ -48,7 +48,7 @@ const Applicationform = () => {
     if (!validationForm()) return;
     setLoading(true)
     try {
-        const response = await axios.post("https://atlasbackend-px53.onrender.com/api/v1/job/apply",{
+        const response = await axios.post("https://nocapcode-backend.onrender.com/api/v1/job/apply",{
           name:formData.fullName,
           email:formData.email,
           resumelink:formData.resume,
