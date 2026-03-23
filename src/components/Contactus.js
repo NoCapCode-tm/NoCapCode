@@ -50,7 +50,7 @@ const Contactus = () => {
 
    try {
     setLoading(true)
-    const response = await axios.post("https://nocapcode-backend.onrender.com/api/v1/job/contactus",{
+    const response = await axios.post("https://nocapcode-backend-hapd.onrender.com/api/v1/job/contactus",{
      name:name,
      email:email,
      message:message

@@ -21,7 +21,7 @@ const duration =
   useEffect(()=>{
     (async()=>{
       console.log(credid)
-      const response = await axios.get(`https://nocapcode-backend.onrender.com/api/v1/job/getcertificate/${credid}`)
+      const response = await axios.get(`https://nocapcode-backend-hapd.onrender.com/api/v1/job/getcertificate/${credid}`)
       console.log(response.data.message)
       Setuser(response.data.message)
     })()

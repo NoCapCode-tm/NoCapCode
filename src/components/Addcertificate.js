@@ -15,7 +15,7 @@ const Addcertificate = () => {
 
     useEffect(()=>{
         (async()=>{
-          const response = await axios.get("https://nocapcode-backend.onrender.com/api/v1/job/getalluser")
+          const response = await axios.get("https://nocapcode-backend-hapd.onrender.com/api/v1/job/getalluser")
           setEmployees(response.data.message)
         })()
     },[])
@@ -53,7 +53,7 @@ const handleSubmit = async (e) => {
  try {
     setLoading(true)
     const response =  await axios.post(
-       "https://nocapcode-backend.onrender.com/api/v1/job/addcertificate",
+       "https://nocapcode-backend-hapd.onrender.com/api/v1/job/addcertificate",
        formData,
        { headers: { "Content-Type": "multipart/form-data" } }
      );
