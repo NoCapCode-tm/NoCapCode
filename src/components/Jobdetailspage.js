@@ -14,7 +14,7 @@ const Jobdetailspage = () => {
         (async()=>{
             setLoading(true)
             try {
-                const response = await axios.get(`https://nocapcode-backend.onrender.com/api/v1/job/getjobs`,{withCredentials:true})
+                const response = await axios.get(`https://nocapcode-backend-hapd.onrender.com/api/v1/job/getjobs`,{withCredentials:true})
                
                 const jobs = response.data.message.find(j => j?._id === id)
                 setJob(jobs)

@@ -57,7 +57,7 @@ const handlesubmit = async(e) =>{
     formData.append("content",content)
     console.log(formData)
     try {
-        const response = await axios.post("https://nocapcode-backend.onrender.com/api/v1/job/addcasestudy",formData,{withCredentials:true})
+        const response = await axios.post("https://nocapcode-backend-hapd.onrender.com/api/v1/job/addcasestudy",formData,{withCredentials:true})
         console.log(response.data.message)
         setTitle("")
         setContent("")

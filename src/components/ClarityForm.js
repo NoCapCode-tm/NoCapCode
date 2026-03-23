@@ -150,7 +150,7 @@ const handleSubmit = async () => {
 
   try {
     setLoading(true)
-    const response = await axios.post("https://nocapcode-backend.onrender.com/api/v1/job/clarity", {
+    const response = await axios.post("https://nocapcode-backend-hapd.onrender.com/api/v1/job/clarity", {
       clarityresponse :finalPayload
     },{withCredentials:true});
     console.log(response.data.message)
