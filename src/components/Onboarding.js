@@ -19,7 +19,7 @@ useEffect(() => {
   const fetchUser = async () => {
     try {
       const res = await axios.get(
-        "https://atlasbackend-px53.onrender.com/api/v1/employee/getuser",
+        "https://atlasbackend-q7bl.onrender.com/api/v1/employee/getuser",
         { withCredentials: true }
       );
   
