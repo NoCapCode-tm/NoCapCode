@@ -33,7 +33,7 @@ const Step4 = () => {
     try {
       setLoading(true)
       const res = await axios.get(
-        "https://atlasbackend-px53.onrender.com/api/v1/employee/getuser",
+        "https://atlasbackend-q7bl.onrender.com/api/v1/employee/getuser",
         { withCredentials: true }
       );
 
@@ -71,7 +71,7 @@ const Step4 = () => {
     try {
       setLoading(true);
       const res = await axios.get(
-        "https://atlasbackend-px53.onrender.com/api/v1/admin/getalluser",
+        "https://atlasbackend-q7bl.onrender.com/api/v1/admin/getalluser",
         { withCredentials: true }
       );
 
