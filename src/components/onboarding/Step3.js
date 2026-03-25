@@ -26,7 +26,7 @@ const Step3 = () => {
       try {
         setLoading(true)
         const res = await axios.get(
-          "https://atlasbackend-px53.onrender.com/api/v1/employee/getuser",
+          "https://atlasbackend-q7bl.onrender.com/api/v1/employee/getuser",
           { withCredentials: true }
         );
 
@@ -80,7 +80,7 @@ const Step3 = () => {
     try {
       setLoading(true)
       await axios.patch(
-        "https://atlasbackend-px53.onrender.com/api/v1/employee/onboarding/3",
+        "https://atlasbackend-q7bl.onrender.com/api/v1/employee/onboarding/3",
         {
           highestqualification: formData.highestQualification,
           collegename: formData.collegeName,

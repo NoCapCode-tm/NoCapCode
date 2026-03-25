@@ -21,7 +21,7 @@ const Step7 = () => {
       try {
         setLoading(true)
         const res = await axios.get(
-          "https://atlasbackend-px53.onrender.com/api/v1/employee/getuser",
+          "https://atlasbackend-q7bl.onrender.com/api/v1/employee/getuser",
           { withCredentials: true }
         );
         setUser(res.data.message);
@@ -45,7 +45,7 @@ const Step7 = () => {
     try {
       setLoading(true)
       await axios.patch(
-        "https://atlasbackend-px53.onrender.com/api/v1/employee/onboarding/7",
+        "https://atlasbackend-q7bl.onrender.com/api/v1/employee/onboarding/7",
         {},
         { withCredentials: true }
       );

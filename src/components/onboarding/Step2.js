@@ -27,7 +27,7 @@ const Step2 = () => {
     try {
       setLoading(true)
       const res = await axios.get(
-        "https://atlasbackend-px53.onrender.com/api/v1/employee/getuser",
+        "https://atlasbackend-q7bl.onrender.com/api/v1/employee/getuser",
         { withCredentials: true }
       );
 
@@ -129,7 +129,7 @@ if (!/^\d{12}$/.test(aadhaarClean)) {
       data.append("collegeid", formData.collegeIdUpload);
 
     await axios.patch(
-      "https://atlasbackend-px53.onrender.com/api/v1/employee/onboarding/2",
+      "https://atlasbackend-q7bl.onrender.com/api/v1/employee/onboarding/2",
       data,
       {
         withCredentials: true,

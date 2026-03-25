@@ -32,7 +32,7 @@ const Step1 = () => {
     try {
       setLoading(true)
       const response = await axios.get(
-        "https://atlasbackend-px53.onrender.com/api/v1/employee/getuser",
+        "https://atlasbackend-q7bl.onrender.com/api/v1/employee/getuser",
         { withCredentials: true }
       );
 
@@ -121,7 +121,7 @@ const Step1 = () => {
     }
     try {
       setLoading(true)
-      const response = await axios.patch(`https://atlasbackend-px53.onrender.com/api/v1/employee/onboarding/1`,{
+      const response = await axios.patch(`https://atlasbackend-q7bl.onrender.com/api/v1/employee/onboarding/1`,{
         phone:formData.phoneNumber,
         dob:formData.dateOfBirth,
         gender:formData.gender,
