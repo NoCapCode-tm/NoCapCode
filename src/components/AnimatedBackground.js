@@ -1064,12 +1064,12 @@ const scrollToPageabout = () => {
 };
 
 const scrollToPagework = () => {
-  if (!page6FirstRef.current) return;
+  if (!page6Ref.current) return;
 
   gsap.to(window, {
     duration: 1.4,
     scrollTo: {
-      y: page6FirstRef.current,
+      y: page6Ref.current,
       offsetY: 80, // navbar ke liye thoda gap
     },
     ease: "power3.out",
