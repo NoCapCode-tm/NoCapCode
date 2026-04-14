@@ -1282,7 +1282,7 @@ const handleCardScroll = (containerRef, cardRefs, mapArray) => {
         {/* 3Buttons */}
         <div ref={buttonsRef} className={styles.buttons}>
           <button className={styles.firstbutt} onClick={()=>{navigate("/clarity")}}>Start with clarity</button>
-          <button className={styles.secondbutt} onClick={scrollToPagework}>See how it works</button>
+          <button className={styles.secondbutt} onClick={scrollToPage6}>See how it works</button>
         </div>
 
         {/* Marquee */}
