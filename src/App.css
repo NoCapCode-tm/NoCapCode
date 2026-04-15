@@ -8,7 +8,7 @@
   box-sizing: border-box;
 }
 .App{
-  min-height: 200vh;
+  min-height: 100vh;
   height:auto;
   width:100vw;
   padding:10px;
