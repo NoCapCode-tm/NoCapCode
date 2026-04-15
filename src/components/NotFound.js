@@ -7,7 +7,7 @@ export default function NotFound() {
   return (
     <div className={styles.page}>
       {/* top hairline */}
-     <img src="/nf.png" height="100%" width="100%" alt="/"/>
+     <img src="/404.png" height="100%" width="100%" alt="/"/>
 
       {/* bottom left */}
       <span className={styles.bottomLeft}>

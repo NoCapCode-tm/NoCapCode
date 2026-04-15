@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import "./App.css";
 import AnimatedBackground from "./components/AnimatedBackground";
 import PageLoader from "./components/PageLoader";
@@ -30,14 +30,19 @@ import AdminLogin from "./components/AdminLogin";
 import Jobdetailspage from "./components/Jobdetailspage";
 import Applicationform from "./components/Applicationform";
 import Home from "./components/Home";
-import Certificate from "./components/Certificate";
-import Verify from "./components/Verify";
-import Addcertificate from "./components/Addcertificate";
 
+function NotFoundPage({ setNotFound }) {
+  React.useEffect(() => {
+    setNotFound(true);
+    return () => setNotFound(false);
+  }, []);
+  return <NotFound />;
+}
 
 function AppWrapper() {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
+  const [notFound, setNotFound] = useState(false);
 
   //  Route change pe loader trigger
   React.useEffect(() => {
@@ -48,6 +53,10 @@ function AppWrapper() {
     }, 1200); // loader duration (match with animation)
 
     return () => clearTimeout(timer);
+  }, [location.pathname]);
+  
+  React.useEffect(() => {
+    setNotFound(false);
   }, [location.pathname]);
 
   return (
@@ -64,7 +73,6 @@ function AppWrapper() {
             <Route path="/contact" element={<Contactus />} />
             <Route path="/casestudies" element={<Casestudies />} />
             <Route path="/addcasestudies" element={<AddCaseStudy />} />
-            <Route path="/404" element={<NotFound />} />
             <Route path="/terms" element={<Condition />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/careers" element={<CareersPage/>} />
@@ -84,14 +92,14 @@ function AppWrapper() {
             <Route path="/onboarding/step6" element={<Step6 />} />
             <Route path="/onboarding/step7" element={<Step7 />} />
             <Route path="/onboarding/complete" element={<OnboardingComplete />} />
-            <Route path="/verify/certificate/:credid" element={<Certificate/>} />
-            <Route path="/verify" element={<Verify/>} />
-            <Route path="/addcertificate" element={<Addcertificate/>} />
+            <Route path="*" element={<NotFoundPage setNotFound={setNotFound} />} />
           </Routes>
 
-          <div className="footerHead">
-            <h1 className="gradienttext">no cap code</h1>
-          </div>
+          {!notFound && (
+            <div className="footerHead">
+              <h1 className="gradienttext">no cap code</h1>
+            </div>
+          )}
         </div>
       )}
     </>
