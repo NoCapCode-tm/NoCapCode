@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import useWindowWidth from "./usewindowwidth";
 
 const Navbar = forwardRef(
-  ({ logoRef, btnTextRef, btnIconRef }, navbarRef) => {
+  ({ logoRef, btnTextRef, btnIconRef,serviceRef }, navbarRef) => {
     const navigate = useNavigate();
     const width = useWindowWidth();
     const [open, setOpen] = useState(false);
@@ -36,7 +36,7 @@ const Navbar = forwardRef(
               <ul className={styles.links}>
                 <li onClick={() => goHome("home")} style={{cursor:"pointer"}}>Home</li>
                 <li onClick={() => goHome("about")} style={{cursor:"pointer"}}>About</li>
-                <li onClick={() => goHome("howWeWork")} style={{cursor:"pointer"}}>Services</li>
+                <li onClick={() => goHome("service")} style={{cursor:"pointer"}}>Services</li>
                 <li onClick={() => navigate("/casestudies")} style={{cursor:"pointer"}}>
                   Case Studies
                 </li>
@@ -101,7 +101,7 @@ const Navbar = forwardRef(
             >
               <li onClick={() => goHome("home")} style={{cursor:"pointer"}}>Home</li>
               <li onClick={() => goHome("about")} style={{cursor:"pointer"}}>About</li>
-              <li onClick={() => goHome("howWeWork")} style={{cursor:"pointer"}}>Services</li>
+              <li onClick={() => goHome("service")} style={{cursor:"pointer"}}>Services</li>
               <li onClick={() => navigate("/casestudies")} style={{cursor:"pointer"}}>
                 Case Studies
               </li>

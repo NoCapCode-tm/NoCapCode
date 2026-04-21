@@ -76,28 +76,28 @@ ScrollTrigger.config({
 
 const navigate = useNavigate()
 
-useGSAP(() => {
-  if (!location.state?.scrollTo) return;
+// useGSAP(() => {
+//   if (!location.state?.scrollTo) return;
 
-  const map = {
-    howWeWork: page6Ref,
-    faq: faqRef,
-    about: page4Ref,
-  };
+//   const map = {
+//     howWeWork: page6Ref,
+//     faq: faqRef,
+//     about: page4Ref,
+//   };
 
-  const targetRef = map[location.state.scrollTo];
+//   const targetRef = map[location.state.scrollTo];
 
-  if (!targetRef?.current) return;
+//   if (!targetRef?.current) return;
 
-  gsap.to(window, {
-    scrollTo: {
-      y: targetRef.current,
-      offsetY: 90, // navbar height
-    },
-    duration: 1.4,
-    ease: "power3.out",
-  });
-}, [location.state]);
+//   gsap.to(window, {
+//     scrollTo: {
+//       y: targetRef.current,
+//       offsetY: 90, // navbar height
+//     },
+//     duration: 1.4,
+//     ease: "power3.out",
+//   });
+// }, [location.state]);
 
 useGSAP(() => {
   if (!location.state?.scrollTo) return;
@@ -105,7 +105,7 @@ useGSAP(() => {
   const map = {
     home: mainHeadRef,
     about: page4Ref,
-    howWeWork: page6Ref,
+    service: sectionRef,
     faq: faqRef,
   };
 
@@ -1258,7 +1258,7 @@ const handleCardScroll = (containerRef, cardRefs, mapArray) => {
 </video>
       {/* Content */}
       <div className={styles.content}>
-       <Navbar ref={navbarRef} homeRef={mainHeadRef} logoRef={logRef} btnTextRef={btnTextRef} btnIconRef={btnIconRef} aboutRef={page4Ref} serviceRef={page6FirstRef} />
+       <Navbar ref={navbarRef} homeRef={mainHeadRef} logoRef={logRef} btnTextRef={btnTextRef} btnIconRef={btnIconRef} aboutRef={page4Ref} serviceRef={page6Ref} />
 
 
         {/* <SmallNavbar ref={smallNavbarRef} /> */}
