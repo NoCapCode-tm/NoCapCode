@@ -156,7 +156,7 @@ const Contactus = () => {
               <Mail size={14} /> hello@nocapcode.cloud
             </span>
             <span>
-              <MapPin size={14} /> Algodones, New Mexico, US, 87001
+              <MapPin size={14} />Santa Fe NM 87501,{width<=500 ?<br/>:""} United States
             </span>
           </div>
         </div>
