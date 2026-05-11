@@ -245,7 +245,7 @@ const Contactus = () => {
         </div>
         <div className={styles.divider} />
         <div className={styles.bottom}>
-          <p>© 2025-2026 NoCapCode. All rights reserved.<br/>Built with restraint, responsibility, and long-term thinking.</p>
+          <p>© 24-{new Date().getFullYear()} NoCapCode. All rights reserved.<br/>Built with restraint, responsibility, and long-term thinking.</p>
 
           <div className={styles.links}>
             <span onClick={()=>{navigate("/terms")}} style={{ cursor: "pointer" }}>Terms of Service</span>
