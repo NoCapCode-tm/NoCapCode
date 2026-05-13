@@ -30,6 +30,9 @@ import AdminLogin from "./components/AdminLogin";
 import Jobdetailspage from "./components/Jobdetailspage";
 import Applicationform from "./components/Applicationform";
 import Home from "./components/Home";
+import Verify from "./components/Verify";
+import Certificate from "./components/Certificate";
+
 
 function NotFoundPage({ setNotFound }) {
   React.useEffect(() => {
@@ -81,6 +84,8 @@ function AppWrapper() {
             <Route path="/career/:id/applicationform" element={<Applicationform/>} />
             <Route path="/clarity" element={<ClarityForm/>} />
             <Route path="/login" element={<Login />} />
+            <Route path="/verify" element={<Verify />} />
+            <Route path="/certificate" element={<Certificate />} />
             <Route path="/adminlogin" element={<AdminLogin />} />
             <Route path="/adminhome" element={<Home/>} />
             <Route path="/onboarding" element={ <Onboarding /> } />
