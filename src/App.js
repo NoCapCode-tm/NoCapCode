@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
 import { HashRouter, Route, Routes, useLocation } from "react-router-dom";
 import About from "./components/About";
-import Contactus from "./components/Contactus";
+
 import Casestudies from "./components/Casestudies";
 import NotFound from "./components/NotFound";
 import Condition from "./components/Condition";
@@ -22,6 +22,8 @@ import Applicationform from "./components/Applicationform";
 import Home from "./components/Home";
 import Verify from "./components/Verify";
 import Certificate from "./components/Certificate";
+import Contactus from "./components/Contactus";
+import Addcertificate from "./components/Addcertificate";
 
 
 function NotFoundPage({ setNotFound }) {
@@ -71,10 +73,11 @@ function AppWrapper() {
             <Route path="/careers" element={<CareersPage/>} />
             <Route path="/careers/:id" element={<Jobdetailspage/>} />
             <Route path="/addjobposting" element={<Addjobposting/>} />
+            <Route path="/addcertificate" element={<Addcertificate/>} />
             <Route path="/career/:id/applicationform" element={<Applicationform/>} />
             <Route path="/clarity" element={<ClarityForm/>} />
             <Route path="/verify" element={<Verify />} />
-            <Route path="/certificate" element={<Certificate />} />
+            <Route path="/verify/certificate/:credid" element={<Certificate />} />
             <Route path="/adminlogin" element={<AdminLogin />} />
             <Route path="/adminhome" element={<Home/>} />
             <Route path="*" element={<NotFoundPage setNotFound={setNotFound} />} />
