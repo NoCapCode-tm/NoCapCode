@@ -4,7 +4,7 @@ import AnimatedBackground from "./components/AnimatedBackground";
 import PageLoader from "./components/PageLoader";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
-import { HashRouter as Router, Route, Routes, useLocation, HashRouter } from "react-router";
+import { HashRouter, Route, Routes, useLocation } from "react-router-dom";
 import About from "./components/About";
 import Contactus from "./components/Contactus";
 import Casestudies from "./components/Casestudies";
@@ -28,7 +28,7 @@ function NotFoundPage({ setNotFound }) {
   React.useEffect(() => {
     setNotFound(true);
     return () => setNotFound(false);
-  }, []);
+  }, [setNotFound]);
   return <NotFound />;
 }
 
