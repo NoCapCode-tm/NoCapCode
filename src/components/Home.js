@@ -8,7 +8,7 @@ const Home = () => {
       
       
       <div className={styles.topBar}>
-        <img src="/Home.png" alt="/" height="100%" width="100%"/>
+        <img src="../internal/Home.png" alt="/" height="100%" width="100%"/>
       </div>
 
       <div className={styles.hero}>
