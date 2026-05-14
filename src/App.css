@@ -30,6 +30,10 @@
 }
 
 .gradienttext {
+  font-family: "Outfit", sans-serif;
+  font-weight: 450;
+  letter-spacing: -4px;
+  line-height: 0.9;
   background: linear-gradient(
     180deg,
     #282828 42.59%,
