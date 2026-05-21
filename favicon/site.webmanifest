@@ -1,8 +1,8 @@
 {
   "id": "/?source=pwa",
-  "name": "NoCapCode™ | Custom Software Development & MVP Studio",
-  "short_name": "NCC",
-  "description": "NoCapCode™ is a global custom software development and MVP execution studio building scalable SaaS platforms, automation systems, and automation tools.",
+  "name": "NoCapCode | Custom Software Development, SaaS & AI Automation",
+  "short_name": "NoCapCode",
+  "description": "NoCapCode is a global software development company building custom websites, mobile apps, SaaS platforms, AI automation systems, enterprise software, cloud applications, and scalable digital products for startups and modern businesses worldwide.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -12,7 +12,14 @@
   "background_color": "#0F0F12",
   "lang": "en",
   "dir": "ltr",
-  "categories": ["business", "technology", "productivity"],
+
+  "categories": [
+    "business",
+    "technology",
+    "productivity",
+    "developer",
+    "utilities"
+  ],
 
   "icons": [
     {
@@ -39,5 +46,26 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ]
+  ],
+
+  "screenshots": [
+    {
+      "src": "/screenshots/homepage-desktop.png",
+      "sizes": "1440x900",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "NoCapCode Website Homepage"
+    },
+    {
+      "src": "/screenshots/homepage-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "NoCapCode Mobile Experience"
+    }
+  ],
+
+  "related_applications": [],
+
+  "prefer_related_applications": false
 }
