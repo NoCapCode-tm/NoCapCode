@@ -1,5 +1,5 @@
 {
-  "id": "/?source=pwa",
+  "id": "/",
   "name": "NoCapCode | Custom Software Development, SaaS & AI Automation",
   "short_name": "NoCapCode",
   "description": "NoCapCode is a global software development company building custom websites, mobile apps, SaaS platforms, AI automation systems, enterprise software, cloud applications, and scalable digital products for startups and modern businesses worldwide.",
@@ -12,7 +12,6 @@
   "background_color": "#0F0F12",
   "lang": "en",
   "dir": "ltr",
-
   "categories": [
     "business",
     "technology",
@@ -20,7 +19,6 @@
     "developer",
     "utilities"
   ],
-
   "icons": [
     {
       "src": "/favicon/web-app-manifest-192x192.png",
@@ -47,7 +45,6 @@
       "purpose": "maskable"
     }
   ],
-
   "screenshots": [
     {
       "src": "/screenshots/homepage-desktop.png",
@@ -64,8 +61,6 @@
       "label": "NoCapCode Mobile Experience"
     }
   ],
-
   "related_applications": [],
-
   "prefer_related_applications": false
 }
