@@ -1425,7 +1425,7 @@ designed to evolve, not to be replaced.</span>
     </div>
     <div className={styles.aboutpage}>
       <div className={styles.aboutimage}>
-        <img src ="/Union.png" width="100%" height="100%"/>
+        <img src ="/Union.png" width="100%" height="100%" alt="NoCapCode software development illustration"/>
       </div>
 
       {/* Content */}
