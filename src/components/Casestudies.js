@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Helmet } from "react-helmet-async";  // By Om
 import styles from "../CSS/Casestudies.module.css";
 import { ArrowLeft, ChevronDown, Instagram, Linkedin } from "lucide-react";
 // import { useNavigate } from "react-router";
@@ -399,6 +400,43 @@ useGSAP(() => {
 
   return (
     <>
+    //edit: added Helmet for SEO optimization, meta tags, and structured content for better search engine visibility. By Om
+
+    <Helmet>
+    <title>
+      Case Studies | NoCapCode Software Projects & Systems
+    </title>
+
+    <meta
+      name="description"
+      content="Explore NoCapCode case studies including SaaS products, AI automation systems, scalable software platforms, MVP builds, and digital transformation projects."
+    />
+
+    <meta
+      name="keywords"
+      content="software case studies, SaaS case studies, AI automation projects, MVP projects, digital product development"
+    />
+
+    <link
+      rel="canonical"
+      href="https://nocapcode.cloud/#/casestudies"
+    />
+
+    <meta
+      property="og:title"
+      content="NoCapCode Case Studies"
+    />
+
+    <meta
+      property="og:description"
+      content="Real software systems, SaaS products, automation, and scalable digital solutions."
+    />
+
+    <meta
+      property="og:url"
+      content="https://nocapcode.cloud/#/casestudies"
+    />
+  </Helmet>
     <Navbar
   ref={navbarRef}
   logoRef={logRef}

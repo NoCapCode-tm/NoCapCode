@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react'
+import { Helmet } from "react-helmet-async";  // By Om
 import styles from "../CSS/About.module.css";
 import { ChevronDown, Instagram, Linkedin } from 'lucide-react';
 // import { useNavigate } from 'react-router';
@@ -490,8 +491,46 @@ useGSAP(() => {
 
 
 
-  return (
-    <div className={styles.about}>
+return (
+  //edit: added Helmet for SEO optimization, meta tags, and structured content for better search engine visibility. By Om
+  <div className={styles.about}>
+
+    <Helmet>
+      <title>
+        About NoCapCode | Custom Software Development & AI Automation
+      </title>
+
+      <meta
+        name="description"
+        content="Learn about NoCapCode, a software development company building scalable SaaS platforms, AI automation systems, MVPs, websites, and digital products for startups and modern businesses."
+      />
+
+      <meta
+        name="keywords"
+        content="NoCapCode, software development company, AI automation company, SaaS development, MVP development, startup software partner, scalable systems"
+      />
+
+      <link
+        rel="canonical"
+        href="https://nocapcode.cloud/#/about"
+      />
+
+      <meta
+        property="og:title"
+        content="About NoCapCode"
+      />
+
+      <meta
+        property="og:description"
+        content="Software development, SaaS systems, AI automation, MVPs, and scalable digital products."
+      />
+
+      <meta
+        property="og:url"
+        content="https://nocapcode.cloud/#/about"
+      />
+    </Helmet>
+
       <Navbar
   ref={navbarRef}
   logoRef={logRef}
@@ -615,7 +654,7 @@ useGSAP(() => {
       <div className={styles.aboutpage3}  ref={page3Ref}>
   {/* background lines image goes here */}
   <div className={styles.bgLines} ref={page3BgRef}>
-    <img src="/about/aboutpage3line.png" alt="/" width="100%" height="100%"/>
+    <img src="/about/aboutpage3line.png" alt="NoCapCode software systems illustration" width="100%" height="100%" />
     </div>
 
   <div className={styles.page3Grid}>
@@ -798,7 +837,7 @@ useGSAP(() => {
             </div>
 
             <div className={styles.badge}>
-                <img src="/badge.png" alt="/" height="100%" width="100%"/>
+                <img src="/badge.png" alt="NoCapCode quality badge" height="100%" width="100%"/>
             </div>
           </div>
 

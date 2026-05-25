@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { Helmet } from "react-helmet-async";  // By Om
 import styles from "../CSS/ClarityForm.module.css";
 import Navbar from "./Navbar";
 import { useGSAP } from "@gsap/react";
@@ -168,6 +169,43 @@ const handleSubmit = async () => {
 
   return (
     <>
+    //edit: added Helmet for SEO optimization, meta tags, and structured content for better search engine visibility. By Om
+    <Helmet>
+      <title>
+        Start With Clarity | Product Strategy & Software Planning
+      </title>
+
+      <meta
+        name="description"
+        content="Start with clarity before building software. Discuss MVP planning, scalable systems, AI automation, SaaS products, and technical strategy with NoCapCode."
+      />
+
+      <meta
+        name="keywords"
+        content="software consultation, MVP planning, startup product strategy, AI automation consulting, SaaS planning, technical clarity"
+      />
+
+      <link
+        rel="canonical"
+        href="https://nocapcode.cloud/#/clarity"
+      />
+
+      <meta
+        property="og:title"
+        content="Start With Clarity | NoCapCode"
+      />
+
+      <meta
+        property="og:description"
+        content="Talk through your software idea, MVP, SaaS platform, or AI automation project before development begins."
+      />
+
+      <meta
+        property="og:url"
+        content="https://nocapcode.cloud/#/clarity"
+      />
+    </Helmet>
+
     {loading && <LoaderDots text="Submitting Clarity Form" />}
     <div className={styles.page}>
       {/* Top heading */}

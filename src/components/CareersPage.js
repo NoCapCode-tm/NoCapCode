@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Helmet } from "react-helmet-async";  // By Om
 import styles from "../CSS/CareersPage.module.css";
 
 import CareersGlobe from "./CareersGlobe";
@@ -121,6 +122,43 @@ export default function CareersPage() {
       
   return (
     <>
+    //edit: added Helmet for SEO optimization, meta tags, and structured content for better search engine visibility. By Om
+    <Helmet>
+      <title>
+        Careers at NoCapCode | Software & Product Opportunities
+      </title>
+
+      <meta
+        name="description"
+        content="Join NoCapCode and work on scalable software systems, SaaS products, AI automation, design, and digital innovation projects."
+      />
+
+      <meta
+        name="keywords"
+        content="NoCapCode careers, software jobs, frontend developer jobs, UI UX internships, software engineering careers, startup jobs"
+      />
+
+      <link
+        rel="canonical"
+        href="https://nocapcode.cloud/#/careers"
+      />
+
+      <meta
+        property="og:title"
+        content="Careers at NoCapCode"
+      />
+
+      <meta
+        property="og:description"
+        content="Build software systems, SaaS platforms, and digital products with NoCapCode."
+      />
+
+      <meta
+        property="og:url"
+        content="https://nocapcode.cloud/#/careers"
+      />
+    </Helmet>
+    
     {loading && <LoaderDots text="Loading" />}
     <div className={styles.wrapper}>
       {/* Navbar */}

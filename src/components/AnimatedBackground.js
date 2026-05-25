@@ -1,4 +1,5 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
+import { Helmet } from "react-helmet-async";  // By Om
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import styles from "../CSS/AnimatedBackground.module.css";

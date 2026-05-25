@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { Helmet } from "react-helmet-async";  // By Om
 import styles from "../CSS/Contactus.module.css";
 import { Instagram, Linkedin, Mail, MapPin } from "lucide-react";
 import { useNavigate } from "react-router";
@@ -131,6 +132,43 @@ const Contactus = () => {
   const navigate = useNavigate()
   return (
     <>
+    //edit: added Helmet for SEO optimization, meta tags, and structured content for better search engine visibility. By Om
+    <Helmet>
+      <title>
+        Contact NoCapCode | Start Your Software Project
+      </title>
+
+      <meta
+        name="description"
+        content="Contact NoCapCode for custom software development, SaaS platforms, AI automation systems, website development, MVPs, and scalable digital products."
+      />
+
+      <meta
+        name="keywords"
+        content="contact software company, hire software developers, AI automation company, SaaS developers, custom software development"
+      />
+
+      <link
+        rel="canonical"
+        href="https://nocapcode.cloud/#/contact"
+      />
+
+      <meta
+        property="og:title"
+        content="Contact NoCapCode"
+      />
+
+      <meta
+        property="og:description"
+        content="Talk to NoCapCode about software development, AI automation, SaaS products, and scalable systems."
+      />
+
+      <meta
+        property="og:url"
+        content="https://nocapcode.cloud/#/contact"
+      />
+    </Helmet>
+
     {loading && <LoaderDots text="Submitting Enquiry" />}
     <section className={styles.contact}>
      <Navbar
