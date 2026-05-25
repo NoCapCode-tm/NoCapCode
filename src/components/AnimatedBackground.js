@@ -1252,7 +1252,6 @@ const handleCardScroll = (containerRef, cardRefs, mapArray) => {
   muted
   playsInline
   preload="none"
-  poster="/hero.webp"
 >
   <source src="/herosection.webm" type="video/webm" />
 </video>
