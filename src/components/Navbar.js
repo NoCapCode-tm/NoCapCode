@@ -35,11 +35,11 @@ const Navbar = forwardRef(
             <>
               <ul className={styles.links}>
                 <li onClick={() => goHome("home")} style={{cursor:"pointer"}}>Home</li>
-                <li onClick={() => goHome("about")} style={{cursor:"pointer"}}>About</li>
-                <li onClick={() => goHome("service")} style={{cursor:"pointer"}}>Services</li>
-                <li onClick={() => navigate("/casestudies")} style={{cursor:"pointer"}}>
-                  Case Studies
+                <li onClick={() => navigate("/about")} style={{cursor:"pointer"}}>
+                  About
                 </li>
+                <li onClick={() => goHome("service")} style={{cursor:"pointer"}}>Services</li>
+                <li onClick={() => navigate("/casestudies")} style={{cursor:"pointer"}}>Case Studies</li>
               </ul>
 
               <button
@@ -100,7 +100,9 @@ const Navbar = forwardRef(
               }}
             >
               <li onClick={() => goHome("home")} style={{cursor:"pointer"}}>Home</li>
-              <li onClick={() => goHome("about")} style={{cursor:"pointer"}}>About</li>
+              <li onClick={() => navigate("/about")} style={{cursor:"pointer"}}>
+                About
+              </li>
               <li onClick={() => goHome("service")} style={{cursor:"pointer"}}>Services</li>
               <li onClick={() => navigate("/casestudies")} style={{cursor:"pointer"}}>
                 Case Studies
