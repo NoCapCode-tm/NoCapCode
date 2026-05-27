@@ -47,7 +47,7 @@ a: "We work on MVP development, internal tools, automation, and scalable softwar
 },
 {
 q: "Can you help if I'm not sure what needs to be built yet?",
-a: "Yes. Many teams come to us with uncertainty, not requirements. We help define scope, remove unnecessary features, and clarify decisions before development starts — which often saves time and cost later."
+a: "Yes. Many teams come to us with uncertainty, not requirements. We help define scope, remove unnecessary features, and clarify decisions before development starts which often saves time and cost later."
 },
 {
 q: "Do you work with non-technical founders or teams?",
@@ -55,11 +55,11 @@ a: "Absolutely. You don't need to be technical to work with us. Our job is to ma
 },
 {
 q: "How do you price and scope work?",
-a: "We scope projects based on clarity, not guesses. After understanding the problem, we define what should be built, what shouldn’t, and what risks exist. Pricing follows that reality — not fixed packages."
+a: "We scope projects based on clarity, not guesses. After understanding the problem, we define what should be built, what shouldn’t, and what risks exist. Pricing follows that reality not fixed packages."
 },
 {
 q: "How do I know if we're a good fit?",
-a: "If you care about clarity, long-term stability, and honest trade-offs, we'll likely work well together. If you’re looking for the cheapest or fastest option, we’re probably not the right partner — and that’s okay."
+a: "If you care about clarity, long-term stability, and honest trade-offs, we'll likely work well together. If you’re looking for the cheapest or fastest option, we’re probably not the right partner and that’s okay."
 }
                ];
   //   const caseStudies = [
