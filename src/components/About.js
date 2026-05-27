@@ -575,7 +575,7 @@ return (
     <div className={styles.aboutPoint}>
       <h4>Real Outcomes</h4>
       <p>
-        We measure success by what improves after launch—safer updates, fewer
+        We measure success by what improves after launch safer updates, fewer
         errors, and smoother operations for growing teams.
       </p>
     </div>
@@ -681,7 +681,7 @@ return (
       <p className={styles.page3Intro}>
         NoCapCode focuses on MVP development, scalable software systems,
         automation, and long-term maintainability. If your expectations
-        fall into the areas below, we may not be the right partner —
+        fall into the areas below, we may not be the right partner
         and that's intentional.
       </p>
 

@@ -106,7 +106,7 @@ export default function ClarityForm() {
   {
     id: 3,
     question: "What are you trying to build?",
-    placeholder: "One or two sentences are enough. No pitching — just describe it plainly.",
+    placeholder: "One or two sentences are enough. No pitching just describe it plainly.",
   },
   {
     id: 4,
@@ -126,7 +126,7 @@ export default function ClarityForm() {
   {
     id: 7,
     question: "What exists today?",
-    placeholder: "An idea, a prototype, early users, or nothing yet — all are fine.",
+    placeholder: "An idea, a prototype, early users, or nothing yet all are fine.",
   },
   {
     id: 8,
@@ -257,7 +257,7 @@ const handleSubmit = async () => {
     </div>
     <footer className={styles.footerWrap}>
        <div className={styles.footerScene}>
-        <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
+        <img src="/nocapbg.png" width="100%" height="100%" alt="NoCapCode Logo Background" />
        </div>
       <div className={styles.mirrorOverlay}/>
       <div className={styles.footerBox}>
@@ -276,7 +276,7 @@ const handleSubmit = async () => {
             </div>
 
             <div className={styles.badge}>
-                <img src="/badge.png" alt="/" height="100%" width="100%"/>
+                <img src="/badge.png" alt="NoCapCode Badge" height="100%" width="100%"/>
             </div>
           </div>
 
