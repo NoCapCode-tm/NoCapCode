@@ -317,22 +317,6 @@ const handleSubmit = async () => {
       })}
     </script>
 
-
-    <script type="application/ld+json">
-      {JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": clarityQuestions.map((item) => ({
-          "@type": "Question",
-          "name": item.question,
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": item.placeholder
-          }
-        }))
-      })}
-    </script>
-
   </Helmet>
 
     {loading && <LoaderDots text="Submitting Clarity Form" />}
