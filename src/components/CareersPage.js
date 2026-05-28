@@ -122,25 +122,48 @@ export default function CareersPage() {
       
   return (
     <>
-    //edit: added Helmet for SEO optimization, meta tags, and structured content for better search engine visibility. By Om
+    {/* 
+      edit: added advanced SEO optimization, OpenGraph, Twitter metadata,
+      JobPosting structured data, breadcrumb schema, and indexing improvements
+      for better Google Jobs visibility, indexing, and sitelinks eligibility. By Om 
+    */}
+
     <Helmet>
+
+      {/* Primary SEO */}
       <title>
-        Careers at NoCapCode | Software & Product Opportunities
+        Careers at NoCapCode | Software Engineering, Design & Product Opportunities
       </title>
 
       <meta
         name="description"
-        content="Join NoCapCode and work on scalable software systems, SaaS products, AI automation, design, and digital innovation projects."
+        content="Explore careers at NoCapCode. Join our team to build scalable software systems, SaaS platforms, AI automation tools, websites, and digital products for startups and modern businesses."
       />
 
       <meta
         name="keywords"
-        content="NoCapCode careers, software jobs, frontend developer jobs, UI UX internships, software engineering careers, startup jobs"
+        content="NoCapCode careers, software engineering jobs, frontend developer jobs, UI UX internships, startup careers, SaaS jobs, remote developer jobs, software company careers"
+      />
+
+      <meta
+        name="robots"
+        content="index, follow, max-image-preview:large"
       />
 
       <link
         rel="canonical"
         href="https://nocapcode.cloud/#/careers"
+      />
+
+      {/* Open Graph */}
+      <meta
+        property="og:type"
+        content="website"
+      />
+
+      <meta
+        property="og:site_name"
+        content="NoCapCode"
       />
 
       <meta
@@ -150,13 +173,114 @@ export default function CareersPage() {
 
       <meta
         property="og:description"
-        content="Build software systems, SaaS platforms, and digital products with NoCapCode."
+        content="Build software systems, SaaS platforms, AI automation tools, and digital products with NoCapCode."
       />
 
       <meta
         property="og:url"
         content="https://nocapcode.cloud/#/careers"
       />
+
+      <meta
+        property="og:image"
+        content="https://nocapcode.cloud/internal/og-cover.png"
+      />
+
+      {/* Twitter / X */}
+      <meta
+        name="twitter:card"
+        content="summary_large_image"
+      />
+
+      <meta
+        name="twitter:title"
+        content="Careers at NoCapCode"
+      />
+
+      <meta
+        name="twitter:description"
+        content="Join NoCapCode and work on scalable software systems, SaaS platforms, AI automation, and digital innovation."
+      />
+
+      <meta
+        name="twitter:image"
+        content="https://nocapcode.cloud/internal/og-cover.png"
+      />
+
+      {/* Careers Page Structured Data */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "name": "Careers at NoCapCode",
+          "url": "https://nocapcode.cloud/#/careers",
+          "description":
+            "Career opportunities at NoCapCode across engineering, design, product, and software systems.",
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "NoCapCode",
+            "url": "https://nocapcode.cloud/"
+          },
+          "about": {
+            "@type": "Organization",
+            "name": "NoCapCode",
+            "url": "https://nocapcode.cloud/"
+          }
+        })}
+      </script>
+
+      {/* Breadcrumb Structured Data */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://nocapcode.cloud/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Careers",
+              "item": "https://nocapcode.cloud/#/careers"
+            }
+          ]
+        })}
+      </script>
+
+      {/* Dynamic JobPosting Schema */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": jobs.map((job) => ({
+            "@type": "JobPosting",
+            "title": job?.title,
+            "description": job?.description,
+            "employmentType": job?.mode || "FULL_TIME",
+            "hiringOrganization": {
+              "@type": "Organization",
+              "name": "NoCapCode",
+              "sameAs": "https://nocapcode.cloud/",
+              "logo": "https://nocapcode.cloud/favicon/favicon-96x96.png"
+            },
+            "jobLocation": {
+              "@type": "Place",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Santa Fe",
+                "addressRegion": "New Mexico",
+                "addressCountry": "US"
+              }
+            },
+            "industry": job?.department || "Software Development",
+            "url": `https://nocapcode.cloud/#/careers/${job?._id}`
+          }))
+        })}
+      </script>
+
     </Helmet>
     
     {loading && <LoaderDots text="Loading" />}
@@ -243,8 +367,8 @@ export default function CareersPage() {
     </div>
     <footer className={styles.footerWrap}>
        <div className={styles.footerScene}>
-        <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
-       </div>
+        <img src="/nocapbg.png" width="100%" height="100%" alt="NoCapCode software systems background"/>
+      </div>
       <div className={styles.mirrorOverlay}/>
       <div className={styles.footerBox}>
     
@@ -261,7 +385,7 @@ export default function CareersPage() {
             </div>
 
             <div className={styles.badge1}>
-                <img src="/badge.png" alt="/" height="100%" width="100%"/>
+                <img src="/badge.png"  alt="NoCapCode quality badge"  height="100%" width="100%"/>
             </div>
           </div>
 

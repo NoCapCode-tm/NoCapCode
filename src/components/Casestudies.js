@@ -400,43 +400,163 @@ useGSAP(() => {
 
   return (
     <>
-    //edit: added Helmet for SEO optimization, meta tags, and structured content for better search engine visibility. By Om
+{/* 
+  edit: added advanced SEO optimization, OpenGraph metadata,
+  Twitter metadata, CollectionPage schema, CreativeWork schema,
+  breadcrumb schema, and indexing optimization for better Google
+  understanding, sitelinks eligibility, and authority building. By Om  */}
 
-    <Helmet>
-    <title>
-      Case Studies | NoCapCode Software Projects & Systems
-    </title>
+<Helmet>
 
-    <meta
-      name="description"
-      content="Explore NoCapCode case studies including SaaS products, AI automation systems, scalable software platforms, MVP builds, and digital transformation projects."
-    />
+  {/* Primary SEO */}
+  <title>
+    Case Studies | NoCapCode Software Projects, SaaS & AI Systems
+  </title>
 
-    <meta
-      name="keywords"
-      content="software case studies, SaaS case studies, AI automation projects, MVP projects, digital product development"
-    />
+  <meta
+    name="description"
+    content="Explore NoCapCode case studies featuring SaaS products, AI automation systems, scalable software platforms, MVP development, workflow automation, and digital transformation projects."
+  />
 
-    <link
-      rel="canonical"
-      href="https://nocapcode.cloud/#/casestudies"
-    />
+  <meta
+    name="keywords"
+    content="software case studies, SaaS case studies, AI automation projects, MVP development projects, scalable software systems, startup product development, workflow automation systems"
+  />
 
-    <meta
-      property="og:title"
-      content="NoCapCode Case Studies"
-    />
+  <meta
+    name="robots"
+    content="index, follow, max-image-preview:large"
+  />
 
-    <meta
-      property="og:description"
-      content="Real software systems, SaaS products, automation, and scalable digital solutions."
-    />
+  <link
+    rel="canonical"
+    href="https://nocapcode.cloud/#/casestudies"
+  />
 
-    <meta
-      property="og:url"
-      content="https://nocapcode.cloud/#/casestudies"
-    />
-  </Helmet>
+  {/* Open Graph */}
+  <meta
+    property="og:type"
+    content="website"
+  />
+
+  <meta
+    property="og:site_name"
+    content="NoCapCode"
+  />
+
+  <meta
+    property="og:title"
+    content="NoCapCode Case Studies"
+  />
+
+  <meta
+    property="og:description"
+    content="Real SaaS platforms, software systems, AI automation, MVPs, and scalable digital transformation projects."
+  />
+
+  <meta
+    property="og:url"
+    content="https://nocapcode.cloud/#/casestudies"
+  />
+
+  <meta
+    property="og:image"
+    content="https://nocapcode.cloud/internal/og-cover.png"
+  />
+
+  {/* Twitter / X */}
+  <meta
+    name="twitter:card"
+    content="summary_large_image"
+  />
+
+  <meta
+    name="twitter:title"
+    content="NoCapCode Case Studies"
+  />
+
+  <meta
+    name="twitter:description"
+    content="Explore SaaS systems, software products, automation workflows, and scalable digital solutions built by NoCapCode."
+  />
+
+  <meta
+    name="twitter:image"
+    content="https://nocapcode.cloud/internal/og-cover.png"
+  />
+
+  {/* Collection Page Structured Data */}
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "NoCapCode Case Studies",
+      "url": "https://nocapcode.cloud/#/casestudies",
+      "description":
+        "Software engineering, SaaS, AI automation, MVP development, and scalable digital product case studies by NoCapCode.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "NoCapCode",
+        "url": "https://nocapcode.cloud/"
+      },
+      "about": {
+        "@type": "Organization",
+        "name": "NoCapCode",
+        "url": "https://nocapcode.cloud/"
+      }
+    })}
+  </script>
+
+  {/* Breadcrumb Structured Data */}
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://nocapcode.cloud/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Case Studies",
+          "item": "https://nocapcode.cloud/#/casestudies"
+        }
+      ]
+    })}
+  </script>
+
+  {/* Dynamic Case Study Structured Data */}
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": casestudy.map((item) => ({
+        "@type": "CreativeWork",
+        "headline": item?.title,
+        "description": item?.subtitle,
+        "image": item?.thumbnail,
+        "author": {
+          "@type": "Organization",
+          "name": "NoCapCode"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "NoCapCode",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://nocapcode.cloud/favicon/favicon-96x96.png"
+          }
+        },
+        "url": "https://nocapcode.cloud/#/casestudies"
+      }))
+    })}
+  </script>
+
+</Helmet>
+
     <Navbar
   ref={navbarRef}
   logoRef={logRef}

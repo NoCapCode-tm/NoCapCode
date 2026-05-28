@@ -132,42 +132,171 @@ const Contactus = () => {
   const navigate = useNavigate()
   return (
     <>
-    //edit: added Helmet for SEO optimization, meta tags, and structured content for better search engine visibility. By Om
-    <Helmet>
-      <title>
-        Contact NoCapCode | Start Your Software Project
-      </title>
+    /*
+  edit: added advanced SEO optimization, OpenGraph metadata,
+  Twitter metadata, ContactPage schema, LocalBusiness schema,
+  breadcrumb schema, and indexing optimization for better
+  Google understanding, authority, and sitelinks eligibility. By Om
+*/
 
-      <meta
-        name="description"
-        content="Contact NoCapCode for custom software development, SaaS platforms, AI automation systems, website development, MVPs, and scalable digital products."
-      />
+  <Helmet>
 
-      <meta
-        name="keywords"
-        content="contact software company, hire software developers, AI automation company, SaaS developers, custom software development"
-      />
+    {/* Primary SEO */}
+    <title>
+      Contact NoCapCode | SaaS, AI Automation & Software Development
+    </title>
 
-      <link
-        rel="canonical"
-        href="https://nocapcode.cloud/#/contact"
-      />
+    <meta
+      name="description"
+      content="Contact NoCapCode for SaaS development, AI automation systems, MVP engineering, custom software development, scalable web applications, and startup technology solutions."
+    />
 
-      <meta
-        property="og:title"
-        content="Contact NoCapCode"
-      />
+    <meta
+      name="keywords"
+      content="contact software company, SaaS development company, AI automation agency, startup software partner, MVP developers, web application development, custom software services"
+    />
 
-      <meta
-        property="og:description"
-        content="Talk to NoCapCode about software development, AI automation, SaaS products, and scalable systems."
-      />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large"
+    />
 
-      <meta
-        property="og:url"
-        content="https://nocapcode.cloud/#/contact"
-      />
-    </Helmet>
+    <link
+      rel="canonical"
+      href="https://nocapcode.cloud/#/contact"
+    />
+
+    {/* Open Graph */}
+    <meta
+      property="og:type"
+      content="website"
+    />
+
+    <meta
+      property="og:site_name"
+      content="NoCapCode"
+    />
+
+    <meta
+      property="og:title"
+      content="Contact NoCapCode"
+    />
+
+    <meta
+      property="og:description"
+      content="Talk to NoCapCode about SaaS products, AI automation systems, MVP development, scalable software architecture, and digital product engineering."
+    />
+
+    <meta
+      property="og:url"
+      content="https://nocapcode.cloud/#/contact"
+    />
+
+    <meta
+      property="og:image"
+      content="https://nocapcode.cloud/internal/og-cover.png"
+    />
+
+    {/* Twitter / X */}
+    <meta
+      name="twitter:card"
+      content="summary_large_image"
+    />
+
+    <meta
+      name="twitter:title"
+      content="Contact NoCapCode"
+    />
+
+    <meta
+      name="twitter:description"
+      content="Discuss your SaaS platform, AI automation system, startup software, or MVP with NoCapCode."
+    />
+
+    <meta
+      name="twitter:image"
+      content="https://nocapcode.cloud/internal/og-cover.png"
+    />
+
+    {/* Contact Page Structured Data */}
+    <script type="application/ld+json">
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "name": "Contact NoCapCode",
+        "url": "https://nocapcode.cloud/#/contact",
+        "description":
+          "Contact NoCapCode for SaaS development, MVP engineering, AI automation systems, websites, and scalable software products."
+      })}
+    </script>
+
+    {/* Organization Structured Data */}
+    <script type="application/ld+json">
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "NoCapCode",
+        "url": "https://nocapcode.cloud/",
+        "logo": "https://nocapcode.cloud/favicon/favicon-96x96.png",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "hello@nocapcode.cloud",
+          "contactType": "customer support",
+          "availableLanguage": ["English"]
+        },
+        "sameAs": [
+          "https://www.linkedin.com/company/nocapcode",
+          "https://www.instagram.com/nocapcode.cloud",
+          "https://x.com/nocapcodecloud"
+        ]
+      })}
+    </script>
+
+    {/* Local Business Structured Data */}
+    <script type="application/ld+json">
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "NoCapCode",
+        "url": "https://nocapcode.cloud/",
+        "image": "https://nocapcode.cloud/internal/og-cover.png",
+        "description":
+          "Software development company building SaaS products, AI automation systems, MVPs, scalable web applications, and startup software solutions.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Santa Fe",
+          "addressRegion": "New Mexico",
+          "postalCode": "87501",
+          "addressCountry": "US"
+        },
+        "email": "hello@nocapcode.cloud",
+        "areaServed": "Worldwide"
+      })}
+    </script>
+
+    {/* Breadcrumb Structured Data */}
+    <script type="application/ld+json">
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://nocapcode.cloud/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Contact",
+            "item": "https://nocapcode.cloud/#/contact"
+          }
+        ]
+      })}
+    </script>
+
+  </Helmet>
 
     {loading && <LoaderDots text="Submitting Enquiry" />}
     <section className={styles.contact}>

@@ -79,6 +79,97 @@ const Condition = () => {
   const navigate=useNavigate()
   return (
     <>
+
+    <Helmet>
+      <title>
+        Terms & Conditions | NoCapCode
+      </title>
+
+      <meta
+        name="description"
+        content="Read the NoCapCode Terms & Conditions covering software services, project engagements, intellectual property, website usage, confidentiality, and collaboration policies."
+      />
+
+      <meta
+        name="keywords"
+        content="NoCapCode terms and conditions, software development terms, SaaS agreement, software company legal terms, website terms of use"
+      />
+
+      <meta
+        name="robots"
+        content="index, follow"
+      />
+
+      <link
+        rel="canonical"
+        href="https://nocapcode.cloud/#/terms"
+      />
+
+      {/* Open Graph */}
+      <meta
+        property="og:type"
+        content="website"
+      />
+
+      <meta
+        property="og:title"
+        content="Terms & Conditions | NoCapCode"
+      />
+
+      <meta
+        property="og:description"
+        content="Understand the terms governing NoCapCode services, software engagements, intellectual property, and platform usage."
+      />
+
+      <meta
+        property="og:url"
+        content="https://nocapcode.cloud/#/terms"
+      />
+
+      <meta
+        property="og:image"
+        content="https://nocapcode.cloud/internal/og-cover.png"
+      />
+
+      {/* Twitter */}
+      <meta
+        name="twitter:card"
+        content="summary_large_image"
+      />
+
+      <meta
+        name="twitter:title"
+        content="Terms & Conditions | NoCapCode"
+      />
+
+      <meta
+        name="twitter:description"
+        content="Review NoCapCode terms related to software development services, project collaboration, ownership, and usage policies."
+      />
+
+      <meta
+        name="twitter:image"
+        content="https://nocapcode.cloud/internal/og-cover.png"
+      />
+
+      {/* Structured Data */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "Terms & Conditions | NoCapCode",
+          url: "https://nocapcode.cloud/#/terms",
+          description:
+            "Terms and Conditions page for NoCapCode covering services, website usage, confidentiality, intellectual property, and project engagement policies.",
+          publisher: {
+            "@type": "Organization",
+            name: "NoCapCode",
+            url: "https://nocapcode.cloud/",
+          },
+        })}
+      </script>
+    </Helmet>
+
     <Navbar
   ref={navbarRef}
   logoRef={logRef}
