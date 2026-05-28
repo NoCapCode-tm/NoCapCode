@@ -1,16 +1,15 @@
-
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
-
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- Main Website -->
+  <!-- MAIN WEBSITE -->
   <url>
     <loc>https://nocapcode.cloud/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- Core Pages -->
+  <!-- CORE COMPANY PAGES -->
   <url>
     <loc>https://nocapcode.cloud/#/about</loc>
     <changefreq>monthly</changefreq>
@@ -41,7 +40,7 @@
     <priority>0.9</priority>
   </url>
 
-  <!-- Legal Pages -->
+  <!-- LEGAL PAGES -->
   <url>
     <loc>https://nocapcode.cloud/#/terms</loc>
     <changefreq>yearly</changefreq>
