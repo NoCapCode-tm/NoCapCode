@@ -492,45 +492,137 @@ useGSAP(() => {
 
 
 return (
-  //edit: added Helmet for SEO optimization, meta tags, and structured content for better search engine visibility. By Om
-  <div className={styles.about}>
+ //edit: added advanced Helmet SEO optimization, OpenGraph, Twitter metadata,
+// structured data, breadcrumb schema, and indexing enhancements for better
+// Google understanding, sitelinks eligibility, and entity recognition. By Om
 
-    <Helmet>
-      <title>
-        About NoCapCode | Custom Software Development & AI Automation
-      </title>
+<div className={styles.about}>
 
-      <meta
-        name="description"
-        content="Learn about NoCapCode, a software development company building scalable SaaS platforms, AI automation systems, MVPs, websites, and digital products for startups and modern businesses."
-      />
+  <Helmet>
 
-      <meta
-        name="keywords"
-        content="NoCapCode, software development company, AI automation company, SaaS development, MVP development, startup software partner, scalable systems"
-      />
+    {/* Primary SEO */}
+    <title>
+      About NoCapCode | Custom Software Development & AI Automation
+    </title>
 
-      <link
-        rel="canonical"
-        href="https://nocapcode.cloud/#/about"
-      />
+    <meta
+      name="description"
+      content="Learn about NoCapCode, a software development company building scalable SaaS platforms, AI automation systems, MVPs, websites, and digital products for startups and modern businesses."
+    />
 
-      <meta
-        property="og:title"
-        content="About NoCapCode"
-      />
+    <meta
+      name="keywords"
+      content="NoCapCode, software development company, AI automation company, SaaS development, MVP development, startup software partner, scalable systems"
+    />
 
-      <meta
-        property="og:description"
-        content="Software development, SaaS systems, AI automation, MVPs, and scalable digital products."
-      />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large"
+    />
 
-      <meta
-        property="og:url"
-        content="https://nocapcode.cloud/#/about"
-      />
-    </Helmet>
+    <link
+      rel="canonical"
+      href="https://nocapcode.cloud/#/about"
+    />
 
+    {/* Open Graph */}
+    <meta
+      property="og:type"
+      content="website"
+    />
+
+    <meta
+      property="og:site_name"
+      content="NoCapCode"
+    />
+
+    <meta
+      property="og:title"
+      content="About NoCapCode | Custom Software Development & AI Automation"
+    />
+
+    <meta
+      property="og:description"
+      content="Software development, SaaS systems, AI automation, MVPs, and scalable digital products."
+    />
+
+    <meta
+      property="og:url"
+      content="https://nocapcode.cloud/#/about"
+    />
+
+    <meta
+      property="og:image"
+      content="https://nocapcode.cloud/internal/og-cover.png"
+    />
+
+    {/* Twitter / X */}
+    <meta
+      name="twitter:card"
+      content="summary_large_image"
+    />
+
+    <meta
+      name="twitter:title"
+      content="About NoCapCode"
+    />
+
+    <meta
+      name="twitter:description"
+      content="Software development, SaaS systems, AI automation, MVPs, and scalable digital products."
+    />
+
+    <meta
+      name="twitter:image"
+      content="https://nocapcode.cloud/internal/og-cover.png"
+    />
+
+    {/* AboutPage Structured Data */}
+    <script type="application/ld+json">
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "name": "About NoCapCode",
+        "url": "https://nocapcode.cloud/#/about",
+        "description":
+          "Learn about NoCapCode, a software development company building scalable SaaS platforms, AI automation systems, MVPs, and digital products.",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "NoCapCode",
+          "url": "https://nocapcode.cloud/"
+        },
+        "about": {
+          "@type": "Organization",
+          "name": "NoCapCode",
+          "url": "https://nocapcode.cloud/"
+        }
+      })}
+    </script>
+
+    {/* Breadcrumb Structured Data */}
+    <script type="application/ld+json">
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://nocapcode.cloud/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "About",
+            "item": "https://nocapcode.cloud/#/about"
+          }
+        ]
+      })}
+    </script>
+
+  </Helmet>
+  
       <Navbar
   ref={navbarRef}
   logoRef={logRef}
