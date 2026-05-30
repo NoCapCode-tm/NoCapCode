@@ -255,7 +255,7 @@ const handlesubmit = async(e) =>{
             <p className={styles.tagline}>We build software systems for teams who care about clarity, ownership, and longevity.</p>
             <div className={styles.socials}>
               <span><a href="https://www.linkedin.com/company/nocapcode"  rel="noreferrer" target="_blank"><Linkedin size={16} color="rgba(190, 190, 190, 1)"/></a></span>
-              <span onClick={()=>{navigate("/404")}}><FontAwesomeIcon icon={faXTwitter} /></span>
+              <span><a href="https://twitter.com/nocapcodecloud" target="_blank" rel="noreferrer"><Twitter size={16} color="rgba(190, 190, 190, 1)" /></a></span>
               <span><a href="https://www.instagram.com/nocapcode.cloud" target="_blank" rel="noreferrer"><Instagram size={16} color="rgba(190, 190, 190, 1)"/></a></span>
               
               
