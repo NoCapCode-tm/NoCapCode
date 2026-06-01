@@ -349,7 +349,7 @@ const Contactus = () => {
     </section>
     <footer className={styles.footerWrap}>
        <div className={styles.footerScene}>
-        <img src="/nocapbg.png" width="100%" height="100%" alt="/" />
+        <img src="./internal/footerbg.png" width="100%" height="100%" alt="Footer background" />
        </div>
       <div className={styles.mirrorOverlay}/>
       <div className={styles.footerBox}>

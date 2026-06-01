@@ -367,7 +367,7 @@ export default function CareersPage() {
     </div>
     <footer className={styles.footerWrap}>
        <div className={styles.footerScene}>
-        <img src="/nocapbg.png" width="100%" height="100%" alt="NoCapCode software systems background"/>
+        <img src="./internal/footerbg.png" width="100%" height="100%" alt="Footer background" />
       </div>
       <div className={styles.mirrorOverlay}/>
       <div className={styles.footerBox}>

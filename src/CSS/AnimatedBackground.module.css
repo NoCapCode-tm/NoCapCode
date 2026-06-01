@@ -836,11 +836,13 @@ box-shadow: 6px 6px 35px 0px rgba(40, 18, 138, 1)
 }
 
 .footerScene img {
-  height: 61.9vh;                /* full height */
+  height: max-content;                /* full height */
   /* max-height: 90vh; */
   width: auto;                 /* maintain aspect */
   object-fit: contain;
   opacity: 0.9;                /* tweak if needed */
+  filter: blur(10px);
+  transform: scale(0.95);              /* optional: scale down to reduce edge artifacts from blur */
 }
 /* MIRROR / GLASS */
 /* .mirrorOverlay {

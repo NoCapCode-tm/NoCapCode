@@ -282,7 +282,10 @@
   width: auto;                 /* maintain aspect */
   object-fit: contain;
   opacity: 0.9;                /* tweak if needed */
+  filter: blur(10px);
+  transform: scale(0.95);              /* optional: scale down to reduce edge artifacts from blur */
 }
+
 /* MIRROR / GLASS */
 /* .mirrorOverlay {
   position: absolute;
