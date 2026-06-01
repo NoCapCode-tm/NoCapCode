@@ -301,11 +301,11 @@ const Contactus = () => {
     {loading && <LoaderDots text="Submitting Enquiry" />}
     <section className={styles.contact}>
      <Navbar
-  ref={navbarRef}
-  logoRef={logRef}
-  btnTextRef={btnTextRef}
-  btnIconRef={btnIconRef}
-/>
+      ref={navbarRef}
+      logoRef={logRef}
+      btnTextRef={btnTextRef}
+      btnIconRef={btnIconRef}
+    />
       <div className={styles.wrapper} ref={startRef}>
         {/* LEFT CONTENT */}
         <div className={styles.left}>
