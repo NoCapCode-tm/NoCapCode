@@ -1752,7 +1752,7 @@ activeIndex === segmentIndex ? styles.activeCardp : ""
             </div>
 
             <div className={styles.badge}>
-                <img src="/badge.png" alt="/" height="100%" width="100%"/>
+                <img src="/badge.png" alt="Microsoft for startup Badge" height="100%" width="100%"/>
             </div>
           </div>
 
@@ -1789,7 +1789,7 @@ activeIndex === segmentIndex ? styles.activeCardp : ""
         </div>
         <div className={styles.divider} />
         <div className={styles.bottom}>
-          <p>© 24-{new Date().getFullYear()} NoCapCode. All rights reserved.<br/>Built with restraint, responsibility, and long-term thinking.</p>
+           <p>© 2024-{String(new Date().getFullYear()).slice(-2)} NoCapCode. All rights reserved. <br/>Built with restraint, responsibility, and long-term thinking.</p>
 
           <div className={styles.links}>
             <span onClick={()=>{navigate("/terms")}} style={{ cursor: "pointer" }}>Terms of Service</span>
