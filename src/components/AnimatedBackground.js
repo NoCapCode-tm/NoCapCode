@@ -8,18 +8,114 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Globe from "./Globe";
 import { ChevronDown, Instagram, Linkedin } from "lucide-react";
 import { ScrollToPlugin } from "gsap/all";
-import { useNavigate,useLocation} from "react-router";
+import { useNavigate,useLocation, useParams} from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import useWindowWidth from "./usewindowwidth";
+import FAQSchema from './FAQSchema';  // Om added this to inject the FAQ schema into the head of the document for SEO purposes
 // import SmallNavbar from "./SmallNavbar";
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 
 
+// ==========================================
+// 1. DYNAMIC SEO REGIONAL DATA
+// ==========================================
+const supportedCountries = {
+  us: { name: "the USA", lang: "en-us" },
+  ca: { name: "Canada", lang: "en-ca" },
+  mx: { name: "Mexico", lang: "en-mx" },
+  uk: { name: "the UK", lang: "en-gb" },
+  ie: { name: "Ireland", lang: "en-ie" },
+  de: { name: "Germany", lang: "en-de" },
+  fr: { name: "France", lang: "en-fr" },
+  nl: { name: "the Netherlands", lang: "en-nl" },
+  ch: { name: "Switzerland", lang: "en-ch" },
+  se: { name: "Sweden", lang: "en-se" },
+  no: { name: "Norway", lang: "en-no" },
+  dk: { name: "Denmark", lang: "en-dk" },
+  fi: { name: "Finland", lang: "en-fi" },
+  it: { name: "Italy", lang: "en-it" },
+  es: { name: "Spain", lang: "en-es" },
+  pt: { name: "Portugal", lang: "en-pt" },
+  be: { name: "Belgium", lang: "en-be" },
+  pl: { name: "Poland", lang: "en-pl" },
+  cz: { name: "the Czech Republic", lang: "en-cz" },
+  ro: { name: "Romania", lang: "en-ro" },
+  ua: { name: "Ukraine", lang: "en-ua" },
+  at: { 
+    name: "Österreich", 
+    lang: "de-at", 
+    overrideTitle: "NoCapCode™ Österreich | Maßgeschneiderte Softwareentwicklung & KI",
+    overrideDesc: "NoCapCode entwickelt hochperformante Individualsoftware, Webanwendungen und KI-Automatisierung für Unternehmen in Österreich und Europa." 
+  },
+  in: { 
+    name: "India", 
+    lang: "en-in",
+    overrideTitle: "NoCapCode™ India | Top Custom Software & Product Engineering Studio",
+    overrideDesc: "NoCapCode delivers world-class custom software engineering, scalable websites, and advanced AI workflow automations built for global scale."
+  },
+  au: { name: "Australia", lang: "en-au" },
+  nz: { name: "New Zealand", lang: "en-nz" },
+  sg: { name: "Singapore", lang: "en-sg" },
+  jp: { name: "Japan", lang: "en-jp" },
+  kr: { name: "South Korea", lang: "en-kr" },
+  tw: { name: "Taiwan", lang: "en-tw" },
+  hk: { name: "Hong Kong", lang: "en-hk" },
+  cn: { name: "China", lang: "en-cn" },
+  id: { name: "Indonesia", lang: "en-id" },
+  my: { name: "Malaysia", lang: "en-my" },
+  ph: { name: "the Philippines", lang: "en-ph" },
+  vn: { name: "Vietnam", lang: "en-vn" },
+  th: { name: "Thailand", lang: "en-th" },
+  pk: { name: "Pakistan", lang: "en-pk" },
+  bd: { name: "Bangladesh", lang: "en-bd" },
+  lk: { name: "Sri Lanka", lang: "en-lk" },
+  ae: { 
+    name: "the UAE", 
+    lang: "en-ae",
+    overrideTitle: "NoCapCode™ UAE | Elite Custom Software & AI Automation Dubai",
+    overrideDesc: "NoCapCode engineers high-performance custom applications, websites, and business AI automation pipelines for enterprises across the UAE."
+  },
+  sa: { name: "Saudi Arabia", lang: "en-sa" },
+  qa: { name: "Qatar", lang: "en-qa" },
+  kw: { name: "Kuwait", lang: "en-kw" },
+  bh: { name: "Bahrain", lang: "en-bh" },
+  om: { name: "Oman", lang: "en-om" },
+  il: { name: "Israel", lang: "en-il" },
+  za: { name: "South Africa", lang: "en-za" },
+  ng: { name: "Nigeria", lang: "en-ng" },
+  eg: { name: "Egypt", lang: "en-eg" },
+  br: { name: "Brazil", lang: "en-br" },
+  ar: { name: "Argentina", lang: "en-ar" }
+};
+
+const getDynamicSEO = (countryCode) => {
+  const code = countryCode?.toLowerCase();
+  const country = supportedCountries[code];
+
+  if (!country) {
+    return {
+      title: "NoCapCode™ | Custom Software Development & AI Automation",
+      desc: "NoCapCode builds custom software, SaaS platforms, websites, mobile apps, and AI automation systems for startups and modern businesses worldwide.",
+      isGlobal: true
+    };
+  }
+
+  return {
+    title: country.overrideTitle || `NoCapCode™ ${country.name} | Custom Software Development & AI Automation`,
+    desc: country.overrideDesc || `NoCapCode builds premium custom software, SaaS platforms, and AI automation systems for startups and modern businesses across ${country.name}.`,
+    isGlobal: false
+  };
+};
+// ==========================================
+
 
 
 export default function AnimatedBackground() {
+  const { countryCode } = useParams(); // Extract the country code from the URL using React Router's useParams hook
+  const currentKey = countryCode?.toLowerCase(); // Normalize the country code to lowercase to match our supportedCountries keys
+  const seo = getDynamicSEO(currentKey); // Dynamically generate the SEO title and description based on the country code
   const mainHeadRef = useRef(null);
   const circleRef = useRef(null);
   const sectionRef = useRef(null);
@@ -69,6 +165,8 @@ ScrollTrigger.config({
   ignoreMobileResize: true,
   autoRefreshEvents: "visibilitychange,DOMContentLoaded,load",
 });
+
+
 
 
 
@@ -1244,13 +1342,30 @@ const handleCardScroll = (containerRef, cardRefs, mapArray) => {
 
   return (
     <>
-    <Helmet>
-        <title>NoCapCode™ | Custom Software Development & AI Automation</title>
-        <meta name="description" content="NoCapCode builds custom software, SaaS platforms, websites, mobile apps, and AI automation systems for startups and modern businesses worldwide." />
-        <link rel="canonical" href="https://nocapcode.cloud/" />
+      {/* 2. DYNAMIC HELMET REPLACING THE STATIC ONE */}
+      <Helmet>
+        <title>{seo.title}</title>
+        <meta name="description" content={seo.desc} />
+        <link 
+          rel="canonical" 
+          href={seo.isGlobal ? "https://nocapcode.cloud/" : `https://nocapcode.cloud/${currentKey}`} 
+        />
+        
+        {/* Generates all 50+ Hreflang tags automatically */}
+        {Object.entries(supportedCountries).map(([code, data]) => (
+          <link 
+            key={code} 
+            rel="alternate" 
+            href={`https://nocapcode.cloud/${code}`} 
+            hreflang={data.lang} 
+          />
+        ))}
+        <link rel="alternate" href="https://nocapcode.cloud/" hreflang="x-default" />
       </Helmet>
       
-      {/* The rest of your home page code */}
+
+      {/* Dynamic FAQ Injection */}
+      <FAQSchema />
       
     <div className={styles.container}>
       {/* Background */}

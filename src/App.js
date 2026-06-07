@@ -24,7 +24,8 @@ import Verify from "./components/Verify";
 import Certificate from "./components/Certificate";
 import Contactus from "./components/Contactus";
 import Addcertificate from "./components/Addcertificate";
-import RegionalLanding from './components/RegionalLanding'; // The new regional landing page component by Om, which will handle all the localized content and SEO for the top markets.
+import RegionalLanding from './components/region/RegionalLanding'; // The new regional landing page component by Om, which will handle all the localized content and SEO for the top markets.
+
 
 
 function NotFoundPage({ setNotFound }) {
