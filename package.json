@@ -39,7 +39,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && react-snap",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "test": "react-scripts test",
@@ -64,6 +64,19 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^6.3.0"
+    "gh-pages": "^6.3.0",
+    "react-snap": "^1.23.0"
+  },
+  "reactSnap": {
+    "include": [
+      "/",
+      "/about",
+      "/contact",
+      "/careers",
+      "/casestudies",
+      "/clarity",
+      "/terms",
+      "/privacy"
+    ]
   }
 }

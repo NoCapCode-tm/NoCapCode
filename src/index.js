@@ -1,24 +1,27 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { hydrateRoot, createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { HelmetProvider } from 'react-helmet-async';
 
-import { HelmetProvider } from 'react-helmet-async'; // Import HelmetProvider By Om 
+const container = document.getElementById('root');
 
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
- 
-    <React.StrictMode>
-        <HelmetProvider>
-            <App />
-        </HelmetProvider>
-    </React.StrictMode>
-  
+const app = (
+  <React.StrictMode>
+    <HelmetProvider>
+      <App />
+    </HelmetProvider>
+  </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// If react-snap has generated HTML, hydrate it. 
+// Otherwise, create the root from scratch (for local dev).
+if (container.hasChildNodes()) {
+  hydrateRoot(container, app);
+} else {
+  const root = createRoot(container);
+  root.render(app);
+}
+
 reportWebVitals();
