@@ -70,6 +70,7 @@
   "reactSnap": {
     "include": [
       "/",
+      "/us", "/ca", "/mx", "/uk", "/ie", "/de", "/fr", "/nl", "/ch", "/se", "/no", "/dk", "/fi", "/it", "/es", "/pt", "/be", "/pl", "/cz", "/ro", "/ua", "/at", "/in", "/au", "/nz", "/sg", "/jp", "/kr", "/tw", "/hk", "/cn", "/id", "/my", "/ph", "/vn", "/th", "/pk", "/bd", "/lk", "/ae", "/sa", "/qa", "/kw", "/bh", "/om", "/il", "/za", "/ng", "/eg", "/br", "/ar",
       "/about",
       "/contact",
       "/careers",
@@ -77,6 +78,7 @@
       "/clarity",
       "/terms",
       "/privacy"
+      
     ],
     "skipThirdPartyRequests": true,
     "puppeteerArgs": [

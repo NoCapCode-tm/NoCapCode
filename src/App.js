@@ -24,6 +24,7 @@ import Verify from "./components/Verify";
 import Certificate from "./components/Certificate";
 import Contactus from "./components/Contactus";
 import Addcertificate from "./components/Addcertificate";
+import RegionalLanding from './components/RegionalLanding'; // The new regional landing page component by Om, which will handle all the localized content and SEO for the top markets.
 
 
 function NotFoundPage({ setNotFound }) {
@@ -65,6 +66,12 @@ function AppWrapper() {
           <Routes>
             <Route path="/" element={<AnimatedBackground />} />
             <Route path="/about" element={<About />} />
+
+            {/* Dynamic International Route */}
+            {/* Localized versions of your exact same homepage */}
+            <Route path="/:countryCode" element={<AnimatedBackground />} />
+            <Route path="/:countryCode/software-development" element={<AnimatedBackground />} />
+
             <Route path="/contact" element={<Contactus />} />
             <Route path="/casestudies" element={<Casestudies />} />
             <Route path="/addcasestudies" element={<AddCaseStudy />} />
