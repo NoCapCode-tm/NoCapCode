@@ -77,6 +77,12 @@
       "/clarity",
       "/terms",
       "/privacy"
+    ],
+    "skipThirdPartyRequests": true,
+    "puppeteerArgs": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-web-security"
     ]
   }
 }
