@@ -1244,6 +1244,14 @@ const handleCardScroll = (containerRef, cardRefs, mapArray) => {
 
   return (
     <>
+    <Helmet>
+        <title>NoCapCode™ | Custom Software Development & AI Automation</title>
+        <meta name="description" content="NoCapCode builds custom software, SaaS platforms, websites, mobile apps, and AI automation systems for startups and modern businesses worldwide." />
+        <link rel="canonical" href="https://nocapcode.cloud/" />
+      </Helmet>
+      
+      {/* The rest of your home page code */}
+      
     <div className={styles.container}>
       {/* Background */}
      <video

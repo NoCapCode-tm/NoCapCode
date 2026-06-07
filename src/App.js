@@ -4,7 +4,7 @@ import AnimatedBackground from "./components/AnimatedBackground";
 import PageLoader from "./components/PageLoader";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
-import { HashRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import About from "./components/About";
 
 import Casestudies from "./components/Casestudies";
@@ -97,9 +97,9 @@ function AppWrapper() {
 export default function App() {
   return (
     <>
-    <HashRouter>
+    <BrowserRouter>
       <AppWrapper />
-    </HashRouter>
+    </BrowserRouter>
     <ToastContainer
   position="top-center"
   autoClose={1000}

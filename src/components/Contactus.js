@@ -305,7 +305,7 @@ const Contactus = () => {
       logoRef={logRef}
       btnTextRef={btnTextRef}
       btnIconRef={btnIconRef}
-    />s
+    />
       <div className={styles.wrapper} ref={startRef}>
         {/* LEFT CONTENT */}
         <div className={styles.left}>
