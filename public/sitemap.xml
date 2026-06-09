@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-// Main global homepage and top-level pages
-
   <url><loc>https://nocapcode.cloud/</loc><lastmod>2026-06-07</lastmod></url>
   <url><loc>https://nocapcode.cloud/about</loc><lastmod>2026-06-07</lastmod></url>
   <url><loc>https://nocapcode.cloud/contact</loc><lastmod>2026-06-07</lastmod></url>
@@ -12,13 +10,9 @@
   <url><loc>https://nocapcode.cloud/terms</loc><lastmod>2026-06-07</lastmod></url>
   <url><loc>https://nocapcode.cloud/privacy</loc><lastmod>2026-06-07</lastmod></url>
 
-// Regional landing pages for top markets
-
   <url><loc>https://nocapcode.cloud/us</loc><lastmod>2026-06-07</lastmod></url>
   <url><loc>https://nocapcode.cloud/ca</loc><lastmod>2026-06-07</lastmod></url>
   <url><loc>https://nocapcode.cloud/mx</loc><lastmod>2026-06-07</lastmod></url>
-
-// Regional landing pages for top European markets
 
   <url><loc>https://nocapcode.cloud/uk</loc><lastmod>2026-06-07</lastmod></url>
   <url><loc>https://nocapcode.cloud/ie</loc><lastmod>2026-06-07</lastmod></url>
@@ -40,8 +34,6 @@
   <url><loc>https://nocapcode.cloud/ua</loc><lastmod>2026-06-07</lastmod></url>
   <url><loc>https://nocapcode.cloud/at</loc><lastmod>2026-06-07</lastmod></url>
 
-  // Regional landing pages for top Asia-Pacific markets
-
   <url><loc>https://nocapcode.cloud/in</loc><lastmod>2026-06-07</lastmod></url>
   <url><loc>https://nocapcode.cloud/au</loc><lastmod>2026-06-07</lastmod></url>
   <url><loc>https://nocapcode.cloud/nz</loc><lastmod>2026-06-07</lastmod></url>
@@ -60,8 +52,6 @@
   <url><loc>https://nocapcode.cloud/bd</loc><lastmod>2026-06-07</lastmod></url>
   <url><loc>https://nocapcode.cloud/lk</loc><lastmod>2026-06-07</lastmod></url>
 
-  // Regional landing pages for top Middle East markets
-
   <url><loc>https://nocapcode.cloud/ae</loc><lastmod>2026-06-07</lastmod></url>
   <url><loc>https://nocapcode.cloud/sa</loc><lastmod>2026-06-07</lastmod></url>
   <url><loc>https://nocapcode.cloud/qa</loc><lastmod>2026-06-07</lastmod></url>
@@ -70,13 +60,9 @@
   <url><loc>https://nocapcode.cloud/om</loc><lastmod>2026-06-07</lastmod></url>
   <url><loc>https://nocapcode.cloud/il</loc><lastmod>2026-06-07</lastmod></url>
 
-  // Regional landing pages for top Africa markets
-
   <url><loc>https://nocapcode.cloud/za</loc><lastmod>2026-06-07</lastmod></url>
   <url><loc>https://nocapcode.cloud/ng</loc><lastmod>2026-06-07</lastmod></url>
   <url><loc>https://nocapcode.cloud/eg</loc><lastmod>2026-06-07</lastmod></url>
-
-  // Regional landing pages for top Latin America markets
 
   <url><loc>https://nocapcode.cloud/br</loc><lastmod>2026-06-07</lastmod></url>
   <url><loc>https://nocapcode.cloud/ar</loc><lastmod>2026-06-07</lastmod></url>
