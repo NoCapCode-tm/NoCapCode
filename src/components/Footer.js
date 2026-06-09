@@ -25,12 +25,24 @@ const Footer = () => {
             <h2 className={styles.logo}>NoCapCode™</h2>
             <p className={styles.tagline}>No cap. Built like it's ours.</p>
             <p className={styles.tagline}>We build software systems for teams who care about clarity, ownership, and longevity.</p>
+            {/* Replace your existing socials div with this: */}
             <div className={styles.socials}>
-              <span><a href="https://www.linkedin.com/company/nocapcode"  rel="noreferrer" target="_blank"><Linkedin size={16} color="rgba(190, 190, 190, 1)"/></a></span>
-              <span><a href="https://x.com/nocapcodecloud" target="_blank" rel="noreferrer"><FontAwesomeIcon icon={faXTwitter} style={{ fontSize: "16px", color: "rgba(190, 190, 190, 1)"}}/></a></span> 
-              <span><a href="https://www.instagram.com/nocapcode.cloud" target="_blank" rel="noreferrer"><Instagram size={16} color="rgba(190, 190, 190, 1)"/></a></span>
-              
-              
+              <span>
+                {/* Added aria-label to tell Google what this link is */}
+                <a href="https://www.linkedin.com/company/nocapcode" rel="noreferrer" target="_blank" aria-label="Visit our LinkedIn page">
+                  <Linkedin size={16} color="rgba(190, 190, 190, 1)"/>
+                </a>
+              </span>
+              <span>
+                <a href="https://x.com/nocapcodecloud" target="_blank" rel="noreferrer" aria-label="Visit our X Twitter page">
+                  <FontAwesomeIcon icon={faXTwitter} style={{ fontSize: "16px", color: "rgba(190, 190, 190, 1)"}}/>
+                </a>
+              </span> 
+              <span>
+                <a href="https://www.instagram.com/nocapcode.cloud" target="_blank" rel="noreferrer" aria-label="Visit our Instagram page">
+                  <Instagram size={16} color="rgba(190, 190, 190, 1)"/>
+                </a>
+              </span>
             </div>
 
             <div className={styles.badge}>
@@ -41,7 +53,7 @@ const Footer = () => {
         
           <div className={styles.right}>
             <div className={styles.col}>
-                <h4>Explore</h4>
+                <h3>Explore</h3>
                 <ul>
                     {/* Replaced scrollToPage6 with navigate state */}
                     <li onClick={() => navigate("/", { state: { scrollTo: "service", t: Date.now() } })} style={{ cursor: "pointer" }}>
@@ -57,8 +69,8 @@ const Footer = () => {
                     </li>
                     
                     {/* Replaced scrollToPageabout with navigate state */}
-                    <li onClick={() => navigate("/", { state: { scrollTo: "faq" } })} style={{ cursor: "pointer" }}>
-                    FAQs
+                    <li onClick={() => navigate("/", { state: { scrollTo: "faq", t: Date.now() } })} style={{ cursor: "pointer" }}>
+                      FAQs
                     </li>
                     
                     <li onClick={() => navigate("/clarity")} style={{ cursor: "pointer" }}>
@@ -68,7 +80,7 @@ const Footer = () => {
             </div>
 
             <div className={styles.col}>
-              <h4>Company</h4>
+              <h3>Company</h3>
               <ul>
                 <li onClick={()=>{
                   navigate("/careers")}} style={{ cursor: "pointer" }}>Careers</li>
@@ -76,7 +88,7 @@ const Footer = () => {
                   navigate("/contact")}} style={{ cursor: "pointer" }}>Contact</li>
               </ul>
               <p>
-                 Santa Fe NM 87501,{width<=500 ?<br/>:""} United States
+                 Santa Fe NM 87501,<span className={styles.mobileBreak}></span> United States
               </p>
             </div>
           </div>

@@ -1375,6 +1375,7 @@ const handleCardScroll = (containerRef, cardRefs, mapArray) => {
           muted
           playsInline
           preload="none"
+          aria-hidden="true"
           >
         <source src="/herosection.webm" type="video/webm" />
       </video>
