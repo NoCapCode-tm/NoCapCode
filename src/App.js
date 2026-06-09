@@ -24,6 +24,7 @@ import Verify from "./components/Verify";
 import Certificate from "./components/Certificate";
 import Contactus from "./components/Contactus";
 import Addcertificate from "./components/Addcertificate";
+import ServicePage from "./components/ServicePage";
 import RegionalLanding from './components/region/RegionalLanding'; // The new regional landing page component by Om, which will handle all the localized content and SEO for the top markets.
 
 
@@ -74,6 +75,7 @@ function AppWrapper() {
             <Route path="/:countryCode/software-development" element={<AnimatedBackground />} />
 
             <Route path="/contact" element={<Contactus />} />
+            <Route path="/services" element={<ServicePage />} />
             <Route path="/casestudies" element={<Casestudies />} />
             <Route path="/addcasestudies" element={<AddCaseStudy />} />
             <Route path="/terms" element={<Condition />} />
