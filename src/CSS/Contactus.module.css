@@ -3,21 +3,19 @@
 .contact {
   min-height: 100vh;
   width: 100%;
-  padding: 80px 40px;
-  background: radial-gradient(
-      1200px 1200px at 80% 0%,
-      rgba(9, 28, 132, 1.55),
-      transparent 61%
-    ),
+  padding: 20px 40px;
+  background:
     radial-gradient(
-      800px 500px at 0% 20%,
-      rgba(60, 80, 255, 1.55),
-      transparent 90%
+      ellipse 80% 20% at 50% 40%,
+      rgba(34, 70, 255, 0.45) 0%,
+      rgba(20, 40, 200, 0.12) 45%,
+      transparent 70%
     ),
     #000;
   color: white;
   position: relative;
-  font-family: "Inter", sans-serif;
+  font-family: "Outfit", sans-serif;
+  overflow: hidden;
 }
 .shaderBg {
   position: fixed;
@@ -42,8 +40,6 @@
 .wrapper {
   width:100%;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.4fr 0.9fr;
   gap: 80px;
   align-items: center;
   margin-top: 120px;
@@ -51,54 +47,145 @@
 }
 
 /* LEFT */
+.left{
+  text-align: center;
+}
+
+.cont{
+  font-size: 50px;
+  font-weight: 400;
+  font-family: "Outfit", sans-serif;
+  margin-bottom: 30px;
+}
+
 .left h1 {
   font-size: 64px;
   font-weight: 500;
-  line-height: 1.15;
-  margin-bottom: 20px;
   font-family: "Outfit", sans-serif;
+  margin-bottom: 10px;
+}
+.left h1 span{
+  color: #2246FF;
 }
 
 .left p {
-  font-size: 16px;
+  font-size: 20px;
   color: rgba(255, 255, 255, 0.75);
-  max-width: 420px;
   line-height: 1.6;
-}
-
-.info {
-  margin-top: 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.65);
-}
-
-.info span {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  font-family: "Outfit", sans-serif;
+  margin-bottom: 100px;
 }
 
 /* RIGHT FORM CARD */
 .formCard {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(24, 24, 24, 0.2);
+  border: 1px solid rgba(38, 38, 38, 0.55);
   border-radius: 14px;
-  padding: 28px;
+  padding: 28px 80px;
   backdrop-filter: blur(14px);
-  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.5);
+  margin: 0px 100px;
+  margin-bottom: 100px;
+  box-shadow:
+    0 0 30px 6px rgba(34, 70, 255, 0.45);
+  position: relative;
+  z-index: 1;
+}
+
+/* FORM HEADER */
+.formHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 24px;
+}
+
+.emailInfo,
+.locInfo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0px 20px;
+  justify-content: center;
+}
+
+.headerDivider {
+  width: 1px;
+  height: 52px;
+  background: rgba(255, 255, 255, 0.25);
+  margin: 0 16px;
+  flex-shrink: 0;
+}
+
+.iconBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.85);
+  flex-shrink: 0;
+}
+
+.infoText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.infoLabel {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
+}
+
+.infoValue {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 600;
+}
+
+.infoSub {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 400;
 }
 
 .formCard form {
   display: flex;
+  border: 1px solid #ececec1c;
+  padding: 20px 50px;
+  border-radius: 14px;
   flex-direction: column;
   gap: 12px;
 }
 
+/* Name + Email side by side */
+.formRow {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+/* Center-aligned submit button with capped width */
+.btnWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 6px;
+}
+
 .formCard label {
-  font-size: 12px;
+  font-size: 16px;
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -114,8 +201,9 @@
 }
 
 .formCard textarea {
-  min-height: 90px;
+  min-height: 160px;
   resize: none;
+  margin-bottom: 20px;
 }
 
 .formCard input::placeholder,
@@ -124,16 +212,17 @@
 }
 
 .formCard button {
-  margin-top: 14px;
+  margin-top: 0;
   height: 40px;
-  border-radius: 8px;
+  width: 320px;
+  border-radius: 20px;
   border: none;
-  background: rgba(81, 47, 235, 1);
+  background: #2246FF;
   color: white;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-   font-family: "Outfit", sans-serif;
+  font-family: "Outfit", sans-serif;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -142,211 +231,251 @@
   box-shadow: 0 10px 30px rgba(100, 90, 255, 0.45);
 }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
+/* ─── RESPONSIVE ──────────────────────────────────────────── */
+
+/* Tablet: 1024px and below */
+@media (max-width: 1024px) {
   .contact {
-    padding: 60px 24px;
+    padding: 20px 24px;
   }
 
   .wrapper {
-    grid-template-columns: 1fr;
-    gap: 50px;
+    padding: 0 16px;
   }
 
-  .topOutline {
-    width: 90%;
+  .left h1 {
+    font-size: 48px;
+  }
+
+  .cont {
+    font-size: 38px;
+  }
+
+  .left p {
+    font-size: 17px;
+    margin-bottom: 50px;
+  }
+
+  /* Form card: reduce outer margins and side padding */
+  .formCard {
+    margin: 0 20px;
+    margin-bottom: 80px;
+    padding: 24px 32px;
+  }
+
+  /* Header: tighten gaps and padding */
+  .emailInfo,
+  .locInfo {
+    padding: 0 12px;
+    gap: 12px;
+  }
+
+  .headerDivider {
+    margin: 0 8px;
+  }
+
+  .iconBox {
+    width: 42px;
+    height: 42px;
+  }
+
+  .infoValue {
+    font-size: 14px;
+  }
+
+  .infoLabel,
+  .infoSub {
+    font-size: 11px;
+  }
+
+  /* Form inner: reduce side padding */
+  .formCard form {
+    padding: 16px 24px;
+  }
+
+  .formRow {
+    gap: 20px;
+  }
+
+  .formCard label {
+    font-size: 14px;
+  }
+
+  .formCard button {
+    width: 240px;
   }
 }
 
+/* Small tablet / large mobile: 768px and below */
+@media (max-width: 768px) {
+  .contact {
+    padding: 20px 16px;
+  }
 
-/* MIRROR / GLASS */
-/* .mirrorOverlay {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
+  .wrapper {
+    padding: 0;
+    margin-top: 100px;
+  }
 
-  background: linear-gradient(
-    120deg,
-    rgba(255,255,255,0.10),
-    rgba(255,255,255,0.02),
-    rgba(255,255,255,0.10)
-  );
+  .left {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 8px;
+  }
 
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-} */
+  .cont {
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
 
+  .left h1 {
+    font-size: 36px;
+    margin-bottom: 12px;
+  }
 
+  .left p {
+    font-size: 15px;
+    margin-bottom: 40px;
+  }
 
+  .formCard {
+    margin: 0 0 60px;
+    padding: 24px 20px;
+  }
 
-/* TOP */
-.top {
-  display: flex;
-  justify-content: space-between;
-  gap: 60px;
-}
+  /* Header stacks vertically */
+  .formHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
 
-/* LEFT */
-.left {
-  max-width: 100%;
-}
+  .headerDivider {
+    width: 100%;
+    height: 1px;
+    margin: 0;
+  }
 
-.logo {
-   font-family: "Outfit", sans-serif;
-  font-size: 30px;
-  font-weight: 500;
-  color: #fff;
-}
+  .emailInfo,
+  .locInfo {
+    justify-content: flex-start;
+    padding: 0;
+    gap: 12px;
+  }
 
-.tagline {
-   font-family: "Outfit", sans-serif;
-  font-size: 14px;
-  color:rgba(190, 190, 190, 1);
-  font-weight: 400;
-  margin-top: 4px;
-}
+  .iconBox {
+    width: 40px;
+    height: 40px;
+  }
 
-.desc {
-  margin-top: 20px;
-  font-size: 14px;
-  line-height: 1.6;
-  color: rgba(255,255,255,0.75);
-}
+  .infoValue {
+    font-size: 14px;
+  }
 
-.socials {
-  display: flex;
-  gap: 20px;
-  margin-top: 20px;
+  /* Form inner padding */
+  .formCard form {
+    padding: 16px;
+    gap: 10px;
+  }
 
-}
+  /* Name + Email stack on top of each other */
+  .formRow {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
 
-.socials span {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  color: rgba(190, 190, 190, 1);
+  .formCard label {
+    font-size: 14px;
+  }
 
-}
+  .formCard textarea {
+    min-height: 120px;
+    margin-bottom: 10px;
+  }
 
-.badge {
-  margin-top: 20px;
-  width:150px;
-}
+  .formCard button {
+    width: 200px;
+  }
 
-/* RIGHT */
-.right {
-  display: flex;
-  gap: 80px;
-}
-
-.col h4 {
-  font-size: 16px;
-  margin-bottom: 14px;
-  font-weight: 500;
-  color: white;
-   font-family: "Inter", sans-serif;
-}
-
-.col ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-
-}
-
-.col ul li {
-  color: rgba(255,255,255,0.7);
-   font-size: 14px;
-  margin-bottom: 10px;
-  font-weight: 400;
-   font-family: "Inter", sans-serif;
-}
-
-.col p {
-  color: rgba(255,255,255,0.7);
-   font-size: 14px;
-  margin-bottom: 10px;
-  line-height: 25px;
-  font-weight: 400;
-   font-family: "Inter", sans-serif;
-}
-
-/* DIVIDER */
-.divider {
-  height: 1px;
-  width: 100%;
-  background: rgba(152, 152, 152, 1);
-  margin: 40px 0 24px;
-}
-
-/* BOTTOM */
-.bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 15px;
-  font-weight: 400;
-  color: rgba(255,255,255,0.6);
-  font-family: "Outfit", sans-serif;
-}
-
-.links {
-  display: flex;
-  gap: 24px;
-}
-.col{
-  display:flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.col ul{
-  display:flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap:2px;
-}
-@media screen and (max-width: 768px) {
-  
- .wrapper{
-  padding:0px;
- }
- .left{
-  width:100%;
-  max-width: 100%;
-  
- }
- .left h1{
-    font-size: 35px;
- }
-}
-@media screen and (max-width:425px) {
-.contact{
-  padding:1px 10px;
-}
-}
-
-
-/* footer */
-
-@media screen and (max-width:768px) {
-  .col{
+  /* Footer col fixes */
+  .col {
     white-space: nowrap;
   }
-  .bottom{
+
+  .bottom {
     flex-direction: column;
-    gap:20px;
+    gap: 20px;
     text-align: center;
   }
-
- 
 }
-@media screen and (max-width:680px){
-  .right{
-    gap:30px;
+
+/* Mobile: 480px and below */
+@media (max-width: 480px) {
+  .contact {
+    padding: 16px 12px;
   }
-  .top{
+
+  .cont {
+    font-size: 26px;
+  }
+
+  .left h1 {
+    font-size: 28px;
+  }
+
+  .left p {
+    font-size: 14px;
+    margin-bottom: 32px;
+  }
+
+  .formCard {
+    padding: 20px 14px;
+    border-radius: 12px;
+    margin-bottom: 40px;
+  }
+
+  .formCard form {
+    padding: 12px;
+  }
+
+  .infoValue {
+    font-size: 13px;
+  }
+
+  .formCard button {
+    width: 160px;
+    font-size: 13px;
+  }
+}
+
+/* Very small: 375px and below */
+@media (max-width: 375px) {
+  .left h1 {
+    font-size: 24px;
+  }
+
+  .cont {
+    font-size: 22px;
+  }
+
+  .formCard {
+    padding: 16px 10px;
+  }
+
+  .formCard form {
+    padding: 10px;
+  }
+}
+
+/* Footer responsive */
+@media (max-width: 680px) {
+  .right {
+    gap: 30px;
+  }
+
+  .top {
     flex-direction: column;
   }
 }

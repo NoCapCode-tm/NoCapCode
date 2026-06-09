@@ -298,40 +298,56 @@ const Contactus = () => {
       btnIconRef={btnIconRef}
     />
       <div className={styles.wrapper} ref={startRef}>
-        {/* LEFT CONTENT */}
+        
         <div className={styles.left}>
-          <h1>
-            Ask whatever you have in <br /> your mind
-          </h1>
-
-          <p>
-            Whether you have questions or are ready to discuss your business,
-            we’re here to help. Reach out today.
-          </p>
-
-          <div className={styles.info}>
-            <span>
-              <Mail size={14} /> hello@nocapcode.cloud
-            </span>
-            <span>
-              <MapPin size={14} />Santa Fe NM 87501,{width<=500 ?<br/>:""} United States
-            </span>
-          </div>
+          <h2 className={styles.cont}>Contact Us</h2>
+          <h1>Let’s <span>build</span> something <span>amazing</span> together</h1>
+          <p>Have a question, an idea or want to discuss your business?<br/>We’d love to hear from you. Reach out today!</p>
         </div>
 
         {/* RIGHT FORM */}
         <div className={styles.formCard}>
+          <div className={styles.formHeader}>
+            <div className={styles.emailInfo}>
+              <div className={styles.iconBox}>
+                <Mail size={24} />
+              </div>
+              <div className={styles.infoText}>
+                <span className={styles.infoLabel}>Email</span>
+                <span className={styles.infoValue}>hello@nocapcode.cloud</span>
+                <span className={styles.infoSub}>We reply within 24 hours</span>
+              </div>
+            </div>
+            <div className={styles.headerDivider}></div>
+            <div className={styles.locInfo}>
+              <div className={styles.iconBox}>
+                <MapPin size={24} />
+              </div>
+              <div className={styles.infoText}>
+                <span className={styles.infoLabel}>Location</span>
+                <span className={styles.infoValue}>Santa Fe, New Mexico, US</span>
+                <span className={styles.infoSub}>Mountain Time</span>
+              </div>
+            </div>
+          </div>
           <form onSubmit={handleSubmit}>
-            <label>Name</label>
-             <input type="text" placeholder="Steve Harrington" name="name" value={name} onChange={(e)=>{setname(e.target.value)}} onClick={()=>{setname("")}}/>
-
-            <label>Email</label>
-            <input type="text" placeholder="steve@gmail.com" name="email" value={email} onChange={(e)=>{setemail(e.target.value)}} onClick={()=>{setemail("")}}/>
+            <div className={styles.formRow}>
+              <div className={styles.formGroup}>
+                <label>Name</label>
+                <input type="text" placeholder="Steve Harrington" name="name" value={name} onChange={(e)=>{setname(e.target.value)}} onClick={()=>{setname("")}}/>
+              </div>
+              <div className={styles.formGroup}>
+                <label>Email</label>
+                <input type="text" placeholder="steve@gmail.com" name="email" value={email} onChange={(e)=>{setemail(e.target.value)}} onClick={()=>{setemail("")}}/>
+              </div>
+            </div>
 
             <label>Message</label>
             <textarea placeholder="Hi, I'm reaching out for..." value={message} name="message" onChange={(e)=>{setmessage(e.target.value)}} onClick={()=>{setmessage("")}} />
 
-            <button type="submit">Submit</button>
+            <div className={styles.btnWrapper}>
+              <button type="submit">Submit</button>
+            </div>
 
           </form>
         </div>
