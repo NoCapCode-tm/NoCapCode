@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap");
 
 .contact {
   min-height: 100vh;
@@ -17,12 +17,12 @@
   font-family: "Outfit", sans-serif;
   overflow: hidden;
 }
+
 .shaderBg {
   position: fixed;
   inset: 0;
   z-index: -1;
 }
-
 
 /* top thin rectangle */
 .topOutline {
@@ -38,7 +38,7 @@
 }
 
 .wrapper {
-  width:100%;
+  width: 100%;
   margin: 0 auto;
   gap: 80px;
   align-items: center;
@@ -46,16 +46,17 @@
   padding: 0px 40px;
 }
 
-/* LEFT */
-.left{
+/* ─── LEFT HEADER TEXT ─── */
+.left {
   text-align: center;
 }
 
-.cont{
-  font-size: 50px;
+.cont {
+  font-size: 24px; /* Scaled down to match design */
   font-weight: 400;
   font-family: "Outfit", sans-serif;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  color: #fff;
 }
 
 .left h1 {
@@ -64,7 +65,8 @@
   font-family: "Outfit", sans-serif;
   margin-bottom: 10px;
 }
-.left h1 span{
+
+.left h1 span {
   color: #2246FF;
 }
 
@@ -73,31 +75,33 @@
   color: rgba(255, 255, 255, 0.75);
   line-height: 1.6;
   font-family: "Outfit", sans-serif;
-  margin-bottom: 100px;
+  margin-bottom: 80px;
 }
 
-/* RIGHT FORM CARD */
+/* ─── RIGHT FORM CARD ─── */
 .formCard {
-  background: rgba(24, 24, 24, 0.2);
-  border: 1px solid rgba(38, 38, 38, 0.55);
+  background: rgba(10, 12, 20, 0.4); /* Darker glass background */
+  border: 1.5px solid rgba(34, 70, 255, 0.6); /* Precise neon blue border */
   border-radius: 14px;
   padding: 28px 80px;
   backdrop-filter: blur(14px);
-  margin: 0px 100px;
+  margin: 0px auto;
+  max-width: 900px; /* Constrain width */
   margin-bottom: 100px;
   box-shadow:
-    0 0 30px 6px rgba(34, 70, 255, 0.45);
+    0 0 40px 10px rgba(34, 70, 255, 0.25), /* Outer glow */
+    inset 0 0 20px rgba(34, 70, 255, 0.1); /* Inner glow */
   position: relative;
   z-index: 1;
 }
 
-/* FORM HEADER */
+/* ─── FORM HEADER INFO ─── */
 .formHeader {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0;
-  margin-bottom: 24px;
+  margin-bottom: 30px;
 }
 
 .emailInfo,
@@ -134,6 +138,7 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
+  text-align: left;
 }
 
 .infoLabel {
@@ -154,56 +159,56 @@
   font-weight: 400;
 }
 
+/* ─── FORM INPUTS ─── */
 .formCard form {
   display: flex;
-  border: 1px solid #ececec1c;
-  padding: 20px 50px;
+  border: 1px solid rgba(255, 255, 255, 0.08); /* Subtle inner box border */
+  background: rgba(0, 0, 0, 0.2);
+  padding: 30px 40px;
   border-radius: 14px;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 
-/* Name + Email side by side */
 .formRow {
   display: flex;
   gap: 32px;
-  margin-bottom: 20px;
 }
 
 .formGroup {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
   flex: 1;
-}
-
-/* Center-aligned submit button with capped width */
-.btnWrapper {
-  display: flex;
-  justify-content: center;
-  margin-top: 6px;
+  text-align: left;
 }
 
 .formCard label {
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
 }
 
 .formCard input,
 .formCard textarea {
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
-  padding: 10px 12px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 14px 16px;
   color: white;
   font-size: 14px;
   outline: none;
+  transition: border 0.3s ease;
+}
+
+.formCard input:focus,
+.formCard textarea:focus {
+  border-color: #2246FF;
 }
 
 .formCard textarea {
   min-height: 160px;
   resize: none;
-  margin-bottom: 20px;
 }
 
 .formCard input::placeholder,
@@ -211,25 +216,33 @@
   color: rgba(255, 255, 255, 0.45);
 }
 
+/* ─── SUBMIT BUTTON ─── */
+.btnWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
 .formCard button {
-  margin-top: 0;
-  height: 40px;
+  height: 44px;
   width: 320px;
-  border-radius: 20px;
+  border-radius: 22px;
   border: none;
   background: #2246FF;
   color: white;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
   cursor: pointer;
   font-family: "Outfit", sans-serif;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .formCard button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 30px rgba(100, 90, 255, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(34, 70, 255, 0.45);
+  background: #3355FF;
 }
+
 
 /* ─── RESPONSIVE ──────────────────────────────────────────── */
 
@@ -248,7 +261,7 @@
   }
 
   .cont {
-    font-size: 38px;
+    font-size: 20px;
   }
 
   .left p {
@@ -256,14 +269,12 @@
     margin-bottom: 50px;
   }
 
-  /* Form card: reduce outer margins and side padding */
   .formCard {
     margin: 0 20px;
     margin-bottom: 80px;
     padding: 24px 32px;
   }
 
-  /* Header: tighten gaps and padding */
   .emailInfo,
   .locInfo {
     padding: 0 12px;
@@ -288,21 +299,12 @@
     font-size: 11px;
   }
 
-  /* Form inner: reduce side padding */
   .formCard form {
-    padding: 16px 24px;
+    padding: 20px 24px;
   }
 
   .formRow {
     gap: 20px;
-  }
-
-  .formCard label {
-    font-size: 14px;
-  }
-
-  .formCard button {
-    width: 240px;
   }
 }
 
@@ -324,7 +326,7 @@
   }
 
   .cont {
-    font-size: 32px;
+    font-size: 18px;
     margin-bottom: 16px;
   }
 
@@ -339,16 +341,15 @@
   }
 
   .formCard {
-    margin: 0 0 60px;
+    margin: 0 10px 60px;
     padding: 24px 20px;
   }
 
-  /* Header stacks vertically */
   .formHeader {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
   }
 
   .headerDivider {
@@ -369,45 +370,23 @@
     height: 40px;
   }
 
-  .infoValue {
-    font-size: 14px;
-  }
-
-  /* Form inner padding */
   .formCard form {
     padding: 16px;
-    gap: 10px;
+    gap: 16px;
   }
 
-  /* Name + Email stack on top of each other */
   .formRow {
     flex-direction: column;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-
-  .formCard label {
-    font-size: 14px;
+    gap: 16px;
   }
 
   .formCard textarea {
     min-height: 120px;
-    margin-bottom: 10px;
   }
 
   .formCard button {
-    width: 200px;
-  }
-
-  /* Footer col fixes */
-  .col {
-    white-space: nowrap;
-  }
-
-  .bottom {
-    flex-direction: column;
-    gap: 20px;
-    text-align: center;
+    width: 100%;
+    max-width: 320px;
   }
 }
 
@@ -415,10 +394,6 @@
 @media (max-width: 480px) {
   .contact {
     padding: 16px 12px;
-  }
-
-  .cont {
-    font-size: 26px;
   }
 
   .left h1 {
@@ -437,15 +412,10 @@
   }
 
   .formCard form {
-    padding: 12px;
+    padding: 16px 12px;
   }
 
   .infoValue {
-    font-size: 13px;
-  }
-
-  .formCard button {
-    width: 160px;
     font-size: 13px;
   }
 }
@@ -456,26 +426,11 @@
     font-size: 24px;
   }
 
-  .cont {
-    font-size: 22px;
-  }
-
   .formCard {
     padding: 16px 10px;
   }
 
   .formCard form {
-    padding: 10px;
-  }
-}
-
-/* Footer responsive */
-@media (max-width: 680px) {
-  .right {
-    gap: 30px;
-  }
-
-  .top {
-    flex-direction: column;
+    padding: 12px 10px;
   }
 }
