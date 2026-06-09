@@ -1,9 +1,7 @@
 import React, { useRef } from "react";
-import { Helmet } from "react-helmet-async";
 import styles from "../CSS/ServicePage.module.css";
 import Navbar from "./Navbar";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
+import { Helmet } from "react-helmet-async";  // By Om
 import useWindowWidth from "./usewindowwidth";
 import Footer from "./Footer";
 import {
@@ -70,6 +68,30 @@ const whyUs = [
 
 const seedSpacePerks = ["Limited slots", "Selective onboarding", "Longterm growth"];
 
+// Dedicated FAQs for the Services Page
+const serviceFaqs = [
+  {
+    q: "What types of custom tools do you build?",
+    a: "We engineer everything from internal administrative dashboards and client portals to comprehensive SaaS platforms and complex data-processing applications."
+  },
+  {
+    q: "How does your workflow automation service work?",
+    a: "We audit your current manual processes, identify bottlenecks, and integrate APIs, AI-driven logic, and custom scripts to automate data entry, communication, and task management."
+  },
+  {
+    q: "Who is the SeedSpace™ program designed for?",
+    a: "SeedSpace™ is tailored for early-stage startups and non-technical founders who need elite technical infrastructure, strategic guidance, and scalable MVP development without the overhead of an in-house engineering team."
+  },
+  {
+    q: "Do you handle the technical SEO and analytics setup?",
+    a: "Yes. Every web platform we build includes robust technical SEO foundations, pre-configured analytics integration, optimized server-side rendering, and performance tuning for maximum discoverability."
+  },
+  {
+    q: "Do you provide long-term maintenance after launch?",
+    a: "Absolutely. We view software as a living system. We offer continuous technical support, security auditing, and iterative refactoring to ensure your product scales reliably."
+  }
+];
+
 export default function ServicePage() {
   const navbarRef = useRef(null);
   const logRef = useRef(null);
@@ -79,35 +101,38 @@ export default function ServicePage() {
   const width = useWindowWidth();
   const navigate = useNavigate();
 
-  useGSAP(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: startRef.current,
-        start: "top top",
-        toggleActions: "play play play reverse",
+  const faqSchemaData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": serviceFaqs.map((faq) => ({
+      "@type": "Question",
+      "name": faq.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.a,
       },
-    });
-
-    const isMobile = width <= 800;
-
-    tl.to(navbarRef.current, {
-      width: isMobile ? "50%" : 440,
-      borderRadius: "8px",
-      top: "10px",
-      justifyContent: "flex-end",
-      gap: "20px",
-      duration: 0.45,
-      ease: "power2.out",
-    });
-
-    tl.to(logRef.current, { opacity: 0, display: "none", x: -24, duration: 0.25, ease: "power2.out" }, "<");
-    tl.to(btnTextRef.current, { opacity: 0, width: 0, marginRight: 0, duration: 0.25, ease: "power2.out" }, "<");
-    tl.to(btnIconRef.current, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.6)" }, "<");
-  }, []);
+    })),
+  };
 
   return (
     <>
-      
+      <Helmet>
+        <title>Services | Custom Software, AI & Automation | NoCapCode™</title>
+        <meta 
+          name="description" 
+          content="NoCapCode provides elite custom software engineering, AI workflow automation, SaaS MVP development, and technical SEO architecture for modern businesses and startups." 
+        />
+        <meta 
+          name="keywords" 
+          content="Custom Software Development, Workflow Automation, SaaS Development, MVP, SeedSpace, API Integration, Technical SEO" 
+        />
+        <link rel="canonical" href="https://nocapcode.cloud/services" />
+        
+        {/* Inject FAQ Schema for Rich Snippets in Google Search */}
+        <script type="application/ld+json">
+          {JSON.stringify(faqSchemaData)}
+        </script>
+      </Helmet>
 
       <div className={styles.page} ref={startRef}>
         <Navbar ref={navbarRef} logoRef={logRef} btnTextRef={btnTextRef} btnIconRef={btnIconRef} />
@@ -133,7 +158,7 @@ export default function ServicePage() {
 
         {/* ── OUR SERVICES ── */}
         <section className={styles.section}>
-          <span className={styles.sectionBadge}>Our services</span>
+          <span className={styles.sectionBadge}>Our Services</span>
           <div className={styles.servicesGrid}>
             {services.map((s, i) => (
               <div className={styles.serviceCard} key={i}>
@@ -143,9 +168,6 @@ export default function ServicePage() {
               </div>
             ))}
           </div>
-          <button className={styles.outlineBtn} onClick={() => navigate("/contact")}>
-            Get a free audit
-          </button>
         </section>
 
         {/* ── SEO / PLATFORMS ── */}
