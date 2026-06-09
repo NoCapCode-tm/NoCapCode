@@ -100,6 +100,7 @@ const Footer = () => {
           <div className={styles.links}>
             <span onClick={()=>{navigate("/terms")}} style={{ cursor: "pointer" }}>Terms of Service</span>
             <span onClick={()=>{navigate("/privacy")}} style={{ cursor: "pointer" }}>Privacy Policy</span>
+            <span onClick={()=>{ navigate("/security"); }} style={{ cursor: "pointer" }}>Trust & Security</span>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import AnimatedBackground from "./components/AnimatedBackground";
 import PageLoader from "./components/PageLoader";
@@ -25,7 +25,7 @@ import Certificate from "./components/Certificate";
 import Contactus from "./components/Contactus";
 import Addcertificate from "./components/Addcertificate";
 import ServicePage from "./components/ServicePage";
-import RegionalLanding from './components/region/RegionalLanding'; // The new regional landing page component by Om, which will handle all the localized content and SEO for the top markets.
+import Security from "./components/Security";
 
 
 
@@ -90,6 +90,7 @@ function AppWrapper() {
             <Route path="/verify/certificate/:credid" element={<Certificate />} />
             <Route path="/adminlogin" element={<AdminLogin />} />
             <Route path="/adminhome" element={<Home/>} />
+            <Route path="/security" element={<Security />} />
             <Route path="*" element={<NotFoundPage setNotFound={setNotFound} />} />
           </Routes>
 

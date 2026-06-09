@@ -128,7 +128,8 @@
       "/casestudies",
       "/clarity",
       "/terms",
-      "/privacy"
+      "/privacy",
+      "/security"
     ],
     "skipThirdPartyRequests": true,
     "puppeteerArgs": [

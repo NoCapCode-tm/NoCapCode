@@ -340,6 +340,22 @@
 }
 }
 
+/* EMAIL LINK */
+
+.emailLink {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.emailLink:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.emailLink:visited {
+  color: inherit;
+}
+
 
 /* footer */
 
