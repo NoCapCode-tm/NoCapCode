@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import styles from "../CSS/Condition.module.css";
-import { useNavigate } from "react-router";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Navbar from "./Navbar";

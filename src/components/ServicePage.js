@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import styles from "../CSS/ServicePage.module.css";
 import Navbar from "./Navbar";
 import { Helmet } from "react-helmet-async";  // By Om
-import useWindowWidth from "./usewindowwidth";
+// import useWindowWidth from "./usewindowwidth";
 import Footer from "./Footer";
 import {
   Code2,
@@ -12,10 +12,10 @@ import {
   Search,
   Settings2,
   Globe,
-  TrendingUp,
+  // TrendingUp,
   Zap,
-  ShieldCheck,
-  HeadphonesIcon,
+  // ShieldCheck,
+  // HeadphonesIcon,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -98,7 +98,7 @@ export default function ServicePage() {
   const btnTextRef = useRef(null);
   const btnIconRef = useRef(null);
   const startRef = useRef(null);
-  const width = useWindowWidth();
+  // const width = useWindowWidth();
   const navigate = useNavigate();
 
   const faqSchemaData = {

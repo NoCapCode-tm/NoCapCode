@@ -4,7 +4,6 @@ import styles from "../CSS/ClarityForm.module.css";
 import Navbar from "./Navbar";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useNavigate } from "react-router";
 import useWindowWidth from "./usewindowwidth";
 import { toast } from "react-toastify";
 import axios from "axios"

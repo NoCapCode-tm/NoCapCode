@@ -3,12 +3,12 @@ import { useNavigate } from "react-router";
 import { Instagram, Linkedin } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
-import useWindowWidth from "./usewindowwidth";
+// import useWindowWidth from "./usewindowwidth";
 import styles from "../CSS/Footer.module.css"; // Note: We will handle the CSS next
 
 const Footer = () => {
   const navigate = useNavigate();
-  const width = useWindowWidth();
+  // const width = useWindowWidth();
 
   return (
     
