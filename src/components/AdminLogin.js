@@ -7,6 +7,7 @@ import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import LoaderDots from './LoaderDots';
+import Footer from './Footer';
 
 const AdminLogin = () => {
     const navigate = useNavigate();
@@ -123,62 +124,7 @@ const AdminLogin = () => {
                     </div>
                 </div>
 
-                {/* Footer - Same as onboarding page */}
-                <footer className={styles.footerWrap}>
-       <div className={styles.footerScene}>
-        <img src="./internal/footerbg.png" width="100%" height="100%" alt="Footer background" />
-       </div>
-      <div className={styles.mirrorOverlay}/>
-      <div className={styles.footerBox}>
-    
-        <div className={styles.top}>
-          
-          <div className={styles.left}>
-            <h2 className={styles.logo}>NoCapCode™</h2>
-            <p className={styles.tagline}>No cap. Built like it's ours.</p>
-            <p className={styles.tagline}>We build software systems for teams who care about clarity, ownership, and longevity.</p>
-            <div className={styles.socials}>
-              <span><a href="https://www.linkedin.com/company/nocapcode"  rel="noreferrer" target="_blank"><Linkedin size={16} color="rgba(190, 190, 190, 1)"/></a></span>
-              <span><a href="https://x.com/nocapcodecloud" target="_blank" rel="noreferrer"><FontAwesomeIcon icon={faXTwitter} style={{ fontSize: "16px", color: "rgba(190, 190, 190, 1)"}}/></a></span> 
-              <span><a href="https://www.instagram.com/nocapcode.cloud" target="_blank" rel="noreferrer"><Instagram size={16} color="rgba(190, 190, 190, 1)"/></a></span>
-              
-              
-            </div>
-
-            <div className={styles.badge}>
-                <img src="/badge.png" alt="/" height="100%" width="100%"/>
-            </div>
-          </div>
-
-        
-          <div className={styles.right}>
-
-            <div className={styles.col}>
-              <h4>Company</h4>
-              <ul>
-                <li onClick={()=>{
-                  navigate("/careers")}} style={{ cursor: "pointer" }}>Careers</li>
-                <li onClick={()=>{
-                  navigate("/contact")}} style={{ cursor: "pointer" }}>Contact</li>
-              </ul>
-              <p>
-                Algodones, New Mexico,<br />
-                US, 87001
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className={styles.divider} />
-        <div className={styles.bottom}>
-          <p>© 24-{new Date().getFullYear()} NoCapCode. All rights reserved.<br/>Built with restraint, responsibility, and long-term thinking.</p>
-
-          <div className={styles.links}>
-            <span onClick={()=>{navigate("/terms")}} style={{ cursor: "pointer" }}>Terms of Service</span>
-            <span onClick={()=>{navigate("/privacy")}} style={{ cursor: "pointer" }}>Privacy Policy</span>
-          </div>
-        </div>
-      </div>
-                </footer>
+            <Footer />
             </div>
         </>
     );
