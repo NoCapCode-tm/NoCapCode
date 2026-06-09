@@ -1,15 +1,13 @@
 import React, { useRef, useState } from 'react'
 import { Helmet } from "react-helmet-async";  // By Om
 import styles from "../CSS/About.module.css";
-import { ChevronDown, Instagram, Linkedin } from 'lucide-react';
+import { ChevronDown} from 'lucide-react';
 // import { useNavigate } from 'react-router';
 import { useGSAP } from '@gsap/react';
 import Navbar from "./Navbar";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from 'gsap';
 import { useNavigate } from 'react-router';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import useWindowWidth from './usewindowwidth';
 import Footer from './Footer';
 gsap.registerPlugin(ScrollTrigger);

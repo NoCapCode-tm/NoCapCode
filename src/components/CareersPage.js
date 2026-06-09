@@ -3,13 +3,11 @@ import { Helmet } from "react-helmet-async";  // By Om
 import styles from "../CSS/CareersPage.module.css";
 
 import CareersGlobe from "./CareersGlobe";
-import { BriefcaseBusiness, Clock, Instagram, Linkedin, MapPin } from "lucide-react";
+import { BriefcaseBusiness, Clock, MapPin } from "lucide-react";
 import Navbar from "./Navbar";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useNavigate } from "react-router";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import useWindowWidth from "./usewindowwidth";
 import axios from "axios";
 import LoaderDots from "./LoaderDots";

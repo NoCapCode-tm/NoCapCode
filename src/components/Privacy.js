@@ -1,10 +1,7 @@
 import React, { useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import styles from "../CSS/Privacy.module.css";
-import { Instagram, Linkedin } from "lucide-react";
 import { useNavigate } from "react-router";
-import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Navbar from "./Navbar";
@@ -78,7 +75,7 @@ const Privacy = () => {
           "<"
         );
       }, []);
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   return (
     <>
 

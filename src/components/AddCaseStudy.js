@@ -11,9 +11,6 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import LoaderDots from './LoaderDots';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
-import { Instagram, Linkedin } from 'lucide-react';
 import Footer from './Footer';
 
 

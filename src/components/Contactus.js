@@ -1,10 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";  // By Om
 import styles from "../CSS/Contactus.module.css";
-import { Instagram, Linkedin, Mail, MapPin } from "lucide-react";
-import { useNavigate } from "react-router";
-import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Mail, MapPin } from "lucide-react";
 import Navbar from "./Navbar";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -129,15 +126,9 @@ const Contactus = () => {
             "<"
           );
         }, []);
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   return (
     <>
-    /*
-  edit: added advanced SEO optimization, OpenGraph metadata,
-  Twitter metadata, ContactPage schema, LocalBusiness schema,
-  breadcrumb schema, and indexing optimization for better
-  Google understanding, authority, and sitelinks eligibility. By Om
-*/
 
   <Helmet>
 

@@ -1,13 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";  // By Om
 import styles from "../CSS/Casestudies.module.css";
-import { ArrowLeft, ChevronDown, Instagram, Linkedin } from "lucide-react";
+import { ArrowLeft, ChevronDown} from "lucide-react";
 // import { useNavigate } from "react-router";
 import { useGSAP } from "@gsap/react";
 import Navbar from "./Navbar";
 import gsap from "gsap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import { useNavigate } from "react-router";
 import useWindowWidth from "./usewindowwidth";
 import axios from "axios";

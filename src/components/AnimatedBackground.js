@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";  // By Om
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -6,11 +6,9 @@ import styles from "../CSS/AnimatedBackground.module.css";
 import Navbar from "./Navbar";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Globe from "./Globe";
-import { ChevronDown, Instagram, Linkedin } from "lucide-react";
+import { ChevronDown} from "lucide-react";
 import { ScrollToPlugin } from "gsap/all";
 import { useNavigate,useLocation, useParams} from "react-router";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import useWindowWidth from "./usewindowwidth";
 import FAQSchema from './FAQSchema';  // Om added this to inject the FAQ schema into the head of the document for SEO purposes
 import Footer from "./Footer";
@@ -144,7 +142,7 @@ const boldSectionRef = useRef(null);
 const boldHeadRef = useRef(null);
 const boldSpanRef = useRef(null);
 const page6Ref = useRef(null);
-const page6FirstRef = useRef(null);
+// const page6FirstRef = useRef(null);
 const [openIndex, setOpenIndex] = useState(null);
 const outcomesRef = useRef(null);
 const outcomesLabelRef = useRef(null);
@@ -1150,31 +1148,31 @@ const scrollToPage6 = () => {
     ease: "power3.out",
   });
 };
-const scrollToPageabout = () => {
-  if (!faqRef.current) return;
+// const scrollToPageabout = () => {
+//   if (!faqRef.current) return;
 
-  gsap.to(window, {
-    duration: 1.4,
-    scrollTo: {
-      y: faqRef.current,
-      offsetY: 80, // navbar ke liye thoda gap
-    },
-    ease: "power3.out",
-  });
-};
+//   gsap.to(window, {
+//     duration: 1.4,
+//     scrollTo: {
+//       y: faqRef.current,
+//       offsetY: 80, // navbar ke liye thoda gap
+//     },
+//     ease: "power3.out",
+//   });
+// };
 
-const scrollToPagework = () => {
-  if (!page6Ref.current) return;
+// const scrollToPagework = () => {
+//   if (!page6Ref.current) return;
 
-  gsap.to(window, {
-    duration: 1.4,
-    scrollTo: {
-      y: page6Ref.current,
-      offsetY: 80, // navbar ke liye thoda gap
-    },
-    ease: "power3.out",
-  });
-};
+//   gsap.to(window, {
+//     duration: 1.4,
+//     scrollTo: {
+//       y: page6Ref.current,
+//       offsetY: 80, // navbar ke liye thoda gap
+//     },
+//     ease: "power3.out",
+//   });
+// };
 
 
 
@@ -1485,9 +1483,9 @@ const handleCardScroll = (containerRef, cardRefs, mapArray) => {
       <span className={styles.first} ref={page2LabelRef}>WHAT WE DO</span>
       <h1 ref={page2HeadRef} className={styles.mainhead1}>We build what makes products last.</h1>
       <p ref={page2ParaRef} className={styles.subhead1}>
-  <span>We focus on the work that turns ideas into usable, sustainable systems </span>
-  
-  <span>without losing clarity in the process.</span>
+      <span>We focus on the work that turns ideas into usable, sustainable systems </span>
+      <span>without losing clarity in the process.</span>
+      </p>
   <div className={styles.cards1}>
     <div
   className={styles.firstcard}
@@ -1527,7 +1525,6 @@ designed to evolve, not to be replaced.</span>
       </div>
     </div>
   </div>
-  </p>
   <div className={styles.boldtext}  ref={boldSectionRef}>
    <h1 className={styles.boldtexthead} ref={boldHeadRef}>We don't try to do everything.</h1>
    <span  ref={boldSpanRef}>We focus on what helps products move from</span>

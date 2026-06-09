@@ -4,9 +4,6 @@ import styles from "../CSS/ClarityForm.module.css";
 import Navbar from "./Navbar";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
-import { Instagram, Linkedin } from "lucide-react";
 import { useNavigate } from "react-router";
 import useWindowWidth from "./usewindowwidth";
 import { toast } from "react-toastify";
@@ -20,7 +17,7 @@ export default function ClarityForm() {
     const btnTextRef = useRef(null);
     const btnIconRef = useRef(null);
     const startRef = useRef(null);
-    const navigate=useNavigate()
+    // const navigate=useNavigate()
     const[loading,setLoading]=useState(false)
     const width = useWindowWidth()
     const [responses, setResponses] = useState({});
