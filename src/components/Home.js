@@ -1,69 +1,94 @@
 import { useNavigate } from "react-router";
 import styles from "../CSS/Home.module.css";
+import { Briefcase, FileText, FileBadge } from "lucide-react";
+import Footer from "./Footer"; // Assuming you have this from the previous page
 
 const Home = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
+
   return (
     <div className={styles.container}>
       
-      
-      <div className={styles.topBar}>
-        <img src="../internal/Home.png" alt="/" height="100%" width="100%"/>
+      {/* HEADER SECTION */}
+      <div className={styles.header}>
+        <h1 className={styles.welcome}>Welcome to NoCapCode</h1>
+        <h2 className={styles.tagline}>No cap. Built like its ours</h2>
+        <p className={styles.subtitle}>Create and manage everything in one place</p>
       </div>
 
-      <div className={styles.hero}>
-        <h1 className={`${styles.welcome} ${styles.gradienttext}`}>Welcome to<br/> no cap code</h1>
-        <p className={styles.tagline}>No cap. Built like it's ours.</p>
-
-        <div className={styles.cards}>
-          
-          {/* CARD 1 */}
-          <div className={styles.card}>
-            <h2 className={styles.cardTitle}>Job Posting Form</h2>
-            <p className={styles.cardText}>
-              Draft a new job posting by specifying the role, responsibilities,
-              and required qualifications. Include detailed skills, experience,
-              and expectations to attract the right candidates.
-            </p>
-
-            <div className={styles.actions}>
-              <button className={styles.editBtn}>← Edit</button>
-              <button className={styles.createBtn} onClick={()=>{navigate("/addjobposting")}}>Create →</button>
-            </div>
+      {/* CARDS SECTION */}
+      <div className={styles.cardsWrapper}>
+        
+        {/* CARD 1: Job Posting */}
+        <div className={styles.card}>
+          <div className={styles.iconBox}>
+            <Briefcase size={20} color="#fff" strokeWidth={1.5} />
           </div>
+          <h3 className={styles.cardTitle}>Job Posting</h3>
+          <p className={styles.cardText}>
+            Create and publish job openings to find the right talent.
+          </p>
 
-          {/* CARD 2 */}
-          <div className={styles.card}>
-            <h2 className={styles.cardTitle}>Case Study Form</h2>
-            <p className={styles.cardText}>
-              Submit your case study by outlining objectives, methods,
-              and key outcomes. Provide detailed insights, supporting data,
-              and evidence to showcase the impact of your work.
-            </p>
-
-            <div className={styles.actions}>
-              <button className={styles.editBtn}>← Edit</button>
-              <button className={styles.createBtn} onClick={()=>{navigate("/addcasestudies")}}>Create →</button>
-            </div>
+          <div className={styles.actions}>
+            <button className={styles.createBtn} onClick={() => navigate("/addjobposting")}>
+              Create Job
+            </button>
+            <button className={styles.editBtn}>
+              Edit
+            </button>
           </div>
-
-          <div className={styles.card}>
-            <h2 className={styles.cardTitle}>Certificate Allottment Form</h2>
-            <p className={styles.cardText}>
-              Submit your case study by outlining objectives, methods,
-              and key outcomes. Provide detailed insights, supporting data,
-              and evidence to showcase the impact of your work.
-            </p>
-
-            <div className={styles.actions}>
-              <button className={styles.editBtn}>← Edit</button>
-              <button className={styles.createBtn} onClick={()=>{navigate("/addcertificate")}}>Create →</button>
-            </div>
-          </div>
-
-
         </div>
+
+        {/* CARD 2: Case Study */}
+        <div className={styles.card}>
+          <div className={styles.iconBox}>
+            <FileText size={20} color="#fff" strokeWidth={1.5} />
+          </div>
+          <h3 className={styles.cardTitle}>Case Study</h3>
+          <p className={styles.cardText}>
+            Share success stories and showcase your impact.
+          </p>
+
+          <div className={styles.actions}>
+            <button className={styles.createBtn} onClick={() => navigate("/addcasestudies")}>
+              Create Case Study
+            </button>
+            <button className={styles.editBtn}>
+              Edit
+            </button>
+          </div>
+        </div>
+
+        {/* CARD 3: Add Certificate */}
+        <div className={styles.card}>
+          <div className={styles.iconBox}>
+            <FileBadge size={20} color="#fff" strokeWidth={1.5} />
+          </div>
+          <h3 className={styles.cardTitle}>Add Certificate</h3>
+          <p className={styles.cardText}>
+            Create and issue certificate with ease.
+          </p>
+
+          <div className={styles.actions}>
+            <button className={styles.createBtn} onClick={() => navigate("/addcertificate")}>
+              Add Certificate
+            </button>
+            <button className={styles.editBtn}>
+              Edit
+            </button>
+          </div>
+        </div>
+
       </div>
+
+      {/* MORE FEATURES BUTTON */}
+      <div className={styles.moreFeaturesContainer}>
+        <button className={styles.moreFeaturesBtn}>
+          More exciting features coming soon
+        </button>
+      </div>
+
+      <Footer />
     </div>
   );
 };

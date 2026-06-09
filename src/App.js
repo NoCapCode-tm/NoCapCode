@@ -24,7 +24,7 @@ import Verify from "./components/Verify";
 import Certificate from "./components/Certificate";
 import Contactus from "./components/Contactus";
 import Addcertificate from "./components/Addcertificate";
-import ServicePage from "./components/ServicePage";
+import Service from "./components/Service";
 import Security from "./components/Security";
 
 
@@ -75,7 +75,7 @@ function AppWrapper() {
             <Route path="/:countryCode/software-development" element={<AnimatedBackground />} />
 
             <Route path="/contact" element={<Contactus />} />
-            <Route path="/services" element={<ServicePage />} />
+            <Route path="/services" element={<Service />} />
             <Route path="/casestudies" element={<Casestudies />} />
             <Route path="/addcasestudies" element={<AddCaseStudy />} />
             <Route path="/terms" element={<Condition />} />

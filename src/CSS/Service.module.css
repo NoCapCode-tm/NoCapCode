@@ -1,0 +1,573 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap");
+
+/* ── GLOBAL PAGE SETUP ── */
+.page {
+  min-height: 100vh;
+  width: 100%;
+  background: #000;
+  color: #fff;
+  font-family: "Outfit", sans-serif;
+  overflow-x: hidden;
+}
+
+/* ── HERO SECTION ── */
+.hero {
+  position: relative;
+  min-height: 70vh; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 180px 24px 100px;
+  overflow: hidden; 
+  background: #000;
+}
+
+/* ── THE HEMISPHERE DOME ── */
+.heroGlow {
+  position: absolute;
+  top: 120px; /* Perfect distance above the text */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2650px; /* Slightly wider to flatten the arch perfectly */
+  height: 2650px;
+  border-radius: 50%;
+  
+  /* The core bright energy line */
+  /* border: 0px solid rgba(34, 70, 255, 0.85); */
+  
+  /* Stacking multiple shadow layers for the massive atmospheric spread */
+  box-shadow: 
+    /* Outer glow: Bleeds UP and OUT into the black void */
+    0 0 60px 10px rgba(34, 70, 255, 0.6), 
+    0 0 150px 50px rgba(34, 70, 255, 0.35),
+    0 0 350px 120px rgba(34, 70, 255, 0.15),
+    0 0 600px 200px rgba(34, 70, 255, 0.05),
+
+    /* Inner glow: Bleeds DOWN gently into the text area */
+    inset 0 0 80px 20px rgba(34, 70, 255, 0.5),
+    inset 0 0 200px 60px rgba(34, 70, 255, 0.2),
+    inset 0 0 400px 100px rgba(34, 70, 255, 0.08);
+    
+  /* Softens the hard 3px border so it looks like pure light */
+  filter: blur(15px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 860px;
+  margin-top: 40px;
+}
+
+.heroContent h1 {
+  font-size: 48px; 
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  color: #fff;
+  margin-bottom: 24px;
+  font-family: "Outfit", sans-serif;
+}
+
+.heroContent p {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  max-width: 760px;
+  margin: 0 auto 36px;
+  font-family: "Inter", sans-serif;
+}
+
+.heroCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #2246ff; 
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: "Outfit", sans-serif;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.heroCta:hover {
+  transform: translateY(-2px);
+  background: #3355FF;
+  box-shadow: 0 8px 30px rgba(34, 70, 255, 0.4);
+}
+
+/* ── REUSABLE SECTION STYLES ── */
+.section, .seoSection, .whySection {
+  padding: 60px 80px;
+  max-width: 1000px; 
+  margin: 0 auto;
+}
+
+.centerBadge {
+  text-align: center;
+  margin-bottom: 28px;
+  width: 100%;
+}
+
+.sectionBadge {
+  display: inline-block;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 6px 18px;
+  font-family: "Inter", sans-serif;
+}
+
+.sectionTitle {
+  font-size: 36px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  line-height: 1.25;
+  color: #fff;
+  margin-bottom: 16px;
+  font-family: "Outfit", sans-serif;
+  text-align: center;
+}
+
+.sectionSub {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.7;
+  max-width: 700px;
+  margin: 0 auto 48px; 
+  font-family: "Inter", sans-serif;
+  text-align: center;
+}
+
+/* ── OUR SERVICES GRID ── */
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.serviceCard {
+  background: #06070a;
+  border: 1px solid rgba(34, 70, 255, 0.35); 
+  border-radius: 16px;
+  padding: 32px 32px;
+  box-shadow: 0 0 20px rgba(34, 70, 255, 0.08), inset 0 0 20px rgba(34, 70, 255, 0.03);
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+}
+
+.serviceCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(34, 70, 255, 0.85);
+  box-shadow: 0 0 35px rgba(34, 70, 255, 0.2), inset 0 0 24px rgba(34, 70, 255, 0.07);
+}
+
+.serviceIcon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%; 
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 24px;
+}
+
+.serviceCard h3 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 12px;
+  font-family: "Outfit", sans-serif;
+}
+
+.serviceCard p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.6;
+  font-family: "Inter", sans-serif;
+}
+
+/* ── WEBSITE CREATION (SEO) GRID ── */
+.seoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 40px;
+  row-gap: 48px; 
+}
+
+.seoItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: "Inter", sans-serif;
+  position: relative;
+}
+
+@media (min-width: 769px) {
+  .seoItem:nth-child(3n+1),
+  .seoItem:nth-child(3n+2) {
+    border-right: 1px solid rgba(34, 70, 255, 0.4);
+  }
+}
+
+.seoIcon {
+  color: #fff;
+}
+
+/* ── WHY CHOOSE US ── */
+.whyGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.whyTopRow {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr; 
+  gap: 16px;
+  align-items: stretch;
+}
+
+.whyBottomRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.whyBlueCard {
+  background: #2246ff;
+  border-radius: 16px;
+  padding: 52px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.whyBlueCard h2 {
+  font-size: 38px;
+  font-weight: 600;
+  color: #fff;
+  font-family: "Outfit", sans-serif;
+  text-align: center;
+}
+
+.whyDarkCard {
+  background: #06070a;
+  border: 1px solid rgba(34, 70, 255, 0.35);
+  border-radius: 14px;
+  padding: 36px 24px;
+  box-shadow: 0 0 15px rgba(34, 70, 255, 0.08), inset 0 0 16px rgba(34, 70, 255, 0.02);
+  transition: border-color 0.25s, box-shadow 0.25s;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.whyDarkCard:hover {
+  border-color: rgba(34, 70, 255, 0.8);
+  box-shadow: 0 0 30px rgba(34, 70, 255, 0.2), inset 0 0 20px rgba(34, 70, 255, 0.06);
+}
+
+.whyDarkCard h4 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 12px;
+  font-family: "Outfit", sans-serif;
+}
+
+.whyDarkCard p {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.6;
+  font-family: "Inter", sans-serif;
+}
+
+/* ── GUIDELINES SECTION ── */
+.guidelinesSection {
+  position: relative;
+  width: 100%;
+  padding: 100px 40px;
+  text-align: center;
+  overflow: hidden;
+  background: #000;
+}
+
+.guidelinesGlow {
+  position: absolute;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 600px;
+  background: radial-gradient(
+    ellipse at center bottom,
+    rgba(34, 70, 255, 0.3) 0%,
+    rgba(20, 50, 220, 0.1) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.guidelinesContent {
+  position: relative;
+  z-index: 1;
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.guidelinesTitle {
+  font-size: 42px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  color: #fff;
+  line-height: 1.2;
+  font-family: "Outfit", sans-serif;
+  margin: 0;
+}
+
+.guidelinesSub {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.7;
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  margin-top: 10px;
+}
+
+/* ── SEEDSPACE SECTION ── */
+.seedSection {
+  position: relative;
+  width: 100%;
+  background: #000000;
+  padding: 0;
+  overflow: hidden;
+  border-top: 1px solid rgba(34, 70, 255, 0.8); 
+  border-bottom: 1px solid rgba(34, 70, 255, 0.5);
+  box-shadow: 0 -15px 40px -10px rgba(34, 70, 255, 0.6); 
+}
+
+.seedTopBadgeRow {
+  display: flex;
+  justify-content: center;
+  padding: 32px 0 0;
+}
+
+.seedTopBadge {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 6px 18px;
+  font-family: "Inter", sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.seedContent {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.seedLabel {
+  font-size: 50px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: "Outfit", sans-serif;
+  margin: 0;
+}
+
+.seedContent h2 {
+  font-size: 36px;
+  font-weight: 500;
+  color: #fff;
+  line-height: 1.25;
+  letter-spacing: -0.5px;
+  font-family: "Outfit", sans-serif;
+  margin: 0;
+}
+
+.seedDesc {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.75;
+  font-family: "Inter", sans-serif;
+  max-width: 600px;
+  margin: 0;
+}
+
+.seedPerks {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+.seedPerk {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-family: "Inter", sans-serif;
+}
+
+.seedCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 36px;
+  background: #2246ff;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: "Outfit", sans-serif;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 12px;
+}
+
+.seedCta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(34, 70, 255, 0.5);
+  background: #3355FF;
+}
+
+.seedGlowLeft {
+  position: absolute;
+  top: 0;
+  left: -100px;
+  width: 300px;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at left center,
+    rgba(34, 70, 255, 0.25) 0%,
+    transparent 65%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.seedGlowRight {
+  position: absolute;
+  top: 0;
+  right: -100px;
+  width: 300px;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at right center,
+    rgba(34, 70, 255, 0.25) 0%,
+    transparent 65%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── RESPONSIVE TABLET ── */
+@media (max-width: 1024px) {
+  .heroContent h1 { font-size: 42px; }
+  .section, .seoSection, .whySection { padding: 48px 40px; }
+  .whyBlueCard h2 { font-size: 32px; }
+  .guidelinesTitle { font-size: 36px; }
+  
+  .heroGlow {
+    width: 1300px;
+    height: 1300px;
+    top: 100px;
+  }
+}
+
+/* ── RESPONSIVE MOBILE ── */
+@media (max-width: 768px) {
+  .hero { padding: 140px 20px 60px; }
+  .heroContent h1 { font-size: 32px; line-height: 1.25; }
+  .heroContent p { font-size: 14px; max-width: 90%; }
+  
+  .heroGlow { 
+    width: 1000px; 
+    height: 1000px; 
+    top: 120px; 
+    border-width: 3px;
+    filter: blur(10px);
+  }
+  
+  .section, .seoSection, .whySection { padding: 40px 20px; }
+  .sectionTitle { font-size: 28px; }
+  
+  .servicesGrid { grid-template-columns: 1fr; }
+  
+  .seoGrid { 
+    grid-template-columns: repeat(2, 1fr); 
+    row-gap: 32px; 
+  }
+  
+  .seoItem:nth-child(odd) { 
+    border-right: 1px solid rgba(34, 70, 255, 0.4); 
+  }
+  
+  .whyTopRow, .whyBottomRow { grid-template-columns: 1fr; }
+  .whyBlueCard { min-height: 140px; padding: 32px 20px; }
+  .whyBlueCard h2 { font-size: 28px; }
+
+  .guidelinesSection { padding: 60px 20px; }
+  .guidelinesTitle { font-size: 28px; }
+  
+  .seedContent h2 { font-size: 28px; }
+  .seedContent { padding: 28px 20px 56px; gap: 16px; }
+}
+
+/* ── RESPONSIVE SMALL MOBILE ── */
+@media (max-width: 480px) {
+  .heroContent h1 { font-size: 28px; }
+  .heroCta { font-size: 14px; padding: 10px 20px; }
+  
+  .heroGlow { 
+    width: 800px; 
+    height: 800px; 
+    top: 100px; 
+  }
+  
+  .sectionTitle { font-size: 24px; }
+  .serviceCard { padding: 24px 20px; }
+  
+  .guidelinesTitle { font-size: 24px; }
+  .seedContent h2 { font-size: 24px; }
+}

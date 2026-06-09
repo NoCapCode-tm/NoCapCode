@@ -1,179 +1,222 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 
 .container {
   min-height: 100vh;
   width: 100%;
-  background:black;
+  background: radial-gradient(
+      ellipse 60% 40% at 50% 30%,
+      rgba(34, 70, 255, 0.15) 0%,
+      transparent 70%
+    ),
+    #000;
   color: white;
   font-family: "Outfit", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 100px; /* Adjust based on navbar spacing */
+  overflow-x: hidden;
 }
 
-/* TOP IMAGE BAR SPACE */
-.topBar {
-  height: 350px; /* YOU CAN ADJUST */
-  width: 100%;
-  
-}
-.topBar img{
-    z-index: 1;
-}
-.gradienttext {
-  background:linear-gradient(180deg, #FFFFFF 57.21%, #000000 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-/* HERO */
-.hero {
-  padding: 40px 80px;
+/* ─── HEADER SECTION ─── */
+.header {
+  text-align: center;
+  margin-bottom: 60px;
+  padding: 0 20px;
 }
 
 .welcome {
-  font-size: 140px;
-  margin-top: -60px;
-  line-height: 120px;
+  font-size: 42px;
   font-weight: 500;
-  z-index: 40;
-  position: absolute;
-  top:250px;
-  left:80px;
- 
-}
-
-.brand {
-  font-size: 72px;
-  font-weight: 700;
-  margin: 10px 0;
-  background: linear-gradient(
-    180deg,
-    #ffffff 0%,
-    rgba(255, 255, 255, 0.25) 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  margin-bottom: 12px;
+  color: #fff;
 }
 
 .tagline {
-  color: rgba(81, 47, 235, 1);
-  font-size: 26px;
-  margin-top: 10px;
+  color: #2246FF; /* Precise neon blue */
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
   font-weight: 400;
 }
 
-/* CARDS */
-.cards {
+/* ─── CARDS WRAPPER ─── */
+.cardsWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 40px;
-  margin-top: 60px;
- 
+  max-width: 1100px;
+  padding: 0 20px;
+  z-index: 2;
 }
 
-
+/* ─── INDIVIDUAL CARD ─── */
 .card {
- 
-  padding: 28px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(50px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  flex: 1;
+  min-width: 300px;
+  max-width: 340px;
+  background: rgba(10, 12, 20, 0.6);
+  border: 1px solid rgba(34, 70, 255, 0.3);
+  border-radius: 16px;
+  padding: 32px 24px;
+  backdrop-filter: blur(20px);
+  box-shadow: 
+    0 0 40px 5px rgba(34, 70, 255, 0.15), 
+    inset 0 0 20px rgba(34, 70, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 0 50px 10px rgba(34, 70, 255, 0.25), 
+    inset 0 0 20px rgba(34, 70, 255, 0.1);
+}
+
+.iconBox {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .cardTitle {
-  color: rgba(34, 70, 255, 1);
-  font-size: 44px;
-  margin-bottom: 14px;
+  font-size: 20px;
   font-weight: 500;
+  margin-bottom: 12px;
+  color: #fff;
 }
 
 .cardText {
-  font-size: 18px;
-  color: rgba(172, 171, 171, 1);
-  line-height: 1.6;
-  letter-spacing: 1px;
-  font-weight: 400;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.5;
+  margin-bottom: 32px;
+  flex-grow: 1;
 }
 
-/* BUTTONS */
+/* ─── CARD BUTTONS ─── */
 .actions {
   display: flex;
-  justify-content: space-between;
-  margin-top: 24px;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
 }
 
+.createBtn,
 .editBtn {
-  background: rgba(34, 70, 255, 1);
-  color: white;
-  border: 1px solid #3b5cff;
-  padding: 12px 28px;
-  font-size: 18px;
-  letter-spacing: 2px;
-  border-radius: 8px;
+  width: 100%;
+  height: 44px;
+  border-radius: 22px; /* Pill shape */
+  font-size: 15px;
+  font-weight: 500;
+  font-family: "Outfit", sans-serif;
   cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .createBtn {
-  background: rgba(34, 70, 255, 1);
+  background: #2246FF;
   color: white;
   border: none;
-   font-size: 18px;
-  letter-spacing: 2px;
-  padding: 12px 28px;
-  border-radius: 8px;
-  cursor: pointer;
 }
 
 .createBtn:hover {
-  opacity: 0.9;
+  background: #3355FF;
+  box-shadow: 0 4px 15px rgba(34, 70, 255, 0.4);
 }
-@media screen and (max-width:900px) {
-    .topBar{
-        width:135%;
-    }
-    .welcome{
-        position:relative;
-        top:0px;left:0px;
-        font-size: 100px;
-        line-height: 80px;
-    }
-    .hero{
-        padding:0px 20px;
-        margin-top:-150px;
-    }
-}
-@media screen and (max-width:585px){
-   .welcome{
-    font-size: 70px;
-    line-height: 60px;
 
-   }
+.editBtn {
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.6);
 }
-@media screen and (max-width:500px){
-  .topBar{
-        width:205%;
-    }
-    .welcome{
-    font-size: 60px;
-    line-height: 50px;
 
-   }
-   .cards{
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-   }
+.editBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #fff;
 }
-@media screen and (max-width:410px){
-  .actions{
-    display:grid;
-     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-     gap:10px;  
+
+/* ─── MORE FEATURES SECTION ─── */
+.moreFeaturesContainer {
+  margin-top: 60px;
+  margin-bottom: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+.moreFeaturesBtn {
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 14px 32px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-family: "Outfit", sans-serif;
+  cursor: default; /* Kept as default pointer since it's just a display badge for now */
+  backdrop-filter: blur(10px);
+}
+
+/* ─── RESPONSIVE ─── */
+@media screen and (max-width: 1024px) {
+  .cardsWrapper {
+    gap: 20px;
   }
-  .welcome{
-    font-size: 50px;
-    line-height: 40px;
-
-   }
-   .tagline{
-    font-size: 18px;
-   }
+  .card {
+    min-width: calc(50% - 20px);
+    max-width: 500px;
+  }
 }
+
+@media screen and (max-width: 768px) {
+  .welcome {
+    font-size: 36px;
+  }
+  .cardsWrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .card {
+    min-width: 100%;
+    max-width: 100%;
+  }
+  .moreFeaturesBtn {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .welcome {
+    font-size: 28px;
+  }
+  .tagline {
+    font-size: 16px;
+  }
+  .subtitle {
+    font-size: 14px;
+  }
+  .card {
+    padding: 24px 20px;
+  }
+}
+
