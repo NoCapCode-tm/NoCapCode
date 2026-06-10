@@ -203,7 +203,8 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin-top: 40px;
-  row-gap: 48px; 
+  /* FIX: Remove row-gap so the vertical blue lines connect seamlessly */
+  row-gap: 0; 
 }
 
 .seoItem {
@@ -212,12 +213,15 @@
   align-items: center;
   justify-content: center;
   gap: 16px;
-  padding: 20px;
+  /* FIX: Use padding to create vertical space instead of row-gap */
+  padding: 32px 20px; 
   font-size: 14px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.85);
   font-family: "Inter", sans-serif;
   position: relative;
+  /* FIX: Forces multi-line text to center perfectly under the icon */
+  text-align: center; 
 }
 
 @media (min-width: 769px) {
