@@ -103,7 +103,7 @@ const Navbar = forwardRef(
               <li onClick={() => navigate("/about")} style={{cursor:"pointer"}}>
                 About
               </li>
-              <li onClick={() => goHome("service")} style={{cursor:"pointer"}}>Services</li>
+              <li onClick={() => navigate("/services")} style={{cursor:"pointer"}}>Services</li>
               <li onClick={() => navigate("/casestudies")} style={{cursor:"pointer"}}>
                 Case Studies
               </li>

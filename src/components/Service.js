@@ -1,9 +1,10 @@
-import React, { useRef, useMemo } from "react"; // 1. Added useRef and useMemo here
+import React, { useRef, useMemo, useState } from "react";
 import styles from "../CSS/Service.module.css";
 import Navbar from "./Navbar";
 import { Helmet } from "react-helmet-async";
 import Footer from "./Footer";
-import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import axios from "axios";
 import {
   TerminalSquare,
   Repeat,
@@ -15,7 +16,8 @@ import {
   BarChart2,
   Share2,
   Zap,
-  ArrowUpRight
+  ArrowUpRight,
+  X
 } from "lucide-react";
 
 // ... [services, seoFeatures, whyUsBottom, serviceFaqs constants remain the same] ...
@@ -53,8 +55,61 @@ const serviceFaqs = [
 const seedSpacePerks = ["Limited slots", "Selective onboarding", "Longterm growth"];
 
 export default function Service() {
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const servicesRef = useRef(null);
+  const [form, setForm] = useState(false);
+  const [businessName, setBusinessName] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [teamSize, setTeamSize] = useState("");
+
+  const handleSubmit = async(e) =>{
+    e.preventDefault();
+
+    // Trim values
+        const trimmedBusinessName = businessName.trim();
+        const trimmedName = name.trim();
+        const trimmedPhone = phone.trim();
+        const trimmedEmail = email.trim();
+    
+        // Empty field validation
+        if (!trimmedBusinessName || !trimmedName || !trimmedPhone || !trimmedEmail || !teamSize) {
+          toast.error("Please fill all fields");
+          return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(trimmedEmail)) {
+          toast.error("Please enter a valid email address");
+          return;
+        }
+    try {
+      setLoading(true);
+      const response = await axios.post("https://nocapcode-backend-hapd.onrender.com/api/v1/job/seedSpace", {
+        businessName: trimmedBusinessName,
+        name: trimmedName,
+        phone: trimmedPhone,
+        email: trimmedEmail,
+        teamSize: teamSize,
+      }, { withCredentials: true });
+      
+      console.log(response.data);
+      toast.success("SeedSpace Form Submitted Successfully");
+      setBusinessName("");
+      setName("");
+      setPhone("");
+      setEmail("");
+      setTeamSize("");
+      setForm(false);
+    } catch (error) {
+      toast.error("Something Went Wrong");
+      console.log(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
 
   // 2. Moved useMemo INSIDE the component
   const faqSchemaData = useMemo(() => ({
@@ -125,7 +180,7 @@ export default function Service() {
         </h2>
         <p className={styles.sectionSub}>
           Every website includes SEO, indexing, analytics, Google Tag, technical architecture, and
-          performance optimization — built to be discovered, measured, and scaled over time.
+          performance optimization built to be discovered, measured, and scaled over time.
         </p>
         
         <div className={styles.seoGrid}>
@@ -207,8 +262,8 @@ export default function Service() {
             ))}
           </div>
           
-          <button className={styles.seedCta} onClick={() => navigate("/contact")}>
-            Enrol in SeedSpace™
+          <button className={styles.seedCta} onClick={() => setForm(true)}>
+            Enroll in SeedSpace™
           </button>
         </div>
         
@@ -216,6 +271,87 @@ export default function Service() {
         <div className={styles.seedGlowLeft} />
         <div className={styles.seedGlowRight} />
       </section>
+
+      {/* ── SEEDSPACE MODAL ── */}
+      {form && (
+        <div className={styles.modalOverlay}>
+          <button className={styles.modalClose} onClick={() => setForm(false)}>
+            <X size={24} />
+          </button>
+
+          {/* scrollable inner content */}
+          <div className={styles.modalInner}>
+            {/* Header text — above the form, outside the card */}
+            <div className={styles.modalHeader}>
+              <h2>Apply for SeedSpace™</h2>
+              <p className={styles.modalSubtitle}>A selective initiative for start-up's and early-stage founders</p>
+              <p className={styles.modalDesc}>We review every application carefully to ensure we're the right fit before moving forward.</p>
+            </div>
+
+            {/* Form card */}
+            <div className={styles.modalBox}>
+              <form className={styles.modalForm} onSubmit={handleSubmit}>
+                <div className={styles.modalField}>
+                  <label>Business Name</label>
+                  <input 
+                    type="text" 
+                    name="businessName" 
+                    placeholder="Enter business name" 
+                    value={businessName} 
+                    onChange={(e)=>{setBusinessName(e.target.value)}} 
+                    required />
+                </div>
+                <div className={styles.modalField}>
+                  <label>Owner Name</label>
+                  <input 
+                    type="text" 
+                    name="ownerName" 
+                    placeholder="Enter full name" 
+                    value={name} 
+                    onChange={(e)=>{setName(e.target.value)}}  
+                    required />
+                </div>
+                <div className={styles.modalField}>
+                  <label>Phone Number</label>
+                  <input 
+                    type="tel" 
+                    name="phone" 
+                    placeholder="Enter phone number" 
+                    value={phone} 
+                    onChange={(e)=>{setPhone(e.target.value)}} 
+                    required />
+                </div>
+                <div className={styles.modalField}>
+                  <label>Email Address</label>
+                  <input 
+                    type="email" 
+                    name="email" 
+                    placeholder="Enter email address" 
+                    value={email} 
+                    onChange={(e)=>{setEmail(e.target.value)}} 
+                    required />
+                </div>
+                <div className={styles.modalField}>
+                  <label>Current Team Size</label>
+                  <input 
+                    type="text" 
+                    name="teamSize" 
+                    placeholder="Enter team size" 
+                    value={teamSize} 
+                    onChange={(e)=>{setTeamSize(e.target.value)}} 
+                    required />
+                </div>
+                <button 
+                    type="submit" 
+                    className={styles.modalSubmit}
+
+                  >{loading ? "Submitting..." : "Submit"}</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+      
 
       <Footer/>
     </div>
