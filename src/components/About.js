@@ -468,18 +468,6 @@ useGSAP(() => {
           "<"
         );
       }, []);
-      const scrollToPageabout = () => {
-  if (!faqRef.current) return;
-
-  gsap.to(window, {
-    duration: 1.4,
-    scrollTo: {
-      y: faqRef.current,
-      offsetY: 80, // navbar ke liye thoda gap
-    },
-    ease: "power3.out",
-  });
-};
 
       
 
@@ -835,10 +823,14 @@ return (
       If you’re exploring MVP development, automation, or system clarity, this is the right next step.
     </p>
 
-    <button className={styles.startHereBtn} onClick={()=>{navigate("/contact")}} >
+    <button 
+      className={styles.startHereBtn} 
+      onClick={() => window.open("https://nocapcode.cloud/book", "_blank", "noopener,noreferrer")} 
+    >
       Start a Conversation
       <span className={styles.arrow}>↗</span>
     </button>
+    
   </div>
      </div>
 

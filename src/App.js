@@ -4,7 +4,7 @@ import AnimatedBackground from "./components/AnimatedBackground";
 import PageLoader from "./components/PageLoader";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation, useParams } from "react-router-dom";
 import About from "./components/About";
 
 import Casestudies from "./components/Casestudies";
@@ -28,6 +28,13 @@ import Service from "./components/Service";
 import Security from "./components/Security";
 
 
+// 1. ADD VALID COUNTRIES LIST
+const validCountries = [
+  "us", "ca", "mx", "uk", "ie", "de", "fr", "nl", "ch", "se", "no", "dk", "fi", 
+  "it", "es", "pt", "be", "pl", "cz", "ro", "ua", "at", "in", "au", "nz", "sg", 
+  "jp", "kr", "tw", "hk", "cn", "id", "my", "ph", "vn", "th", "pk", "bd", "lk", 
+  "ae", "sa", "qa", "kw", "bh", "om", "il", "za", "ng", "eg", "br", "ar"
+];
 
 function NotFoundPage({ setNotFound }) {
   React.useEffect(() => {
@@ -35,6 +42,20 @@ function NotFoundPage({ setNotFound }) {
     return () => setNotFound(false);
   }, [setNotFound]);
   return <NotFound />;
+}
+
+
+// 2. ADD THIS ROUTE WRAPPER TO VALIDATE THE COUNTRY
+function LocalizedRoute({ setNotFound }) {
+  const { countryCode } = useParams();
+  
+  // If the path is something like "/service", it won't be in the validCountries array.
+  // It will immediately return the 404 Page Not Found.
+  if (countryCode && !validCountries.includes(countryCode.toLowerCase())) {
+    return <NotFoundPage setNotFound={setNotFound} />;
+  }
+  
+  return <AnimatedBackground />;
 }
 
 function AppWrapper() {
@@ -71,8 +92,8 @@ function AppWrapper() {
 
             {/* Dynamic International Route */}
             {/* Localized versions of your exact same homepage */}
-            <Route path="/:countryCode" element={<AnimatedBackground />} />
-            <Route path="/:countryCode/software-development" element={<AnimatedBackground />} />
+            <Route path="/:countryCode" element={<LocalizedRoute setNotFound={setNotFound} />} />
+            <Route path="/:countryCode/software-development" element={<LocalizedRoute setNotFound={setNotFound} />} />
 
             <Route path="/contact" element={<Contactus />} />
             <Route path="/services" element={<Service />} />
@@ -108,16 +129,17 @@ function AppWrapper() {
 export default function App() {
   return (
     <>
-    <BrowserRouter>
-      <AppWrapper />
-    </BrowserRouter>
-    <ToastContainer
-  position="top-center"
-  autoClose={1000}
-  icon={false}
-  hideProgressBar={true}
-/>
+      <BrowserRouter>
+        <AppWrapper />
+      </BrowserRouter>
+      <ToastContainer
+        position="top-center"
+        autoClose={1000}
+        icon={false}
+        hideProgressBar={true}
+      />
 
-     </>
+    </>
+
   );
 }
