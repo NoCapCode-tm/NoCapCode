@@ -129,29 +129,36 @@
 }
 
 /* ── RESPONSIVE SCALING ── */
+/* Mathematical Scaling: 
+   These values are locked to the exact ratio of the Desktop layout. 
+   As the 404 scales, the offsets scale identically, maintaining the perfect illusion. 
+*/
+
 @media (max-width: 1024px) {
-  .giantText { font-size: 85vw; }
-  .messageContainer { font-size: 2.8vw; }
-  .line1 { transform: translateX(-4.5vw); }
-  .line2 { transform: translateX(6vw); }
+  .giantText { font-size: 90vw; }
+  .messageContainer { font-size: 2.7vw; }
+  .line1 { transform: translateX(-2.8vw); }
+  .line2 { transform: translateX(13.9vw); }
 }
 
 @media (max-width: 768px) {
-  .giantText { font-size: 100vw; }
-  .messageContainer { font-size: 3.5vw; }
-  .line1 { transform: translateX(-5.5vw); }
-  .line2 { transform: translateX(8vw); }
+  .giantText { font-size: 120vw; }
+  .messageContainer { font-size: 3.6vw; }
+  .line1 { transform: translateX(-2.8vw); }
+  .line2 { transform: translateX(19.5vw); }
   
-  .bottomLeft { left: 24px; bottom: 24px; }
-  .back { right: 24px; bottom: 18px; padding: 8px 12px; }
+  .bottomLeft { left: 24px; bottom: 24px; font-size: 10px; }
+  .back { right: 24px; bottom: 18px; padding: 8px 12px; font-size: 11px; }
 }
 
 @media (max-width: 480px) {
-  .giantText { font-size: 120vw; }
-  .messageContainer { font-size: 4.5vw; }
-  .line1 { transform: translateX(-7vw); }
-  .line2 { transform: translateX(10vw); }
+  /* On mobile, the 404 bleeds beautifully off the screen edges so the "0" takes center stage */
+  .giantText { font-size: 160vw; }
+  .messageContainer { font-size: 4.8vw; }
+  .line1 { transform: translateX(-3.0vw); }
+  .line2 { transform: translateX(26vw); }
   
+  /* Stack the footer elements vertically for narrow phone screens */
   .bottomLeft {
     left: 50%;
     transform: translateX(-50%);
