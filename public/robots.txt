@@ -17,9 +17,23 @@ User-agent: Applebot-Extended
 Disallow: /
 User-agent: CCBot
 Disallow: /
-User-agent: omgili
-Disallow: /
 User-agent: FacebookBot
 Disallow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+# Block malicious or aggressive scrapers
+User-agent: omgili
+Disallow: /
+User-agent: omgilibot
+Disallow: /
+
+# Point to AI Context Files
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /.well-known/mcp/server-card.json
+Allow: /.well-known/agent-skills/index.json
 
 Sitemap: https://nocapcode.cloud/sitemap.xml

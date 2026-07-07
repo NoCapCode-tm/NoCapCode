@@ -1,0 +1,25 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/mcp-server-card/v1.json",
+  "version": "1.0",
+  "protocolVersion": "2025-11-25",
+  "serverInfo": {
+    "name": "nocapcode",
+    "title": "NoCapCode MCP Server",
+    "version": "1.0.0"
+  },
+  "description": "NoCapCode MCP server for discovering software development services, exploring tech stacks, and retrieving project capabilities.",
+  "documentationUrl": "https://nocapcode.cloud/",
+  "transport": {
+    "type": "streamable-http",
+    "endpoint": "/api/mcp"
+  },
+  "capabilities": {
+    "tools": {
+      "listChanged": false
+    },
+    "resources": {
+      "subscribe": false,
+      "listChanged": false
+    }
+  }
+}

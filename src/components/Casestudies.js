@@ -10,7 +10,7 @@ import { useNavigate } from "react-router";
 import useWindowWidth from "./usewindowwidth";
 import axios from "axios";
 import Footer from './Footer';
-
+import { projectsData } from "./data/projectsData";
 
 const Casestudies = () => {
 
@@ -181,7 +181,7 @@ a: "If you care about clarity, long-term stability, and honest trade-offs, we'll
 // }, []);
 
 
-  useEffect(() => {
+useEffect(() => {
     (async () => {
       setLoading(true);
       try {
@@ -189,14 +189,39 @@ a: "If you care about clarity, long-term stability, and honest trade-offs, we'll
           "https://nocapcode-backend-hapd.onrender.com/api/v1/job/getallcasestudy",
           { withCredentials: true }
         );
+        // Only show live database items to human visitors
         setCasestudy(response.data.message || []);
       } catch (error) {
-        console.log(error);
+        console.log("Backend offline.", error);
+        setCasestudy([]); // Ensure it stays empty if API fails, hiding the 60 local ones
       } finally {
         setLoading(false);
       }
     })();
   }, []);
+
+  // Programmatic AI Graph Generation reading ONLY from the massive local data file
+  // This is completely invisible on the visual website.
+  const aiGraphSchema = projectsData.map((item, index) => ({
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "@id": `https://nocapcode.cloud/casestudies/#project-${item.id}`,
+    "name": item?.title,
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "All",
+    "description": item?.subtitle || item?.description,
+    "url": "https://nocapcode.cloud/casestudies",
+    "image": item?.thumbnail || "https://nocapcode.cloud/internal/og-cover.png",
+    "provider": {
+      "@type": "Organization",
+      "@id": "https://nocapcode.cloud/#organization"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "NoCapCode",
+      "url": "https://nocapcode.cloud/"
+    }
+  }));
 
  useGSAP(() => {
   const tl = gsap.timeline({
