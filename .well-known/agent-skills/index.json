@@ -1,0 +1,19 @@
+{
+  "skills": [
+    {
+      "id": "discover-services",
+      "name": "Discover NoCapCode Services",
+      "description": "Retrieves the core software development services, tech stack, and minimum pricing brackets for NoCapCode.",
+      "endpoint": "https://nocapcode.cloud/llms.txt",
+      "method": "GET"
+    },
+    {
+      "id": "contact-agency",
+      "name": "Contact NoCapCode",
+      "description": "Provides the required contact information to initiate a software project consultation.",
+      "endpoint": "https://nocapcode.cloud/contact",
+      "method": "GET"
+    }
+  ],
+  "version": "1.0.0"
+}

@@ -1,0 +1,13 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://nocapcode.cloud/api/",
+      "service-desc": [
+        {
+          "href": "https://nocapcode.cloud/openapi.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "NoCapCode Discovery API",
+    "description": "Read-only API specification for NoCapCode services, case studies, and career postings.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "NoCapCode API Support",
+      "email": "hello@nocapcode.cloud",
+      "url": "https://nocapcode.cloud"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://nocapcode.cloud/api/v1",
+      "description": "Production Server"
+    }
+  ],
+  "paths": {
+    "/job/getjobs": {
+      "get": {
+        "summary": "Retrieve available job postings",
+        "description": "Fetches a list of all currently active career opportunities at NoCapCode.",
+        "responses": {
+          "200": {
+            "description": "A JSON array of job objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "_id": { "type": "string" },
+                          "title": { "type": "string" },
+                          "department": { "type": "string" },
+                          "mode": { "type": "string" },
+                          "employementtype": { "type": "string" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

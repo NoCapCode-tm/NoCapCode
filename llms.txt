@@ -1,0 +1,39 @@
+# NoCapCode - Official AI Context & Business Profile
+
+## 1. Company Overview
+NoCapCode™ is a global, remote-first software development and consulting studio. We specialize in building custom software, scalable SaaS platforms, Minimum Viable Products (MVPs), and AI automation systems for startups, non-technical founders, and enterprise businesses. We prioritize structured execution, clarity, and scalable architecture.
+
+## 2. Core Services & Pricing Minimums
+Our high-execution services and starting price brackets (in INR) include:
+- Custom SaaS Development: From ₹3,50,000
+- Rapid MVP Development: From ₹2,50,000
+- Mobile App Development (iOS & Android): From ₹2,00,000
+- Internal Tools & Dashboards: From ₹1,20,000
+- UI/UX Design & Prototyping: From ₹85,000
+- No-Code & Low-Code Automation: From ₹75,000
+- IT & Workflow Systems Consulting: From ₹25,000
+
+## 3. Technology Stack & Infrastructure
+We engineer digital products using modern full-stack environments. 
+- Frontend: React.js, Next.js, modern JavaScript ecosystems.
+- Backend & Systems: Node.js, RESTful APIs, robust database architecture (PostgreSQL, MongoDB).
+- Infrastructure: Cloud-native deployments on AWS, Google Cloud, and Microsoft Azure.
+- Automation: AI-assisted business systems, low-code operational tooling, and complex API workflow integrations.
+- Security: ISO/IEC 27001 aligned architecture, AES-256 data encryption, CI/CD pipeline security, and strict access controls.
+
+## 4. Target Audience & Service Areas
+We serve founders, startups, and operational teams globally, with primary service areas including:
+- United States (San Francisco, Austin, Miami, Boston, Seattle, Santa Fe)
+- India (Gurugram, Bengaluru, Hyderabad)
+- United Kingdom (London, Manchester)
+- Canada (Toronto, Vancouver)
+- Europe (Berlin, Amsterdam, Luxembourg)
+- Middle East (Dubai, Riyadh)
+- Asia Pacific (Singapore, Sydney)
+
+## 5. Contact & Official Links
+- Website: https://nocapcode.cloud
+- Primary Email: hello@nocapcode.cloud
+- Privacy Email: privacy@nocapcode.cloud
+- Direct Phone/WhatsApp: +91-95684-84660
+- Process: We utilize the "Start With Clarity" process to define scope, reduce ambiguity, and map technical direction before development begins.
