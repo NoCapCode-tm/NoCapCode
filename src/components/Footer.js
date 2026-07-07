@@ -1,17 +1,15 @@
 import React from 'react';
-import { useNavigate } from "react-router";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import { Instagram, Linkedin } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
 // import useWindowWidth from "./usewindowwidth";
-import styles from "../CSS/Footer.module.css"; // Note: We will handle the CSS next
+import styles from "../CSS/Footer.module.css"; 
 
 const Footer = () => {
-  const navigate = useNavigate();
   // const width = useWindowWidth();
 
   return (
-    
     <footer className={styles.footerWrap}>
        <div className={styles.footerScene}>
         <img src="./internal/footerbg.png" width="100%" height="100%" alt="Footer background" />
@@ -25,10 +23,8 @@ const Footer = () => {
             <h2 className={styles.logo}>NoCapCode™</h2>
             <p className={styles.tagline}>No cap. Built like it's ours.</p>
             <p className={styles.tagline}>We build software systems for teams who care about clarity, ownership, and longevity.</p>
-            {/* Replace your existing socials div with this: */}
             <div className={styles.socials}>
               <span>
-                {/* Added aria-label to tell Google what this link is */}
                 <a href="https://www.linkedin.com/company/nocapcode" rel="noreferrer" target="_blank" aria-label="Visit our LinkedIn page">
                   <Linkedin size={16} color="rgba(190, 190, 190, 1)"/>
                 </a>
@@ -50,31 +46,38 @@ const Footer = () => {
             </div>
           </div>
 
-        
           <div className={styles.right}>
             <div className={styles.col}>
                 <h3>Explore</h3>
+                {/* 
+                  Note: We wrap the text in <Link> tags. 
+                  We use inline styles to inherit your existing CSS so it doesn't look like standard blue underlined text.
+                */}
                 <ul>
-                    {/* Replaced scrollToPage6 with navigate state */}
-                    <li onClick={() => navigate("/", { state: { scrollTo: "service", t: Date.now() } })} style={{ cursor: "pointer" }}>
-                        How We Work
-                        </li>
-                    
-                    <li onClick={() => navigate("/casestudies")} style={{ cursor: "pointer" }}>
-                    Case Studies
+                    <li>
+                        <Link to="/" state={{ scrollTo: "service", t: Date.now() }} style={{ color: "inherit", textDecoration: "none" }}>
+                            How We Work
+                        </Link>
                     </li>
-                    
-                    <li onClick={() => { navigate("/about"); window.scrollTo(0,0); }} style={{ cursor: "pointer" }}>
-                    About NoCapCode
+                    <li>
+                        <Link to="/casestudies" style={{ color: "inherit", textDecoration: "none" }}>
+                            Case Studies
+                        </Link>
                     </li>
-                    
-                    {/* Replaced scrollToPageabout with navigate state */}
-                    <li onClick={() => navigate("/", { state: { scrollTo: "faq", t: Date.now() } })} style={{ cursor: "pointer" }}>
-                      FAQs
+                    <li>
+                        <Link to="/about" onClick={() => window.scrollTo(0,0)} style={{ color: "inherit", textDecoration: "none" }}>
+                            About NoCapCode
+                        </Link>
                     </li>
-                    
-                    <li onClick={() => navigate("/clarity")} style={{ cursor: "pointer" }}>
-                    Start with Clarity
+                    <li>
+                        <Link to="/" state={{ scrollTo: "faq", t: Date.now() }} style={{ color: "inherit", textDecoration: "none" }}>
+                            FAQs
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/clarity" style={{ color: "inherit", textDecoration: "none" }}>
+                            Start with Clarity
+                        </Link>
                     </li>
                 </ul>
             </div>
@@ -82,10 +85,12 @@ const Footer = () => {
             <div className={styles.col}>
               <h3>Company</h3>
               <ul>
-                <li onClick={()=>{
-                  navigate("/careers")}} style={{ cursor: "pointer" }}>Careers</li>
-                <li onClick={()=>{
-                  navigate("/contact")}} style={{ cursor: "pointer" }}>Contact</li>
+                <li>
+                    <Link to="/careers" style={{ color: "inherit", textDecoration: "none" }}>Careers</Link>
+                </li>
+                <li>
+                    <Link to="/contact" style={{ color: "inherit", textDecoration: "none" }}>Contact</Link>
+                </li>
               </ul>
               <p>
                  Santa Fe NM 87501,<span className={styles.mobileBreak}></span> United States
@@ -98,15 +103,14 @@ const Footer = () => {
            <p>© 2024-{String(new Date().getFullYear()).slice(-2)} NoCapCode. All rights reserved. <br/>Built with restraint, responsibility, and long-term thinking.</p>
 
           <div className={styles.links}>
-            <span onClick={()=>{navigate("/terms")}} style={{ cursor: "pointer" }}>Terms of Service</span>
-            <span onClick={()=>{navigate("/privacy")}} style={{ cursor: "pointer" }}>Privacy Policy</span>
-            <span onClick={()=>{ navigate("/security"); }} style={{ cursor: "pointer" }}>Trust & Security</span>
+            <span><Link to="/terms" style={{ color: "inherit", textDecoration: "none" }}>Terms of Service</Link></span>
+            <span><Link to="/privacy" style={{ color: "inherit", textDecoration: "none" }}>Privacy Policy</Link></span>
+            <span><Link to="/security" style={{ color: "inherit", textDecoration: "none" }}>Trust & Security</Link></span>
           </div>
         </div>
       </div>
     </footer>
-
-    );
+  );
 };
 
 export default Footer;
