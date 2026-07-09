@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from "../CSS/Certificate.module.css";
-import { Download, Share, Share2 } from 'lucide-react';
+import { Download, Share2 } from 'lucide-react';
 import { useParams } from 'react-router';
 import { useEffect } from 'react';
 import axios from 'axios';

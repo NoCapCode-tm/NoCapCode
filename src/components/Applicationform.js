@@ -57,7 +57,7 @@ const Applicationform = () => {
           phonenumber:formData.phone,
           dob:formData.dob,
           gender:formData.gender,
-           other: otherLinks,
+          other: otherLinks,
           jobId:id,
         })
         toast.success("Application Form Submitted Successfully")
