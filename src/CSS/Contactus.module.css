@@ -1,436 +1,473 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap");
 
-.contact {
+.pageContainer {
   min-height: 100vh;
   width: 100%;
-  padding: 20px 40px;
-  background:
-    radial-gradient(
-      ellipse 80% 20% at 50% 40%,
-      rgba(34, 70, 255, 0.45) 0%,
-      rgba(20, 40, 200, 0.12) 45%,
-      transparent 70%
-    ),
-    #000;
+  background: #030305;
+  background-image: radial-gradient(circle at 15% 20%, rgba(34, 70, 255, 0.12) 0%, transparent 40%),
+                    radial-gradient(circle at 85% 80%, rgba(34, 70, 255, 0.06) 0%, transparent 40%);
   color: white;
   position: relative;
   font-family: "Outfit", sans-serif;
-  overflow: hidden;
+  overflow-x: hidden;
+  padding-top: 140px;
+  padding-bottom: 100px;
 }
 
-.shaderBg {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
+/* ─── TYPOGRAPHY GLOBALS ─── */
+.miniHeader {
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 16px;
 }
 
-/* top thin rectangle */
-.topOutline {
-  position: absolute;
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 70%;
-  height: 44px;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  opacity: 0.4;
-}
-
-.wrapper {
-  width: 100%;
-  margin: 0 auto;
-  gap: 80px;
+/* ─── HERO SECTION ─── */
+.heroSection {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  margin-top: 120px;
-  padding: 0px 40px;
+  max-width: 1200px;
+  margin: 0 auto 140px auto;
+  padding: 0 40px;
+  gap: 60px;
 }
 
-/* ─── LEFT HEADER TEXT ─── */
-.left {
-  text-align: center;
+.heroLeft {
+  flex: 1;
+  max-width: 520px;
 }
 
-.cont {
-  font-size: 24px; /* Scaled down to match design */
-  font-weight: 400;
-  font-family: "Outfit", sans-serif;
-  margin-bottom: 20px;
-  color: #fff;
-}
-
-.left h1 {
+.heroLeft h1 {
   font-size: 64px;
-  font-weight: 500;
-  font-family: "Outfit", sans-serif;
-  margin-bottom: 10px;
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  letter-spacing: -1px;
 }
 
-.left h1 span {
+.heroLeft h1 span {
   color: #2246FF;
 }
 
-.left p {
-  font-size: 20px;
-  color: rgba(255, 255, 255, 0.75);
+.heroLeft p {
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.65);
   line-height: 1.6;
-  font-family: "Outfit", sans-serif;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
 }
 
-/* ─── RIGHT FORM CARD ─── */
-.formCard {
-  background: rgba(10, 12, 20, 0.4); /* Darker glass background */
-  border: 1.5px solid rgba(34, 70, 255, 0.6); /* Precise neon blue border */
-  border-radius: 14px;
-  padding: 28px 80px;
-  backdrop-filter: blur(14px);
-  margin: 0px auto;
-  max-width: 900px; /* Constrain width */
-  margin-bottom: 100px;
-  box-shadow:
-    0 0 40px 10px rgba(34, 70, 255, 0.25), /* Outer glow */
-    inset 0 0 20px rgba(34, 70, 255, 0.1); /* Inner glow */
-  position: relative;
-  z-index: 1;
-}
-
-/* ─── FORM HEADER INFO ─── */
-.formHeader {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
-  margin-bottom: 30px;
-}
-
-.emailInfo,
-.locInfo {
+/* Team Status */
+.teamStatus {
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 0px 20px;
-  justify-content: center;
 }
 
-.headerDivider {
-  width: 1px;
-  height: 52px;
-  background: rgba(255, 255, 255, 0.25);
-  margin: 0 16px;
-  flex-shrink: 0;
-}
-
-.iconBox {
+.avatarGroup {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.05);
-  color: rgba(255, 255, 255, 0.85);
-  flex-shrink: 0;
 }
 
-.infoText {
+.avatarGroup img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #030305;
+  margin-left: -12px;
+}
+.avatarGroup img:first-child {
+  margin-left: 0;
+}
+
+.statusText {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  text-align: left;
 }
 
-.infoLabel {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.5);
-  font-weight: 400;
-}
-
-.infoValue {
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.92);
+.online {
+  font-size: 14px;
   font-weight: 600;
-}
-
-.infoSub {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.45);
-  font-weight: 400;
-}
-
-/* ─── FORM INPUTS ─── */
-.formCard form {
-  display: flex;
-  border: 1px solid rgba(255, 255, 255, 0.08); /* Subtle inner box border */
-  background: rgba(0, 0, 0, 0.2);
-  padding: 30px 40px;
-  border-radius: 14px;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.formRow {
-  display: flex;
-  gap: 32px;
-}
-
-.formGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex: 1;
-  text-align: left;
-}
-
-.formCard label {
-  font-size: 14px;
-  font-weight: 500;
   color: #fff;
-}
-
-.formCard input,
-.formCard textarea {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 6px;
-  padding: 14px 16px;
-  color: white;
-  font-size: 14px;
-  outline: none;
-  transition: border 0.3s ease;
-}
-
-.formCard input:focus,
-.formCard textarea:focus {
-  border-color: #2246FF;
-}
-
-.formCard textarea {
-  min-height: 160px;
-  resize: none;
-}
-
-.formCard input::placeholder,
-.formCard textarea::placeholder {
-  color: rgba(255, 255, 255, 0.45);
-}
-
-/* ─── SUBMIT BUTTON ─── */
-.btnWrapper {
   display: flex;
-  justify-content: center;
-  margin-top: 10px;
+  align-items: center;
+  gap: 6px;
+}
+.online::before {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 8px;
+  background-color: #22c55e;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
 }
 
-.formCard button {
-  height: 44px;
-  width: 320px;
-  border-radius: 22px;
-  border: none;
+.responseTime {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Hero Right - Form Card */
+.heroRight {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.conversationalCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 60px 48px;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.conversationalCard::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 40px;
+  width: 80px;
+  height: 2px;
   background: #2246FF;
+  border-radius: 2px;
+}
+
+.conversationalCard h2 {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 28px;
+  line-height: 1.4;
+}
+
+.inputWrapper {
+  display: flex;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 6px;
+  transition: border-color 0.3s ease;
+}
+.inputWrapper:focus-within {
+  border-color: rgba(34, 70, 255, 0.4);
+}
+
+.inputWrapper input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 12px 14px;
   color: white;
   font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-  font-family: "Outfit", sans-serif;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  outline: none;
+}
+.inputWrapper input::placeholder {
+  color: rgba(255, 255, 255, 0.25);
 }
 
-.formCard button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(34, 70, 255, 0.45);
+.inputWrapper button {
+  background: #2246FF;
+  border: none;
+  width: 44px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.inputWrapper button:hover {
   background: #3355FF;
 }
 
+.textareaWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.textareaWrapper textarea {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 16px;
+  color: white;
+  font-size: 15px;
+  outline: none;
+  min-height: 130px;
+  resize: none;
+  font-family: inherit;
+  line-height: 1.5;
+}
+.textareaWrapper textarea:focus {
+  border-color: rgba(34, 70, 255, 0.4);
+}
+.submitRow {
+  display: flex;
+  gap: 12px;
+}
+.backBtn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.backBtn:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+.submitBtn {
+  flex: 1;
+  background: #2246FF;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 15px;
+  transition: background 0.2s;
+}
+.submitBtn:hover {
+  background: #3355FF;
+}
 
-/* ─── RESPONSIVE ──────────────────────────────────────────── */
+/* ─── ADVANTAGES SECTION ─── */
+.advantagesSection {
+  max-width: 1200px;
+  margin: 0 auto 160px auto;
+  padding: 0 40px;
+  text-align: center;
+}
 
-/* Tablet: 1024px and below */
+.sectionHeader {
+  margin-bottom: 60px;
+}
+.sectionHeader h2 {
+  font-size: 38px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+.advantagesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.advCard {
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  padding: 44px 32px;
+  text-align: left;
+  transition: transform 0.3s, background 0.3s, border-color 0.3s;
+}
+.advCard:hover {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(34, 70, 255, 0.2);
+  transform: translateY(-4px);
+}
+
+.advCard .iconBox {
+  width: 44px;
+  height: 44px;
+  background: rgba(34, 70, 255, 0.08);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.advCard h3 {
+  font-size: 19px;
+  margin-bottom: 14px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+.advCard p {
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.6;
+  font-size: 14.5px;
+}
+
+/* ─── JOURNEY SECTION ─── */
+.journeySection {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto 160px auto;
+  padding: 0 40px;
+  gap: 80px;
+}
+
+.journeyLeft {
+  flex: 1;
+  position: sticky;
+  top: 160px;
+  height: fit-content;
+}
+.journeyLeft h2 {
+  font-size: 44px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+.journeyLeft p {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+  max-width: 420px;
+}
+
+.journeyRight {
+  flex: 1.2;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 36px;
+  border-left: 1px solid rgba(34, 70, 255, 0.25);
+}
+
+.timelineItem {
+  position: relative;
+  margin-bottom: 54px;
+}
+.timelineItem:last-child {
+  margin-bottom: 0;
+}
+
+.timelineItem::before {
+  content: '';
+  position: absolute;
+  left: -40.5px; 
+  top: 4px;
+  width: 8px;
+  height: 8px;
+  background: #2246FF;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(34, 70, 255, 0.8);
+}
+
+.phase {
+  font-size: 12px;
+  color: rgba(34, 70, 255, 0.8);
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+  display: block;
+}
+.timelineItem h3 {
+  font-size: 22px;
+  margin-bottom: 12px;
+  font-weight: 500;
+  letter-spacing: -0.3px;
+}
+.timelineItem p {
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.65;
+  font-size: 15px;
+}
+
+/* ─── ACTION CARDS SECTION ─── */
+.actionCardsSection {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.actionCard {
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 36px 24px;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  transition: background 0.3s, border-color 0.3s;
+}
+.actionCard:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.actionIcon {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 20px auto;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.actionCard h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.actionCard p {
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.4;
+}
+
+/* ─── RESPONSIVE ─── */
 @media (max-width: 1024px) {
-  .contact {
-    padding: 20px 24px;
+  .heroSection {
+    flex-direction: column;
+    text-align: center;
   }
-
-  .wrapper {
-    padding: 0 16px;
-  }
-
-  .left h1 {
-    font-size: 48px;
-  }
-
-  .cont {
-    font-size: 20px;
-  }
-
-  .left p {
-    font-size: 17px;
-    margin-bottom: 50px;
-  }
-
-  .formCard {
-    margin: 0 20px;
-    margin-bottom: 80px;
-    padding: 24px 32px;
-  }
-
-  .emailInfo,
-  .locInfo {
-    padding: 0 12px;
-    gap: 12px;
-  }
-
-  .headerDivider {
-    margin: 0 8px;
-  }
-
-  .iconBox {
-    width: 42px;
-    height: 42px;
-  }
-
-  .infoValue {
-    font-size: 14px;
-  }
-
-  .infoLabel,
-  .infoSub {
-    font-size: 11px;
-  }
-
-  .formCard form {
-    padding: 20px 24px;
-  }
-
-  .formRow {
-    gap: 20px;
-  }
-}
-
-/* Small tablet / large mobile: 768px and below */
-@media (max-width: 768px) {
-  .contact {
-    padding: 20px 16px;
-  }
-
-  .wrapper {
-    padding: 0;
-    margin-top: 100px;
-  }
-
-  .left {
-    width: 100%;
+  .heroLeft {
+    margin-bottom: 40px;
     max-width: 100%;
-    padding: 0 8px;
   }
-
-  .cont {
-    font-size: 18px;
-    margin-bottom: 16px;
+  .teamStatus {
+    justify-content: center;
   }
-
-  .left h1 {
-    font-size: 36px;
-    margin-bottom: 12px;
-  }
-
-  .left p {
-    font-size: 15px;
-    margin-bottom: 40px;
-  }
-
-  .formCard {
-    margin: 0 10px 60px;
-    padding: 24px 20px;
-  }
-
-  .formHeader {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-
-  .headerDivider {
+  .heroRight {
     width: 100%;
-    height: 1px;
-    margin: 0;
+    justify-content: center;
   }
-
-  .emailInfo,
-  .locInfo {
-    justify-content: flex-start;
-    padding: 0;
-    gap: 12px;
+  .advantagesGrid {
+    grid-template-columns: 1fr;
   }
-
-  .iconBox {
-    width: 40px;
-    height: 40px;
-  }
-
-  .formCard form {
-    padding: 16px;
-    gap: 16px;
-  }
-
-  .formRow {
+  .journeySection {
     flex-direction: column;
-    gap: 16px;
+    gap: 40px;
   }
-
-  .formCard textarea {
-    min-height: 120px;
+  .journeyLeft {
+    position: static;
   }
-
-  .formCard button {
-    width: 100%;
-    max-width: 320px;
+  .actionCardsSection {
+    grid-template-columns: 1fr;
   }
 }
 
-/* Mobile: 480px and below */
-@media (max-width: 480px) {
-  .contact {
-    padding: 16px 12px;
+@media (max-width: 768px) {
+  .heroLeft h1 {
+    font-size: 46px;
   }
-
-  .left h1 {
-    font-size: 28px;
+  .heroSection, .advantagesSection, .journeySection, .actionCardsSection {
+    padding: 0 20px;
   }
-
-  .left p {
-    font-size: 14px;
-    margin-bottom: 32px;
-  }
-
-  .formCard {
-    padding: 20px 14px;
-    border-radius: 12px;
-    margin-bottom: 40px;
-  }
-
-  .formCard form {
-    padding: 16px 12px;
-  }
-
-  .infoValue {
-    font-size: 13px;
-  }
-}
-
-/* Very small: 375px and below */
-@media (max-width: 375px) {
-  .left h1 {
-    font-size: 24px;
-  }
-
-  .formCard {
-    padding: 16px 10px;
-  }
-
-  .formCard form {
-    padding: 12px 10px;
+  .conversationalCard {
+    padding: 40px 24px;
   }
 }
