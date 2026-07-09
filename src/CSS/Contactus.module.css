@@ -58,6 +58,7 @@
   color: rgba(255, 255, 255, 0.65);
   line-height: 1.6;
   margin-bottom: 40px;
+  letter-spacing: 1px;
 }
 
 /* Team Status */
@@ -160,6 +161,7 @@
 
 .inputWrapper input {
   flex: 1;
+  width: 100%;
   background: transparent;
   border: none;
   padding: 12px 14px;
@@ -260,13 +262,17 @@
 
 .advantagesGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
+  
+
 }
 
 .advCard {
-  background: rgba(255, 255, 255, 0.01);
-  border: 1px solid rgba(255, 255, 255, 0.04);
+ border: 1px solid #FFFFFF1A;
+  background: #FFFFFF08;
+
+  /* backdrop-filter: blur(20px); */
   border-radius: 16px;
   padding: 44px 32px;
   text-align: left;
@@ -299,6 +305,7 @@
   color: rgba(255, 255, 255, 0.55);
   line-height: 1.6;
   font-size: 14.5px;
+  letter-spacing: 1px;
 }
 
 /* ─── JOURNEY SECTION ─── */
@@ -325,6 +332,7 @@
 }
 .journeyLeft p {
   font-size: 16px;
+  letter-spacing: 1px;
   color: rgba(255, 255, 255, 0.6);
   line-height: 1.6;
   max-width: 420px;
@@ -378,12 +386,13 @@
   color: rgba(255, 255, 255, 0.55);
   line-height: 1.65;
   font-size: 15px;
+  letter-spacing: 1px;
 }
 
 /* ─── ACTION CARDS SECTION ─── */
 .actionCardsSection {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
   max-width: 1100px;
   margin: 0 auto;
@@ -391,8 +400,8 @@
 }
 
 .actionCard {
-  background: rgba(255, 255, 255, 0.015);
-  border: 1px solid rgba(255, 255, 255, 0.03);
+  border: 1px solid #FFFFFF1A;
+  background: #FFFFFF08;
   border-radius: 12px;
   padding: 36px 24px;
   text-align: center;
@@ -426,6 +435,7 @@
   font-size: 13.5px;
   color: rgba(255, 255, 255, 0.45);
   line-height: 1.4;
+  letter-spacing: 1px;
 }
 
 /* ─── RESPONSIVE ─── */
@@ -445,9 +455,9 @@
     width: 100%;
     justify-content: center;
   }
-  .advantagesGrid {
+  /* .advantagesGrid {
     grid-template-columns: 1fr;
-  }
+  } */
   .journeySection {
     flex-direction: column;
     gap: 40px;
@@ -455,9 +465,9 @@
   .journeyLeft {
     position: static;
   }
-  .actionCardsSection {
+  /* .actionCardsSection {
     grid-template-columns: 1fr;
-  }
+  } */
 }
 
 @media (max-width: 768px) {
