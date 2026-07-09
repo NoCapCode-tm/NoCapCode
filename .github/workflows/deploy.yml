@@ -34,3 +34,5 @@ jobs:
           ci_cd_token: ${{ secrets.ci_cd_token }}
           publish_dir: ./build
           cname: nocapcode.cloud
+
+          
