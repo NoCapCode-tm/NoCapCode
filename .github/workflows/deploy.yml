@@ -31,8 +31,7 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
-          ci_cd_token: ${{ secrets.ci_cd_token }}
+          personal_token: ${{ secrets.personal_token }}
           publish_dir: ./build
           cname: nocapcode.cloud
 
-          
