@@ -130,7 +130,7 @@ const Contactus = () => {
               </div>
               <div className={styles.statusText}>
                 <span className={styles.online}>Team is online</span>
-                <span className={styles.responseTime}>Response Time: &lt; 2 hours</span>
+                <span className={styles.responseTime}>Response Time: &lt; 12 hours</span>
               </div>
             </div>
           </div>
