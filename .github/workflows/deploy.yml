@@ -1,4 +1,4 @@
-name: Automated Production Deployment (CI/CD)
+name: Production Deployment (CI/CD)
 
 on:
   push:
