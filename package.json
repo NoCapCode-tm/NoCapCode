@@ -40,7 +40,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && react-snap",
+    "build": "cross-env PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=false react-scripts build && react-snap",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build -t",
     "test": "react-scripts test",
@@ -69,7 +69,7 @@
     "react-snap": "^1.23.0"
   },
   "reactSnap": {
-
+    "puppeteerExecutablePath": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
     "include": [
       "/",
       "/us",
