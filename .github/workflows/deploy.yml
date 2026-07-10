@@ -17,16 +17,16 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      # 2. Set up Node.js environment with caching enabled for speed
+      # 2. Set up Node.js environment (Upgraded to Node 22 for Puppeteer v25)
       - name: Setup Node.js Environment
         uses: actions/setup-node@v4
         with:
-          node-version: 18 
+          node-version: 22
           cache: 'npm'
 
-      # 3. Clean install dependencies
+      # 3. Install dependencies (Using npm install to bypass lockfile desyncs)
       - name: Install Dependencies
-        run: npm ci
+        run: npm install
 
       # 4. Strip local Windows paths from package.json before building
       - name: Optimize package.json for Linux Environment
