@@ -1194,7 +1194,7 @@ const rightcards = [
     { src: "/collab/Byjus.png" },
     { src: "/collab/Bajaj.png" },
     { src: "/collab/Terranova.png" },
-    { src: "/collab/Qasper Agro.png" },
+    // { src: "/collab/Qasper Agro.png" },
   ];
 
 
