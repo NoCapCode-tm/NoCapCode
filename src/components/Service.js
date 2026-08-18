@@ -86,7 +86,7 @@ export default function Service() {
         }
     try {
       setLoading(true);
-      const response = await axios.post("https://nocapcode-backend-hapd.onrender.com/api/v1/job/seedSpace", {
+      const response = await axios.post("https://nocapcode-backend.onrender.com/api/v1/job/seedSpace", {
         businessName: trimmedBusinessName,
         name: trimmedName,
         phone: trimmedPhone,

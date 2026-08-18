@@ -186,7 +186,7 @@ useEffect(() => {
       setLoading(true);
       try {
         const response = await axios.get(
-          "https://nocapcode-backend-hapd.onrender.com/api/v1/job/getallcasestudy",
+          "https://nocapcode-backend.onrender.com/api/v1/job/getallcasestudy",
           { withCredentials: true }
         );
         // Only show live database items to human visitors
