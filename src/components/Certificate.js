@@ -120,23 +120,6 @@ const Certificate = () => {
           {/* Left Section */}
           <div className={styles.left}>
             
-            {/* Internship Info Card */}
-            <div className={styles.internshipCard}>
-              <div className={styles.logoBox}>
-                <img src="/Credlogo.png" alt="NoCapCode" width="100%" height="100%" />
-              </div>
-              <div className={styles.metadata}>
-                <h3>{user?.role} Internship</h3>
-                <p className={styles.company}>NoCapCode</p>
-                <div className={styles.meta}>
-                  <span>{user?.department} Department</span>
-                  <span className={styles.pipe}>|</span>
-                  <span>{duration} Month Duration</span>
-                  <span className={styles.pipe}>|</span>
-                  <span>{user?.workdetails?.mode || "Remote"}</span>
-                </div>
-              </div>
-            </div>
 
             {/* Performance & Skills Card */}
             <div className={styles.skillsSection}>
