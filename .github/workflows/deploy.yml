@@ -28,8 +28,8 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # 4. Optimize package.json AND Inject Dynamic SEO Routes
-      - name: Inject Dynamic Routes & Fix React-Snap Config
+      # 4. Optimize package.json, Inject Routes, and Neutralize 404.html
+      - name: Inject Dynamic Routes & Neutralize 404.html
         run: |
           node -e "
           const fs = require('fs');
@@ -48,6 +48,14 @@ jobs:
 
           async function processPackage() {
             try {
+              // --- 1. NEUTRALIZE 404.HTML FOR REACT-SNAP ---
+              // Backup the real 404 file containing the SPA redirect script
+              fs.copyFileSync('public/404.html', 'public/404-backup.html');
+              // Overwrite public/404.html with a safe, blank HTML file to prevent crawler crash
+              fs.writeFileSync('public/404.html', '<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>404</title></head><body></body></html>');
+              console.log('Backed up and neutralized 404.html');
+
+              // --- 2. UPDATE PACKAGE.JSON ---
               const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
               
               if (!pkg.reactSnap) pkg.reactSnap = {};
@@ -57,11 +65,9 @@ jobs:
                 delete pkg.reactSnap.puppeteerExecutablePath;
               }
 
-              // --- CRITICAL FIX: Ignore 404.html redirect script which breaks React.lazy CSS chunks ---
               pkg.reactSnap.ignoreBrowserErrors = true;
               pkg.reactSnap.skipThirdPartyRequests = true;
               pkg.reactSnap.puppeteerArgs = ['--no-sandbox', '--disable-setuid-sandbox'];
-              pkg.reactSnap.exclude = ['/404.html', '/404'];
 
               // Fetch dynamic Job IDs from production backend
               const jobsRes = await fetchJson('https://nocapcode-backend.onrender.com/api/v1/job/getjobs');
@@ -88,7 +94,7 @@ jobs:
               pkg.reactSnap.include = [...new Set(pkg.reactSnap.include)];
               
               fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
-              console.log('Successfully injected dynamic SEO routes and excluded 404.html from crawler.');
+              console.log('Successfully injected dynamic SEO routes.');
             } catch (err) {
               console.error('Error modifying package.json:', err);
               process.exit(1);
@@ -103,8 +109,8 @@ jobs:
         env:
           CI: false # Prevents warnings from being treated as fatal compilation errors
 
-      # 6. Generate Dynamic Sitemap from compiled HTML files
-      - name: Generate Dynamic Sitemap
+      # 6. Generate Dynamic Sitemap and Restore 404.html
+      - name: Generate Dynamic Sitemap & Restore 404.html
         run: |
           node -e "
           const fs = require('fs');
@@ -113,6 +119,14 @@ jobs:
           const baseUrl = 'https://nocapcode.cloud';
           const buildDir = path.join(process.cwd(), 'build');
           
+          // --- RESTORE 404.HTML ---
+          // Bring back the SPA redirect script so GitHub Pages routing works correctly
+          if (fs.existsSync('public/404-backup.html')) {
+            fs.copyFileSync('public/404-backup.html', path.join(buildDir, '404.html'));
+            console.log('Successfully restored 404.html redirect script.');
+          }
+
+          // --- GENERATE SITEMAP ---
           const walkSync = (dir, filelist = []) => {
             if (!fs.existsSync(dir)) return filelist;
             const files = fs.readdirSync(dir);
@@ -120,7 +134,7 @@ jobs:
               const filepath = path.join(dir, file);
               if (fs.statSync(filepath).isDirectory()) {
                 filelist = walkSync(filepath, filelist);
-              } else if (filepath.endsWith('.html') && !filepath.endsWith('404.html') && !filepath.endsWith('404_2.html')) {
+              } else if (filepath.endsWith('.html') && !filepath.endsWith('404.html') && !filepath.endsWith('404-backup.html') && !filepath.endsWith('404_2.html')) {
                 filelist.push(filepath);
               }
             }
