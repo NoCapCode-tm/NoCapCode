@@ -73,9 +73,16 @@ jobs:
               const portfolioItems = portfolioRes.message || [];
               const portfolioRoutes = portfolioItems.map(p => '/portfolio/' + (p._id || p.title));
               
+              // Explicitly push the bespoke static routes to guarantee pre-rendering
+              const bespokeRoutes = [
+                '/portfolio/website-design/medvitals-ai-triage',
+                '/portfolio/logo-redesign/symbol-of-identity',
+                '/portfolio/logo-redesign/axon-human-connection'
+              ];
+
               // Push all dynamic routes into react-snap includes
               if(!pkg.reactSnap.include) pkg.reactSnap.include = [];
-              pkg.reactSnap.include.push(...jobRoutes, ...portfolioRoutes, '/portfolio');
+              pkg.reactSnap.include.push(...jobRoutes, ...portfolioRoutes, ...bespokeRoutes, '/portfolio');
               
               // Remove any duplicates
               pkg.reactSnap.include = [...new Set(pkg.reactSnap.include)];
