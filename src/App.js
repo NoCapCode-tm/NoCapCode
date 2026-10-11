@@ -63,8 +63,16 @@ function AppWrapper() {
   const [loading, setLoading] = useState(false);
   const [notFound, setNotFound] = useState(false);
 
-  //  Route change pe loader trigger
+  // Route change pe loader trigger
   React.useEffect(() => {
+    // Detect if the crawler is rendering the page
+    const isReactSnap = navigator.userAgent === 'ReactSnap';
+
+    if (isReactSnap) {
+      setLoading(false); // Instantly show content to the crawler
+      return;
+    }
+
     setLoading(true);
 
     const timer = setTimeout(() => {
@@ -138,8 +146,6 @@ export default function App() {
         icon={false}
         hideProgressBar={true}
       />
-
     </>
-
   );
 }
