@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
-import styles from './LogoProjectOne.module.css';
+import styles from '../../CSS/LogoProjectOne.module.css';
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -44,7 +44,21 @@ const WebsiteProjectOne = () => {
   return (
     <div className={styles.wrapper} ref={containerRef}>
       <Helmet>
-        <title>Symbol of Identity | NoCapCode Portfolio</title>
+        <title>Symbol of Identity | Brand Architecture | NoCapCode</title>
+        <meta name="description" content="A complete brand architecture and visual identity redesign transforming a traditional institution into a modern hub for skill-based education." />
+        <link rel="canonical" href="https://nocapcode.cloud/portfolio/logo-redesign/symbol-of-identity" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CreativeWork",
+            "headline": "Symbol of Identity - Brand Architecture",
+            "description": "A complete brand architecture and visual identity redesign for a skill-based education hub.",
+            "image": "https://nocapcode.cloud/portfolio-assets/new-logo-gold.svg",
+            "author": { "@type": "Organization", "@id": "https://nocapcode.cloud/#organization" },
+            "publisher": { "@type": "Organization", "@id": "https://nocapcode.cloud/#organization" },
+            "url": "https://nocapcode.cloud/portfolio/logo-redesign/symbol-of-identity"
+          })}
+        </script>
       </Helmet>
 
       <Navbar />

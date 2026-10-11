@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
-import styles from './LogoProjectTwo.module.css';
+import styles from '../../CSS/LogoProjectTwo.module.css';
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -40,7 +40,21 @@ const LogoProjectTwo = () => {
   return (
     <div className={styles.wrapper} ref={containerRef}>
       <Helmet>
-        <title>Human Connection | NoCapCode Portfolio</title>
+        <title>AXON Human Connection | Visual Identity | NoCapCode</title>
+        <meta name="description" content="Evolving AXON's brand from a rigid system to a smart, fluid hub built around human connection and intuitive product design." />
+        <link rel="canonical" href="https://nocapcode.cloud/portfolio/logo-redesign/axon-human-connection" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CreativeWork",
+            "headline": "AXON - A Smarter Human Connection",
+            "description": "Brand transformation shifting AXON from a technical utility to a vibrant, user-centric ecosystem.",
+            "image": "https://nocapcode.cloud/portfolio-assets/axon-new-logo-glow.jpg",
+            "author": { "@type": "Organization", "@id": "https://nocapcode.cloud/#organization" },
+            "publisher": { "@type": "Organization", "@id": "https://nocapcode.cloud/#organization" },
+            "url": "https://nocapcode.cloud/portfolio/logo-redesign/axon-human-connection"
+          })}
+        </script>
       </Helmet>
 
       <Navbar />

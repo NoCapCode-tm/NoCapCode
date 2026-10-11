@@ -86,9 +86,10 @@ const Portfolio = () => {
           {activeTab === "Logo Redesign" && (
             <>
               {/* LOGO PROJECT 1: Symbol of Identity */}
-              <div className={styles.caseCard} onClick={() => navigate('/portfolio/logo-redesign/symbol-of-identity-branding')}>
+              {/* LOGO PROJECT 1: Symbol of Identity */}
+              <div className={styles.caseCard} onClick={() => navigate('/portfolio/logo-redesign/symbol-of-identity')}>
                 <div className={styles.caseImage}>
-                  <img src="/portfolio-assets/new-logo-gold.svg" alt="Symbol of Identity" style={{ backgroundColor: '#122115', objectFit: 'contain', padding: '40px' }} />
+                  <img src="/portfolio-assets/new-logo-gold.svg" alt="Symbol of Identity" style={{ backgroundColor: '#101c13', objectFit: 'contain', padding: '40px' }} />
                   <span className={styles.caseArrow}><span className={styles.arrowOut}>↗</span><span className={styles.arrowIn}>↗</span></span>
                 </div>
                 <div className={styles.caseContent}>
@@ -100,7 +101,7 @@ const Portfolio = () => {
               <div className={styles.caseCard} onClick={() => navigate('/portfolio/logo-redesign/axon-human-connection')}>
                 <div className={styles.caseImage}>
                   {/* Using the glowing AXON asset on a black background to match the project */}
-                  <img src="/portfolio-assets/axon-new-logo-glow.jpg" alt="AXON Human Connection" style={{ backgroundColor: '#050505', objectFit: 'cover' }} />
+                  <img src="/portfolio-assets/axon-new-logo-glow.png" alt="AXON Human Connection" style={{ backgroundColor: '#050505', objectFit: 'contain', padding: '60px' }} />
                   <span className={styles.caseArrow}><span className={styles.arrowOut}>↗</span><span className={styles.arrowIn}>↗</span></span>
                 </div>
                 <div className={styles.caseContent}>
