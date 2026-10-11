@@ -1,4 +1,4 @@
-import React, { useState, Suspense, lazy } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import AnimatedBackground from "./components/AnimatedBackground";
 import PageLoader from "./components/PageLoader";
@@ -7,32 +7,32 @@ import { ToastContainer } from "react-toastify";
 import { BrowserRouter, Route, Routes, useLocation, useParams, Navigate } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 
-// --- SYNCHRONOUS IMPORTS (Core Pages - Prevents react-snap ChunkLoadErrors) ---
+// --- STANDARD IMPORTS (Works perfectly with react-snap) ---
 import About from "./components/About";
 import Portfolio from "./components/Portfolio";
+import ProjectDetail from "./components/ProjectDetail";
 import NotFound from "./components/NotFound";
 import Condition from "./components/Condition";
 import Privacy from "./components/Privacy";
-import Contactus from "./components/Contactus";
-import Service from "./components/Service";
 import CareersPage from "./components/CareersPage";
+import ClarityForm from "./components/ClarityForm";
+import AddCaseStudy from "./components/AddCaseStudy";
+import Addjobposting from "./components/JobPosting";
+import AdminLogin from "./components/AdminLogin";
+import Jobdetailspage from "./components/Jobdetailspage";
+import Applicationform from "./components/Applicationform";
+import Home from "./components/Home";
+import Verify from "./components/Verify";
+import Certificate from "./components/Certificate";
+import Contactus from "./components/Contactus";
+import Addcertificate from "./components/Addcertificate";
+import Service from "./components/Service";
+import Security from "./components/Security";
 
-// --- LAZY LOADED IMPORTS (Heavy Projects & Admin - Optimizes Performance) ---
-const WebsiteProjectOne = lazy(() => import("./components/website/WebsiteProjectOne"));
-const LogoProjectOne = lazy(() => import("./components/logo/LogoProjectOne"));
-const LogoProjectTwo = lazy(() => import("./components/logo/LogoProjectTwo"));
-const ProjectDetail = lazy(() => import("./components/ProjectDetail"));
-const ClarityForm = lazy(() => import("./components/ClarityForm"));
-const AddCaseStudy = lazy(() => import("./components/AddCaseStudy"));
-const Addjobposting = lazy(() => import("./components/JobPosting"));
-const AdminLogin = lazy(() => import("./components/AdminLogin"));
-const Jobdetailspage = lazy(() => import("./components/Jobdetailspage"));
-const Applicationform = lazy(() => import("./components/Applicationform"));
-const Home = lazy(() => import("./components/Home")); // Admin Home
-const Verify = lazy(() => import("./components/Verify"));
-const Certificate = lazy(() => import("./components/Certificate"));
-const Addcertificate = lazy(() => import("./components/Addcertificate"));
-const Security = lazy(() => import("./components/Security"));
+// Dedicated Portfolio Pages
+import WebsiteProjectOne from "./components/website/WebsiteProjectOne";
+import LogoProjectOne from "./components/logo/LogoProjectOne";
+import LogoProjectTwo from "./components/logo/LogoProjectTwo";
 
 // 1. ADD VALID COUNTRIES LIST
 const validCountries = [
@@ -47,7 +47,7 @@ function NotFoundPage({ setNotFound }) {
     setNotFound(true);
     return () => setNotFound(false);
   }, [setNotFound]);
-  return <NotFound />; // Now loads instantly, preventing the 404 ChunkLoadError
+  return <NotFound />;
 }
 
 // 2. ROUTE WRAPPER TO VALIDATE THE COUNTRY
@@ -60,11 +60,6 @@ function LocalizedRoute({ setNotFound }) {
   
   return <AnimatedBackground />;
 }
-
-// Simple fallback for lazy route transitions
-const RouteFallback = () => (
-  <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#000' }}></div>
-);
 
 function AppWrapper() {
   const location = useLocation();
@@ -96,44 +91,41 @@ function AppWrapper() {
         <div className="App">
           <ScrollToTop />
           
-          <Suspense fallback={<RouteFallback />}>
-            <Routes>
-              {/* Core Routes - Instant Load */}
-              <Route path="/" element={<AnimatedBackground />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contactus />} />
-              <Route path="/services" element={<Service />} />
-              <Route path="/casestudies" element={<Navigate to="/portfolio" replace />} />
-              <Route path="/portfolio" element={<Portfolio />} />
-              <Route path="/terms" element={<Condition />} />
-              <Route path="/privacy" element={<Privacy />} />
-              <Route path="/careers" element={<CareersPage />} />
+          <Routes>
+            <Route path="/" element={<AnimatedBackground />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contactus />} />
+            <Route path="/services" element={<Service />} />
+            
+            {/* Static SEO-Optimized Portfolio Routes */}
+            <Route path="/portfolio/website-design/medvitals-ai-triage" element={<WebsiteProjectOne />} />
+            <Route path="/portfolio/logo-redesign/symbol-of-identity" element={<LogoProjectOne />} />
+            <Route path="/portfolio/logo-redesign/axon-human-connection" element={<LogoProjectTwo />} />
 
-              {/* Static SEO-Optimized Portfolio Routes - Lazy Loaded */}
-              <Route path="/portfolio/website-design/medvitals-ai-triage" element={<WebsiteProjectOne />} />
-              <Route path="/portfolio/logo-redesign/symbol-of-identity" element={<LogoProjectOne />} />
-              <Route path="/portfolio/logo-redesign/axon-human-connection" element={<LogoProjectTwo />} />
+            {/* Dynamic International Route */}
+            <Route path="/:countryCode" element={<LocalizedRoute setNotFound={setNotFound} />} />
+            <Route path="/:countryCode/software-development" element={<LocalizedRoute setNotFound={setNotFound} />} />
+            
+            <Route path="/casestudies" element={<Navigate to="/portfolio" replace />} />
+            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/portfolio/:id" element={<ProjectDetail />} />
 
-              {/* Dynamic International Route */}
-              <Route path="/:countryCode" element={<LocalizedRoute setNotFound={setNotFound} />} />
-              <Route path="/:countryCode/software-development" element={<LocalizedRoute setNotFound={setNotFound} />} />
-              
-              {/* Dynamic & Admin Routes - Lazy Loaded */}
-              <Route path="/portfolio/:id" element={<ProjectDetail />} />
-              <Route path="/addcasestudies" element={<AddCaseStudy />} />
-              <Route path="/careers/:id" element={<Jobdetailspage />} />
-              <Route path="/addjobposting" element={<Addjobposting />} />
-              <Route path="/addcertificate" element={<Addcertificate />} />
-              <Route path="/career/:id/applicationform" element={<Applicationform />} />
-              <Route path="/clarity" element={<ClarityForm />} />
-              <Route path="/verify" element={<Verify />} />
-              <Route path="/verify/certificate/:credid" element={<Certificate />} />
-              <Route path="/adminlogin" element={<AdminLogin />} />
-              <Route path="/adminhome" element={<Home />} />
-              <Route path="/security" element={<Security />} />
-              <Route path="*" element={<NotFoundPage setNotFound={setNotFound} />} />
-            </Routes>
-          </Suspense>
+            <Route path="/addcasestudies" element={<AddCaseStudy />} />
+            <Route path="/terms" element={<Condition />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/careers" element={<CareersPage />} />
+            <Route path="/careers/:id" element={<Jobdetailspage />} />
+            <Route path="/addjobposting" element={<Addjobposting />} />
+            <Route path="/addcertificate" element={<Addcertificate />} />
+            <Route path="/career/:id/applicationform" element={<Applicationform />} />
+            <Route path="/clarity" element={<ClarityForm />} />
+            <Route path="/verify" element={<Verify />} />
+            <Route path="/verify/certificate/:credid" element={<Certificate />} />
+            <Route path="/adminlogin" element={<AdminLogin />} />
+            <Route path="/adminhome" element={<Home />} />
+            <Route path="/security" element={<Security />} />
+            <Route path="*" element={<NotFoundPage setNotFound={setNotFound} />} />
+          </Routes>
 
           {!notFound && (
             <div className="footerHead">
