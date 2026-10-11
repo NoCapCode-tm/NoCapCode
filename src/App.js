@@ -4,10 +4,11 @@ import AnimatedBackground from "./components/AnimatedBackground";
 import PageLoader from "./components/PageLoader";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
-import { BrowserRouter, Route, Routes, useLocation, useParams } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation, useParams, Navigate } from "react-router-dom";
 import About from "./components/About";
 
-import Casestudies from "./components/Casestudies";
+import Portfolio from "./components/Portfolio";
+import ProjectDetail from "./components/ProjectDetail";
 import NotFound from "./components/NotFound";
 import Condition from "./components/Condition";
 import Privacy from "./components/Privacy";
@@ -27,6 +28,9 @@ import Addcertificate from "./components/Addcertificate";
 import Service from "./components/Service";
 import Security from "./components/Security";
 
+// Import your dedicated Logo Redesign pages
+import LogoProjectOne from "./components/logo/LogoProjectOne"; // Symbol of Identity
+import LogoProjectTwo from "./components/logo/LogoProjectTwo"; // AXON Human Connection
 
 // 1. ADD VALID COUNTRIES LIST
 const validCountries = [
@@ -44,13 +48,10 @@ function NotFoundPage({ setNotFound }) {
   return <NotFound />;
 }
 
-
 // 2. ADD THIS ROUTE WRAPPER TO VALIDATE THE COUNTRY
 function LocalizedRoute({ setNotFound }) {
   const { countryCode } = useParams();
   
-  // If the path is something like "/service", it won't be in the validCountries array.
-  // It will immediately return the 404 Page Not Found.
   if (countryCode && !validCountries.includes(countryCode.toLowerCase())) {
     return <NotFoundPage setNotFound={setNotFound} />;
   }
@@ -63,21 +64,18 @@ function AppWrapper() {
   const [loading, setLoading] = useState(false);
   const [notFound, setNotFound] = useState(false);
 
-  // Route change pe loader trigger
   React.useEffect(() => {
-    // Detect if the crawler is rendering the page
     const isReactSnap = navigator.userAgent === 'ReactSnap';
 
     if (isReactSnap) {
-      setLoading(false); // Instantly show content to the crawler
+      setLoading(false); 
       return;
     }
 
     setLoading(true);
-
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1200); // loader duration (match with animation)
+    }, 1200); 
 
     return () => clearTimeout(timer);
   }, [location.pathname]);
@@ -98,14 +96,22 @@ function AppWrapper() {
             <Route path="/" element={<AnimatedBackground />} />
             <Route path="/about" element={<About />} />
 
+            {/* Static SEO-Optimized Portfolio Routes (Both under Logo Redesign) */}
+            <Route path="/portfolio/logo-redesign/symbol-of-identity" element={<LogoProjectOne />} />
+            <Route path="/portfolio/logo-redesign/axon-human-connection" element={<LogoProjectTwo />} />
+
             {/* Dynamic International Route */}
-            {/* Localized versions of your exact same homepage */}
             <Route path="/:countryCode" element={<LocalizedRoute setNotFound={setNotFound} />} />
             <Route path="/:countryCode/software-development" element={<LocalizedRoute setNotFound={setNotFound} />} />
 
             <Route path="/contact" element={<Contactus />} />
             <Route path="/services" element={<Service />} />
-            <Route path="/casestudies" element={<Casestudies />} />
+            
+            {/* Updated Portfolio & Redirect Routes */}
+            <Route path="/casestudies" element={<Navigate to="/portfolio" replace />} />
+            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/portfolio/:id" element={<ProjectDetail />} />
+
             <Route path="/addcasestudies" element={<AddCaseStudy />} />
             <Route path="/terms" element={<Condition />} />
             <Route path="/privacy" element={<Privacy />} />
