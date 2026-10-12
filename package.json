@@ -71,6 +71,14 @@
   },
   "reactSnap": {
     "puppeteerExecutablePath": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
+    "concurrency": 2,
+    "ignoreBrowserErrors": true,
+    "skipThirdPartyRequests": true,
+    "puppeteerArgs": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-web-security"
+    ],
     "include": [
       "/",
       "/us",
@@ -128,17 +136,14 @@
       "/contact",
       "/services",
       "/careers",
-      "/casestudies",
+      "/portfolio",
+      "/portfolio/website-design/medvitals-ai-triage",
+      "/portfolio/logo-redesign/symbol-of-identity",
+      "/portfolio/logo-redesign/axon-human-connection",
       "/clarity",
       "/terms",
       "/privacy",
       "/security"
-    ],
-    "skipThirdPartyRequests": true,
-    "puppeteerArgs": [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--disable-web-security"
     ]
   }
 }
