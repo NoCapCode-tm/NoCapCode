@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import useWindowWidth from "./usewindowwidth";
 
 const Navbar = forwardRef(
-  ({ logoRef, btnTextRef, btnIconRef,serviceRef }, navbarRef) => {
+  ({ logoRef, btnTextRef, btnIconRef, serviceRef }, navbarRef) => {
     const navigate = useNavigate();
     const width = useWindowWidth();
     const [open, setOpen] = useState(false);
@@ -27,25 +27,25 @@ const Navbar = forwardRef(
         <div className={styles.navbar} ref={navbarRef}>
           {/* LOGO – always visible */}
           <div className={styles.logo} ref={logoRef}>
-            <img src="/internal/Companylogo.png" alt="logo" onClick={()=> navigate("/")}/>
+            <img src="/internal/Companylogo.png" alt="logo" onClick={() => navigate("/")} />
           </div>
 
           {/* DESKTOP ONLY */}
           {!isMobile && (
             <>
               <ul className={styles.links}>
-                <li onClick={() => goHome("home")} style={{cursor:"pointer"}}>Home</li>
-                <li onClick={() => navigate("/about")} style={{cursor:"pointer"}}>
+                <li onClick={() => goHome("home")} style={{ cursor: "pointer" }}>Home</li>
+                <li onClick={() => navigate("/about")} style={{ cursor: "pointer" }}>
                   About
                 </li>
-                <li onClick={() => navigate("/services")} style={{cursor:"pointer"}}>Services</li>
-                <li onClick={() => navigate("/casestudies")} style={{cursor:"pointer"}}>Case Studies</li>
+                <li onClick={() => navigate("/services")} style={{ cursor: "pointer" }}>Services</li>
+                <li onClick={() => navigate("/portfolio")} style={{ cursor: "pointer" }}>Portfolio</li>
               </ul>
 
               <button
                 className={styles.navbutt}
                 onClick={() => navigate("/contact")}
-                 style={{cursor:"pointer"}}>
+                style={{ cursor: "pointer" }}>
                 <span ref={btnTextRef} className={styles.btnText}>
                   Get in touch
                 </span>
@@ -81,7 +81,7 @@ const Navbar = forwardRef(
               left: 0,
               width: "100vw",
               background: "rgba(0,0,0,0.7)",
-              backdropFilter:"blur(5px)",
+              backdropFilter: "blur(5px)",
               padding: "24px",
               zIndex: 998,
             }}
@@ -90,22 +90,22 @@ const Navbar = forwardRef(
               style={{
                 listStyle: "none",
                 padding: 0,
-                display:"flex",
-                flexDirection:"column",
-                gap:"10px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "10px",
                 marginBottom: "20px",
                 color: "white",
-                fontFamily:"Outfit, sans-serif",
-                fontSize:"16px"
+                fontFamily: "Outfit, sans-serif",
+                fontSize: "16px"
               }}
             >
-              <li onClick={() => goHome("home")} style={{cursor:"pointer"}}>Home</li>
-              <li onClick={() => navigate("/about")} style={{cursor:"pointer"}}>
+              <li onClick={() => goHome("home")} style={{ cursor: "pointer" }}>Home</li>
+              <li onClick={() => navigate("/about")} style={{ cursor: "pointer" }}>
                 About
               </li>
-              <li onClick={() => navigate("/services")} style={{cursor:"pointer"}}>Services</li>
-              <li onClick={() => navigate("/casestudies")} style={{cursor:"pointer"}}>
-                Case Studies
+              <li onClick={() => navigate("/services")} style={{ cursor: "pointer" }}>Services</li>
+              <li onClick={() => navigate("/portfolio")} style={{ cursor: "pointer" }}>
+                Portfolio
               </li>
             </ul>
 
@@ -121,9 +121,9 @@ const Navbar = forwardRef(
                 alignItems: "center",
                 justifyContent: "center",
                 gap: "8px",
-                fontFamily:"Outfit, sans-serif",
-                fontSize:"16px",
-                cursor:"pointer"
+                fontFamily: "Outfit, sans-serif",
+                fontSize: "16px",
+                cursor: "pointer"
               }}
               onClick={() => navigate("/contact")}
             >
