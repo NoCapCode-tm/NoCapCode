@@ -3,7 +3,7 @@ name: Production Deployment (CI/CD)
 on:
   push:
     branches:
-      - main # Change to 'master' if your primary branch uses the older naming convention
+      - main 
 
 permissions:
   contents: write
@@ -17,7 +17,7 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      # 2. Set up Node.js environment (Upgraded to Node 22 for Puppeteer v25)
+      # 2. Set up Node.js environment
       - name: Setup Node.js Environment
         uses: actions/setup-node@v4
         with:
@@ -58,9 +58,12 @@ jobs:
               
               if (!pkg.reactSnap) pkg.reactSnap = {};
 
-              // --- THE FINAL FIX: USE UBUNTU'S NATIVE MODERN CHROME ---
-              // This prevents SyntaxError: Unexpected token '.' from the outdated fallback browser
+              // --- USE UBUNTU'S NATIVE MODERN CHROME ---
               pkg.reactSnap.puppeteerExecutablePath = '/usr/bin/google-chrome';
+
+              // --- FIX EADDRINUSE PORT COLLISION ---
+              // Bypasses port 45678 in case the GitHub runner is blocking it
+              pkg.reactSnap.port = 8000;
 
               // CRITICAL: Force synchronous crawling and disable GPU to stop memory timeouts
               pkg.reactSnap.concurrency = 1; 
@@ -98,7 +101,7 @@ jobs:
               pkg.reactSnap.include = [...new Set(pkg.reactSnap.include)];
               
               fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
-              console.log('Successfully injected dynamic SEO routes and forced native Chrome.');
+              console.log('Successfully injected dynamic SEO routes and updated crawler port.');
             } catch (err) {
               console.error('Error modifying package.json:', err);
               process.exit(1);
@@ -156,4 +159,21 @@ jobs:
             if (route === '') route = '/';
             
             sitemapContent += '  <url>\n';
-            sitemapContent += \`    <loc>\${baseUrl}\${route === '/' ? '/' : route}</loc>\n
+            sitemapContent += \`    <loc>\${baseUrl}\${route === '/' ? '/' : route}</loc>\n\`;
+            sitemapContent += \`    <lastmod>\${today}</lastmod>\n\`;
+            sitemapContent += '  </url>\n';
+          }
+          
+          sitemapContent += '</urlset>';
+          
+          fs.writeFileSync(path.join(buildDir, 'sitemap.xml'), sitemapContent);
+          console.log('Successfully generated dynamic sitemap.xml with ' + htmlFiles.length + ' URLs');
+          "
+
+      # 7. Securely deploy compiled assets to the target gh-pages branch
+      - name: Deploy Assets to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build
+          branch: gh-pages
+          clean: true
