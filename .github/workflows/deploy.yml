@@ -62,7 +62,6 @@ jobs:
               pkg.reactSnap.puppeteerExecutablePath = '/usr/bin/google-chrome';
 
               // --- FIX EADDRINUSE PORT COLLISION ---
-              // Bypasses port 45678 in case the GitHub runner is blocking it
               pkg.reactSnap.port = 8000;
 
               // CRITICAL: Force synchronous crawling and disable GPU to stop memory timeouts
@@ -158,8 +157,11 @@ jobs:
             route = route.replace('/index.html', '').replace('.html', '');
             if (route === '') route = '/';
             
+            // --- FIX: Format URL with trailing slash for directories to prevent 301 redirects ---
+            const locUrl = (route === '/' || route.endsWith('/')) ? \`\${baseUrl}\${route}\` : \`\${baseUrl}\${route}/\`;
+            
             sitemapContent += '  <url>\n';
-            sitemapContent += \`    <loc>\${baseUrl}\${route === '/' ? '/' : route}</loc>\n\`;
+            sitemapContent += \`    <loc>\${locUrl}</loc>\n\`;
             sitemapContent += \`    <lastmod>\${today}</lastmod>\n\`;
             sitemapContent += '  </url>\n';
           }

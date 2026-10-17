@@ -6,16 +6,17 @@
   <meta http-equiv="Content-Language" content="en" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
 
-  <!-- Core SEO: Title, Desc, and Canonical are now managed exclusively by React Helmet to prevent duplication and canonical conflicts. -->
+  <!-- Core SEO & Indexing -->
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="googlebot" content="index, follow" />
   <meta name="theme-color" content="#0F0F12" />
 
-  <!-- Performance Optimization -->
+  <!-- Performance Optimization: Preconnect & Preload Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <!-- Open Graph & Twitter Base Fallbacks (React Helmet overrides these per page) -->
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Open Graph & Twitter Base Fallbacks -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="NoCapCode" />
   <meta property="og:image" content="https://nocapcode.cloud/internal/og-cover.png" />
@@ -37,7 +38,7 @@
   <meta name="apple-mobile-web-app-title" content="NoCapCode™" />
   <link rel="manifest" href="%PUBLIC_URL%/favicon/site.webmanifest" />
 
-  <!-- Organization & WebSite Base Schema Only (Page-specific schemas moved to React Helmet) -->
+  <!-- Schema.org Base Data -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
