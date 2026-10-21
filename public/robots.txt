@@ -1,36 +1,36 @@
 # https://www.robotstxt.org/robotstxt.html
 
-# 1. Allow standard search engines (Google, Bing, etc.)
+# 1. Allow standard search engines and AI discovery tools
 User-agent: *
 Allow: /
 
-# 2. Block known AI scrapers
+# Allow major AI search and indexing crawlers explicitly
 User-agent: GPTBot
-Disallow: /
+Allow: /
 User-agent: ChatGPT-User
-Disallow: /
+Allow: /
 User-agent: ClaudeBot
-Disallow: /
+Allow: /
 User-agent: Anthropic-ai
-Disallow: /
-User-agent: Applebot-Extended
-Disallow: /
-User-agent: CCBot
-Disallow: /
-User-agent: FacebookBot
-Disallow: /
+Allow: /
 User-agent: PerplexityBot
 Allow: /
 User-agent: Google-Extended
 Allow: /
 
-# Block malicious or aggressive scrapers
+# Block generic or aggressive web scrapers
+User-agent: CCBot
+Disallow: /
+User-agent: FacebookBot
+Disallow: /
+User-agent: Applebot-Extended
+Disallow: /
 User-agent: omgili
 Disallow: /
 User-agent: omgilibot
 Disallow: /
 
-# Point to AI Context Files
+# Point to AI Context & Machine-Readable Files
 Allow: /llms.txt
 Allow: /llms-full.txt
 Allow: /.well-known/mcp/server-card.json

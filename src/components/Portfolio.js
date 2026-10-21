@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
-import { Helmet } from "react-helmet-async";
 import styles from "../CSS/Portfolio.module.css"; 
 import { useGSAP } from "@gsap/react";
 import Navbar from "./Navbar";
 import gsap from "gsap";
 import { useNavigate } from "react-router-dom";
 import Footer from './Footer';
+import SEO from './SEO'; // <-- 1. Import the reusable SEO component
 
 const Portfolio = () => {
   const navigate = useNavigate();
@@ -24,9 +24,11 @@ const Portfolio = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Portfolio | NoCapCode Software & Design Showcase</title>
-      </Helmet>
+      <SEO 
+      title="Portfolio | NoCapCode Software & Design Showcase"
+      description="Explore our production-grade enterprise software projects, SaaS architectures, and high-impact UI/UX designs."
+      canonicalUrl="https://nocapcode.cloud/portfolio"
+      />
 
       <Navbar />
 

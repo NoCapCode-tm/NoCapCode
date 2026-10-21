@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import { ArrowLeft } from 'lucide-react';
 import axios from 'axios';
 import styles from '../CSS/CaseStudyDetail.module.css'; // Reusing existing CSS
 import Navbar from './Navbar';
 import Footer from './Footer';
 import LoaderDots from './LoaderDots';
+import SEO from './SEO'; // <-- 1. Import the reusable SEO component
 
 const ProjectDetail = () => {
   const { id } = useParams();
@@ -18,12 +18,10 @@ const ProjectDetail = () => {
     (async () => {
       try {
         setLoading(true);
-        // Assuming your backend returns all projects, find the specific one by ID or title
         const response = await axios.get(
           "https://nocapcode-backend.onrender.com/api/v1/job/getallcasestudy",
           { withCredentials: true }
         );
-        // Find by ID (adjust if your backend expects title instead)
         const foundProject = response.data.message?.find(p => p._id === id || p.id === id || p.title === id);
         setProject(foundProject);
       } catch (error) {
@@ -39,10 +37,16 @@ const ProjectDetail = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{project.title} | NoCapCode Portfolio</title>
-        <meta name="description" content={project.subtitle} />
-        <link rel="canonical" href={`https://nocapcode.cloud/portfolio/${id}`} />
+      {/* 2. Replace raw Helmet block with the SEO component including full Open Graph, Twitter cards, and Schema */}
+      <SEO 
+        title={`${project.title} | NoCapCode Portfolio`}
+        description={project.subtitle || "Explore enterprise software case studies and architecture breakdowns by NoCapCode."}
+        canonicalUrl={`https://nocapcode.cloud/portfolio/${id}`}
+        image={project.thumbnail || "https://nocapcode.cloud/internal/og-cover.png"}
+      />
+
+      {/* Additional JSON-LD Schema for CreativeWork */}
+
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -54,7 +58,6 @@ const ProjectDetail = () => {
             "url": `https://nocapcode.cloud/portfolio/${id}`
           })}
         </script>
-      </Helmet>
 
       <Navbar />
       

@@ -3,6 +3,7 @@ import styles from "../CSS/Jobdetailspage.module.css";
 import { useNavigate, useParams } from 'react-router';
 import axios from 'axios';
 import { BriefcaseBusiness, Clock, MapPin, User } from 'lucide-react';
+import SEO from './SEO'; // <--- 1. IMPORT THE SEO COMPONENT
 
 const Jobdetailspage = () => {
     const {id} = useParams()
@@ -25,13 +26,21 @@ const Jobdetailspage = () => {
             }
 
         })()
-    },[])
+    },[id])
+
   return (
     <div className={styles.jobdetails}>
        {loading && <p>Loading...</p>}
 
 {job && (
   <div className={styles.container}>
+    {/* --- 2. INJECT DYNAMIC SEO TAGS --- */}
+    <SEO 
+      title={`${job.title} | Careers at NoCapCode`}
+      description={`Apply for the ${job.title} position in our ${job.department || 'Engineering'} department at NoCapCode. Join our elite team.`}
+      canonicalUrl={`https://nocapcode.cloud/careers/${id}`}
+    />
+
     {/* TOP META */}
     <div className={styles.meta}>
             <span><MapPin size={16}/>New Mexico, US</span>

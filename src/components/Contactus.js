@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
-import { Helmet } from "react-helmet-async";
 import styles from "../CSS/Contactus.module.css";
+import SEO from './SEO';
 import { 
   Mail, Calendar, Linkedin, ArrowRight, Zap, Sparkles, ShieldCheck 
 } from "lucide-react";
@@ -100,10 +100,11 @@ const Contactus = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Contact NoCapCode | SaaS, AI Automation & Software Development</title>
-        <meta name="description" content="Contact NoCapCode for enterprise architecture..." />
-      </Helmet>
+      <SEO 
+        title="Contact NoCapCode | SaaS, AI Automation & Software Development"
+        description="Get in touch with NoCapCode to engineer your next enterprise software product, custom web app, or AI automated system."
+        canonicalUrl="https://nocapcode.cloud/contact"
+      />
 
       {loading && <LoaderDots text="Submitting Enquiry" />}
       
