@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
 import styles from '../../CSS/LogoProjectOne.module.css';
@@ -13,10 +12,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 const WebsiteProjectOne = () => {
   const containerRef = useRef(null);
-  const navigate = useNavigate();
 
   useGSAP(() => {
-    // Standard reveal for individual text elements and images
     const reveals = gsap.utils.toArray('.gsap-reveal');
     reveals.forEach((el) => {
       gsap.fromTo(el, 
@@ -28,7 +25,6 @@ const WebsiteProjectOne = () => {
       );
     });
 
-    // Staggered reveal for grid elements (Bento boxes, Monogram icons, etc.)
     const grids = gsap.utils.toArray('.gsap-stagger');
     grids.forEach((grid) => {
       gsap.fromTo(grid.children,
@@ -63,10 +59,7 @@ const WebsiteProjectOne = () => {
 
       <Navbar />
       
-      {/* --- WRAPPER FOR CONTINUOUS GREEN-TO-BLACK TEXTURED GRADIENT --- */}
       <div className={styles.topGradientGroup}>
-        
-        {/* 1. HERO */}
         <section className={`${styles.section} ${styles.hero}`}>
           <span className={`${styles.eyebrow} gsap-reveal`}>BRAND ARCHITECTURE</span>
           <h1 className={`${styles.heroTitle} ${styles.serif} gsap-reveal`}>
@@ -79,7 +72,6 @@ const WebsiteProjectOne = () => {
           </div>
         </section>
 
-        {/* 2. THE CHALLENGE & EVOLUTION */}
         <section className={styles.section}>
           <div className={styles.splitGrid}>
             <div className="splitLeft gsap-reveal">
@@ -113,12 +105,8 @@ const WebsiteProjectOne = () => {
             </div>
           </div>
         </section>
-
       </div> 
-      {/* --- END GRADIENT WRAPPER --- */}
 
-
-      {/* 4. THE MONOGRAM (Solid Black Background) */}
       <section className={`${styles.section} ${styles.bgBlack}`}>
         <div className={`${styles.monogramTop} gsap-reveal`}>
           <div>
@@ -152,7 +140,6 @@ const WebsiteProjectOne = () => {
         </div>
       </section>
 
-      {/* 5. VISUAL SYSTEM (Solid Yellow Background) */}
       <section className={`${styles.section} ${styles.bgYellow}`}>
         <div className={`${styles.sysHeader} gsap-reveal`}>
           <span className={styles.eyebrow}>04. VISUAL SYSTEM</span>
@@ -191,7 +178,6 @@ const WebsiteProjectOne = () => {
         </div>
       </section>
 
-      {/* 6. MOCKUPS (Solid Black Background) */}
       <section className={`${styles.section} ${styles.bgBlack}`}>
         <div className={`${styles.bentoHeader} gsap-reveal`}>
           <div>
@@ -202,19 +188,15 @@ const WebsiteProjectOne = () => {
         </div>
         
         <div className={`${styles.bentoGrid} gsap-stagger`}>
-          {/* Top Row: 4 Columns */}
           <div className={`${styles.bentoItem} ${styles.bentoTop}`}><img src="/portfolio-assets/bento-1.png" alt="Mockup 1" /></div>
           <div className={`${styles.bentoItem} ${styles.bentoTop}`}><img src="/portfolio-assets/bento-2.png" alt="Mockup 2" /></div>
           <div className={`${styles.bentoItem} ${styles.bentoTop}`}><img src="/portfolio-assets/bento-3.png" alt="Mockup 3" /></div>
           <div className={`${styles.bentoItem} ${styles.bentoTop}`}><img src="/portfolio-assets/bento-4.png" alt="Mockup 4" /></div>
-          
-          {/* Bottom Row: 2 Columns */}
           <div className={`${styles.bentoItem} ${styles.bentoBottom}`}><img src="/portfolio-assets/bento-5.png" alt="Mockup 5" /></div>
           <div className={`${styles.bentoItem} ${styles.bentoBottom}`}><img src="/portfolio-assets/bento-6.png" alt="Mockup 6" /></div>
         </div>
       </section>
 
-      {/* 7. THE OUTCOME (Solid Green Footer Background) */}
       <section className={`${styles.bgFooter} ${styles.outcomeGrid}`}>
         <div className={`${styles.outcomeGraphic} gsap-reveal`}>
           <img src="/portfolio-assets/footer-graphic.svg" alt="Concentric Graphic" />

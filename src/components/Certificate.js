@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from "../CSS/Certificate.module.css";
 import { 
   Download, Share2, ArrowLeft, ShieldCheck, Calendar, 
-  Target, Check, FileText, Focus, RotateCcw, Users, ExternalLink 
+  Target, Check, FileText, Focus, RotateCcw, Users 
 } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -19,14 +19,12 @@ const Certificate = () => {
     (end.getFullYear() - start.getFullYear()) * 12 +
     (end.getMonth() - start.getMonth());
 
-  useEffect(()=>{
-    (async()=>{
-      console.log(credid)
-      const response = await axios.get(`https://nocapcode-backend.onrender.com/api/v1/job/getcertificate/${credid}`)
-      console.log(response.data.message)
-      setuser(response.data.message)
-    })()
-  },[])
+  useEffect(() => {
+    (async () => {
+      const response = await axios.get(`https://nocapcode-backend.onrender.com/api/v1/job/getcertificate/${credid}`);
+      setuser(response.data.message);
+    })();
+  }, [credid]);
 
   const handleDownload = async () => {
     const imageUrl = user?.completioncertificate;
@@ -59,7 +57,6 @@ const Certificate = () => {
     <div className={styles.certificatePage}>
       <div className={styles.wrapper}>
         
-        {/* Navigation & Header */}
         <div className={styles.navTop} onClick={() => navigate('/verify')}>
           <ArrowLeft size={16} /> Back to Search
         </div>
@@ -79,7 +76,6 @@ const Certificate = () => {
           </div>
         </div>
 
-        {/* Top Completion Card */}
         <div className={styles.topCard}>
           <div className={styles.profileWrapper}>
             <div className={styles.userCircle}>
@@ -96,17 +92,16 @@ const Certificate = () => {
             <div className={styles.metaRow}>
               <span className={styles.metaItem}>
                 <Calendar size={14} /> 
-                {new Date(user?.startedAt).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })} - {new Date(user?.endAt).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}
+                {user?.startedAt ? new Date(user.startedAt).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }) : ""} - {user?.endAt ? new Date(user.endAt).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }) : ""}
               </span>
               <span className={styles.divider}>|</span>
-              <span className={styles.metaItem}>{duration} Month{duration > 1 ? 's' : ''}</span>
+              <span className={styles.metaItem}>{duration > 0 ? `${duration} Month${duration > 1 ? 's' : ''}` : ''}</span>
               <span className={styles.divider}>|</span>
               <span className={styles.metaItem}>
                 <Target size={14} /> Excellent
               </span>
             </div>
             
-            {/* FIX: Forced React Space {" "} and .trim() to ensure perfect inline rendering */}
             <p className={styles.verifyText}>
               {user?.name}'s account is verified. NoCapCode certifies their successful completion of{" "}
               <span className={styles.highlight}>{user?.role ? user.role.trim() : ""} Internship.</span>
@@ -114,14 +109,8 @@ const Certificate = () => {
           </div>
         </div>
 
-        {/* Main Content Split */}
         <div className={styles.mainSection}>
-          
-          {/* Left Section */}
           <div className={styles.left}>
-            
-
-            {/* Performance & Skills Card */}
             <div className={styles.skillsSection}>
               <h4>Performance Evaluation & Skill Endorsement</h4>
               
@@ -130,7 +119,6 @@ const Certificate = () => {
               <div className={styles.competenciesWrapper}>
                 <p className={styles.competenciesLabel}>KEY COMPETENCIES DEMONSTRATED</p>
                 
-                {/* FIX: Updated icons to perfectly match target design */}
                 <div className={styles.competenciesGrid}>
                   <div className={styles.compItem}>
                     <FileText size={18} className={styles.compIcon} strokeWidth={2} />
@@ -151,10 +139,8 @@ const Certificate = () => {
                 </div>
               </div>
             </div>
-
           </div>
 
-          {/* Right Section */}
           <div className={styles.right}>
             <div className={styles.certificateBox}>
               <img src={user?.completioncertificate} alt="Certificate" className={styles.certImage} />
@@ -169,11 +155,10 @@ const Certificate = () => {
               </button>
             </div>
           </div>
-
         </div>
       </div>     
     </div>
   );
-}
+};
 
 export default Certificate;
