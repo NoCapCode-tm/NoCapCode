@@ -198,7 +198,7 @@ const handleSubmit = async () => {
 
     <link
       rel="canonical"
-      href="https://nocapcode.cloud/#/clarity"
+      href="https://nocapcode.cloud/clarity"
     />
 
     {/* Open Graph */}
@@ -224,7 +224,7 @@ const handleSubmit = async () => {
 
     <meta
       property="og:url"
-      content="https://nocapcode.cloud/#/clarity"
+      content="https://nocapcode.cloud/clarity"
     />
 
     <meta
@@ -265,7 +265,7 @@ const handleSubmit = async () => {
           "name": "NoCapCode",
           "url": "https://nocapcode.cloud/"
         },
-        "url": "https://nocapcode.cloud/#/clarity",
+        "url": "https://nocapcode.cloud/clarity",
         "description":
           "Strategic software planning sessions for SaaS products, AI automation systems, MVPs, startup software, and scalable digital platforms.",
         "areaServed": {
@@ -281,7 +281,7 @@ const handleSubmit = async () => {
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Start With Clarity",
-        "url": "https://nocapcode.cloud/#/clarity",
+        "url": "https://nocapcode.cloud/clarity",
         "description":
           "Talk through your software idea, MVP, SaaS platform, AI automation system, or startup product before development begins.",
         "isPartOf": {
@@ -308,7 +308,7 @@ const handleSubmit = async () => {
             "@type": "ListItem",
             "position": 2,
             "name": "Start With Clarity",
-            "item": "https://nocapcode.cloud/#/clarity"
+            "item": "https://nocapcode.cloud/clarity"
           }
         ]
       })}

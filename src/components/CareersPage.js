@@ -88,12 +88,12 @@ export default function CareersPage() {
       <meta name="description" content="Explore careers at NoCapCode. Join our team to build scalable software systems, SaaS platforms, AI automation tools, websites, and digital products for startups and modern businesses." />
       <meta name="keywords" content="NoCapCode careers, software engineering jobs, frontend developer jobs, UI UX internships, startup careers, SaaS jobs, remote developer jobs, software company careers" />
       <meta name="robots" content="index, follow, max-image-preview:large" />
-      <link rel="canonical" href="https://nocapcode.cloud/#/careers" />
+      <link rel="canonical" href="https://nocapcode.cloud/careers" />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="NoCapCode" />
       <meta property="og:title" content="Careers at NoCapCode" />
       <meta property="og:description" content="Build software systems, SaaS platforms, AI automation tools, and digital products with NoCapCode." />
-      <meta property="og:url" content="https://nocapcode.cloud/#/careers" />
+      <meta property="og:url" content="https://nocapcode.cloud/careers" />
       <meta property="og:image" content="https://nocapcode.cloud/internal/og-cover.png" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="Careers at NoCapCode" />
@@ -105,7 +105,7 @@ export default function CareersPage() {
           "@context": "https://schema.org",
           "@type": "CollectionPage",
           "name": "Careers at NoCapCode",
-          "url": "https://nocapcode.cloud/#/careers",
+          "url": "https://nocapcode.cloud/careers",
           "description": "Career opportunities at NoCapCode across engineering, design, product, and software systems.",
           "isPartOf": { "@type": "WebSite", "name": "NoCapCode", "url": "https://nocapcode.cloud/" },
           "about": { "@type": "Organization", "name": "NoCapCode", "url": "https://nocapcode.cloud/" }
@@ -118,7 +118,7 @@ export default function CareersPage() {
           "@type": "BreadcrumbList",
           "itemListElement": [
             { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://nocapcode.cloud/" },
-            { "@type": "ListItem", "position": 2, "name": "Careers", "item": "https://nocapcode.cloud/#/careers" }
+            { "@type": "ListItem", "position": 2, "name": "Careers", "item": "https://nocapcode.cloud/careers" }
           ]
         })}
       </script>
@@ -147,7 +147,7 @@ export default function CareersPage() {
               }
             },
             "industry": job?.department || "Software Development",
-            "url": `https://nocapcode.cloud/#/careers/${job?._id}`
+            "url": `https://nocapcode.cloud/careers/${job?._id}`
           }))
         })}
       </script>

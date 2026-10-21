@@ -509,7 +509,7 @@ return (
 
     <link
       rel="canonical"
-      href="https://nocapcode.cloud/#/about"
+      href="https://nocapcode.cloud/about"
     />
 
     {/* Open Graph */}
@@ -535,7 +535,7 @@ return (
 
     <meta
       property="og:url"
-      content="https://nocapcode.cloud/#/about"
+      content="https://nocapcode.cloud/about"
     />
 
     <meta
@@ -570,7 +570,7 @@ return (
         "@context": "https://schema.org",
         "@type": "AboutPage",
         "name": "About NoCapCode",
-        "url": "https://nocapcode.cloud/#/about",
+        "url": "https://nocapcode.cloud/about",
         "description":
           "Learn about NoCapCode, a software development company building scalable SaaS platforms, AI automation systems, MVPs, and digital products.",
         "isPartOf": {
@@ -602,7 +602,7 @@ return (
             "@type": "ListItem",
             "position": 2,
             "name": "About",
-            "item": "https://nocapcode.cloud/#/about"
+            "item": "https://nocapcode.cloud/about"
           }
         ]
       })}
