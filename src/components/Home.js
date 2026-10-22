@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router";
 import styles from "../CSS/Home.module.css";
 import { Briefcase, FileText, FileBadge } from "lucide-react";
-import Footer from "./Footer"; // Assuming you have this from the previous page
+import Footer from "./Footer"; 
+import SEO from "./SEO";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -9,6 +10,12 @@ const Home = () => {
   return (
     <div className={styles.container}>
       
+      <SEO 
+        title="Admin Dashboard | NoCapCode"
+        description="Manage job postings, case studies, and certificates for the NoCapCode platform."
+        canonicalUrl="https://nocapcode.cloud/adminhome"
+      />
+
       {/* HEADER SECTION */}
       <div className={styles.header}>
         <h1 className={styles.welcome}>Welcome to NoCapCode</h1>

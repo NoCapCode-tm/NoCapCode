@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";  
 import styles from "../CSS/CareersPage.module.css";
-
+import SEO from "./SEO";
 import CareersGlobe from "./CareersGlobe";
 import { BriefcaseBusiness, Clock, MapPin } from "lucide-react";
 import Navbar from "./Navbar";
@@ -26,9 +26,7 @@ export default function CareersPage() {
     const[search, setSearch] = useState('');
     const[activeTab, setActiveTab] = useState("All");
 
-    // Check if crawler is rendering to disable WebGL
     const isReactSnap = navigator.userAgent === 'ReactSnap';
-
     const tabs = ["All", "Marketing", "Designing", "Engineering"];
 
     const filteredJobs = jobs.filter((job) => {
@@ -83,23 +81,12 @@ export default function CareersPage() {
       
   return (
     <>
+    <SEO 
+      title="Careers at NoCapCode | Software Engineering, Design & Product Opportunities"
+      description="Explore careers at NoCapCode. Join our team to build scalable software systems, SaaS platforms, AI automation tools, websites, and digital products for startups and modern businesses."
+      canonicalUrl="https://nocapcode.cloud/careers"
+    />
     <Helmet>
-      <title>Careers at NoCapCode | Software Engineering, Design & Product Opportunities</title>
-      <meta name="description" content="Explore careers at NoCapCode. Join our team to build scalable software systems, SaaS platforms, AI automation tools, websites, and digital products for startups and modern businesses." />
-      <meta name="keywords" content="NoCapCode careers, software engineering jobs, frontend developer jobs, UI UX internships, startup careers, SaaS jobs, remote developer jobs, software company careers" />
-      <meta name="robots" content="index, follow, max-image-preview:large" />
-      <link rel="canonical" href="https://nocapcode.cloud/careers" />
-      <meta property="og:type" content="website" />
-      <meta property="og:site_name" content="NoCapCode" />
-      <meta property="og:title" content="Careers at NoCapCode" />
-      <meta property="og:description" content="Build software systems, SaaS platforms, AI automation tools, and digital products with NoCapCode." />
-      <meta property="og:url" content="https://nocapcode.cloud/careers" />
-      <meta property="og:image" content="https://nocapcode.cloud/internal/og-cover.png" />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="Careers at NoCapCode" />
-      <meta name="twitter:description" content="Join NoCapCode and work on scalable software systems, SaaS platforms, AI automation, and digital innovation." />
-      <meta name="twitter:image" content="https://nocapcode.cloud/internal/og-cover.png" />
-
       <script type="application/ld+json">
         {JSON.stringify({
           "@context": "https://schema.org",
@@ -159,7 +146,6 @@ export default function CareersPage() {
 
       <section className={styles.hero}>
         <div className={styles.globeWrapper}>
-          {/* DO NOT RENDER GLOBE IF CRAWLER IS ACTIVE TO PREVENT WEBGL TIMEOUTS */}
           {!isReactSnap && <CareersGlobe />}
         </div>
 

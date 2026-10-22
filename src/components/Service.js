@@ -2,6 +2,7 @@ import React, { useRef, useMemo, useState } from "react";
 import styles from "../CSS/Service.module.css";
 import Navbar from "./Navbar";
 import { Helmet } from "react-helmet-async";
+import SEO from "./SEO";
 import Footer from "./Footer";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -19,8 +20,6 @@ import {
   ArrowUpRight,
   X
 } from "lucide-react";
-
-// ... [services, seoFeatures, whyUsBottom, serviceFaqs constants remain the same] ...
 
 const services = [
   { icon: <TerminalSquare size={24} strokeWidth={1.5} />, title: "Custom Tools Development", desc: "We build tailored software that replaces manual work and fragmented systems with tools that are easier to use, manage, and scale." },
@@ -66,14 +65,11 @@ export default function Service() {
 
   const handleSubmit = async(e) =>{
     e.preventDefault();
-
-    // Trim values
         const trimmedBusinessName = businessName.trim();
         const trimmedName = name.trim();
         const trimmedPhone = phone.trim();
         const trimmedEmail = email.trim();
     
-        // Empty field validation
         if (!trimmedBusinessName || !trimmedName || !trimmedPhone || !trimmedEmail || !teamSize) {
           toast.error("Please fill all fields");
           return;
@@ -86,7 +82,7 @@ export default function Service() {
         }
     try {
       setLoading(true);
-      const response = await axios.post("https://nocapcode-backend.onrender.com/api/v1/job/seedSpace", {
+      await axios.post("https://nocapcode-backend.onrender.com/api/v1/job/seedSpace", {
         businessName: trimmedBusinessName,
         name: trimmedName,
         phone: trimmedPhone,
@@ -94,7 +90,6 @@ export default function Service() {
         teamSize: teamSize,
       }, { withCredentials: true });
       
-      console.log(response.data);
       toast.success("SeedSpace Form Submitted Successfully");
       setBusinessName("");
       setName("");
@@ -104,14 +99,11 @@ export default function Service() {
       setForm(false);
     } catch (error) {
       toast.error("Something Went Wrong");
-      console.log(error.message);
     } finally {
       setLoading(false);
     }
   }
 
-
-  // 2. Moved useMemo INSIDE the component
   const faqSchemaData = useMemo(() => ({
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -128,18 +120,17 @@ export default function Service() {
   return (
     <div className={styles.page}>
       <Navbar />
+      
+      <SEO 
+        title="Services | Custom Software, AI & Automation | NoCapCode™"
+        description="NoCapCode provides elite custom software engineering, AI workflow automation, SaaS MVP development, and technical SEO architecture for modern businesses and startups."
+        canonicalUrl="https://nocapcode.cloud/services"
+      />
+      
       <Helmet>
-        <title>Services | Custom Software, AI & Automation | NoCapCode™</title>
-        <meta 
-          name="description" 
-          content="NoCapCode provides elite custom software engineering, AI workflow automation, SaaS MVP development, and technical SEO architecture for modern businesses and startups." 
-        />
-        <meta name="keywords" content="Custom Software Development, Workflow Automation, SaaS Development, MVP, SeedSpace, API Integration, Technical SEO" />
-        <link rel="canonical" href="https://nocapcode.cloud/services" />
         <script type="application/ld+json">{JSON.stringify(faqSchemaData)}</script>
       </Helmet>
 
-    {/* ── HERO SECTION ── */}
       <section className={styles.hero}>
         <div className={styles.heroGlow} />
         <div className={styles.heroContent}>
@@ -154,7 +145,6 @@ export default function Service() {
         </div>
       </section>
 
-{/* ── OUR SERVICES SECTION ── */}
       <section className={styles.section} ref={servicesRef}>
         <div className={styles.centerBadge}>
            <span className={styles.sectionBadge}>Our services</span>
@@ -170,7 +160,6 @@ export default function Service() {
         </div>
       </section>
 
-      {/* ── WEBSITE CREATION (SEO) SECTION ── */}
       <section className={styles.seoSection}>
         <div className={styles.centerBadge}>
             <span className={styles.sectionBadge}>Website creation</span>
@@ -182,7 +171,6 @@ export default function Service() {
           Every website includes SEO, indexing, analytics, Google Tag, technical architecture, and
           performance optimization built to be discovered, measured, and scaled over time.
         </p>
-        
         <div className={styles.seoGrid}>
           {seoFeatures.map((f, i) => (
             <div className={styles.seoItem} key={i}>
@@ -193,14 +181,11 @@ export default function Service() {
         </div>
       </section>
 
-      {/* ── WHY CHOOSE US SECTION ── */}
       <section className={styles.whySection}>
         <div className={styles.centerBadge}>
             <span className={styles.sectionBadge}>Why choose us</span>
         </div>
-        
         <div className={styles.whyGrid}>
-          {/* Top Row: Asymmetrical */}
           <div className={styles.whyTopRow}>
             <div className={styles.whyBlueCard}>
               <h2>Why choose us?</h2>
@@ -210,8 +195,6 @@ export default function Service() {
               <p>We build systems to grow with the<br/>organization</p>
             </div>
           </div>
-          
-          {/* Bottom Row: 3 Equal Cards */}
           <div className={styles.whyBottomRow}>
             {whyUsBottom.map((w, i) => (
               <div className={styles.whyDarkCard} key={i}>
@@ -223,7 +206,6 @@ export default function Service() {
         </div>
       </section>
 
-      {/* ── GUIDELINES SECTION ── */}
       <section className={styles.guidelinesSection}>
         <div className={styles.guidelinesGlow} />
         <div className={styles.guidelinesContent}>
@@ -241,12 +223,10 @@ export default function Service() {
         </div>
       </section>
 
-      {/* ── SEEDSPACE FULL-WIDTH SECTION ── */}
       <section className={styles.seedSection}>
         <div className={styles.seedTopBadgeRow}>
           <span className={styles.seedTopBadge}>SeedSpace™</span>
         </div>
-        
         <div className={styles.seedContent}>
           <p className={styles.seedLabel}>SeedSpace™</p>
           <h2>A selective, limited strategic growth and<br />infrastructure initiative program</h2>
@@ -255,103 +235,58 @@ export default function Service() {
             establish a strong digital presence, modernize their online systems, and grow with ongoing
             support.
           </p>
-          
           <div className={styles.seedPerks}>
             {seedSpacePerks.map((perk, i) => (
               <span className={styles.seedPerk} key={i}>{perk}</span>
             ))}
           </div>
-          
           <button className={styles.seedCta} onClick={() => setForm(true)}>
             Enroll in SeedSpace™
           </button>
         </div>
-        
-        {/* Decorative Side Glows */}
         <div className={styles.seedGlowLeft} />
         <div className={styles.seedGlowRight} />
       </section>
 
-      {/* ── SEEDSPACE MODAL ── */}
       {form && (
         <div className={styles.modalOverlay}>
           <button className={styles.modalClose} onClick={() => setForm(false)}>
             <X size={24} />
           </button>
-
-          {/* scrollable inner content */}
           <div className={styles.modalInner}>
-            {/* Header text — above the form, outside the card */}
             <div className={styles.modalHeader}>
               <h2>Apply for SeedSpace™</h2>
               <p className={styles.modalSubtitle}>A selective initiative for start-up's and early-stage founders</p>
               <p className={styles.modalDesc}>We review every application carefully to ensure we're the right fit before moving forward.</p>
             </div>
-
-            {/* Form card */}
             <div className={styles.modalBox}>
               <form className={styles.modalForm} onSubmit={handleSubmit}>
                 <div className={styles.modalField}>
                   <label>Business Name</label>
-                  <input 
-                    type="text" 
-                    name="businessName" 
-                    placeholder="Enter business name" 
-                    value={businessName} 
-                    onChange={(e)=>{setBusinessName(e.target.value)}} 
-                    required />
+                  <input type="text" name="businessName" placeholder="Enter business name" value={businessName} onChange={(e)=>{setBusinessName(e.target.value)}} required />
                 </div>
                 <div className={styles.modalField}>
                   <label>Owner Name</label>
-                  <input 
-                    type="text" 
-                    name="ownerName" 
-                    placeholder="Enter full name" 
-                    value={name} 
-                    onChange={(e)=>{setName(e.target.value)}}  
-                    required />
+                  <input type="text" name="ownerName" placeholder="Enter full name" value={name} onChange={(e)=>{setName(e.target.value)}} required />
                 </div>
                 <div className={styles.modalField}>
                   <label>Phone Number</label>
-                  <input 
-                    type="tel" 
-                    name="phone" 
-                    placeholder="Enter phone number" 
-                    value={phone} 
-                    onChange={(e)=>{setPhone(e.target.value)}} 
-                    required />
+                  <input type="tel" name="phone" placeholder="Enter phone number" value={phone} onChange={(e)=>{setPhone(e.target.value)}} required />
                 </div>
                 <div className={styles.modalField}>
                   <label>Email Address</label>
-                  <input 
-                    type="email" 
-                    name="email" 
-                    placeholder="Enter email address" 
-                    value={email} 
-                    onChange={(e)=>{setEmail(e.target.value)}} 
-                    required />
+                  <input type="email" name="email" placeholder="Enter email address" value={email} onChange={(e)=>{setEmail(e.target.value)}} required />
                 </div>
                 <div className={styles.modalField}>
                   <label>Current Team Size</label>
-                  <input 
-                    type="text" 
-                    name="teamSize" 
-                    placeholder="Enter team size" 
-                    value={teamSize} 
-                    onChange={(e)=>{setTeamSize(e.target.value)}} 
-                    required />
+                  <input type="text" name="teamSize" placeholder="Enter team size" value={teamSize} onChange={(e)=>{setTeamSize(e.target.value)}} required />
                 </div>
-                <button 
-                    type="submit" 
-                    className={styles.modalSubmit}
-
-                  >{loading ? "Submitting..." : "Submit"}</button>
+                <button type="submit" className={styles.modalSubmit}>{loading ? "Submitting..." : "Submit"}</button>
               </form>
             </div>
           </div>
         </div>
       )}
-      
 
       <Footer/>
     </div>
