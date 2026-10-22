@@ -71,7 +71,7 @@ const Portfolio = () => {
           {activeTab === "Website Design" && (
             <>
               {/* WEBSITE PROJECT 1 */}
-              <Link to="/portfolio/website-design/medvitals-ai-triage" className={styles.caseCard} style={{ textDecoration: 'none', display: 'block' }}>
+              <Link to="/portfolio/website-design/medvitals-ai-triage/" className={styles.caseCard} style={{ textDecoration: 'none', display: 'block' }}>
                 <div className={styles.caseImage}>
                   <img src="/internal/og-cover.png" alt="MedVitals AI" />
                   <span className={styles.caseArrow}><span className={styles.arrowOut}>↗</span><span className={styles.arrowIn}>↗</span></span>
@@ -87,7 +87,7 @@ const Portfolio = () => {
           {activeTab === "Logo Redesign" && (
             <>
               {/* LOGO PROJECT 1: Symbol of Identity */}
-              <Link to="/portfolio/logo-redesign/symbol-of-identity" className={styles.caseCard} style={{ textDecoration: 'none', display: 'block' }}>
+              <Link to="/portfolio/logo-redesign/symbol-of-identity/" className={styles.caseCard} style={{ textDecoration: 'none', display: 'block' }}>
                 <div className={styles.caseImage}>
                   <img src="/portfolio-assets/new-logo-gold.svg" alt="Symbol of Identity" style={{ backgroundColor: '#101c13', objectFit: 'contain', padding: '40px' }} />
                   <span className={styles.caseArrow}><span className={styles.arrowOut}>↗</span><span className={styles.arrowIn}>↗</span></span>
@@ -98,7 +98,7 @@ const Portfolio = () => {
                 </div>
               </Link>
 
-              <Link to="/portfolio/logo-redesign/axon-human-connection" className={styles.caseCard} style={{ textDecoration: 'none', display: 'block' }}>
+              <Link to="/portfolio/logo-redesign/axon-human-connection/" className={styles.caseCard} style={{ textDecoration: 'none', display: 'block' }}>
                 <div className={styles.caseImage}>
                   <img src="/portfolio-assets/axon-new-logo-glow.png" alt="AXON Human Connection" style={{ backgroundColor: '#050505', objectFit: 'contain', padding: '60px' }} />
                   <span className={styles.caseArrow}><span className={styles.arrowOut}>↗</span><span className={styles.arrowIn}>↗</span></span>

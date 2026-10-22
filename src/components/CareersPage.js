@@ -186,7 +186,7 @@ export default function CareersPage() {
 
         {filteredJobs.map((item) => {
           return (
-             <Link key={item._id} to={`/careers/${item._id}`} className={styles.jobCard} style={{ textDecoration: 'none', display: 'flex' }}>
+             <Link key={item._id} to={`/careers/${item._id}/`} className={styles.jobCard} style={{ textDecoration: 'none', display: 'flex' }}>
                 <div className={styles.position}>
                   <h3>{item?.title}</h3>
                   <div className={styles.richContent} dangerouslySetInnerHTML={{ __html: item?.description }} />
