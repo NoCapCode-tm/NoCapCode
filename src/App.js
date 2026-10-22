@@ -129,7 +129,7 @@ function AppWrapper() {
 
           {!notFound && (
             <div className="footerHead">
-              <h1 className="gradienttext">no cap code</h1>
+              <h2 className="gradienttext">no cap code</h2>
             </div>
           )}
         </div>

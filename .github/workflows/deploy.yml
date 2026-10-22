@@ -155,10 +155,16 @@ jobs:
           for (const file of htmlFiles) {
             let route = file.replace(buildDir, '').replace(/\\\\/g, '/');
             route = route.replace('/index.html', '').replace('.html', '');
-            if (route === '') route = '/';
             
-            // --- FIX: Format URL with trailing slash for directories to prevent 301 redirects ---
-            const locUrl = (route === '/' || route.endsWith('/')) ? \`\${baseUrl}\${route}\` : \`\${baseUrl}\${route}/\`;
+            // Ensure root path is just '/'
+            if (route === '' || route === '/') {
+              route = '/';
+            } else if (!route.endsWith('/')) {
+              // Force trailing slash for all subdirectory routes
+              route = route + '/';
+            }
+            
+            const locUrl = \`\${baseUrl}\${route}\`;
             
             sitemapContent += '  <url>\n';
             sitemapContent += \`    <loc>\${locUrl}</loc>\n\`;

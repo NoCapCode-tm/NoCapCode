@@ -8,19 +8,26 @@ export default function SEO({
   image = "https://nocapcode.cloud/internal/og-cover.png",
   type = "website"
 }) {
+  
+  // Force exact-match trailing slash for GitHub Pages compatibility
+  let safeCanonical = canonicalUrl.trim();
+  if (safeCanonical !== "https://nocapcode.cloud/" && !safeCanonical.endsWith('/')) {
+    safeCanonical += '/';
+  }
+
   return (
     <Helmet>
       {/* Standard Meta Tags */}
       <title>{title}</title>
       <meta name="description" content={description} />
-      <link rel="canonical" href={canonicalUrl} />
+      <link rel="canonical" href={safeCanonical} />
 
       {/* Open Graph / Facebook / LinkedIn */}
       <meta property="og:type" content={type} />
       <meta property="og:site_name" content="NoCapCode" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:url" content={canonicalUrl} />
+      <meta property="og:url" content={safeCanonical} />
       <meta property="og:image" content={image} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
