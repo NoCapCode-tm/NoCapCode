@@ -249,11 +249,15 @@ const Contactus = () => {
 
         {/* BOTTOM ACTION CARDS */}
         <section className={styles.actionCardsSection}>
-          <a href="mailto:hello@nocapcode.cloud" className={styles.actionCard}>
+          <div 
+            onClick={(e) => { e.preventDefault(); window.location.href = "mailto:hello@nocapcode.cloud"; }} 
+            className={styles.actionCard}
+            style={{ cursor: "pointer" }}
+          >
             <div className={styles.actionIcon}><Mail size={24} /></div>
             <h3>Direct Technical Inquiry</h3>
             <p>hello@nocapcode.cloud</p>
-          </a>
+          </div>
           <a href="https://nocapcode.cloud/book" className={styles.actionCard}>
             <div className={styles.actionIcon}><Calendar size={24} /></div>
             <h3>Request Engineering Consultation</h3>

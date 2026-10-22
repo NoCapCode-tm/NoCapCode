@@ -12,7 +12,7 @@ import { useNavigate, useLocation, useParams } from "react-router";
 import useWindowWidth from "./usewindowwidth";
 import FAQSchema from './FAQSchema';  
 import Footer from "./Footer";
-import SEO from "./SEO"; // <--- IMPORT SEO WRAPPER
+import SEO from "./SEO";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
