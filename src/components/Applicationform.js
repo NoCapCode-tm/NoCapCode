@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import LoaderDots from './LoaderDots';
+import SEO from './SEO'; // <--- ADD THIS IMPORT
 
 const Applicationform = () => {
     const [loading, setLoading] = useState(false);
@@ -128,6 +129,11 @@ const Applicationform = () => {
 
     return (
       <>
+      <SEO 
+         title="Job Application | Careers at NoCapCode"
+         description="Submit your application to join the NoCapCode team. We are looking for talented individuals to build the future of software."
+         canonicalUrl={`https://nocapcode.cloud/career/${id}/applicationform`}
+       />
        {loading && <LoaderDots text="Applying to Job ..." />}
       <div className={styles.applicationform}>
          <div className={styles.divider1}>

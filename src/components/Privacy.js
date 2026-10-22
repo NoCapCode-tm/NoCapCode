@@ -6,6 +6,7 @@ import gsap from "gsap";
 import Navbar from "./Navbar";
 import useWindowWidth from "./usewindowwidth";
 import Footer from './Footer';
+import SEO from './SEO'; // <--- ADD THIS IMPORT
 
 const Privacy = () => {
   const navbarRef = useRef(null);
@@ -77,39 +78,14 @@ const Privacy = () => {
   // const navigate = useNavigate()
   return (
     <>
+    
+    <SEO 
+        title="Privacy Policy | NoCapCode"
+        description="Read the NoCapCode Privacy Policy to understand how we collect, use, store, and protect information shared through our website, contact forms, and software consultation processes."
+        canonicalUrl="https://nocapcode.cloud/privacy"
+      />
 
       <Helmet>
-        <title>Privacy Policy | NoCapCode</title>
-        <meta
-          name="description"
-          content="Read the NoCapCode Privacy Policy to understand how we collect, use, store, and protect information shared through our website, contact forms, and software consultation processes."
-        />
-        <meta
-          name="keywords"
-          content="NoCapCode privacy policy, data privacy, software company privacy, website privacy policy, SaaS privacy policy, AI automation company privacy"
-        />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://nocapcode.cloud/privacy" />
-
-        {/* Open Graph */}
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Privacy Policy | NoCapCode" />
-        <meta
-          property="og:description"
-          content="Understand how NoCapCode handles information, privacy, analytics, cookies, and communication responsibly."
-        />
-        <meta property="og:url" content="https://nocapcode.cloud/privacy" />
-        <meta property="og:image" content="https://nocapcode.cloud/internal/og-cover.png" />
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Privacy Policy | NoCapCode" />
-        <meta
-          name="twitter:description"
-          content="Learn how NoCapCode protects and manages information shared through our website and services."
-        />
-        <meta name="twitter:image" content="https://nocapcode.cloud/internal/og-cover.png" />
-
         {/* Structured Data */}
         <script type="application/ld+json">
           {JSON.stringify({

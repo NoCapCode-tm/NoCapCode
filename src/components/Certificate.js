@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import SEO from './SEO'; // <--- ADD THIS IMPORT
 
 const Certificate = () => {
   const { credid } = useParams();
@@ -55,6 +56,11 @@ const Certificate = () => {
 
   return (
     <div className={styles.certificatePage}>
+      <SEO 
+        title={`Certificate Verification ${user?.name ? `- ${user.name}` : ''} | NoCapCode`}
+        description={`Official verification record for ${user?.name || 'student'}'s completion of the ${user?.role || 'internship'} program at NoCapCode.`}
+        canonicalUrl={`https://nocapcode.cloud/verify/certificate/${credid}`}
+      />
       <div className={styles.wrapper}>
         
         <div className={styles.navTop} onClick={() => navigate('/verify')}>

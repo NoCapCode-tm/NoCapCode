@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from "../CSS/Verify.module.css";
 import { useNavigate } from 'react-router-dom';
 import { Search, ArrowRight, ShieldCheck, Check } from 'lucide-react';
+import SEO from './SEO'; // <--- ADD THIS IMPORT
 
 const Verify = () => {
   const [credid, setCredid] = useState('');
@@ -35,6 +36,11 @@ const Verify = () => {
 
   return (
     <div className={styles.verify}>
+      <SEO 
+        title="Verify Certificate | NoCapCode"
+        description="Verify the authenticity of digital certificates and credentials issued by NoCapCode."
+        canonicalUrl="https://nocapcode.cloud/verify"
+      />
       
       {/* Main Content Wrapper */}
       <div className={styles.wrapper}>

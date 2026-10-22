@@ -6,6 +6,7 @@ import gsap from "gsap";
 import Navbar from "./Navbar";
 import useWindowWidth from "./usewindowwidth";
 import Footer from './Footer';
+import SEO from './SEO'; // <--- ADD THIS IMPORT
 
 const Condition = () => {
   const navbarRef = useRef(null);
@@ -76,41 +77,13 @@ const Condition = () => {
         }, []);
   return (
     <>
+    <SEO 
+        title="Terms & Conditions | NoCapCode"
+        description="Read the NoCapCode Terms & Conditions covering software services, project engagements, intellectual property, website usage, confidentiality, and collaboration policies."
+        canonicalUrl="https://nocapcode.cloud/terms"
+      />
 
       <Helmet>
-        {/* Primary SEO */}
-        <title>Terms & Conditions | NoCapCode</title>
-        <meta
-          name="description"
-          content="Read the NoCapCode Terms & Conditions covering software services, project engagements, intellectual property, website usage, confidentiality, and collaboration policies."
-        />
-        <meta
-          name="keywords"
-          content="NoCapCode terms and conditions, software development terms, SaaS agreement, software company legal terms, website terms of use"
-        />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://nocapcode.cloud/terms" />
-
-        {/* Open Graph */}
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Terms & Conditions | NoCapCode" />
-        <meta
-          property="og:description"
-          content="Understand the terms governing NoCapCode services, software engagements, intellectual property, and platform usage."
-        />
-        <meta property="og:url" content="https://nocapcode.cloud/terms" />
-        <meta property="og:image" content="https://nocapcode.cloud/internal/og-cover.png" />
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Terms & Conditions | NoCapCode" />
-        <meta
-          name="twitter:description"
-          content="Review NoCapCode terms related to software development services, project collaboration, ownership, and usage policies."
-        />
-        <meta name="twitter:image" content="https://nocapcode.cloud/internal/og-cover.png" />
-
-        {/* Structured Data */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
