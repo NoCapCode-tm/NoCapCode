@@ -3,12 +3,11 @@ import styles from "../CSS/Portfolio.module.css";
 import { useGSAP } from "@gsap/react";
 import Navbar from "./Navbar";
 import gsap from "gsap";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom"; // <-- Imported Link
 import Footer from './Footer';
-import SEO from './SEO'; // <-- 1. Import the reusable SEO component
+import SEO from './SEO';
 
 const Portfolio = () => {
-  const navigate = useNavigate();
   const sectionRef = useRef(null);
   
   // Toggle between "Website Design" and "Logo Redesign"
@@ -72,7 +71,7 @@ const Portfolio = () => {
           {activeTab === "Website Design" && (
             <>
               {/* WEBSITE PROJECT 1 */}
-              <div className={styles.caseCard} onClick={() => navigate('/portfolio/website-design/medvitals-ai-triage')}>
+              <Link to="/portfolio/website-design/medvitals-ai-triage" className={styles.caseCard} style={{ textDecoration: 'none', display: 'block' }}>
                 <div className={styles.caseImage}>
                   <img src="/internal/og-cover.png" alt="MedVitals AI" />
                   <span className={styles.caseArrow}><span className={styles.arrowOut}>↗</span><span className={styles.arrowIn}>↗</span></span>
@@ -81,15 +80,14 @@ const Portfolio = () => {
                   <h3>MedVitals AI</h3>
                   <p>HIPAA-Compliant AI Patient Triage</p>
                 </div>
-              </div>
+              </Link>
             </>
           )}
 
           {activeTab === "Logo Redesign" && (
             <>
               {/* LOGO PROJECT 1: Symbol of Identity */}
-              {/* LOGO PROJECT 1: Symbol of Identity */}
-              <div className={styles.caseCard} onClick={() => navigate('/portfolio/logo-redesign/symbol-of-identity')}>
+              <Link to="/portfolio/logo-redesign/symbol-of-identity" className={styles.caseCard} style={{ textDecoration: 'none', display: 'block' }}>
                 <div className={styles.caseImage}>
                   <img src="/portfolio-assets/new-logo-gold.svg" alt="Symbol of Identity" style={{ backgroundColor: '#101c13', objectFit: 'contain', padding: '40px' }} />
                   <span className={styles.caseArrow}><span className={styles.arrowOut}>↗</span><span className={styles.arrowIn}>↗</span></span>
@@ -98,11 +96,10 @@ const Portfolio = () => {
                   <h3>Symbol of Identity</h3>
                   <p>Brand Architecture & Visual Identity</p>
                 </div>
-              </div>
+              </Link>
 
-              <div className={styles.caseCard} onClick={() => navigate('/portfolio/logo-redesign/axon-human-connection')}>
+              <Link to="/portfolio/logo-redesign/axon-human-connection" className={styles.caseCard} style={{ textDecoration: 'none', display: 'block' }}>
                 <div className={styles.caseImage}>
-                  {/* Using the glowing AXON asset on a black background to match the project */}
                   <img src="/portfolio-assets/axon-new-logo-glow.png" alt="AXON Human Connection" style={{ backgroundColor: '#050505', objectFit: 'contain', padding: '60px' }} />
                   <span className={styles.caseArrow}><span className={styles.arrowOut}>↗</span><span className={styles.arrowIn}>↗</span></span>
                 </div>
@@ -110,7 +107,7 @@ const Portfolio = () => {
                   <h3>AXON</h3>
                   <p>A Smarter Human Connection</p>
                 </div>
-              </div>
+              </Link>
             </>
           )}
         </div>

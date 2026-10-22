@@ -7,24 +7,23 @@ import { BriefcaseBusiness, Clock, MapPin } from "lucide-react";
 import Navbar from "./Navbar";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useNavigate } from "react-router";
+import { Link } from "react-router-dom"; // <-- Imported Link
 import useWindowWidth from "./usewindowwidth";
 import axios from "axios";
 import LoaderDots from "./LoaderDots";
 import Footer from './Footer';
 
 export default function CareersPage() {
-    const navigate= useNavigate();
     const navbarRef = useRef(null);
     const logRef = useRef(null);
     const btnTextRef = useRef(null);
     const btnIconRef = useRef(null);
-    const positionref =useRef(null);
+    const positionref = useRef(null);
     const width = useWindowWidth();
-    const[jobs,setjobs]=useState([]);
-    const[loading,setLoading]=useState(false);
-    const[search, setSearch] = useState('');
-    const[activeTab, setActiveTab] = useState("All");
+    const [jobs, setjobs] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [search, setSearch] = useState('');
+    const [activeTab, setActiveTab] = useState("All");
 
     const isReactSnap = navigator.userAgent === 'ReactSnap';
     const tabs = ["All", "Marketing", "Designing", "Engineering"];
@@ -68,13 +67,13 @@ export default function CareersPage() {
         width: isMobile ? "50%" : 440,   
         borderRadius: isMobile ? "8px" : "8px",
         top: isMobile ? "10px" : "10px",
-        justifyContent:"flex-end",
+        justifyContent: "flex-end",
         gap: "20px",
         duration: 0.45,
         ease: "power2.out",
       });
       
-      tl.to(logRef.current, { opacity: 0, display:"none", x: -24, duration: 0.25, ease: "power2.out" }, "<");
+      tl.to(logRef.current, { opacity: 0, display: "none", x: -24, duration: 0.25, ease: "power2.out" }, "<");
       tl.to(btnTextRef.current, { opacity: 0, width: 0, marginRight: 0, duration: 0.25, ease: "power2.out" }, "<");
       tl.to(btnIconRef.current, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.6)" }, "<");
     }, []);
@@ -176,7 +175,7 @@ export default function CareersPage() {
             {tabs.map((tab) => (
               <button
               key={tab} 
-              className={activeTab === tab? styles.active : ""}
+              className={activeTab === tab ? styles.active : ""}
               onClick={() => setActiveTab(tab)}
               >
                 {tab}
@@ -185,9 +184,9 @@ export default function CareersPage() {
           </div>
         </div>
 
-        {filteredJobs.map((item)=>{
+        {filteredJobs.map((item) => {
           return (
-             <div key={item._id} className={styles.jobCard} onClick={()=>{navigate(`/careers/${item._id}`)}}>
+             <Link key={item._id} to={`/careers/${item._id}`} className={styles.jobCard} style={{ textDecoration: 'none', display: 'flex' }}>
                 <div className={styles.position}>
                   <h3>{item?.title}</h3>
                   <div className={styles.richContent} dangerouslySetInnerHTML={{ __html: item?.description }} />
@@ -198,7 +197,7 @@ export default function CareersPage() {
                   <span><BriefcaseBusiness size={16}/>{item?.department}</span>
                 </div>
                 <div className={styles.arrow}>↗</div>
-             </div>
+             </Link>
           );
         })}
       </section>

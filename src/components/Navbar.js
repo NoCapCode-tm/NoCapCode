@@ -1,7 +1,7 @@
 import React, { forwardRef, useState, useEffect } from "react";
 import { Menu, X, MoveUpRight } from "lucide-react";
 import styles from "../CSS/Navbar.module.css";
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router-dom"; // <-- Imported Link
 import useWindowWidth from "./usewindowwidth";
 
 const Navbar = forwardRef(
@@ -11,11 +11,6 @@ const Navbar = forwardRef(
     const [open, setOpen] = useState(false);
 
     const isMobile = width <= 800;
-
-    const goHome = (section) => {
-      navigate("/", { state: { scrollTo: section } });
-      setOpen(false);
-    };
 
     // auto-close menu when switching to desktop
     useEffect(() => {
@@ -27,19 +22,17 @@ const Navbar = forwardRef(
         <div className={styles.navbar} ref={navbarRef}>
           {/* LOGO – always visible */}
           <div className={styles.logo} ref={logoRef}>
-            <img src="/internal/Companylogo.png" alt="logo" onClick={() => navigate("/")} />
+            <Link to="/"><img src="/internal/Companylogo.png" alt="logo" /></Link>
           </div>
 
           {/* DESKTOP ONLY */}
           {!isMobile && (
             <>
               <ul className={styles.links}>
-                <li onClick={() => goHome("home")} style={{ cursor: "pointer" }}>Home</li>
-                <li onClick={() => navigate("/about")} style={{ cursor: "pointer" }}>
-                  About
-                </li>
-                <li onClick={() => navigate("/services")} style={{ cursor: "pointer" }}>Services</li>
-                <li onClick={() => navigate("/portfolio")} style={{ cursor: "pointer" }}>Portfolio</li>
+                <li style={{ cursor: "pointer" }}><Link to="/" state={{ scrollTo: "home" }} style={{ color: "inherit", textDecoration: "none" }}>Home</Link></li>
+                <li style={{ cursor: "pointer" }}><Link to="/about" style={{ color: "inherit", textDecoration: "none" }}>About</Link></li>
+                <li style={{ cursor: "pointer" }}><Link to="/services" style={{ color: "inherit", textDecoration: "none" }}>Services</Link></li>
+                <li style={{ cursor: "pointer" }}><Link to="/portfolio" style={{ color: "inherit", textDecoration: "none" }}>Portfolio</Link></li>
               </ul>
 
               <button
@@ -99,14 +92,10 @@ const Navbar = forwardRef(
                 fontSize: "16px"
               }}
             >
-              <li onClick={() => goHome("home")} style={{ cursor: "pointer" }}>Home</li>
-              <li onClick={() => navigate("/about")} style={{ cursor: "pointer" }}>
-                About
-              </li>
-              <li onClick={() => navigate("/services")} style={{ cursor: "pointer" }}>Services</li>
-              <li onClick={() => navigate("/portfolio")} style={{ cursor: "pointer" }}>
-                Portfolio
-              </li>
+              <li onClick={() => setOpen(false)} style={{ cursor: "pointer" }}><Link to="/" state={{ scrollTo: "home" }} style={{ color: "inherit", textDecoration: "none" }}>Home</Link></li>
+              <li onClick={() => setOpen(false)} style={{ cursor: "pointer" }}><Link to="/about" style={{ color: "inherit", textDecoration: "none" }}>About</Link></li>
+              <li onClick={() => setOpen(false)} style={{ cursor: "pointer" }}><Link to="/services" style={{ color: "inherit", textDecoration: "none" }}>Services</Link></li>
+              <li onClick={() => setOpen(false)} style={{ cursor: "pointer" }}><Link to="/portfolio" style={{ color: "inherit", textDecoration: "none" }}>Portfolio</Link></li>
             </ul>
 
             <button
@@ -125,7 +114,7 @@ const Navbar = forwardRef(
                 fontSize: "16px",
                 cursor: "pointer"
               }}
-              onClick={() => navigate("/contact")}
+              onClick={() => { navigate("/contact"); setOpen(false); }}
             >
               Get in touch <MoveUpRight size={16} />
             </button>
