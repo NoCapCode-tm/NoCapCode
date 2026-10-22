@@ -7,6 +7,7 @@ import styles from '../../CSS/LogoProjectOne.module.css';
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import SEO from "../SEO"; // <--- IMPORT SEO WRAPPER
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -39,10 +40,12 @@ const WebsiteProjectOne = () => {
 
   return (
     <div className={styles.wrapper} ref={containerRef}>
+      <SEO 
+        title="Symbol of Identity | Brand Architecture | NoCapCode"
+        description="A complete brand architecture and visual identity redesign transforming a traditional institution into a modern hub for skill-based education."
+        canonicalUrl="https://nocapcode.cloud/portfolio/logo-redesign/symbol-of-identity/"
+      />
       <Helmet>
-        <title>Symbol of Identity | Brand Architecture | NoCapCode</title>
-        <meta name="description" content="A complete brand architecture and visual identity redesign transforming a traditional institution into a modern hub for skill-based education." />
-        <link rel="canonical" href="https://nocapcode.cloud/portfolio/logo-redesign/symbol-of-identity" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -52,7 +55,7 @@ const WebsiteProjectOne = () => {
             "image": "https://nocapcode.cloud/portfolio-assets/new-logo-gold.svg",
             "author": { "@type": "Organization", "@id": "https://nocapcode.cloud/#organization" },
             "publisher": { "@type": "Organization", "@id": "https://nocapcode.cloud/#organization" },
-            "url": "https://nocapcode.cloud/portfolio/logo-redesign/symbol-of-identity"
+            "url": "https://nocapcode.cloud/portfolio/logo-redesign/symbol-of-identity/"
           })}
         </script>
       </Helmet>

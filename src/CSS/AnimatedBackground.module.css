@@ -379,6 +379,13 @@ canvas {
   color: #ffffff;
 }
 
+.kipcard h4 {
+   font-family: "Inter", sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
 /* Label */
 .kipcard span {
   font-size: 13px;

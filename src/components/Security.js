@@ -1,11 +1,12 @@
 import React, { useRef } from "react";
 import { Helmet } from "react-helmet-async";
-import styles from "../CSS/Privacy.module.css"; // Reusing your Privacy/Condition CSS structure
+import styles from "../CSS/Privacy.module.css"; 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Navbar from "./Navbar";
 import useWindowWidth from "./usewindowwidth";
 import Footer from './Footer';
+import SEO from "./SEO"; // <--- IMPORT SEO WRAPPER
 
 const Security = () => {
   const navbarRef = useRef(null);
@@ -36,7 +37,6 @@ const Security = () => {
       ease: "power2.out",
     });
   
-    // logo fade + slide
     tl.to(
       logRef.current,
       {
@@ -49,7 +49,6 @@ const Security = () => {
       "<"
     );
   
-    // button text out
     tl.to(
       btnTextRef.current,
       {
@@ -62,7 +61,6 @@ const Security = () => {
       "<"
     );
   
-    // arrow pop in
     tl.to(
       btnIconRef.current,
       {
@@ -77,46 +75,18 @@ const Security = () => {
 
   return (
     <>
+    <SEO 
+        title="Trust & Security | Enterprise-Grade Architecture by NoCapCode"
+        description="Learn about NoCapCode's enterprise-grade security model, ISO-aligned infrastructure, data encryption standards, and secure development lifecycle."
+        canonicalUrl="https://nocapcode.cloud/security/"
+    />
       <Helmet>
-        {/* Primary SEO */}
-        <title>Trust & Security | Enterprise-Grade Architecture by NoCapCode</title>
-        <meta
-          name="description"
-          content="Learn about NoCapCode's enterprise-grade security model, ISO-aligned infrastructure, data encryption standards, and secure development lifecycle."
-        />
-        <meta
-          name="keywords"
-          content="software security, ISO 27001 software development, secure cloud infrastructure, SOC 2 readiness, SaaS data privacy, secure software development lifecycle"
-        />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://nocapcode.cloud/security" />
-
-        {/* Open Graph */}
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Trust & Security | NoCapCode" />
-        <meta
-          property="og:description"
-          content="Enterprise-grade security, engineered into every line of code. Read our infrastructure, encryption, and compliance guidelines."
-        />
-        <meta property="og:url" content="https://nocapcode.cloud/security" />
-        <meta property="og:image" content="https://nocapcode.cloud/internal/og-cover.png" />
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Trust & Security | NoCapCode" />
-        <meta
-          name="twitter:description"
-          content="Enterprise-grade security, engineered into every line of code. ISO-aligned frameworks, data encryption, and secure cloud infrastructure."
-        />
-        <meta name="twitter:image" content="https://nocapcode.cloud/internal/og-cover.png" />
-
-        {/* Structured Data */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
             name: "Trust & Security | NoCapCode",
-            url: "https://nocapcode.cloud/security",
+            url: "https://nocapcode.cloud/security/",
             description: "NoCapCode Trust & Security guidelines covering ISO compliance, data encryption, access control, and operational resilience.",
             publisher: {
               "@type": "Organization",
@@ -135,7 +105,6 @@ const Security = () => {
           btnIconRef={btnIconRef}
         />
         
-        {/* Ghost background heading */}
         <h1 className={`${styles.ghost} ${styles.gradienttext}`}>
           Trust & Security
         </h1>

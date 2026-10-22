@@ -12,7 +12,7 @@ import { useNavigate, useLocation, useParams } from "react-router";
 import useWindowWidth from "./usewindowwidth";
 import FAQSchema from './FAQSchema';  
 import Footer from "./Footer";
-import SEO from "./SEO";
+import SEO from "./SEO"; // <--- IMPORT SEO WRAPPER
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -623,16 +623,16 @@ export default function AnimatedBackground() {
           </h4>
           <div className={styles.kip}>
             <div className={styles.kipcard}>
-              <h1>0</h1><span>Throwaway MVP</span>
+              <h4>0</h4><span>Throwaway MVP</span>
             </div>
             <div className={styles.kipcard}>
-              <h1>100%</h1><span>Iteration Ready Systems</span>
+              <h4>100%</h4><span>Iteration Ready Systems</span>
             </div>
             <div className={styles.kipcard}>
-              <h1>1</h1><span>Clear System Owner</span>
+              <h4>1</h4><span>Clear System Owner</span>
             </div>
             <div className={styles.kipcard}>
-              <h1>100%</h1><span>Decisions Made Before Code</span>
+              <h4>100%</h4><span>Decisions Made Before Code</span>
             </div>
           </div>
         </div>
@@ -640,7 +640,7 @@ export default function AnimatedBackground() {
 
       <div className={styles.page2} ref={page2Ref}>
         <span className={styles.first} ref={page2LabelRef}>WHAT WE DO</span>
-        <h1 ref={page2HeadRef} className={styles.mainhead1}>We build what makes products last.</h1>
+        <h2 ref={page2HeadRef} className={styles.mainhead1}>We build what makes products last.</h2>
         <p ref={page2ParaRef} className={styles.subhead1}>
           <span>We focus on the work that turns ideas into usable, sustainable systems </span>
           <span>without losing clarity in the process.</span>
@@ -672,14 +672,14 @@ export default function AnimatedBackground() {
           </div>
         </div>
         <div className={styles.boldtext} ref={boldSectionRef}>
-          <h1 className={styles.boldtexthead} ref={boldHeadRef}>We don't try to do everything.</h1>
+          <h2 className={styles.boldtexthead} ref={boldHeadRef}>We don't try to do everything.</h2>
           <span ref={boldSpanRef}>We focus on what helps products move from</span>
           <div className={styles.marqueeWrap}>
             <div className={styles.marqueeInner} ref={marqueeRef}>
               {[...Array(3)].map((_, i) => (
-                <h1 key={i} className={`${styles.IUS} ${styles.gradientText}`}>
+                <h2 key={i} className={`${styles.IUS} ${styles.gradientText}`}>
                   Idea → Usable → Sustainable →&nbsp;&nbsp;
-                </h1>
+                </h2>
               ))}
             </div>
           </div>
@@ -786,7 +786,7 @@ export default function AnimatedBackground() {
 
       <div className={styles.outcomes} ref={outcomesRef}>
         <span className={styles.page5first} ref={outcomesLabelRef}>OUTCOMES</span>
-        <h1 className={styles.outcomemainhead} ref={outcomesHeadRef}><span>What Improves When the System Is Right</span></h1>
+        <h2 className={styles.outcomemainhead} ref={outcomesHeadRef}><span>What Improves When the System Is Right</span></h2>
         <p className={styles.outcomepara} ref={outcomesParaRef}><span>Discover the key benefits of partnering with us.</span></p>
         <div className={styles.cards12}>
           <div className={styles.firstcard1} ref={(el) => (outcomeCardsRef.current[0] = el)}>
@@ -807,7 +807,7 @@ export default function AnimatedBackground() {
       <div className={styles.faq} ref={faqRef}>
         <div className={styles.faqGlow} />
         <span className={styles.page5first} ref={faqLabelRef}>FAQs</span>
-        <h1 className={styles.outcomemainhead} ref={faqHeadRef}><span>We're here to help</span></h1>
+        <h2 className={styles.outcomemainhead} ref={faqHeadRef}><span>We're here to help</span></h2>
         <p className={styles.outcomepara} ref={faqParaRef}><span>FAQs designed to provide the information you need.</span></p>
         <div className={styles.faqList}>
           {faqs.map((item, i) => {

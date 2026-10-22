@@ -7,6 +7,7 @@ import styles from '../../CSS/LogoProjectTwo.module.css';
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import SEO from "../SEO"; // <--- IMPORT SEO WRAPPER
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -39,10 +40,12 @@ const LogoProjectTwo = () => {
 
   return (
     <div className={styles.wrapper} ref={containerRef}>
+      <SEO 
+        title="AXON Human Connection | Visual Identity | NoCapCode"
+        description="Evolving AXON's brand from a rigid system to a smart, fluid hub built around human connection and intuitive product design."
+        canonicalUrl="https://nocapcode.cloud/portfolio/logo-redesign/axon-human-connection/"
+      />
       <Helmet>
-        <title>AXON Human Connection | Visual Identity | NoCapCode</title>
-        <meta name="description" content="Evolving AXON's brand from a rigid system to a smart, fluid hub built around human connection and intuitive product design." />
-        <link rel="canonical" href="https://nocapcode.cloud/portfolio/logo-redesign/axon-human-connection" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -52,7 +55,7 @@ const LogoProjectTwo = () => {
             "image": "https://nocapcode.cloud/portfolio-assets/axon-new-logo-glow.jpg",
             "author": { "@type": "Organization", "@id": "https://nocapcode.cloud/#organization" },
             "publisher": { "@type": "Organization", "@id": "https://nocapcode.cloud/#organization" },
-            "url": "https://nocapcode.cloud/portfolio/logo-redesign/axon-human-connection"
+            "url": "https://nocapcode.cloud/portfolio/logo-redesign/axon-human-connection/"
           })}
         </script>
       </Helmet>
