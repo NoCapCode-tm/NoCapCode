@@ -8,10 +8,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Globe from "./Globe";
 import { ChevronDown} from "lucide-react";
 import { ScrollToPlugin } from "gsap/all";
-import { useNavigate,useLocation, useParams} from "react-router";
+import { useNavigate, useLocation, useParams } from "react-router";
 import useWindowWidth from "./usewindowwidth";
 import FAQSchema from './FAQSchema';  
 import Footer from "./Footer";
+import SEO from "./SEO"; // <--- IMPORT SEO WRAPPER
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -112,7 +113,6 @@ export default function AnimatedBackground() {
   const currentKey = countryCode?.toLowerCase(); 
   const seo = getDynamicSEO(currentKey); 
 
-  // Check if crawler is rendering to disable WebGL
   const isReactSnap = navigator.userAgent === 'ReactSnap';
 
   const mainHeadRef = useRef(null);
@@ -545,12 +545,14 @@ export default function AnimatedBackground() {
 
   return (
     <>
+      <SEO 
+        title={seo.title}
+        description={seo.desc}
+        canonicalUrl={seo.isGlobal ? "https://nocapcode.cloud/" : `https://nocapcode.cloud/${currentKey}/`}
+      />
       <Helmet>
-        <title>{seo.title}</title>
-        <meta name="description" content={seo.desc} />
-        <link rel="canonical" href={seo.isGlobal ? "https://nocapcode.cloud/" : `https://nocapcode.cloud/${currentKey}`} />
         {Object.entries(supportedCountries).map(([code, data]) => (
-          <link key={code} rel="alternate" href={`https://nocapcode.cloud/${code}`} hreflang={data.lang} />
+          <link key={code} rel="alternate" href={`https://nocapcode.cloud/${code}/`} hreflang={data.lang} />
         ))}
         <link rel="alternate" href="https://nocapcode.cloud/" hreflang="x-default" />
       </Helmet>
@@ -599,7 +601,6 @@ export default function AnimatedBackground() {
       </div>
 
       <div className={styles.page3} ref={page3Ref}>
-        {/* DO NOT RENDER GLOBE IF CRAWLER IS ACTIVE TO PREVENT WEBGL TIMEOUTS */}
         <div className={styles.globkeeper} style={{ width: "600px", height: "600px" }}>
           {!isReactSnap && <Globe />}
         </div>
