@@ -68,6 +68,10 @@ jobs:
               pkg.reactSnap.concurrency = 1; 
               pkg.reactSnap.ignoreBrowserErrors = true;
               pkg.reactSnap.skipThirdPartyRequests = true;
+              
+              // --- NEW FIX: FORCE 3-SECOND DELAY FOR API DATA TO LOAD ---
+              pkg.reactSnap.delay = 3000;
+
               pkg.reactSnap.puppeteerArgs = [
                 '--no-sandbox', 
                 '--disable-setuid-sandbox',
