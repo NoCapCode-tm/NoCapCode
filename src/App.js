@@ -98,7 +98,9 @@ function AppWrapper() {
             <Route path="/services" element={<Service />} />
             
             {/* Static SEO-Optimized Portfolio Routes */}
-            <Route path="/portfolio/website-design/medvitals-ai-triage" element={<WebsiteProjectOne />} />
+            <Route path="/portfolio/website-design/kalin-construction" element={<WebsiteProjectOne />} />
+            {/* Old URL kept as a redirect so existing links / indexed pages don't break */}
+            <Route path="/portfolio/website-design/medvitals-ai-triage" element={<Navigate to="/portfolio/website-design/kalin-construction" replace />} />
             <Route path="/portfolio/logo-redesign/symbol-of-identity" element={<LogoProjectOne />} />
             <Route path="/portfolio/logo-redesign/axon-human-connection" element={<LogoProjectTwo />} />
 
