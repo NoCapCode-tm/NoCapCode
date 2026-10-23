@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import axios from 'axios';
-import styles from '../CSS/CaseStudyDetail.module.css'; // Reusing existing CSS
+import { Helmet } from 'react-helmet-async'; // <--- 1. IMPORT HELMET
+import styles from '../CSS/CaseStudyDetail.module.css'; 
 import Navbar from './Navbar';
 import Footer from './Footer';
 import LoaderDots from './LoaderDots';
-import SEO from './SEO'; // <-- 1. Import the reusable SEO component
+import SEO from './SEO'; 
 
 const ProjectDetail = () => {
   const { id } = useParams();
@@ -37,16 +38,15 @@ const ProjectDetail = () => {
 
   return (
     <>
-      {/* 2. Replace raw Helmet block with the SEO component including full Open Graph, Twitter cards, and Schema */}
       <SEO 
         title={`${project.title} | NoCapCode Portfolio`}
         description={project.subtitle || "Explore enterprise software case studies and architecture breakdowns by NoCapCode."}
-        canonicalUrl={`https://nocapcode.cloud/portfolio/${id}`}
+        canonicalUrl={`https://nocapcode.cloud/portfolio/${id}/`}
         image={project.thumbnail || "https://nocapcode.cloud/internal/og-cover.png"}
       />
 
-      {/* Additional JSON-LD Schema for CreativeWork */}
-
+      {/* 2. WRAP THE SCRIPT IN HELMET */}
+      <Helmet>
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -55,9 +55,10 @@ const ProjectDetail = () => {
             "description": project.subtitle,
             "image": project.thumbnail,
             "author": { "@type": "Organization", "@id": "https://nocapcode.cloud/#organization" },
-            "url": `https://nocapcode.cloud/portfolio/${id}`
+            "url": `https://nocapcode.cloud/portfolio/${id}/`
           })}
         </script>
+      </Helmet>
 
       <Navbar />
       
