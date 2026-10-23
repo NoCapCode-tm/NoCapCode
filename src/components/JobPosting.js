@@ -12,9 +12,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Quill from "quill";
 import Footer from './Footer';
-
-
-
+import SEO from './SEO'; // <--- 1. ADDED IMPORT
 
 const Addjobposting = () => {
     const navbarRef = useRef(null);
@@ -142,6 +140,12 @@ Quill.register(Size, true);
       }, []);
   return (
     <>
+    <SEO 
+      title="Add Job Posting | Admin Dashboard"
+      description="Create a new job posting for NoCapCode careers."
+      canonicalUrl="https://nocapcode.cloud/addjobposting/"
+    />
+    
     {loading && <LoaderDots text="Adding Job Postings" />}
     <section className={styles.wrap} ref={startRef}>
       <Navbar
