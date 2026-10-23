@@ -6,17 +6,17 @@ export default function SEO({
   description = "NoCapCode builds custom software, SaaS platforms, websites, mobile apps, and AI automation systems for startups and modern businesses worldwide.", 
   canonicalUrl = "https://nocapcode.cloud/",
   image = "https://nocapcode.cloud/internal/og-cover.png",
-  type = "website"
+  type = "website",
+  lang = "en"
 }) {
   
-  // Force exact-match trailing slash for GitHub Pages compatibility
   let safeCanonical = canonicalUrl.trim();
   if (safeCanonical !== "https://nocapcode.cloud/" && !safeCanonical.endsWith('/')) {
     safeCanonical += '/';
   }
 
   return (
-    <Helmet>
+    <Helmet htmlAttributes={{ lang }}>
       {/* Standard Meta Tags */}
       <title>{title}</title>
       <meta name="description" content={description} />

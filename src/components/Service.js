@@ -123,8 +123,8 @@ export default function Service() {
       
       <SEO 
         title="Services | Custom Software, AI & Automation | NoCapCode™"
-        description="NoCapCode provides elite custom software engineering, AI workflow automation, SaaS MVP development, and technical SEO architecture for modern businesses and startups."
-        canonicalUrl="https://nocapcode.cloud/services"
+        description="NoCapCode provides custom software engineering, AI workflow automation, SaaS MVP development, and technical SEO architecture for modern businesses."
+        canonicalUrl="https://nocapcode.cloud/services/"
       />
       
       <Helmet>

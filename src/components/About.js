@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import SEO from './SEO'; // Replaced manual Helmet with global SEO wrapper
+import SEO from './SEO';
 import styles from "../CSS/About.module.css";
 import { ChevronDown} from 'lucide-react';
 import { useGSAP } from '@gsap/react';
@@ -418,8 +418,8 @@ return (
   <div className={styles.about}>
     <SEO 
       title="About NoCapCode | Custom Software Development & AI Automation"
-      description="Learn about NoCapCode, a software development company building scalable SaaS platforms, AI automation systems, MVPs, websites, and digital products for startups and modern businesses."
-      canonicalUrl="https://nocapcode.cloud/about"
+      description="Learn how NoCapCode builds scalable SaaS platforms, AI automation systems, MVPs, websites, and digital products for startups and modern businesses."
+      canonicalUrl="https://nocapcode.cloud/about/"
     />
   
     <Navbar
@@ -607,7 +607,7 @@ return (
         </p>
         <button 
           className={styles.startHereBtn} 
-          onClick={() => window.open("https://nocapcode.cloud/book", "_blank", "noopener,noreferrer")} 
+          onClick={() => window.open("https://calendar.app.google/vG14eBrGNsD2znht5", "_blank", "noopener,noreferrer")} 
         >
           Start a Conversation
           <span className={styles.arrow}>↗</span>
@@ -657,7 +657,7 @@ return (
         <p className={styles.conversationSub}>
           Talk to us about your product, system, or software idea  before decisions become expensive to change.
         </p>
-        <button className={styles.startHereBtn1} onClick={()=>{navigate("/clarity")}}>
+        <button className={styles.startHereBtn1} onClick={()=>{navigate("/clarity/")}}>
           Start a thoughtful conversation
           <span className={styles.arrow}>↗</span>
         </button>
