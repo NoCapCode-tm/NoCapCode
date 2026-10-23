@@ -58,7 +58,7 @@ jobs:
               pkg.reactSnap.port = 8000;
               pkg.reactSnap.concurrency = 1; 
               pkg.reactSnap.ignoreBrowserErrors = true;
-              // CRITICAL: Must be false so react-snap can fetch jobs & portfolio data from onrender.com
+              pkg.reactSnap.fixWebpackChunksIssue = true;
               pkg.reactSnap.skipThirdPartyRequests = false;
               pkg.reactSnap.delay = 3500;
 
@@ -79,7 +79,6 @@ jobs:
               const portfolioItems = portfolioRes.message || [];
               const portfolioRoutes = portfolioItems.map(p => '/portfolio/' + (p._id || p.title));
 
-              // Save fetched API data locally for Step 6 HTML verification & enrichment
               fs.writeFileSync('prerender-meta.json', JSON.stringify({ jobs, portfolioItems }, null, 2));
               
               const bespokeRoutes = [
@@ -93,7 +92,7 @@ jobs:
               pkg.reactSnap.include = [...new Set(pkg.reactSnap.include)];
               
               fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
-              console.log('Successfully injected dynamic SEO routes and enabled API fetching.');
+              console.log('Successfully injected dynamic SEO routes and configured error suppression.');
             } catch (err) {
               console.error('Error modifying package.json:', err);
               process.exit(1);
@@ -118,13 +117,11 @@ jobs:
           const baseUrl = 'https://nocapcode.cloud';
           const buildDir = path.join(process.cwd(), 'build');
 
-          // Remove build/200.html so it never enters sitemap.xml as a 404
           const file200 = path.join(buildDir, '200.html');
           if (fs.existsSync(file200)) {
             fs.unlinkSync(file200);
           }
 
-          // Load API metadata saved in Step 4
           let metaData = { jobs: [], portfolioItems: [] };
           if (fs.existsSync('prerender-meta.json')) {
             metaData = JSON.parse(fs.readFileSync('prerender-meta.json', 'utf8'));
@@ -166,21 +163,17 @@ jobs:
             }
             const locUrl = \`\${baseUrl}\${route}\`;
 
-            // Post-process HTML file to guarantee SEO tags, single H1, and Cloudflare email protection bypass
             let html = fs.readFileSync(file, 'utf8');
 
-            // 1. Ensure Cloudflare never creates /cdn-cgi/l/email-protection 404 links
             if (!html.includes('<!--email_off-->')) {
               html = html.replace('<body', '<!--email_off--><body').replace('</body>', '</body><!--/email_off-->');
             }
             html = html.replace(/href=\"mailto:[^\"]*\"/gi, 'href=\"https://nocapcode.cloud/contact/\"');
 
-            // 2. Fix /at/ HTML lang attribute
             if (route === '/at/') {
               html = html.replace('<html lang=\"en\"', '<html lang=\"de-at\"');
             }
 
-            // 3. Guarantee <title>, <meta name=\"description\">, <link rel=\"canonical\">, OG/Twitter tags & body content if missing
             if (!/<title>[^<]+<\/title>/i.test(html)) {
               let pageTitle = 'NoCapCode™ | Custom Software Development & AI Automation';
               let pageDesc = 'NoCapCode builds custom software, SaaS platforms, websites, mobile apps, and AI automation systems for startups and modern businesses worldwide.';
@@ -243,7 +236,6 @@ jobs:
               }
             }
 
-            // 4. Inject hidden crawlable links to dynamic job & portfolio pages on /careers/ and /portfolio/ so 0 orphan pages exist
             if (route === '/careers/' && metaData.jobs.length > 0) {
               const jobLinks = metaData.jobs.map(j => \`<a href=\"/careers/\${j._id}/\">\${j.title || 'Career Opportunity'}</a>\`).join(' ');
               html = html.replace('</body>', \`<nav aria-label=\"All Open Positions\" style=\"display:none;\">\${jobLinks}</nav></body>\`);
@@ -265,7 +257,6 @@ jobs:
           sitemapContent += '</urlset>';
           fs.writeFileSync(path.join(buildDir, 'sitemap.xml'), sitemapContent);
 
-          // Restore 404.html after sitemap generation
           if (fs.existsSync('public/404-backup.html')) {
             fs.copyFileSync('public/404-backup.html', path.join(buildDir, '404.html'));
           }
