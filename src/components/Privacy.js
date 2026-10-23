@@ -46,8 +46,8 @@ const Privacy = () => {
     <>
       <SEO 
         title="Privacy Policy | NoCapCode"
-        description="Read the NoCapCode Privacy Policy to understand how we collect, use, store, and protect information shared through our website, contact forms, and software consultation processes."
-        canonicalUrl="https://nocapcode.cloud/privacy"
+        description="Read the NoCapCode Privacy Policy to learn how we collect, use, store, and protect information shared through our website and contact forms."
+        canonicalUrl="https://nocapcode.cloud/privacy/"
       />
 
       <Helmet>

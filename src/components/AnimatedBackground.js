@@ -27,7 +27,7 @@ const supportedCountries = {
   ie: { name: "Ireland", lang: "en-ie" },
   de: { name: "Germany", lang: "en-de" },
   fr: { name: "France", lang: "en-fr" },
-  nl: { name: "the Netherlands", lang: "en-nl" },
+  nl: { name: "Netherlands", lang: "en-nl" },
   ch: { name: "Switzerland", lang: "en-ch" },
   se: { name: "Sweden", lang: "en-se" },
   no: { name: "Norway", lang: "en-no" },
@@ -38,7 +38,7 @@ const supportedCountries = {
   pt: { name: "Portugal", lang: "en-pt" },
   be: { name: "Belgium", lang: "en-be" },
   pl: { name: "Poland", lang: "en-pl" },
-  cz: { name: "the Czech Republic", lang: "en-cz" },
+  cz: { name: "Czechia", lang: "en-cz" },
   ro: { name: "Romania", lang: "en-ro" },
   ua: { name: "Ukraine", lang: "en-ua" },
   at: { 
@@ -63,7 +63,7 @@ const supportedCountries = {
   cn: { name: "China", lang: "en-cn" },
   id: { name: "Indonesia", lang: "en-id" },
   my: { name: "Malaysia", lang: "en-my" },
-  ph: { name: "the Philippines", lang: "en-ph" },
+  ph: { name: "Philippines", lang: "en-ph" },
   vn: { name: "Vietnam", lang: "en-vn" },
   th: { name: "Thailand", lang: "en-th" },
   pk: { name: "Pakistan", lang: "en-pk" },
@@ -549,6 +549,7 @@ export default function AnimatedBackground() {
         title={seo.title}
         description={seo.desc}
         canonicalUrl={seo.isGlobal ? "https://nocapcode.cloud/" : `https://nocapcode.cloud/${currentKey}/`}
+        lang={currentKey && supportedCountries[currentKey] ? supportedCountries[currentKey].lang : "en"}
       />
       <Helmet>
         {Object.entries(supportedCountries).map(([code, data]) => (

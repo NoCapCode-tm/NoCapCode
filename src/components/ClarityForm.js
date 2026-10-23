@@ -160,11 +160,10 @@ const handleSubmit = async () => {
     <>
 
   <SEO 
-      title="Start With Clarity | MVP Planning, SaaS Strategy & AI Automation"
-      description="Talk through your SaaS idea, MVP, AI automation system, startup product, or software architecture with NoCapCode before development begins. Start with clarity, not chaos."
-      canonicalUrl="https://nocapcode.cloud/clarity/"
+    title="Start With Clarity | MVP Planning, SaaS Strategy & AI Automation"
+    description="Discuss your SaaS idea, MVP, AI automation system, or software architecture with NoCapCode before development begins. Start with clarity."
+    canonicalUrl="https://nocapcode.cloud/clarity/"
   />
-
   <Helmet>
     {/* Clarity Session Structured Data */}
     <script type="application/ld+json">

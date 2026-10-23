@@ -46,8 +46,8 @@ const Condition = () => {
     <>
       <SEO 
         title="Terms & Conditions | NoCapCode"
-        description="Read the NoCapCode Terms & Conditions covering software services, project engagements, intellectual property, website usage, confidentiality, and collaboration policies."
-        canonicalUrl="https://nocapcode.cloud/terms"
+        description="Read the NoCapCode Terms & Conditions covering software services, project engagements, intellectual property, website usage, and confidentiality."
+        canonicalUrl="https://nocapcode.cloud/terms/"
       />
 
       <Helmet>

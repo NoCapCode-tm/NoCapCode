@@ -81,9 +81,9 @@ export default function CareersPage() {
   return (
     <>
     <SEO 
-      title="Careers at NoCapCode | Software Engineering, Design & Product Opportunities"
-      description="Explore careers at NoCapCode. Join our team to build scalable software systems, SaaS platforms, AI automation tools, websites, and digital products for startups and modern businesses."
-      canonicalUrl="https://nocapcode.cloud/careers"
+      title="Careers at NoCapCode | Engineering, Design & Product Roles"
+      description="Explore careers at NoCapCode. Join our team to build scalable software systems, SaaS platforms, AI automation tools, and digital products."
+      canonicalUrl="https://nocapcode.cloud/careers/"
     />
     <Helmet>
       <script type="application/ld+json">
