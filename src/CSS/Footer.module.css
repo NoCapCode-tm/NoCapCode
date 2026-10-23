@@ -262,3 +262,22 @@
     padding: 20px 8px;
   }
 }
+
+/* Update your logo section to this: */
+.logo, .footerLogo {
+  font-family: "Outfit", sans-serif;
+  font-size: 30px;
+  font-weight: 500;
+  color: #fff;
+  display: block;
+}
+
+/* Update your col h3 section to this: */
+.col h3, .footerHeading {
+  font-size: 16px;
+  margin-bottom: 14px;
+  font-weight: 500;
+  color: white;
+  font-family: "Inter", sans-serif;
+  display: block;
+}

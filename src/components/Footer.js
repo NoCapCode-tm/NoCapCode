@@ -16,7 +16,8 @@ const Footer = () => {
     
         <div className={styles.top}>
           <div className={styles.left}>
-            <h2 className={styles.logo}>NoCapCode™</h2>
+            {/* Changed className from logo to footerLogo to prevent crawler H1 confusion */}
+            <span className={styles.footerLogo}>NoCapCode™</span>
             <p className={styles.tagline}>No cap. Built like it's ours.</p>
             <p className={styles.tagline}>We build software systems for teams who care about clarity, ownership, and longevity.</p>
             <div className={styles.socials}>
@@ -44,7 +45,7 @@ const Footer = () => {
 
           <div className={styles.right}>
             <div className={styles.col}>
-              <h3>Explore</h3>
+              <span className={styles.footerHeading}>Explore</span>
               <ul>
                 <li>
                   <Link to="/" state={{ scrollTo: "service", t: Date.now() }} style={{ color: "inherit", textDecoration: "none" }}>
@@ -52,12 +53,12 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/portfolio" style={{ color: "inherit", textDecoration: "none" }}>
+                  <Link to="/portfolio/" style={{ color: "inherit", textDecoration: "none" }}>
                     Portfolio
                   </Link>
                 </li>
                 <li>
-                  <Link to="/about" onClick={() => window.scrollTo(0,0)} style={{ color: "inherit", textDecoration: "none" }}>
+                  <Link to="/about/" onClick={() => window.scrollTo(0,0)} style={{ color: "inherit", textDecoration: "none" }}>
                     About NoCapCode
                   </Link>
                 </li>
@@ -67,7 +68,7 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/clarity" style={{ color: "inherit", textDecoration: "none" }}>
+                  <Link to="/clarity/" style={{ color: "inherit", textDecoration: "none" }}>
                     Start with Clarity
                   </Link>
                 </li>
@@ -75,13 +76,13 @@ const Footer = () => {
             </div>
 
             <div className={styles.col}>
-              <h3>Company</h3>
+              <span className={styles.footerHeading}>Company</span>
               <ul>
                 <li>
-                  <Link to="/careers" style={{ color: "inherit", textDecoration: "none" }}>Careers</Link>
+                  <Link to="/careers/" style={{ color: "inherit", textDecoration: "none" }}>Careers</Link>
                 </li>
                 <li>
-                  <Link to="/contact" style={{ color: "inherit", textDecoration: "none" }}>Contact</Link>
+                  <Link to="/contact/" style={{ color: "inherit", textDecoration: "none" }}>Contact</Link>
                 </li>
               </ul>
               <p>
@@ -95,9 +96,9 @@ const Footer = () => {
           <p>© 2024-{String(new Date().getFullYear()).slice(-2)} NoCapCode. All rights reserved. <br/>Built with restraint, responsibility, and long-term thinking.</p>
 
           <div className={styles.links}>
-            <span><Link to="/terms" style={{ color: "inherit", textDecoration: "none" }}>Terms of Service</Link></span>
-            <span><Link to="/privacy" style={{ color: "inherit", textDecoration: "none" }}>Privacy Policy</Link></span>
-            <span><Link to="/security" style={{ color: "inherit", textDecoration: "none" }}>Trust & Security</Link></span>
+            <span><Link to="/terms/" style={{ color: "inherit", textDecoration: "none" }}>Terms of Service</Link></span>
+            <span><Link to="/privacy/" style={{ color: "inherit", textDecoration: "none" }}>Privacy Policy</Link></span>
+            <span><Link to="/security/" style={{ color: "inherit", textDecoration: "none" }}>Trust & Security</Link></span>
           </div>
         </div>
       </div>
