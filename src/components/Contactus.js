@@ -258,12 +258,22 @@ const Contactus = () => {
             <h3>Direct Technical Inquiry</h3>
             <p>hello@nocapcode.cloud</p>
           </div>
-          <a href="https://nocapcode.cloud/book" className={styles.actionCard}>
+          <a 
+            href="https://calendar.app.google/vG14eBrGNsD2znht5" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className={styles.actionCard}
+          >
             <div className={styles.actionIcon}><Calendar size={24} /></div>
             <h3>Request Engineering Consultation</h3>
             <p>Schedule a 15-Minute Architecture Assessment</p>
           </a>
-          <a href="http://linkedin.com/company/nocapcode/" className={styles.actionCard}>
+          <a 
+            href="https://www.linkedin.com/company/nocapcode" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className={styles.actionCard}
+          >
             <div className={styles.actionIcon}><Linkedin size={24} /></div>
             <h3>Corporate Network Integration</h3>
             <p>Connect with our executive leadership team on LinkedIn.</p>

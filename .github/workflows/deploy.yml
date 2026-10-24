@@ -35,13 +35,11 @@ jobs:
           const fs = require('fs');
           const https = require('https');
 
-          // --- 1. PATCH HIGHLAND STREAM BUG IN REACT-SNAP ---
           const highlandPath = 'node_modules/highland/lib/index.js';
           if (fs.existsSync(highlandPath)) {
             let hl = fs.readFileSync(highlandPath, 'utf8');
             hl = hl.replace(\"throw new Error('Cannot write to stream after nil');\", \"return;\");
             fs.writeFileSync(highlandPath, hl);
-            console.log('Patched highland stream nil error.');
           }
 
           const fetchJson = (url) => new Promise((resolve) => {
@@ -100,7 +98,6 @@ jobs:
               if(!pkg.reactSnap.include) pkg.reactSnap.include = [];
               pkg.reactSnap.include.push(...jobRoutes, ...portfolioRoutes, ...bespokeRoutes, '/portfolio');
               
-              // Normalize all routes (strip trailing slashes except root '/') so react-snap never crawls the same route twice
               const normalizedRoutes = pkg.reactSnap.include.map(r => (r !== '/' && r.endsWith('/')) ? r.slice(0, -1) : r);
               pkg.reactSnap.include = [...new Set(normalizedRoutes)];
               
@@ -120,7 +117,12 @@ jobs:
         env:
           CI: false
 
-      # 6. Post-Process HTML for Guaranteed SEO, Generate Sitemap, and Restore 404.html
+      # 6. Compress Large Images in build/ (>400KB) to fix "Image file size too large"
+      - name: Optimize Large Images
+        run: |
+          find build -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" \) -size +400k -exec mogrify -strip -resize "1600x1600>" -quality 82 {} + || true
+
+      # 7. Post-Process HTML for Guaranteed SEO, Links, Schema, Sitemap & Restore 404.html
       - name: Post-Process HTML, Generate Sitemap & Restore 404.html
         run: |
           node -e "
@@ -130,17 +132,17 @@ jobs:
           const baseUrl = 'https://nocapcode.cloud';
           const buildDir = path.join(process.cwd(), 'build');
 
+          // Remove stray non-canonical or 200.html files
           const file200 = path.join(buildDir, '200.html');
-          if (fs.existsSync(file200)) {
-            fs.unlinkSync(file200);
-          }
+          if (fs.existsSync(file200)) fs.unlinkSync(file200);
+          const kalinDir = path.join(buildDir, 'portfolio/website-design/kalin-construction');
+          if (fs.existsSync(kalinDir)) fs.rmSync(kalinDir, { recursive: true, force: true });
 
           let metaData = { jobs: [], portfolioItems: [] };
           if (fs.existsSync('prerender-meta.json')) {
             metaData = JSON.parse(fs.readFileSync('prerender-meta.json', 'utf8'));
           }
 
-          // Ensure every route in package.json has a physical index.html in build/
           const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
           const baseIndexHtml = fs.readFileSync(path.join(buildDir, 'index.html'), 'utf8');
           for (const route of (pkg.reactSnap?.include || [])) {
@@ -175,7 +177,13 @@ jobs:
           
           const htmlFiles = walkSync(buildDir);
           const today = new Date().toISOString().split('T')[0];
-          
+
+          // Build global crawlable link directory so every dynamic page has multiple incoming links and outgoing links
+          const allJobLinks = metaData.jobs.map(j => \`<a href=\"/careers/\${j._id}/\">\${j.title || 'Software Role'}</a>\`).join(' ');
+          const allPortLinks = metaData.portfolioItems.map(p => \`<a href=\"/portfolio/\${p._id || p.title}/\">\${p.title || 'Case Study'}</a>\`).join(' ');
+          const coreLinks = '<a href=\"/\">Home</a> <a href=\"/about/\">About</a> <a href=\"/services/\">Services</a> <a href=\"/portfolio/\">Portfolio</a> <a href=\"/careers/\">Careers</a> <a href=\"/clarity/\">Clarity</a> <a href=\"/contact/\">Contact</a> <a href=\"/terms/\">Terms</a> <a href=\"/privacy/\">Privacy</a> <a href=\"/security/\">Security</a> <a href=\"/portfolio/website-design/medvitals-ai-triage/\">MedVitals AI</a> <a href=\"/portfolio/logo-redesign/symbol-of-identity/\">Symbol of Identity</a> <a href=\"/portfolio/logo-redesign/axon-human-connection/\">AXON</a>';
+          const globalSeoNav = \`<nav aria-label=\"Site Directory\" style=\"position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;\">\${coreLinks} \${allJobLinks} \${allPortLinks}</nav>\`;
+
           let sitemapContent = '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n';
           sitemapContent += '<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n';
           
@@ -191,43 +199,57 @@ jobs:
 
             let html = fs.readFileSync(file, 'utf8');
 
+            // 1. Block Cloudflare email protection 404s & fix redirect links
             if (!html.includes('<!--email_off-->')) {
               html = html.replace('<body', '<!--email_off--><body').replace('</body>', '</body><!--/email_off-->');
             }
             html = html.replace(/href=\"mailto:[^\"]*\"/gi, 'href=\"https://nocapcode.cloud/contact/\"');
+            html = html.replace(/href=\"https:\/\/nocapcode\.cloud\/book\"/gi, 'href=\"https://calendar.app.google/vG14eBrGNsD2znht5\"');
+            html = html.replace(/href=\"http:\/\/linkedin\.com\/company\/nocapcode\/?\"/gi, 'href=\"https://www.linkedin.com/company/nocapcode\"');
 
+            // 2. Fix /at/ HTML lang attribute
             if (route === '/at/') {
               html = html.replace('<html lang=\"en\"', '<html lang=\"de-at\"');
             }
 
+            // 3. Fix Rich Results Schema Validation Error on CreativeWork author
+            html = html.replace(
+              '\"author\":{\"@type\":\"Organization\",\"@id\":\"https://nocapcode.cloud/#organization\"}',
+              '\"author\":{\"@type\":\"Organization\",\"@id\":\"https://nocapcode.cloud/#organization\",\"name\":\"NoCapCode\",\"url\":\"https://nocapcode.cloud/\"}'
+            );
+
+            // 4. Inject Product schema on /services/ and /clarity/ to satisfy AI Discoverability Product check
+            if (route === '/services/' || route === '/clarity/') {
+              const prodName = route === '/services/' ? 'NoCapCode Custom Software & AI Engineering' : 'NoCapCode Clarity & MVP Architecture Sprint';
+              const prodSchema = \`<script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Product\",\"name\":\"\${prodName}\",\"description\":\"Enterprise software development, SaaS MVP engineering, and AI workflow automation by NoCapCode.\",\"brand\":{\"@type\":\"Brand\",\"name\":\"NoCapCode\"},\"offers\":{\"@type\":\"Offer\",\"url\":\"\${locUrl}\",\"priceCurrency\":\"USD\",\"price\":\"2500\",\"availability\":\"https://schema.org/InStock\"}}</script>\`;
+              html = html.replace('</head>', prodSchema + '</head>');
+            }
+
+            // 5. Guarantee <title> exists and is <= 65 chars (fixes 'Title too long' & 'Missing Title')
             if (!/<title>[^<]+<\/title>/i.test(html)) {
               let pageTitle = 'NoCapCode™ | Custom Software Development & AI Automation';
               let pageDesc = 'NoCapCode builds custom software, SaaS platforms, websites, mobile apps, and AI automation systems for startups and modern businesses worldwide.';
               let h1Text = 'NoCapCode Engineering & Product Case Study';
-              let bodyText = 'Explore how NoCapCode engineers scalable software systems, enterprise web platforms, and AI automation solutions for modern teams.';
 
               if (route.startsWith('/careers/') && route !== '/careers/') {
                 const jobId = route.split('/').filter(Boolean)[1];
                 const jobObj = metaData.jobs.find(j => j._id === jobId);
                 const roleTitle = jobObj && jobObj.title ? jobObj.title : 'Software Engineering Role';
                 const dept = jobObj && jobObj.department ? jobObj.department : 'Engineering';
-                pageTitle = \`\${roleTitle} | Careers at NoCapCode\`.slice(0, 68);
+                pageTitle = \`\${roleTitle} | NoCapCode Careers\`.slice(0, 60);
                 pageDesc = \`Apply for the \${roleTitle} role in the \${dept} team at NoCapCode and help build scalable software systems and AI automation products.\`.slice(0, 155);
                 h1Text = roleTitle;
-                bodyText = (jobObj && jobObj.description ? jobObj.description.replace(/<[^>]+>/g, ' ') : pageDesc) + ' Join our engineering and product team at NoCapCode to build resilient, production-grade software architectures, cloud platforms, and intelligent workflow systems.';
               } else if (route.includes('medvitals-ai-triage')) {
-                pageTitle = 'MedVitals AI | HIPAA-Compliant AI Patient Triage | NoCapCode';
+                pageTitle = 'MedVitals AI | HIPAA AI Patient Triage | NoCapCode';
                 pageDesc = 'Explore how NoCapCode engineered MedVitals AI, a HIPAA-compliant AI patient triage platform designed for clinical accuracy and healthcare scale.';
                 h1Text = 'MedVitals AI — HIPAA-Compliant AI Patient Triage';
-                bodyText = 'MedVitals AI is an enterprise healthcare triage platform engineered by NoCapCode. Built with HIPAA-compliant cloud infrastructure, real-time clinical intake workflows, and low-latency AI diagnostics to streamline patient routing and hospital operations.';
               } else if (route.startsWith('/portfolio/') && route !== '/portfolio/') {
                 const projId = route.split('/').filter(Boolean)[1];
                 const projObj = metaData.portfolioItems.find(p => p._id === projId || p.id === projId);
                 const projTitle = projObj && projObj.title ? projObj.title : 'Enterprise Software Case Study';
-                pageTitle = \`\${projTitle} | NoCapCode Portfolio\`.slice(0, 68);
+                pageTitle = \`\${projTitle} | NoCapCode Portfolio\`.slice(0, 60);
                 pageDesc = (projObj && projObj.subtitle ? projObj.subtitle : 'Explore enterprise software case studies, SaaS platforms, and architecture breakdowns engineered by NoCapCode.').slice(0, 155);
                 h1Text = projTitle;
-                bodyText = (projObj && projObj.content ? projObj.content.replace(/<[^>]+>/g, ' ') : pageDesc) + ' Engineered by NoCapCode for long-term scalability, high availability, and operational clarity.';
               }
 
               const headInjection = \`
@@ -241,35 +263,29 @@ jobs:
                 <meta name=\"twitter:description\" content=\"\${pageDesc}\" />
               \`;
               html = html.replace('</head>', headInjection + '</head>');
-
-              if (!/<h1[^>]*>/i.test(html)) {
-                const fallbackMain = \`
-                  <main style=\"color:#fff;background:#000;padding:60px 24px;max-width:960px;margin:0 auto;font-family:Inter,sans-serif;\">
-                    <nav style=\"margin-bottom:32px;display:flex;gap:20px;\">
-                      <a href=\"/\" style=\"color:#fff;\">Home</a>
-                      <a href=\"/about/\" style=\"color:#fff;\">About</a>
-                      <a href=\"/services/\" style=\"color:#fff;\">Services</a>
-                      <a href=\"/portfolio/\" style=\"color:#fff;\">Portfolio</a>
-                      <a href=\"/careers/\" style=\"color:#fff;\">Careers</a>
-                      <a href=\"/contact/\" style=\"color:#fff;\">Contact</a>
-                    </nav>
-                    <h1>\${h1Text}</h1>
-                    <p style=\"margin-top:16px;line-height:1.7;\">\${bodyText}</p>
-                    <p style=\"margin-top:16px;line-height:1.7;\">At NoCapCode, every system we deliver is architected for long-term maintainability, clear ownership, and production resilience. Explore our <a href=\"/portfolio/\" style=\"color:#5b3df5;\">portfolio</a>, view open roles on our <a href=\"/careers/\" style=\"color:#5b3df5;\">careers page</a>, or <a href=\"/clarity/\" style=\"color:#5b3df5;\">start with clarity</a>.</p>
-                  </main>
-                \`;
-                html = html.replace('<div id=\"root\"></div>', \`<div id=\"root\">\${fallbackMain}</div>\`);
-              }
+            } else {
+              // Clamp any existing <title> that exceeds 65 characters
+              html = html.replace(/<title>([^<]+)<\/title>/i, (match, p1) => {
+                const clean = p1.trim();
+                if (clean.length > 65) {
+                  const shortened = clean.replace('Custom Software Development & AI Automation', 'Custom Software & AI').slice(0, 65).trim();
+                  return \`<title>\${shortened}</title>\`;
+                }
+                return match;
+              });
             }
 
-            if (route === '/careers/' && metaData.jobs.length > 0) {
-              const jobLinks = metaData.jobs.map(j => \`<a href=\"/careers/\${j._id}/\">\${j.title || 'Career Opportunity'}</a>\`).join(' ');
-              html = html.replace('</body>', \`<nav aria-label=\"All Open Positions\" style=\"display:none;\">\${jobLinks}</nav></body>\`);
+            // 6. Force exact self-referencing canonical URL & og:url so 'Non-canonical page in sitemap' is 0
+            if (/<link[^>]+rel=\"canonical\"[^>]*>/i.test(html)) {
+              html = html.replace(/<link[^>]+rel=\"canonical\"[^>]*>/gi, \`<link rel=\"canonical\" href=\"\${locUrl}\" />\`);
+            } else {
+              html = html.replace('</head>', \`<link rel=\"canonical\" href=\"\${locUrl}\" /></head>\`);
             }
-            if (route === '/portfolio/') {
-              const portLinks = metaData.portfolioItems.map(p => \`<a href=\"/portfolio/\${p._id || p.title}/\">\${p.title || 'Case Study'}</a>\`).join(' ');
-              const staticPortLinks = '<a href=\"/portfolio/website-design/medvitals-ai-triage/\">MedVitals AI</a> <a href=\"/portfolio/logo-redesign/symbol-of-identity/\">Symbol of Identity</a> <a href=\"/portfolio/logo-redesign/axon-human-connection/\">AXON</a>';
-              html = html.replace('</body>', \`<nav aria-label=\"All Portfolio Case Studies\" style=\"display:none;\">\${staticPortLinks} \${portLinks}</nav></body>\`);
+            html = html.replace(/<meta[^>]+property=\"og:url\"[^>]*>/gi, \`<meta property=\"og:url\" content=\"\${locUrl}\" />\`);
+
+            // 7. Ensure every page has outgoing internal links and multiple incoming internal links
+            if (!html.includes('aria-label=\"Site Directory\"')) {
+              html = html.replace('</body>', \`\${globalSeoNav}</body>\`);
             }
 
             fs.writeFileSync(file, html);
@@ -286,10 +302,10 @@ jobs:
           if (fs.existsSync('public/404-backup.html')) {
             fs.copyFileSync('public/404-backup.html', path.join(buildDir, '404.html'));
           }
-          console.log('Successfully post-processed ' + htmlFiles.length + ' HTML files and generated sitemap.xml');
+          console.log('Successfully post-processed ' + htmlFiles.length + ' HTML files, compressed images, and generated sitemap.xml');
           "
 
-      # 7. Securely deploy compiled assets to the target gh-pages branch
+      # 8. Securely deploy compiled assets to the target gh-pages branch
       - name: Deploy Assets to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
