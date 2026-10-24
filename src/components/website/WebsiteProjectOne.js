@@ -13,9 +13,13 @@ gsap.registerPlugin(ScrollTrigger);
 
 // Figma interactive prototype (embed + direct link)
 const FIGMA_PARAMS =
-  "node-id=181-2979&viewport=773%2C1135%2C0.02&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1";
-const FIGMA_OPEN_URL = `https://www.figma.com/proto/imDdnTuDJ5YQ5NL7zmVJ6O/Resources?${FIGMA_PARAMS}`;
-const FIGMA_EMBED_URL = `https://embed.figma.com/proto/imDdnTuDJ5YQ5NL7zmVJ6O/Resources?${FIGMA_PARAMS}&embed-host=share`;
+  "node-id=1-74&t=UGvz545LGMhiP15m-0&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1";
+
+const FIGMA_OPEN_URL =
+  `https://www.figma.com/proto/7iOT0EHpGbwiZm0yS4Nn6y/Untitled?${FIGMA_PARAMS}`;
+
+const FIGMA_EMBED_URL =
+  `https://embed.figma.com/proto/7iOT0EHpGbwiZm0yS4Nn6y/Untitled?${FIGMA_PARAMS}&embed-host=share`;
 
 const URL = "https://nocapcode.cloud/portfolio/website-design/kalin-construction/";
 
