@@ -117,7 +117,7 @@ jobs:
         env:
           CI: false
 
-      # 6. Compress Large Images in build/ (>400KB) to fix "Image file size too large"
+      # 6. Compress All Images in build/ to eliminate image size warnings
       - name: Optimize Large Images
         run: |
           sudo apt-get update && sudo apt-get install -y pngquant jpegoptim imagemagick
@@ -131,7 +131,6 @@ jobs:
           node -e "
           const fs = require('fs');
           const path = require('path');
-          const https = require('https');
           
           const baseUrl = 'https://nocapcode.cloud';
           const buildDir = path.join(process.cwd(), 'build');
@@ -204,7 +203,6 @@ jobs:
 
             let html = fs.readFileSync(file, 'utf8');
 
-            // 1. Block Cloudflare email protection 404s & fix redirect links
             if (!html.includes('<!--email_off-->')) {
               html = html.replace('<body', '<!--email_off--><body').replace('</body>', '</body><!--/email_off-->');
             }
@@ -213,12 +211,10 @@ jobs:
             html = html.replace(/href=\"http:\/\/linkedin\.com\/company\/nocapcode\/?\"/gi, 'href=\"https://www.linkedin.com/company/nocapcode\"');
             html = html.replace(/https:\/\/nocapcode\.cloud\/portfolio\/website-design\/kalin-construction\/?/gi, 'https://nocapcode.cloud/portfolio/website-design/medvitals-ai-triage/');
 
-            // 2. Fix /at/ HTML lang attribute
             if (route === '/at/') {
               html = html.replace('<html lang=\"en\"', '<html lang=\"de-at\"');
             }
 
-            // 3. Ensure complete Organization fields in any CreativeWork JSON-LD
             html = html.replace(
               /\"author\":\{\"@type\":\"Organization\",\"@id\":\"https:\/\/nocapcode\.cloud\/#organization\"\}/g,
               '\"author\":{\"@type\":\"Organization\",\"@id\":\"https://nocapcode.cloud/#organization\",\"name\":\"NoCapCode\",\"url\":\"https://nocapcode.cloud/\"}'
@@ -228,7 +224,6 @@ jobs:
               '\"publisher\":{\"@type\":\"Organization\",\"@id\":\"https://nocapcode.cloud/#organization\",\"name\":\"NoCapCode\",\"url\":\"https://nocapcode.cloud/\"}'
             );
 
-            // 4. Guarantee <title> exists and is <= 65 chars
             let extractedTitle = 'NoCapCode™ | Custom Software Development & AI Automation';
             const titleMatch = html.match(/<title>([^<]+)<\/title>/i);
             if (!titleMatch) {
@@ -270,7 +265,6 @@ jobs:
               });
             }
 
-            // 5. Fix 'Meta description too short' (< 110 chars) or too long (> 158 chars)
             html = html.replace(/<meta\s+name=\"description\"\s+content=\"([^\"]*)\"\s*\/?>/i, (match, desc) => {
               let d = desc.trim();
               if (d.length < 110) {
@@ -281,19 +275,16 @@ jobs:
               return \`<meta name=\"description\" content=\"\${d}\" />\`;
             });
 
-            // 6. Inject Product JSON-LD on all Portfolio, Service, Clarity, and Regional Software pages if not already present so AI Discoverability 'Product page missing Product schema' = 0
             if (!html.includes('\"@type\":\"Product\"') && (route.startsWith('/portfolio') || route === '/services/' || route === '/clarity/' || route.includes('software-development'))) {
               const productSchema = \`<script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Product\",\"name\":\"\${extractedTitle.replace(/\"/g, '')}\",\"description\":\"Custom software engineering, SaaS architecture, and digital product design by NoCapCode.\",\"image\":\"https://nocapcode.cloud/internal/og-cover.png\",\"brand\":{\"@type\":\"Brand\",\"name\":\"NoCapCode\"},\"offers\":{\"@type\":\"Offer\",\"url\":\"\${locUrl}\",\"priceCurrency\":\"INR\",\"price\":\"85000\",\"availability\":\"https://schema.org/InStock\"}}</script>\`;
               html = html.replace('</head>', productSchema + '</head>');
             }
 
-            // 7. Add AI Discovery & Freshness Signals (<link rel=\"alternate\" href=\"/llms.txt\"> & og:updated_time)
             if (!html.includes('/llms.txt')) {
               const aiHeadLinks = \`<link rel=\"alternate\" type=\"text/markdown\" href=\"https://nocapcode.cloud/llms.txt\" title=\"NoCapCode AI Context\" /><meta property=\"og:updated_time\" content=\"\${isoNow}\" />\`;
               html = html.replace('</head>', aiHeadLinks + '</head>');
             }
 
-            // 8. Force exact self-referencing canonical URL & og:url
             if (/<link[^>]+rel=\"canonical\"[^>]*>/i.test(html)) {
               html = html.replace(/<link[^>]+rel=\"canonical\"[^>]*>/gi, \`<link rel=\"canonical\" href=\"\${locUrl}\" />\`);
             } else {
@@ -301,7 +292,6 @@ jobs:
             }
             html = html.replace(/<meta[^>]+property=\"og:url\"[^>]*>/gi, \`<meta property=\"og:url\" content=\"\${locUrl}\" />\`);
 
-            // 9. Ensure every page has outgoing internal links and multiple incoming links
             if (!html.includes('aria-label=\"Site Directory\"')) {
               html = html.replace('</body>', \`\${globalSeoNav}</body>\`);
             }
@@ -321,7 +311,6 @@ jobs:
             fs.copyFileSync('public/404-backup.html', path.join(buildDir, '404.html'));
           }
 
-          // Save URL list for IndexNow ping after deploy
           fs.writeFileSync('indexnow-urls.json', JSON.stringify(allLocUrls));
           console.log('Successfully post-processed ' + htmlFiles.length + ' HTML files.');
           "
