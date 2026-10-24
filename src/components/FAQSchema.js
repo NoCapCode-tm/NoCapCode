@@ -7,30 +7,36 @@ export default function FAQSchema() {
   const { countryCode } = useParams();
   const region = countryCode?.toLowerCase();
   
-  // 1. Load the initial global baseline questions
-  let combinedFaqs = [...globalFaqs];
+  let combinedFaqs = Array.isArray(globalFaqs) ? [...globalFaqs] : [];
 
-  // 2. Fetch the programmatic array of regional variants if a valid countryCode parameter is active
-  if (region) {
-    // Pass the countryCode along with a capitalized version for the template logic
+  if (region && typeof getRegionalFaq === 'function') {
     const regionalEntries = getRegionalFaq(region, region.toUpperCase());
-    
-    // Smoothly spread the new array elements into the collection
     if (Array.isArray(regionalEntries)) {
       combinedFaqs = [...combinedFaqs, ...regionalEntries];
     }
   }
 
-  // 3. Map everything into Google's strict JSON-LD specification schema structure
+  // Deduplicate and ensure non-empty question/answer strings for strict Google Rich Results validation
+  const seen = new Set();
+  const validFaqs = combinedFaqs.filter(faq => {
+    const q = (faq?.question || faq?.q || '').trim();
+    const a = (faq?.answer || faq?.a || '').trim();
+    if (!q || !a || seen.has(q)) return false;
+    seen.add(q);
+    return true;
+  });
+
+  if (validFaqs.length === 0) return null;
+
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": combinedFaqs.map(faq => ({
+    "mainEntity": validFaqs.map(faq => ({
       "@type": "Question",
-      "name": faq.question,
+      "name": (faq.question || faq.q).trim(),
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": faq.answer
+        "text": (faq.answer || faq.a).trim()
       }
     }))
   };

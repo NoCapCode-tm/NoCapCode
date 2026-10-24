@@ -21,7 +21,8 @@ const FIGMA_OPEN_URL =
 const FIGMA_EMBED_URL =
   `https://embed.figma.com/proto/7iOT0EHpGbwiZm0yS4Nn6y/Untitled?${FIGMA_PARAMS}&embed-host=share`;
 
-const URL = "https://nocapcode.cloud/portfolio/website-design/kalin-construction/";
+// FIXED: Matches the actual route in App.js and Portfolio.js so 0 broken/404 canonicals occur
+const URL = "https://nocapcode.cloud/portfolio/website-design/medvitals-ai-triage/";
 
 const intentRows = [
   { n: "01", label: "TONE", word: "Warm", text: "A composed, trustworthy voice that feels personal without becoming informal." },
@@ -40,6 +41,7 @@ const badges = [
 
 const WebsiteProjectOne = () => {
   const containerRef = useRef(null);
+  const isReactSnap = typeof navigator !== 'undefined' && navigator.userAgent === 'ReactSnap';
 
   useGSAP(() => {
     gsap.utils.toArray('.gsap-reveal').forEach((el) => {
@@ -67,20 +69,53 @@ const WebsiteProjectOne = () => {
     <div className={styles.wrapper} ref={containerRef}>
       <SEO
         title="Crafting Confidence | Website Redesign | NoCapCode"
-        description="A website redesign for Kalin Construction that turns decades of craftsmanship into a warm, clear and immersive digital experience."
+        description="A website redesign for Kalin Construction that turns decades of craftsmanship into a warm, clear, and immersive digital experience."
         canonicalUrl={URL}
+        image="https://nocapcode.cloud/portfolio-assets/kalin-after.png"
       />
       <Helmet>
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "CreativeWork",
-            "headline": "Crafting Confidence - Website Redesign",
-            "description": "Website redesign for a luxury home remodeling company, focused on clarity, immersive imagery and trust.",
-            "image": "https://nocapcode.cloud/portfolio-assets/kalin-after.png",
-            "author": { "@type": "Organization", "@id": "https://nocapcode.cloud/#organization" },
-            "publisher": { "@type": "Organization", "@id": "https://nocapcode.cloud/#organization" },
-            "url": URL
+            "@graph": [
+              {
+                "@type": "CreativeWork",
+                "headline": "Crafting Confidence - Website Redesign",
+                "name": "Crafting Confidence - Website Redesign",
+                "description": "Website redesign for a luxury home remodeling company, focused on clarity, immersive imagery, and trust.",
+                "image": "https://nocapcode.cloud/portfolio-assets/kalin-after.png",
+                "author": {
+                  "@type": "Organization",
+                  "@id": "https://nocapcode.cloud/#organization",
+                  "name": "NoCapCode",
+                  "url": "https://nocapcode.cloud/"
+                },
+                "publisher": {
+                  "@type": "Organization",
+                  "@id": "https://nocapcode.cloud/#organization",
+                  "name": "NoCapCode",
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://nocapcode.cloud/favicon/favicon-96x96.png"
+                  }
+                },
+                "url": URL
+              },
+              {
+                "@type": "Product",
+                "name": "Enterprise Website Redesign & UI/UX Architecture",
+                "description": "Custom web platform design, UI/UX engineering, and interactive prototyping by NoCapCode.",
+                "image": "https://nocapcode.cloud/portfolio-assets/kalin-after.png",
+                "brand": { "@type": "Brand", "name": "NoCapCode" },
+                "offers": {
+                  "@type": "Offer",
+                  "url": URL,
+                  "priceCurrency": "INR",
+                  "price": "85000",
+                  "availability": "https://schema.org/InStock"
+                }
+              }
+            ]
           })}
         </script>
       </Helmet>
@@ -135,14 +170,11 @@ const WebsiteProjectOne = () => {
           <div className={`${styles.compare} gsap-stagger`}>
             <figure className={styles.beforeFrame}>
               <div className={styles.browserBar}><i /><i /><i /><em>BEFORE · PREVIOUS WEBSITE</em></div>
-              <img src="/portfolio-assets/kalin-before.png" alt="Kalin Construction previous website" />
+              <img src="/portfolio-assets/kalin-before.png" alt="Kalin Construction previous website" loading="lazy" />
             </figure>
             <figure className={styles.afterFrame}>
               <div className={styles.browserBar}><i /><i /><i /><em>AFTER · REDESIGNED WEBSITE</em></div>
-              <img src="/portfolio-assets/kalin-after.png" alt="Kalin Construction redesigned website" />
-              {/* <figcaption>
-                <b>AFTER</b> Spacious composition, modern typography, immersive imagery.
-              </figcaption> */}
+              <img src="/portfolio-assets/kalin-after.png" alt="Kalin Construction redesigned website" loading="lazy" />
             </figure>
           </div>
         </section>
@@ -188,15 +220,15 @@ const WebsiteProjectOne = () => {
 
       <section className={`${styles.gallery} gsap-stagger`}>
         <div className={styles.galleryMain}>
-          <img src="/portfolio-assets/kalin-gallery-1.png" alt="Luxury living room remodel" />
+          <img src="/portfolio-assets/kalin-gallery-1.png" alt="Luxury living room remodel" loading="lazy" />
           <span className={styles.galleryCap}>LIVING · Modern luxury living room</span>
         </div>
         <div className={styles.galleryTop}>
-          <img src="/portfolio-assets/kalin-gallery-2.png" alt="Custom bathroom remodel" />
+          <img src="/portfolio-assets/kalin-gallery-2.png" alt="Custom bathroom remodel" loading="lazy" />
           <span className={styles.galleryCap}>BATH · Bold character in detail</span>
         </div>
         <div className={styles.galleryBottom}>
-          <img src="/portfolio-assets/kalin-gallery-3.png" alt="Primary suite remodel" />
+          <img src="/portfolio-assets/kalin-gallery-3.png" alt="Primary suite remodel" loading="lazy" />
           <span className={styles.galleryCap}>SUITE · Comfort, elevated</span>
         </div>
       </section>
@@ -216,7 +248,7 @@ const WebsiteProjectOne = () => {
           </ul>
         </div>
         <div className={`${styles.expVisual} gsap-reveal`}>
-          <img src="/portfolio-assets/kalin-experience.png" alt="Kalin homepage hero design" />
+          <img src="/portfolio-assets/kalin-experience.png" alt="Kalin homepage hero design" loading="lazy" />
         </div>
       </section>
 
@@ -229,12 +261,14 @@ const WebsiteProjectOne = () => {
           </a>
         </div>
         <div className={styles.figmaFrame}>
-          <iframe
-            title="Kalin Construction full website design - interactive Figma prototype"
-            src={FIGMA_EMBED_URL}
-            loading="lazy"
-            allowFullScreen
-          />
+          {!isReactSnap && (
+            <iframe
+              title="Kalin Construction full website design - interactive Figma prototype"
+              src={FIGMA_EMBED_URL}
+              loading="lazy"
+              allowFullScreen
+            />
+          )}
         </div>
       </section>
 
@@ -270,14 +304,14 @@ const WebsiteProjectOne = () => {
 
       <section className={`${styles.badges} gsap-stagger`}>
         {badges.map((b) => (
-          <img key={b.alt} src={b.src} alt={b.alt} />
+          <img key={b.alt} src={b.src} alt={b.alt} loading="lazy" />
         ))}
       </section>
 
       {/* 05 OUTCOME */}
       <section className={styles.outcome}>
         <div className={`${styles.outcomeImg} gsap-reveal`}>
-          <img src="/portfolio-assets/kalin-outcome.png" alt="Completed Kalin Construction home exterior" />
+          <img src="/portfolio-assets/kalin-outcome.png" alt="Completed Kalin Construction home exterior" loading="lazy" />
         </div>
         <div className={`${styles.outcomeText} gsap-reveal`}>
           <span className={styles.eyebrowSmall}>05&nbsp;&nbsp;THE OUTCOME</span>

@@ -7,7 +7,7 @@ import styles from '../../CSS/LogoProjectTwo.module.css';
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import SEO from "../SEO"; // <--- IMPORT SEO WRAPPER
+import SEO from "../SEO";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -44,28 +44,58 @@ const LogoProjectTwo = () => {
         title="AXON Human Connection | Visual Identity | NoCapCode"
         description="Evolving AXON's brand from a rigid system to a smart, fluid hub built around human connection and intuitive product design."
         canonicalUrl="https://nocapcode.cloud/portfolio/logo-redesign/axon-human-connection/"
+        image="https://nocapcode.cloud/portfolio-assets/axon-new-logo-glow.png"
       />
       <Helmet>
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "CreativeWork",
-            "headline": "AXON - A Smarter Human Connection",
-            "description": "Brand transformation shifting AXON from a technical utility to a vibrant, user-centric ecosystem.",
-            "image": "https://nocapcode.cloud/portfolio-assets/axon-new-logo-glow.jpg",
-            "author": { "@type": "Organization", "@id": "https://nocapcode.cloud/#organization" },
-            "publisher": { "@type": "Organization", "@id": "https://nocapcode.cloud/#organization" },
-            "url": "https://nocapcode.cloud/portfolio/logo-redesign/axon-human-connection/"
+            "@graph": [
+              {
+                "@type": "CreativeWork",
+                "headline": "AXON - A Smarter Human Connection",
+                "name": "AXON - A Smarter Human Connection",
+                "description": "Brand transformation shifting AXON from a technical utility to a vibrant, user-centric ecosystem.",
+                "image": "https://nocapcode.cloud/portfolio-assets/axon-new-logo-glow.png",
+                "author": {
+                  "@type": "Organization",
+                  "@id": "https://nocapcode.cloud/#organization",
+                  "name": "NoCapCode",
+                  "url": "https://nocapcode.cloud/"
+                },
+                "publisher": {
+                  "@type": "Organization",
+                  "@id": "https://nocapcode.cloud/#organization",
+                  "name": "NoCapCode",
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://nocapcode.cloud/favicon/favicon-96x96.png"
+                  }
+                },
+                "url": "https://nocapcode.cloud/portfolio/logo-redesign/axon-human-connection/"
+              },
+              {
+                "@type": "Product",
+                "name": "AXON — Brand Architecture & Product UI System",
+                "description": "Visual identity system, brand transformation, and enterprise dashboard UI design engineered by NoCapCode.",
+                "image": "https://nocapcode.cloud/portfolio-assets/axon-new-logo-glow.png",
+                "brand": { "@type": "Brand", "name": "NoCapCode" },
+                "offers": {
+                  "@type": "Offer",
+                  "url": "https://nocapcode.cloud/portfolio/logo-redesign/axon-human-connection/",
+                  "priceCurrency": "INR",
+                  "price": "85000",
+                  "availability": "https://schema.org/InStock"
+                }
+              }
+            ]
           })}
         </script>
       </Helmet>
 
       <Navbar />
       
-      {/* --- OLIVE TO BLACK GRADIENT WRAPPER --- */}
       <div className={styles.topGradientGroup}>
-        
-        {/* 1. HERO */}
         <section className={`${styles.section} ${styles.hero}`}>
           <span className={`${styles.eyebrow} gsap-reveal`}>BRAND ARCHITECTURE</span>
           <h2 className={`${styles.heroSub} ${styles.serif} ${styles.italic} gsap-reveal`}>A smarter, more</h2>
@@ -79,7 +109,6 @@ const LogoProjectTwo = () => {
           </div>
         </section>
 
-        {/* 2. THE CHALLENGE & EVOLUTION */}
         <section className={styles.section}>
           <div className={styles.splitGrid}>
             <div className="splitLeft gsap-reveal">
@@ -105,20 +134,16 @@ const LogoProjectTwo = () => {
             </div>
             <div className={`${styles.evoCards} gsap-stagger`}>
               <div className={styles.cardBefore}>
-                <img src="/portfolio-assets/axon-old-logo.png" alt="Original Logo" />
+                <img src="/portfolio-assets/axon-old-logo.png" alt="Original Logo" loading="lazy" />
               </div>
               <div className={styles.cardAfter}>
-                <img src="/portfolio-assets/axon-new-logo-glow.png" alt="New Glowing Logo" />
+                <img src="/portfolio-assets/axon-new-logo-glow.png" alt="New Glowing Logo" loading="lazy" />
               </div>
             </div>
           </div>
         </section>
-
       </div> 
-      {/* --- END OLIVE TO BLACK GRADIENT WRAPPER --- */}
 
-
-      {/* 3. VISUAL SYSTEM (Solid Neon Green Background) */}
       <section className={`${styles.section} ${styles.bgNeon}`}>
         <div className={`${styles.sysHeader} gsap-reveal`}>
           <span className={styles.eyebrow}>03. VISUAL LANGUAGE</span>
@@ -128,7 +153,7 @@ const LogoProjectTwo = () => {
         <div className={`${styles.threeColGrid} gsap-stagger`}>
           <div className={`${styles.sysCard} ${styles.sysCardWhite}`}>
             <div className={styles.sysVisual}>
-              <img src="/portfolio-assets/axon-mark-neon.svg" alt="Fluid Geometry" />
+              <img src="/portfolio-assets/axon-mark-neon.svg" alt="Fluid Geometry" loading="lazy" />
             </div>
             <h4 className={styles.serif}>Fluid geometry</h4>
             <p className={styles.textMuted}>The 'A' operates as an ongoing energetic pulse.</p>
@@ -157,7 +182,6 @@ const LogoProjectTwo = () => {
         </div>
       </section>
 
-      {/* 4. MOCKUPS (Solid Black Background) */}
       <section className={`${styles.section} ${styles.bgBlack}`}>
         <div className={`${styles.bentoHeader} gsap-reveal`}>
           <div>
@@ -168,28 +192,22 @@ const LogoProjectTwo = () => {
         </div>
         
         <div className={`${styles.bentoGrid} gsap-stagger`}>
-          {/* Top Row: Massive Dashboard */}
           <div className={`${styles.bentoItem} ${styles.bentoTop}`}>
-            <img src="/portfolio-assets/axon-dashboard-ui.png" alt="Dashboard Mockup" />
+            <img src="/portfolio-assets/axon-dashboard-ui.png" alt="Dashboard Mockup" loading="lazy" />
           </div>
-          
-          {/* Bottom Row: Asymmetric Split */}
           <div className={`${styles.bentoItem} ${styles.bentoBottomLeft}`}>
-            <img src="/portfolio-assets/axon-mobile-ui.png" alt="Mobile UI Mockup" />
+            <img src="/portfolio-assets/axon-mobile-ui.png" alt="Mobile UI Mockup" loading="lazy" />
           </div>
-          
-          {/* Bottom Right: Custom Neon Box with Logo and Text */}
           <div className={`${styles.bentoItem} ${styles.bentoBottomRight}`}>
-            <img src="/portfolio-assets/axon-mark-black.svg" alt="Axon Mark" className={styles.bentoLogoCenter} />
+            <img src="/portfolio-assets/axon-mark-black.svg" alt="Axon Mark" className={styles.bentoLogoCenter} loading="lazy" />
             <h3 className={styles.sans}>Technology that feels intuitive and empowering.</h3>
           </div>
         </div>
       </section>
 
-      {/* 5. THE OUTCOME (Solid Indigo Footer Background) */}
       <section className={`${styles.bgIndigo} ${styles.outcomeGrid}`}>
         <div className={`${styles.outcomeGraphic} gsap-reveal`}>
-          <img src="/portfolio-assets/axon-footer-circles.svg" alt="Concentric Graphic" />
+          <img src="/portfolio-assets/axon-footer-circles.svg" alt="Concentric Graphic" loading="lazy" />
         </div>
         <div className={`${styles.outcomeText} gsap-reveal`}>
           <span className={styles.eyebrow}>05. THE OUTCOME</span>

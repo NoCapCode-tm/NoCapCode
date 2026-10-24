@@ -7,11 +7,11 @@ import styles from '../../CSS/LogoProjectOne.module.css';
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import SEO from "../SEO"; // <--- IMPORT SEO WRAPPER
+import SEO from "../SEO";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const WebsiteProjectOne = () => {
+const LogoProjectOne = () => {
   const containerRef = useRef(null);
 
   useGSAP(() => {
@@ -49,13 +49,45 @@ const WebsiteProjectOne = () => {
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "CreativeWork",
-            "headline": "Symbol of Identity - Brand Architecture",
-            "description": "A complete brand architecture and visual identity redesign for a skill-based education hub.",
-            "image": "https://nocapcode.cloud/portfolio-assets/new-logo-gold.svg",
-            "author": { "@type": "Organization", "@id": "https://nocapcode.cloud/#organization" },
-            "publisher": { "@type": "Organization", "@id": "https://nocapcode.cloud/#organization" },
-            "url": "https://nocapcode.cloud/portfolio/logo-redesign/symbol-of-identity/"
+            "@graph": [
+              {
+                "@type": "CreativeWork",
+                "headline": "Symbol of Identity - Brand Architecture",
+                "name": "Symbol of Identity - Brand Architecture",
+                "description": "A complete brand architecture and visual identity redesign for a skill-based education hub.",
+                "image": "https://nocapcode.cloud/portfolio-assets/new-logo-gold.svg",
+                "author": {
+                  "@type": "Organization",
+                  "@id": "https://nocapcode.cloud/#organization",
+                  "name": "NoCapCode",
+                  "url": "https://nocapcode.cloud/"
+                },
+                "publisher": {
+                  "@type": "Organization",
+                  "@id": "https://nocapcode.cloud/#organization",
+                  "name": "NoCapCode",
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://nocapcode.cloud/favicon/favicon-96x96.png"
+                  }
+                },
+                "url": "https://nocapcode.cloud/portfolio/logo-redesign/symbol-of-identity/"
+              },
+              {
+                "@type": "Product",
+                "name": "Symbol of Identity — Brand Architecture & Visual Identity System",
+                "description": "Complete brand architecture, geometric monogram design, and visual identity system engineered by NoCapCode.",
+                "image": "https://nocapcode.cloud/portfolio-assets/new-logo-gold.svg",
+                "brand": { "@type": "Brand", "name": "NoCapCode" },
+                "offers": {
+                  "@type": "Offer",
+                  "url": "https://nocapcode.cloud/portfolio/logo-redesign/symbol-of-identity/",
+                  "priceCurrency": "INR",
+                  "price": "85000",
+                  "availability": "https://schema.org/InStock"
+                }
+              }
+            ]
           })}
         </script>
       </Helmet>
@@ -100,10 +132,10 @@ const WebsiteProjectOne = () => {
             </div>
             <div className={`${styles.evoCards} gsap-stagger`}>
               <div className={styles.cardBefore}>
-                <img src="/portfolio-assets/old-crest.png" alt="Original Crest" />
+                <img src="/portfolio-assets/old-crest.png" alt="Original Crest" loading="lazy" />
               </div>
               <div className={styles.cardAfter}>
-                <img src="/portfolio-assets/new-logo-gold.svg" alt="New Monogram" />
+                <img src="/portfolio-assets/new-logo-gold.svg" alt="New Monogram" loading="lazy" />
               </div>
             </div>
           </div>
@@ -121,22 +153,22 @@ const WebsiteProjectOne = () => {
         
         <div className={`${styles.fourColGrid} gsap-stagger`}>
           <div className={styles.monoItem}>
-            <div className={styles.monoIcon}><img src="/portfolio-assets/mono-1.svg" alt="Tradition & Tech" /></div>
+            <div className={styles.monoIcon}><img src="/portfolio-assets/mono-1.svg" alt="Tradition & Tech" loading="lazy" /></div>
             <h4 className={styles.serif}>Tradition & Tech</h4>
             <p>Merging legacy with forward momentum.</p>
           </div>
           <div className={styles.monoItem}>
-            <div className={styles.monoIcon}><img src="/portfolio-assets/mono-2.svg" alt="Growth" /></div>
+            <div className={styles.monoIcon}><img src="/portfolio-assets/mono-2.svg" alt="Growth" loading="lazy" /></div>
             <h4 className={styles.serif}>Growth</h4>
             <p>Structural lines representing upward mobility.</p>
           </div>
           <div className={styles.monoItem}>
-            <div className={styles.monoIcon}><img src="/portfolio-assets/mono-3.svg" alt="Skill" /></div>
+            <div className={styles.monoIcon}><img src="/portfolio-assets/mono-3.svg" alt="Skill" loading="lazy" /></div>
             <h4 className={styles.serif}>Skill</h4>
             <p>Foundation built on solid educational principles.</p>
           </div>
           <div className={styles.monoItem}>
-            <div className={styles.monoIcon}><img src="/portfolio-assets/mono-4.svg" alt="Unity" /></div>
+            <div className={styles.monoIcon}><img src="/portfolio-assets/mono-4.svg" alt="Unity" loading="lazy" /></div>
             <h4 className={styles.serif}>Unity</h4>
             <p>Bringing diverse disciplines into one hub.</p>
           </div>
@@ -152,7 +184,7 @@ const WebsiteProjectOne = () => {
         <div className={`${styles.threeColGrid} gsap-stagger`}>
           <div className={`${styles.sysCard} ${styles.sysCardCream}`}>
             <div className={styles.sysVisual}>
-              <img src="/portfolio-assets/new-logo-gold.svg" alt="Unified Geometry" />
+              <img src="/portfolio-assets/new-logo-gold.svg" alt="Unified Geometry" loading="lazy" />
             </div>
             <h4 className={styles.serif}>Unified geometry</h4>
             <p className={styles.textMuted}>Built on a strict grid for perfect scalability.</p>
@@ -191,18 +223,18 @@ const WebsiteProjectOne = () => {
         </div>
         
         <div className={`${styles.bentoGrid} gsap-stagger`}>
-          <div className={`${styles.bentoItem} ${styles.bentoTop}`}><img src="/portfolio-assets/bento-1.png" alt="Mockup 1" /></div>
-          <div className={`${styles.bentoItem} ${styles.bentoTop}`}><img src="/portfolio-assets/bento-2.png" alt="Mockup 2" /></div>
-          <div className={`${styles.bentoItem} ${styles.bentoTop}`}><img src="/portfolio-assets/bento-3.png" alt="Mockup 3" /></div>
-          <div className={`${styles.bentoItem} ${styles.bentoTop}`}><img src="/portfolio-assets/bento-4.png" alt="Mockup 4" /></div>
-          <div className={`${styles.bentoItem} ${styles.bentoBottom}`}><img src="/portfolio-assets/bento-5.png" alt="Mockup 5" /></div>
-          <div className={`${styles.bentoItem} ${styles.bentoBottom}`}><img src="/portfolio-assets/bento-6.png" alt="Mockup 6" /></div>
+          <div className={`${styles.bentoItem} ${styles.bentoTop}`}><img src="/portfolio-assets/bento-1.png" alt="Mockup 1" loading="lazy" /></div>
+          <div className={`${styles.bentoItem} ${styles.bentoTop}`}><img src="/portfolio-assets/bento-2.png" alt="Mockup 2" loading="lazy" /></div>
+          <div className={`${styles.bentoItem} ${styles.bentoTop}`}><img src="/portfolio-assets/bento-3.png" alt="Mockup 3" loading="lazy" /></div>
+          <div className={`${styles.bentoItem} ${styles.bentoTop}`}><img src="/portfolio-assets/bento-4.png" alt="Mockup 4" loading="lazy" /></div>
+          <div className={`${styles.bentoItem} ${styles.bentoBottom}`}><img src="/portfolio-assets/bento-5.png" alt="Mockup 5" loading="lazy" /></div>
+          <div className={`${styles.bentoItem} ${styles.bentoBottom}`}><img src="/portfolio-assets/bento-6.png" alt="Mockup 6" loading="lazy" /></div>
         </div>
       </section>
 
       <section className={`${styles.bgFooter} ${styles.outcomeGrid}`}>
         <div className={`${styles.outcomeGraphic} gsap-reveal`}>
-          <img src="/portfolio-assets/footer-graphic.svg" alt="Concentric Graphic" />
+          <img src="/portfolio-assets/footer-graphic.svg" alt="Concentric Graphic" loading="lazy" />
         </div>
         <div className={`${styles.outcomeText} gsap-reveal`}>
           <span className={styles.eyebrow}>06. THE OUTCOME</span>
@@ -218,4 +250,4 @@ const WebsiteProjectOne = () => {
   );
 };
 
-export default WebsiteProjectOne;
+export default LogoProjectOne;
