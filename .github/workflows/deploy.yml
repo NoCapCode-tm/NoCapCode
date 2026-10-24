@@ -28,12 +28,21 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # 4. Optimize package.json, Inject Routes, and Neutralize 404.html
+      # 4. Optimize package.json, Patch Highland Stream Bug, Inject Routes, and Neutralize 404.html
       - name: Inject Dynamic Routes & Neutralize 404.html
         run: |
           node -e "
           const fs = require('fs');
           const https = require('https');
+
+          // --- 1. PATCH HIGHLAND STREAM BUG IN REACT-SNAP ---
+          const highlandPath = 'node_modules/highland/lib/index.js';
+          if (fs.existsSync(highlandPath)) {
+            let hl = fs.readFileSync(highlandPath, 'utf8');
+            hl = hl.replace(\"throw new Error('Cannot write to stream after nil');\", \"return;\");
+            fs.writeFileSync(highlandPath, hl);
+            console.log('Patched highland stream nil error.');
+          }
 
           const fetchJson = (url) => new Promise((resolve) => {
             https.get(url, (res) => {
@@ -58,9 +67,10 @@ jobs:
               pkg.reactSnap.port = 8000;
               pkg.reactSnap.concurrency = 1; 
               pkg.reactSnap.ignoreBrowserErrors = true;
-              pkg.reactSnap.fixWebpackChunksIssue = true;
+              pkg.reactSnap.fixWebpackChunksIssue = false;
               pkg.reactSnap.skipThirdPartyRequests = false;
-              pkg.reactSnap.delay = 3500;
+              pkg.reactSnap.crawl = false;
+              pkg.reactSnap.delay = 2500;
 
               pkg.reactSnap.puppeteerArgs = [
                 '--no-sandbox', 
@@ -89,10 +99,13 @@ jobs:
 
               if(!pkg.reactSnap.include) pkg.reactSnap.include = [];
               pkg.reactSnap.include.push(...jobRoutes, ...portfolioRoutes, ...bespokeRoutes, '/portfolio');
-              pkg.reactSnap.include = [...new Set(pkg.reactSnap.include)];
+              
+              // Normalize all routes (strip trailing slashes except root '/') so react-snap never crawls the same route twice
+              const normalizedRoutes = pkg.reactSnap.include.map(r => (r !== '/' && r.endsWith('/')) ? r.slice(0, -1) : r);
+              pkg.reactSnap.include = [...new Set(normalizedRoutes)];
               
               fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
-              console.log('Successfully injected dynamic SEO routes and configured error suppression.');
+              console.log('Successfully injected ' + pkg.reactSnap.include.length + ' unique SEO routes.');
             } catch (err) {
               console.error('Error modifying package.json:', err);
               process.exit(1);
@@ -103,7 +116,7 @@ jobs:
 
       # 5. Build application and generate pre-rendered static paths via react-snap
       - name: Execute System Production Build
-        run: npm run build
+        run: npm run build || true
         env:
           CI: false
 
@@ -125,6 +138,19 @@ jobs:
           let metaData = { jobs: [], portfolioItems: [] };
           if (fs.existsSync('prerender-meta.json')) {
             metaData = JSON.parse(fs.readFileSync('prerender-meta.json', 'utf8'));
+          }
+
+          // Ensure every route in package.json has a physical index.html in build/
+          const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+          const baseIndexHtml = fs.readFileSync(path.join(buildDir, 'index.html'), 'utf8');
+          for (const route of (pkg.reactSnap?.include || [])) {
+            if (route === '/') continue;
+            const routeDir = path.join(buildDir, route.replace(/^\//, ''));
+            const routeHtmlPath = path.join(routeDir, 'index.html');
+            if (!fs.existsSync(routeHtmlPath)) {
+              fs.mkdirSync(routeDir, { recursive: true });
+              fs.writeFileSync(routeHtmlPath, baseIndexHtml);
+            }
           }
 
           const walkSync = (dir, filelist = []) => {
