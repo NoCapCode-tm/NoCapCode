@@ -1,34 +1,53 @@
 # https://www.robotstxt.org/robotstxt.html
 
-# 1. Allow standard search engines and AI discovery tools
 User-agent: *
 Allow: /
 
-# Allow major AI search and indexing crawlers explicitly
+# Consistent policy for all AI search, assistant, and training crawlers
 User-agent: GPTBot
 Allow: /
+
 User-agent: ChatGPT-User
 Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
 User-agent: ClaudeBot
 Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
 User-agent: Anthropic-ai
 Allow: /
+
 User-agent: PerplexityBot
 Allow: /
+
 User-agent: Google-Extended
 Allow: /
 
-# Block generic or aggressive web scrapers
-User-agent: CCBot
-Disallow: /
-User-agent: FacebookBot
-Disallow: /
 User-agent: Applebot-Extended
-Disallow: /
-User-agent: omgili
-Disallow: /
-User-agent: omgilibot
-Disallow: /
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: YouBot
+Allow: /
 
 # Point to AI Context & Machine-Readable Files
 Allow: /llms.txt
