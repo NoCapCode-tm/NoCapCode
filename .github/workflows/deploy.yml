@@ -121,8 +121,8 @@ jobs:
       - name: Optimize Large Images
         run: |
           sudo apt-get update && sudo apt-get install -y pngquant jpegoptim imagemagick
-          find build -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" \) -size +180k -exec mogrify -strip -resize "1280x1280>" -quality 80 {} + || true
-          find build -type f -iname "*.png" -size +180k -exec pngquant --force --ext .png --quality=65-80 {} + || true
+          find build -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" \) ! -name "earth-dots.png" -size +180k -exec mogrify -strip -resize "1280x1280>" -quality 80 {} + || true
+          find build -type f -iname "*.png" ! -name "earth-dots.png" -size +180k -exec pngquant --force --ext .png --quality=65-80 {} + || true
           find build -type f \( -iname "*.jpg" -o -iname "*.jpeg" \) -size +180k -exec jpegoptim --max=78 --strip-all {} + || true
 
       # 7. Post-Process HTML for Guaranteed SEO, AI Schema, Links, Sitemap & IndexNow
