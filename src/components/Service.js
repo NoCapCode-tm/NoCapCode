@@ -1,11 +1,4 @@
-
-import React, {
-  useRef,
-  useMemo,
-  useState,
-  useEffect,
-} from "react";
-
+import React, { useRef, useMemo, useState, useEffect } from "react";
 import styles from "../CSS/Service.module.css";
 import Navbar from "./Navbar";
 import { Helmet } from "react-helmet-async";
@@ -13,7 +6,6 @@ import SEO from "./SEO";
 import Footer from "./Footer";
 import { toast } from "react-toastify";
 import axios from "axios";
-
 import {
   TerminalSquare,
   Repeat,
@@ -30,26 +22,10 @@ import {
 } from "lucide-react";
 
 const services = [
-  {
-    icon: <TerminalSquare size={24} strokeWidth={1.5} />,
-    title: "Custom Tools Development",
-    desc: "We build tailored software that replaces manual work and fragmented systems with tools that are easier to use, manage, and scale.",
-  },
-  {
-    icon: <Repeat size={24} strokeWidth={1.5} />,
-    title: "Workflow Automation",
-    desc: "We automate repetitive work and disconnected systems, helping teams work with fewer breakdowns and less manual effort.",
-  },
-  {
-    icon: <PieChart size={24} strokeWidth={1.5} />,
-    title: "Data & Analytics Tools",
-    desc: "We create dashboards, reporting systems, and analytics tools that help businesses understand performance, monitor activity, and make better decisions.",
-  },
-  {
-    icon: <GitPullRequest size={24} strokeWidth={1.5} />,
-    title: "Multi-Platform Solution",
-    desc: "We develop connected systems across digital environments, helping products and operations stay aligned through growth.",
-  },
+  { icon: <TerminalSquare size={24} strokeWidth={1.5} />, title: "Custom Tools Development", desc: "We build tailored software that replaces manual work and fragmented systems with tools that are easier to use, manage, and scale." },
+  { icon: <Repeat size={24} strokeWidth={1.5} />, title: "Workflow Automation", desc: "We automate repetitive work and disconnected systems, helping teams work with fewer breakdowns and less manual effort." },
+  { icon: <PieChart size={24} strokeWidth={1.5} />, title: "Data & Analytics Tools", desc: "We create dashboards, reporting systems, and analytics tools that help businesses understand performance, monitor activity, and make better decisions." },
+  { icon: <GitPullRequest size={24} strokeWidth={1.5} />, title: "Multi-Platform Solution", desc: "We develop connected systems across digital environments, helping products and operations stay aligned through growth." },
 ];
 
 const seoFeatures = [
@@ -62,47 +38,24 @@ const seoFeatures = [
 ];
 
 const whyUsBottom = [
-  {
-    title: "Premium UI/UX",
-    desc: "We design clean and intuitive interfaces",
-  },
-  {
-    title: "Tailored solutions",
-    desc: "We give solutions aligned to specific business needs",
-  },
-  {
-    title: "Reliable support",
-    desc: "We provide support for maintenance, upgrades and continuity",
-  },
+  { title: "Premium UI/UX", desc: "We design clean and intuitive interfaces" },
+  { title: "Tailored solutions", desc: "We give solutions aligned to specific business needs" },
+  { title: "Reliable support", desc: "We provide support for maintenance, upgrades and continuity" },
 ];
 
 const serviceFaqs = [
-  {
-    q: "What types of custom tools do you build?",
-    a: "We engineer everything from internal administrative dashboards and client portals to comprehensive SaaS platforms and complex data-processing applications.",
-  },
-  {
-    q: "How does your workflow automation service work?",
-    a: "We audit your current manual processes, identify bottlenecks, and integrate APIs, AI-driven logic, and custom scripts to automate data entry, communication, and task management.",
-  },
-  {
-    q: "Who is the SeedSpace™ program designed for?",
-    a: "SeedSpace™ is tailored for early-stage startups and non-technical founders who need elite technical infrastructure, strategic guidance, and scalable MVP development without the overhead of an in-house engineering team.",
-  },
-  {
-    q: "Do you handle the technical SEO and analytics setup?",
-    a: "Yes. Every web platform we build includes robust technical SEO foundations, pre-configured analytics integration, optimized server-side rendering, and performance tuning for maximum discoverability.",
-  },
-  {
-    q: "Do you provide long-term maintenance after launch?",
-    a: "Absolutely. We view software as a living system. We offer continuous technical support, security auditing, and iterative refactoring to ensure your product scales reliably.",
-  },
+  { q: "What types of custom tools do you build?", a: "We engineer everything from internal administrative dashboards and client portals to comprehensive SaaS platforms and complex data-processing applications." },
+  { q: "How does your workflow automation service work?", a: "We audit your current manual processes, identify bottlenecks, and integrate APIs, AI-driven logic, and custom scripts to automate data entry, communication, and task management." },
+  { q: "Who is the SeedSpace™ program designed for?", a: "SeedSpace™ is tailored for early-stage startups and non-technical founders who need elite technical infrastructure, strategic guidance, and scalable MVP development without the overhead of an in-house engineering team." },
+  { q: "Do you handle the technical SEO and analytics setup?", a: "Yes. Every web platform we build includes robust technical SEO foundations, pre-configured analytics integration, optimized server-side rendering, and performance tuning for maximum discoverability." },
+  { q: "Do you provide long-term maintenance after launch?", a: "Absolutely. We view software as a living system. We offer continuous technical support, security auditing, and iterative refactoring to ensure your product scales reliably." },
 ];
 
 const seedSpacePerks = [
-  "Limited slots",
-  "Selective onboarding",
-  "Longterm growth",
+  "Zero Development Cost",
+  "GEO & AEO AI Optimization",
+  "Managed Hosting & Security",
+  "WhatsApp & Payment Integration"
 ];
 
 export default function Service() {
@@ -117,25 +70,17 @@ export default function Service() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [teamSize, setTeamSize] = useState("");
+  const [requirementType, setRequirementType] = useState(""); 
+  const [currentWebsite, setCurrentWebsite] = useState("");
 
-  // Direct SeedSpace enrollment link:
-  // /services/#seedspace-enroll
   useEffect(() => {
     if (window.location.hash !== "#seedspace-enroll") {
       return;
     }
-
-    // Scroll to the SeedSpace section first.
-    seedSpaceRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
-
-    // Open the application form after the scroll begins.
+    seedSpaceRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
     const timer = window.setTimeout(() => {
       setForm(true);
     }, 500);
-
     return () => window.clearTimeout(timer);
   }, []);
 
@@ -147,20 +92,14 @@ export default function Service() {
     const trimmedPhone = phone.trim();
     const trimmedEmail = email.trim();
     const trimmedTeamSize = teamSize.trim();
+    const trimmedWebsite = currentWebsite.trim();
 
-    if (
-      !trimmedBusinessName ||
-      !trimmedName ||
-      !trimmedPhone ||
-      !trimmedEmail ||
-      !trimmedTeamSize
-    ) {
-      toast.error("Please fill all fields");
+    if (!trimmedBusinessName || !trimmedName || !trimmedPhone || !trimmedEmail || !trimmedTeamSize || !requirementType) {
+      toast.error("Please fill all required fields");
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
     if (!emailRegex.test(trimmedEmail)) {
       toast.error("Please enter a valid email address");
       return;
@@ -177,40 +116,41 @@ export default function Service() {
           phone: trimmedPhone,
           email: trimmedEmail,
           teamSize: trimmedTeamSize,
+          requirementType: requirementType,
+          currentWebsite: trimmedWebsite
         },
         { withCredentials: true }
       );
 
-      toast.success("SeedSpace Form Submitted Successfully");
+      toast.success("SeedSpace Application Submitted Successfully");
 
       setBusinessName("");
       setName("");
       setPhone("");
       setEmail("");
       setTeamSize("");
+      setRequirementType("");
+      setCurrentWebsite("");
       setForm(false);
     } catch (error) {
-      toast.error("Something Went Wrong");
+      toast.error("Something went wrong");
     } finally {
       setLoading(false);
     }
   };
 
-  const faqSchemaData = useMemo(
-    () => ({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: serviceFaqs.map((faq) => ({
-        "@type": "Question",
-        name: faq.q,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: faq.a,
-        },
-      })),
-    }),
-    []
-  );
+  const faqSchemaData = useMemo(() => ({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: serviceFaqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.a,
+      },
+    })),
+  }), []);
 
   return (
     <div className={styles.page}>
@@ -231,26 +171,19 @@ export default function Service() {
       {/* Hero */}
       <section className={styles.hero}>
         <div className={styles.heroGlow} />
-
         <div className={styles.heroContent}>
           <h1>
             We build software and systems for
             <br /> teams that value clarity and reliability.
           </h1>
-
           <p>
             NoCapCode helps businesses build usable software, custom tools,
             workflow systems, and websites that are stable, scalable, and
             designed to support real operations.
           </p>
-
           <button
             className={styles.heroCta}
-            onClick={() =>
-              servicesRef.current?.scrollIntoView({
-                behavior: "smooth",
-              })
-            }
+            onClick={() => servicesRef.current?.scrollIntoView({ behavior: "smooth" })}
           >
             Explore our services
             <ArrowUpRight size={18} strokeWidth={2.5} />
@@ -263,7 +196,6 @@ export default function Service() {
         <div className={styles.centerBadge}>
           <span className={styles.sectionBadge}>Our services</span>
         </div>
-
         <div className={styles.servicesGrid}>
           {services.map((s, i) => (
             <div className={styles.serviceCard} key={i}>
@@ -280,19 +212,16 @@ export default function Service() {
         <div className={styles.centerBadge}>
           <span className={styles.sectionBadge}>Website creation</span>
         </div>
-
         <h2 className={styles.sectionTitle}>
           Platforms Designed for Visibility, Performance,
           <br />
           and Structure
         </h2>
-
         <p className={styles.sectionSub}>
           Every website includes SEO, indexing, analytics, Google Tag,
           technical architecture, and performance optimization built to be
           discovered, measured, and scaled over time.
         </p>
-
         <div className={styles.seoGrid}>
           {seoFeatures.map((f, i) => (
             <div className={styles.seoItem} key={i}>
@@ -308,23 +237,16 @@ export default function Service() {
         <div className={styles.centerBadge}>
           <span className={styles.sectionBadge}>Why choose us</span>
         </div>
-
         <div className={styles.whyGrid}>
           <div className={styles.whyTopRow}>
             <div className={styles.whyBlueCard}>
               <h2>Why choose us?</h2>
             </div>
-
             <div className={styles.whyDarkCard}>
               <h4>Scalable Systems</h4>
-              <p>
-                We build systems to grow with the
-                <br />
-                organization
-              </p>
+              <p>We build systems to grow with the<br />organization</p>
             </div>
           </div>
-
           <div className={styles.whyBottomRow}>
             {whyUsBottom.map((w, i) => (
               <div className={styles.whyDarkCard} key={i}>
@@ -339,18 +261,15 @@ export default function Service() {
       {/* Guidelines */}
       <section className={styles.guidelinesSection}>
         <div className={styles.guidelinesGlow} />
-
         <div className={styles.guidelinesContent}>
           <div className={styles.centerBadge}>
             <span className={styles.sectionBadge}>Guidelines</span>
           </div>
-
           <h2 className={styles.guidelinesTitle}>
             We launched SeedSpace™, a selective program
             <br />
             that supports start-ups and founders.
           </h2>
-
           <p className={styles.guidelinesSub}>
             We help you build the right foundation, create a strong online
             presence, and support them with
@@ -369,23 +288,17 @@ export default function Service() {
         <div className={styles.seedTopBadgeRow}>
           <span className={styles.seedTopBadge}>SeedSpace™</span>
         </div>
-
         <div className={styles.seedContent}>
           <p className={styles.seedLabel}>SeedSpace™</p>
-
           <h2>
-            A selective, limited strategic growth and
+            Launch your digital infrastructure
             <br />
-            infrastructure initiative program
+            without development costs.
           </h2>
-
           <p className={styles.seedDesc}>
-            SeedSpace™ is a selective program built for start-ups and
-            early-stage founders who want to establish a strong digital
-            presence, modernize their online systems, and grow with ongoing
-            support.
+            SeedSpace™ is a selective initiative sponsoring complete Web and E-commerce development for early-stage founders. Get an enterprise-grade platform built for free, paying only for managed hosting and security.
           </p>
-
+          
           <div className={styles.seedPerks}>
             {seedSpacePerks.map((perk, i) => (
               <span className={styles.seedPerk} key={i}>
@@ -394,133 +307,104 @@ export default function Service() {
             ))}
           </div>
 
-          <button
-            type="button"
-            className={styles.seedCta}
-            onClick={() => setForm(true)}
-          >
-            Enroll in SeedSpace™
+          <div style={{ marginTop: '10px', color: '#ff4e4e', fontWeight: '500', fontSize: '14px', fontFamily: '"Inter", sans-serif' }}>
+            ⚡ Only 15 seats remaining for this quarter
+          </div>
+
+          <button type="button" className={styles.seedCta} onClick={() => setForm(true)}>
+            Apply for SeedSpace™
           </button>
         </div>
-
         <div className={styles.seedGlowLeft} />
         <div className={styles.seedGlowRight} />
       </section>
 
       {/* SeedSpace application modal */}
       {form && (
-        <div
-          className={styles.modalOverlay}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="seedspace-modal-title"
-        >
-          <button
-            type="button"
-            className={styles.modalClose}
-            onClick={() => setForm(false)}
-            aria-label="Close application form"
-          >
+        <div className={styles.modalOverlay} role="dialog" aria-modal="true" aria-labelledby="seedspace-modal-title">
+          <button type="button" className={styles.modalClose} onClick={() => setForm(false)} aria-label="Close application form">
             <X size={24} />
           </button>
-
           <div className={styles.modalInner}>
             <div className={styles.modalHeader}>
               <h2 id="seedspace-modal-title">Apply for SeedSpace™</h2>
-
               <p className={styles.modalSubtitle}>
-                A selective initiative for start-up&apos;s and early-stage
-                founders
+                A selective initiative for start-up's and early-stage founders
               </p>
-
               <p className={styles.modalDesc}>
-                We review every application carefully to ensure we&apos;re the
-                right fit before moving forward.
+                We review every application carefully to ensure we're the right fit before moving forward.
               </p>
             </div>
-
             <div className={styles.modalBox}>
               <form className={styles.modalForm} onSubmit={handleSubmit}>
+                
                 <div className={styles.modalField}>
-                  <label htmlFor="seedspace-business">
-                    Business Name
-                  </label>
-                  <input
-                    id="seedspace-business"
-                    type="text"
-                    name="businessName"
-                    placeholder="Enter business name"
-                    value={businessName}
-                    onChange={(e) => setBusinessName(e.target.value)}
-                    required
-                  />
+                  <label htmlFor="seedspace-business">Business Name</label>
+                  <input id="seedspace-business" type="text" name="businessName" placeholder="Enter business name" value={businessName} onChange={(e) => setBusinessName(e.target.value)} required />
                 </div>
 
                 <div className={styles.modalField}>
                   <label htmlFor="seedspace-owner">Owner Name</label>
-                  <input
-                    id="seedspace-owner"
-                    type="text"
-                    name="ownerName"
-                    placeholder="Enter full name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                  />
+                  <input id="seedspace-owner" type="text" name="ownerName" placeholder="Enter full name" value={name} onChange={(e) => setName(e.target.value)} required />
                 </div>
 
                 <div className={styles.modalField}>
                   <label htmlFor="seedspace-phone">Phone Number</label>
-                  <input
-                    id="seedspace-phone"
-                    type="tel"
-                    name="phone"
-                    placeholder="Enter phone number"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    required
-                  />
+                  <input id="seedspace-phone" type="tel" name="phone" placeholder="Enter phone number" value={phone} onChange={(e) => setPhone(e.target.value)} required />
                 </div>
 
                 <div className={styles.modalField}>
                   <label htmlFor="seedspace-email">Email Address</label>
-                  <input
-                    id="seedspace-email"
-                    type="email"
-                    name="email"
-                    placeholder="Enter email address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
+                  <input id="seedspace-email" type="email" name="email" placeholder="Enter email address" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </div>
 
                 <div className={styles.modalField}>
                   <label htmlFor="seedspace-team">Current Team Size</label>
-                  <input
-                    id="seedspace-team"
-                    type="text"
-                    name="teamSize"
-                    placeholder="Enter team size"
-                    value={teamSize}
-                    onChange={(e) => setTeamSize(e.target.value)}
-                    required
+                  <input id="seedspace-team" type="text" name="teamSize" placeholder="Enter team size" value={teamSize} onChange={(e) => setTeamSize(e.target.value)} required />
+                </div>
+
+                <div className={styles.modalField}>
+                  <label htmlFor="seedspace-website">Current or Reference Website (Optional)</label>
+                  <input 
+                    id="seedspace-website" 
+                    type="url" 
+                    name="currentWebsite" 
+                    placeholder="https://yourwebsite.com" 
+                    value={currentWebsite} 
+                    onChange={(e) => setCurrentWebsite(e.target.value)} 
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  className={styles.modalSubmit}
-                  disabled={loading}
-                >
-                  {loading ? "Submitting..." : "Submit"}
+                <div className={styles.modalField}>
+                  <label htmlFor="seedspace-requirement">Development Requirement</label>
+                  <select 
+                    id="seedspace-requirement" 
+                    name="requirementType" 
+                    value={requirementType} 
+                    onChange={(e) => setRequirementType(e.target.value)} 
+                    required
+                    className={styles.modalSelect}
+                  >
+                    <option value="" disabled>Select your requirement...</option>
+                    <option value="Web Development">Professional Website Development</option>
+                    <option value="E-commerce Development">E-commerce Store Development</option>
+                    <option value="Web + E-commerce Development">Web + E-commerce Development</option>
+                    <option value="Custom Development">Custom Development</option>
+                  </select>
+                </div>
+
+                <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginTop: '4px', textAlign: 'center', lineHeight: '1.4' }}>
+                  *Development is 100% sponsored. Secure cloud hosting, security, and monthly maintenance start at ₹299/mo (Web) and ₹599/mo (E-commerce).
+                </p>
+
+                <button type="submit" className={styles.modalSubmit} disabled={loading}>
+                  {loading ? "Submitting..." : "Submit Application"}
                 </button>
               </form>
             </div>
           </div>
         </div>
       )}
-
       <Footer />
     </div>
   );
